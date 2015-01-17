@@ -1,12 +1,12 @@
 <ion-view view-title="Accounts">
     <ion-content>
-        <h1>Accounts</h1>
 
-        <ion-list>
-            <ion-item ng-repeat="account in accounts">
-                {{account.slug}}<br />
-            </ion-item>
-        </ion-list>
+        <a class="item item-icon-left" href="#" ng-repeat="account in accounts">
+            <i class="icon ion-ios7-person"></i>
+            {{account.name}}
+            <p>{{account.login}}</p>
+            <span class="badge badge-positive">{{account.repos_count}}</span>
+        </a>
 
     </ion-content>
 </ion-view>
