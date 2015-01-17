@@ -17,11 +17,10 @@ app.controller('AccountsCtrl', function($scope, $window, $http) {
             // 'Content-Length': 37
           }
       }).success(function (data, status, headers, config) {
-        console.log("Success-Repos!");
-        console.log(data);
+        console.log("Success-Accounts!");
         $scope.accounts = data.accounts;
       }).error(function (data, status, headers, config) {
-        alert("Failure.");
+        alert("Failure-Accounts.");
         console.log(data);
       });
 
