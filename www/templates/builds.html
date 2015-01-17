@@ -1,13 +1,11 @@
 <ion-view view-title="Builds">
-  <ion-content class="padding">
+    <ion-content>
 
-  <h1>Builds</h1>
+    <a class="item" ng-href="#" ng-repeat="build in builds">
+        {{build.id}}
+        <p>{{build.pull_request_title}}</p>
+        <span class="badge badge-positive">{{build.number}}</span>
+    </a>
 
-    <ion-list>
-      <ion-item ng-repeat="build in builds">
-        {{build.slug}}
-      </ion-item>
-    </ion-list>
-
-  </ion-content>
+    </ion-content>
 </ion-view>

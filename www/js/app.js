@@ -69,7 +69,7 @@ angular.module('travis-mobile', [
     })
 
     .state('app.builds', {
-        url: "/builds",
+        url: "/builds/:repoid",
         views: {
             'menuContent': {
                 templateUrl: "templates/builds.html",
