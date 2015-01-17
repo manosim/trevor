@@ -9,17 +9,11 @@
                </div>
           </div>
 
-          has organization ? {{hasOrganization}}
-
-          <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-repeat="repo in repos">
+          <a class="item" ng-href="#/app/builds/{{repo.last_build_id}}" ng-repeat="repo in repos | filter:reposFilter">
                {{repo.slug}}
-               <p>{{repo.id}}</p>
+               <p><i class="icon ion-clock"></i> Duration: {{repo.last_build_duration | convertSeconds }}</p>
                <span class="badge" ng-if="repo.last_build_state"><i class="icon" ng-class="{'passed': 'balanced ion-checkmark-circled', 'failed': 'assertive ion-close-circled'}[repo.last_build_state]"></i></span>
           </a>
-
-
-
-
 
   </ion-content>
 </ion-view>
