@@ -1,21 +1,22 @@
 <ion-view view-title="Repos">
-  <ion-content class="padding">
+    <ion-content>
 
-  {{hasOrganization}}
+          <div class="list">
+               <div class="item item-input-inset">
+                    <label class="item-input-wrapper">
+                         <input type="text" placeholder="Search Repositories" ng-model="reposFilter">
+                    </label>
+               </div>
+          </div>
 
-    <div class="button-bar bar-positive" ng-if="hasOrganization">
-        <a class="button" ng-init="type = 'personal'" ng-class="{active: type=='personal'}" ng-click="type='personal'">Personal</a>
-        <a class="button" ng-class="{active: type=='organization'}" ng-click="type='organization'">Organization</a>
-    </div>
+          has organization ? {{hasOrganization}}
 
-  <h1>Repos</h1>
-
-    <ion-list>
-      <ion-item ng-repeat="repo in repos">
-        {{repo.slug}}<br />
-        {{repo.id}}
-      </ion-item>
-    </ion-list>
+         <ion-list>
+           <ion-item ng-repeat="repo in repos | filter:reposFilter">
+             {{repo.slug}}<br />
+             {{repo.id}}
+           </ion-item>
+         </ion-list>
 
   </ion-content>
 </ion-view>

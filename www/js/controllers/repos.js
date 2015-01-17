@@ -8,8 +8,6 @@ angular.module('controller.repos', [])
 
     $scope.hasOrganization = AccountsService.hasOrganization;
 
-    alert(loginId);
-
     $http({
         url: 'https://api.travis-ci.org/repos/' + loginId,
         method: "GET",
@@ -23,7 +21,6 @@ angular.module('controller.repos', [])
           }
       }).success(function (data, status, headers, config) {
         console.log("Success-Repos!");
-        // console.log(data);
         $scope.repos = data.repos;
       }).error(function (data, status, headers, config) {
         alert("Failure.");
