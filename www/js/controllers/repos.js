@@ -1,6 +1,6 @@
-angular.module('controller.builds', [])
+angular.module('controller.repos', [])
 
-.controller('BuildsCtrl', function($scope, $window, $http) {
+.controller('ReposCtrl', function($scope, $window, $http) {
 
     var token = $window.localStorage.travistoken;
     console.log(token);
