@@ -16,7 +16,7 @@ angular.module('controller.builds', [])
             // 'Host': 'api.travis-ci.org',
             // 'Content-Type': 'application/json',
             // 'Content-Length': 37
-            // 'Authorization': 'token' + token
+            // 'Authorization': 'token ' + token
           }
       }).success(function (data, status, headers, config) {
         console.log("Success-Builds!");
