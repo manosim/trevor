@@ -18,7 +18,7 @@ app.controller('AccountsCtrl', function($scope, $window, $http, AccountsService)
           }
       }).success(function (data, status, headers, config) {
         console.log("Success-Accounts!");
-        AccountsService.accounts = data.accounts;
+        AccountsService.setAccounts(data.accounts);
         $scope.accounts = data.accounts;
       }).error(function (data, status, headers, config) {
         alert("Failure-Accounts.");
