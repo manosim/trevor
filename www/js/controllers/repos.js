@@ -26,7 +26,7 @@ angular.module('controller.repos', [])
             angular.forEach(data.repos, function(value, key) {
                 // console.log(value);
                 if (value.active) {
-                    value.slug = value.slug.split(loginId + '/')[1];
+                    value.short_slug = value.slug.split(loginId + '/')[1];
                     $scope.repos.push(value);
                 }
             });

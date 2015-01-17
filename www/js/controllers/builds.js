@@ -1,13 +1,17 @@
 angular.module('controller.builds', [])
 
-.controller('BuildsCtrl', function($scope, $window, $http) {
+.controller('BuildsCtrl', function($scope, $stateParams, $window, $http) {
+
+    var repoId = $stateParams.repoid;
+
+    console.log(repoId);
 
     var token = $window.localStorage.travistoken;
     console.log(token);
 
     // Builds
     $http({
-        url: 'https://api.travis-ci.org/builds',
+        url: 'https://api.travis-ci.org/builds?repository_id=' + repoId + '/builds/',
         method: "GET",
         // data: {token: token},
         headers: {
@@ -16,11 +20,22 @@ angular.module('controller.builds', [])
             // 'Host': 'api.travis-ci.org',
             // 'Content-Type': 'application/json',
             // 'Content-Length': 37
-            // 'Authorization': 'token ' + token
+            'Authorization': 'token ' + token
           }
       }).success(function (data, status, headers, config) {
         console.log("Success-Builds!");
-        $scope.builds = data;
+        $scope.builds = [];
+
+        angular.forEach(data.builds, function(buildValue, key) {
+            angular.forEach(data.commits, function(commitValue, key) {
+
+                if (buildValue.commit_id == commitValue.id) {
+                    buildValue.commit = commitValue;
+                    $scope.builds.push(buildValue);
+                }
+            });
+        });
+
       }).error(function (data, status, headers, config) {
         alert("Failure-Builds.");
         console.log(data);

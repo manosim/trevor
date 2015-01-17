@@ -1,13 +1,21 @@
 <ion-view view-title="Builds">
-  <ion-content class="padding">
+    <ion-content>
 
-  <h1>Builds</h1>
+        <a class="item" ng-href="#" ng-repeat="build in builds">
+            {{build.commit.message}}
 
-    <ion-list>
-      <ion-item ng-repeat="build in builds">
-        {{build.slug}}
-      </ion-item>
-    </ion-list>
+            <div class="row">
+                <div class="col col-50"><p><i class="icon ion-settings"></i> Build Number: {{build.number }}</p></div>
+                <div class="col col-50"><p><i class="icon ion-merge"></i> Branch: {{ build.commit.branch }}</p></div>
+            </div>
 
-  </ion-content>
+            <div class="row">
+                <div class="col col-50"><p><i class="icon ion-clock"></i> Duration: {{build.duration | convertSeconds }}</p></div>
+                <div class="col col-50"><p><i class="icon ion-calendar"></i> Finished: {{ build.finished_at | date:'d MMM' }}</p></div>
+            </div>
+
+            <span class="badge"><i class="icon" ng-class="{'passed': 'balanced ion-checkmark-circled', 'failed': 'assertive ion-close-circled'}[build.state]"></i></span>
+        </a>
+
+    </ion-content>
 </ion-view>
