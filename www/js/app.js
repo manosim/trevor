@@ -7,6 +7,7 @@
 angular.module('travis-mobile', [
     'ionic',
     'controllers',
+    'services',
 ])
 
 .run(function($ionicPlatform, $window) {
@@ -57,7 +58,7 @@ angular.module('travis-mobile', [
     })
 
     .state('app.repos', {
-        url: "/repos",
+        url: "/repos/:loginid",
         views: {
             'menuContent': {
                 templateUrl: "templates/repos.html",

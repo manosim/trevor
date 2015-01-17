@@ -1,14 +1,18 @@
 angular.module('controller.repos', [])
 
-.controller('ReposCtrl', function($scope, $window, $http) {
+.controller('ReposCtrl', function($scope, $stateParams, $window, AccountsService, $http) {
+
+    var loginId = $stateParams.loginid;
 
     var token = $window.localStorage.travistoken;
-    console.log(token);
+
+    $scope.hasOrganization = AccountsService.hasOrganization;
+
+    alert(loginId);
 
     $http({
-        url: 'https://api.travis-ci.org/repos',
+        url: 'https://api.travis-ci.org/repos/' + loginId,
         method: "GET",
-        // data: {token: token},
         headers: {
             // 'User-Agent': 'MyClient/1.0.0',
             'Accept': 'application/vnd.travis-ci.2+json',
@@ -19,7 +23,7 @@ angular.module('controller.repos', [])
           }
       }).success(function (data, status, headers, config) {
         console.log("Success-Repos!");
-        console.log(data);
+        // console.log(data);
         $scope.repos = data.repos;
       }).error(function (data, status, headers, config) {
         alert("Failure.");

@@ -1,7 +1,7 @@
 <ion-view view-title="Accounts">
     <ion-content>
 
-        <a class="item item-icon-left" href="#" ng-repeat="account in accounts">
+        <a class="item item-icon-left" ng-href="#/app/repos/{{account.login}}" ng-repeat="account in accounts">
             <i class="icon ion-ios7-person"></i>
             {{account.name}}
             <p>{{account.login}}</p>

@@ -1,7 +1,9 @@
 <ion-view view-title="Repos">
   <ion-content class="padding">
 
-    <div class="button-bar bar-positive">
+  {{hasOrganization}}
+
+    <div class="button-bar bar-positive" ng-if="hasOrganization">
         <a class="button" ng-init="type = 'personal'" ng-class="{active: type=='personal'}" ng-click="type='personal'">Personal</a>
         <a class="button" ng-class="{active: type=='organization'}" ng-click="type='organization'">Organization</a>
     </div>
