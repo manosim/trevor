@@ -24,7 +24,18 @@ angular.module('controller.builds', [])
           }
       }).success(function (data, status, headers, config) {
         console.log("Success-Builds!");
-        $scope.builds = data.builds;
+        $scope.builds = [];
+
+        angular.forEach(data.builds, function(buildValue, key) {
+            angular.forEach(data.commits, function(commitValue, key) {
+
+                if (buildValue.commit_id == commitValue.id) {
+                    buildValue.commit = commitValue;
+                    $scope.builds.push(buildValue);
+                }
+            });
+        });
+
       }).error(function (data, status, headers, config) {
         alert("Failure-Builds.");
         console.log(data);
