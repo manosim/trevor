@@ -7,6 +7,7 @@
 angular.module('travis-mobile', [
     'ionic',
     'controllers',
+    'services',
 ])
 
 .run(function($ionicPlatform, $window) {
