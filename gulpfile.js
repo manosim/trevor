@@ -7,6 +7,8 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var less = require('gulp-less');
+var plumber = require('gulp-plumber');
+var path = require('path');
 
 gulp.task('less', function () {
   gulp.src('./www/less/**.less')
