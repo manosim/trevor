@@ -11,7 +11,12 @@
 
         <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-repeat="repo in repos | filter:reposFilter">
             {{repo.short_slug}}
-            <p><i class="icon ion-clock"></i> Duration: {{repo.last_build_duration | convertSeconds }}</p>
+
+            <div class="row">
+                <div class="col col-50"><p><i class="icon ion-settings"></i> Build Number: {{ repo.last_build_number }}</p></div>
+                <div class="col col-50"><p><i class="icon ion-clock"></i> Duration: {{repo.last_build_duration | convertSeconds }}</p></div>
+            </div>
+
             <span class="badge" ng-if="repo.last_build_state">
                 <i class="icon" ng-class="{'passed': 'balanced ion-checkmark-circled', 'failed': 'assertive ion-close-circled'}[repo.last_build_state]"></i>
             </span>
