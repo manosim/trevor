@@ -1,0 +1,16 @@
+<ion-view view-title="Playlists">
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+        {{playlist.title}}
+      </ion-item>
+    </ion-list>
+
+
+    <br /><br />
+    <button class="button button-block button-dark icon-left ion-social-github" ng-click="login()">Login with Github</button>
+
+    <button class="button button-block button-assertive icon-left ion-code-working" ng-click="getBuilds()">Travis</button>
+
+  </ion-content>
+</ion-view>
