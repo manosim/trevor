@@ -4,7 +4,10 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'controller.builds'])
+angular.module('travis-mobile', [
+    'ionic',
+    'controllers',
+])
 
 .run(function($ionicPlatform, $window) {
   $ionicPlatform.ready(function() {
@@ -18,10 +21,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'controller.builds'])
       StatusBar.styleDefault();
     }
 
-
-      console.log($window.localStorage.githubtoken);
-
-
+    console.log("Github Token: " + $window.localStorage.githubtoken);
+    console.log("Travis Token: " + $window.localStorage.travistoken);
 
   });
 })
@@ -29,50 +30,53 @@ angular.module('starter', ['ionic', 'starter.controllers', 'controller.builds'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-  .state('app', {
-    url: "/app",
-    abstract: true,
-    templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
-  })
-
-  .state('app.builds', {
-    url: "/builds",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/builds.html",
-        controller: 'BuildsCtrl'
-      }
-    }
-  })
-
-  .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
-      }
-    }
-  })
-    .state('app.playlists', {
-      url: "/playlists",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/playlists.html",
-          controller: 'PlaylistsCtrl'
-        }
-      }
+    .state('app', {
+        url: "/app",
+        abstract: true,
+        templateUrl: "templates/menu.html",
     })
 
-  .state('app.single', {
-    url: "/playlists/:playlistId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
+    .state('app.home', {
+        url: "/home",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/home.html",
+                controller: 'HomeCtrl'
+            }
+        }
+    })
+
+    .state('app.accounts', {
+        url: "/accounts",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/accounts.html",
+                controller: 'AccountsCtrl'
+            }
+        }
+    })
+
+    .state('app.repos', {
+        url: "/repos",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/repos.html",
+                controller: 'ReposCtrl'
+            }
+        }
+    })
+
+    .state('app.builds', {
+        url: "/builds",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/builds.html",
+                controller: 'BuildsCtrl'
+            }
+        }
+    });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/home');
+
 });
