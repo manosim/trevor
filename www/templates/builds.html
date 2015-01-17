@@ -1,0 +1,23 @@
+<ion-view view-title="Builds">
+  <ion-content class="padding">
+
+  <h1>Repos</h1>
+
+    <ion-list>
+      <ion-item ng-repeat="repo in repos">
+        {{repo.slug}}
+      </ion-item>
+    </ion-list>
+
+
+  <h1>Builds</h1>
+
+    <ion-list>
+      <ion-item ng-repeat="build in builds">
+        {{build.slug}}
+      </ion-item>
+    </ion-list>
+
+
+  </ion-content>
+</ion-view>
