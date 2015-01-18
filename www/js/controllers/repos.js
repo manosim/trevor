@@ -9,7 +9,6 @@ angular.module('controller.repos', ['ionic'])
 
     $scope.fetch = function() {
 
-
         $http({
             url: 'https://api.travis-ci.org/repos/' + loginId,
             method: "GET",

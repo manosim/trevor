@@ -1,5 +1,10 @@
 <ion-view view-title="Builds">
-    <ion-content>
+    <ion-content class="builds">
+
+        <ion-refresher
+            pulling-text="Pull to refresh"
+            on-refresh="fetch()">
+        </ion-refresher>
 
         <a class="item" ng-href="#" ng-repeat="build in builds">
             {{build.commit.message}}
