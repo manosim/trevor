@@ -5,7 +5,6 @@ app.controller('AccountsCtrl', function($scope, $state, $window, $http, Accounts
     LoadingService.show();
 
     var token = $window.localStorage.travistoken;
-    console.log("Travis Token: " + token);
 
     $http({
         url: 'https://api.travis-ci.org/accounts?all=true',
