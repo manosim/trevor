@@ -6,31 +6,36 @@
             on-refresh="fetch()">
         </ion-refresher>
 
-        <div class="item">
+        <div class="list">
 
-            <div class="row">
-                <div class="col col-50"><p>Build #{{build.number }}</p></div>
-                <div class="col col-50">
-                    <span class="badge"><i class="icon" ng-class="{'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled'}[build.state]"></i></span>
+            <div class="item item-divider">Build Details</div>
+
+            <div class="item">
+                <div class="row">
+                    <div class="col col-50"><p>Build #{{build.number }}</p></div>
+                    <div class="col col-50">
+                        <span class="badge"><i class="icon" ng-class="{'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled'}[build.state]"></i></span>
+                    </div>
+                </div>
+
+                <div class="message">{{commit.message}}</div>
+
+                <div class="row">
+                    <div class="col col-50"><p><i class="icon ion-settings"></i> Build #{{build.number }}</p></div>
+                    <div class="col col-50"><p><i class="icon ion-merge"></i> Branch: {{ build.commit.branch }}</p></div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-50"><p><i class="icon ion-clock"></i> Duration: {{build.duration | convertSeconds }}</p></div>
+                    <div class="col col-50"><p><i class="icon ion-calendar"></i> Finished: {{ build.finished_at | date:'d MMM' }}</p></div>
                 </div>
             </div>
 
-            <div class="message">{{commit.message}}</div>
-
-            <div class="row">
-                <div class="col col-50"><p><i class="icon ion-settings"></i> Build #{{build.number }}</p></div>
-                <div class="col col-50"><p><i class="icon ion-merge"></i> Branch: {{ build.commit.branch }}</p></div>
-            </div>
-
-            <div class="row">
-                <div class="col col-50"><p><i class="icon ion-clock"></i> Duration: {{build.duration | convertSeconds }}</p></div>
-                <div class="col col-50"><p><i class="icon ion-calendar"></i> Finished: {{ build.finished_at | date:'d MMM' }}</p></div>
-            </div>
-
-
-            <div class="jobs" ng-repeat="job in build.jobs">
-                {{job.id}}
-            </div>
+            <div class="item item-divider">Jobs</div>
+            <a class="item job" ng-href="#/app/log/{{ job.log_id }}" ng-repeat="job in jobs">
+                <p>Build #{{job.number }}</p>
+                <span class="badge"><i class="icon" ng-class="{'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled'}[job.state]"></i></span>
+            </a>
 
         </div>
 
