@@ -1,6 +1,6 @@
 var app = angular.module('controller.accounts', ['ionic']);
 
-app.controller('AccountsCtrl', function($scope, $window, $http, AccountsService) {
+app.controller('AccountsCtrl', function($scope, $state, $window, $http, AccountsService) {
 
     var token = $window.localStorage.travistoken;
     console.log("Travis Token: " + token);
@@ -24,5 +24,12 @@ app.controller('AccountsCtrl', function($scope, $window, $http, AccountsService)
         alert("Failure-Accounts.");
         console.log(data);
       });
+
+
+    $scope.logOut = function() {
+        delete $window.localStorage.githubtoken;
+        delete $window.localStorage.travistoken;
+        $state.go('welcome');
+    };
 
 });

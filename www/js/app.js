@@ -24,7 +24,7 @@ angular.module('travis-mobile', [
     }
 
     if (AccountsService.isLoggedIn()) {
-        $state.go('app.home');
+        $state.go('app.accounts');
         console.log("Github Token: " + $window.localStorage.githubtoken);
         console.log("Travis Token: " + $window.localStorage.travistoken);
     }
@@ -45,16 +45,6 @@ angular.module('travis-mobile', [
         url: "/app",
         abstract: true,
         templateUrl: "templates/menu.html",
-    })
-
-    .state('app.home', {
-        url: "/home",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/home.html",
-                controller: 'HomeCtrl'
-            }
-        }
     })
 
     .state('app.accounts', {

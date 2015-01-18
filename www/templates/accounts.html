@@ -1,4 +1,9 @@
 <ion-view view-title="Accounts">
+
+    <ion-nav-buttons side="right">
+      <button class="button button-icon ion-log-out button-dark" ng-click="logOut()"></button>
+    </ion-nav-buttons>
+
     <ion-content class="accounts">
 
         <a class="item" ng-href="#/app/repos/{{account.login}}" ng-repeat="account in accounts">
