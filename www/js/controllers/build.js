@@ -24,7 +24,9 @@ angular.module('controller.build', [])
             }).success(function (data, status, headers, config) {
 
                 console.log("Success-Build with Id!");
-                $scope.build = data;
+                $scope.build = data.build;
+                $scope.commit = data.commit;
+                $scope.jobs = data.jobs;
 
                 LoadingService.hide();
 
