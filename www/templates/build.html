@@ -1,0 +1,62 @@
+<ion-view view-title="Build">
+    <ion-content class="build">
+
+        <ion-refresher
+            pulling-text="Pull to refresh"
+            on-refresh="fetch()">
+        </ion-refresher>
+
+        <div class="list">
+
+            <div class="item item-divider">Build Details</div>
+
+            <div class="item">
+                <div class="row">
+                    <div class="col col-50"><p>Build #{{build.number }}</p></div>
+                    <div class="col col-50">
+                        <span class="badge"><i class="icon" ng-class="{'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled'}[build.state]"></i></span>
+                    </div>
+                </div>
+
+                <div class="message">{{commit.message}}</div>
+
+                <div class="row">
+                    <div class="col col-50"><p><i class="icon ion-clock"></i> Duration: {{build.duration | convertSeconds }}</p></div>
+                    <div class="col col-50"><p><i class="icon ion-calendar"></i> Finished: {{ build.finished_at | date:'d MMM' }}</p></div>
+                </div>
+            </div>
+
+            <div class="item item-divider">Commit Info</div>
+            <div class="item commit">
+                <div class="row">
+                    <div class="col col-50"><p><i class="icon ion-merge"></i> Branch: {{ commit.branch }}</p></div>
+                    <div class="col col-50">
+                        <p ng-if="build.pull_request"><i class="icon ion-pull-request"></i> Pull Request: {{ build.pull_request_number }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-100">
+                        <p><i class="icon ion-ios7-person"></i> Commiter: {{ commit.committer_name }}</p>
+                    </div>
+                </div>
+
+                <div class="row compare">
+                    <div class="col col-100">
+                        <button class="button button-block button-dark icon-left ion-social-github" ng-click="openCompare()">Compare Commit</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="item item-divider">Jobs</div>
+            <a class="item job" ng-href="#/app/log/{{ job.log_id }}" ng-repeat="job in jobs">
+                <p>Build #{{job.number }}</p>
+                <span class="badge"><i class="icon" ng-class="{'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled'}[job.state]"></i></span>
+            </a>
+
+        </div>
+
+    </ion-content>
+</ion-view>
