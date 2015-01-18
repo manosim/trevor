@@ -268,7 +268,6 @@
             }
 
         }
-
     }
 }
 
@@ -279,6 +278,29 @@
 
 .builds {
 
+    .item {
+        padding-right: 40px;
+
+        .badge {
+            font-size: 20px;
+            right: 10px;
+        }
+
+        .row {
+            padding: 0;
+
+            .col-50 {
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+
+        }
+    }
 }
 
 /* @end Builds */
