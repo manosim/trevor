@@ -1,6 +1,11 @@
 <ion-view view-title="Repos">
     <ion-content class="repos">
 
+        <ion-refresher
+            pulling-text="Pull to refresh"
+            on-refresh="fetch()">
+        </ion-refresher>
+
         <div class="list">
             <div class="item item-input-inset">
                 <label class="item-input-wrapper">
@@ -9,7 +14,7 @@
             </div>
         </div>
 
-        <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-repeat="repo in repos | filter:reposFilter">
+        <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-if="repo.active" ng-repeat="repo in repos | filter:reposFilter">
             {{repo.short_slug}}
 
             <div class="row">
