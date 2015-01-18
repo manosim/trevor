@@ -1,5 +1,5 @@
 angular.module('controllers',[
-    'controller.home',
+    'controller.welcome',
     'controller.accounts',
     'controller.repos',
     'controller.builds',

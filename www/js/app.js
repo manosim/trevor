@@ -11,7 +11,7 @@ angular.module('travis-mobile', [
     'filters'
 ])
 
-.run(function($ionicPlatform, $window) {
+.run(function($ionicPlatform, AccountsService, $state, $window) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -23,8 +23,11 @@ angular.module('travis-mobile', [
       StatusBar.styleDefault();
     }
 
-    console.log("Github Token: " + $window.localStorage.githubtoken);
-    console.log("Travis Token: " + $window.localStorage.travistoken);
+    if (AccountsService.isLoggedIn()) {
+        $state.go('app.accounts');
+        console.log("Github Token: " + $window.localStorage.githubtoken);
+        console.log("Travis Token: " + $window.localStorage.travistoken);
+    }
 
   });
 })
@@ -32,20 +35,16 @@ angular.module('travis-mobile', [
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
+    .state('welcome', {
+        url: "/welcome",
+        templateUrl: 'templates/welcome.html',
+        controller: 'WelcomeCtrl'
+    })
+
     .state('app', {
         url: "/app",
         abstract: true,
         templateUrl: "templates/menu.html",
-    })
-
-    .state('app.home', {
-        url: "/home",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/home.html",
-                controller: 'HomeCtrl'
-            }
-        }
     })
 
     .state('app.accounts', {
@@ -79,6 +78,6 @@ angular.module('travis-mobile', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/welcome');
 
 });

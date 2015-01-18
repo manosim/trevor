@@ -112,6 +112,49 @@
 /* @end Miscellaneous */
 
 
+/* @group Welcome Screen */
+
+.welcome {
+    padding: 10px;
+    background-color: @ThemeRed;
+
+    .travis-logo {
+        display: block;
+        max-width: 165px;
+        height: auto;
+        margin: 30% auto 50px auto;
+    }
+
+    .button {
+        border: 0;
+    }
+
+    .bar-footer {
+
+        background: none;
+        background-color: @ThemeRed;
+        border: 0;
+
+
+        height: auto;
+        display: block;
+        z-index: 9999;
+
+        .disclaimer {
+            display: block;
+            padding: 10px 0;
+            .FontOpenSansRegular();
+            font-size: 12px;
+            color: @White;
+            text-align: center;
+        }
+    }
+
+}
+
+/* @end Welcome Screen */
+
+
 /* @group Accounts Page */
 
 .accounts {
