@@ -1,6 +1,6 @@
 var app = angular.module('controller.welcome', ['ionic']);
 
-app.controller('WelcomeCtrl', function($scope, $state, $window, $http, AccountsService) {
+app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingService, AccountsService) {
 
     var options = {
         client_id: 'a6adc03baaa25c30292c',
@@ -14,6 +14,8 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, AccountsS
 
     $scope.login = function() {
 
+        LoadingService.show();
+
         //Build the OAuth consent page URL
         var githubUrl = 'https://github.com/login/oauth/authorize?';
         var authUrl = githubUrl + 'client_id=' + options.client_id + '&redirect_uri=' + options.redirect_uri + '&scope=' + options.scope;
@@ -26,23 +28,23 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, AccountsS
                 error = /\?error=(.+)$/.exec(e.url);
 
             if (code || error) {
-                //Always close the browser when match is found
-                console.log(code);
-                requestToken(code);
+                // Close the browser if code found or error
                 authWindow.close();
             }
 
-            //now lets validate the token on the server
+            // If there is a code, proceed to get token from github
             if (code) {
-
-                service.getAPIToken(code, deferred);
-
+                requestToken(code);
             } else if (error) {
-                //The user denied access to the app
-                deferred.reject({
-                    error: error[1]
-                });
+                LoadingService.hide();
             }
+
+        });
+
+        // If "Done" button is pressed, hide "Loading"
+        authWindow.addEventListener('exit', function(e) {
+            console.log("Github InAppBrowser Window Closed");
+            LoadingService.hide();
         }, false);
 
     };
@@ -55,19 +57,19 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, AccountsS
                 code: code,
             }).
             success(function(data, status, headers, config) {
-                // this callback will be called asynchronously
-                // when the response is available
-                console.log(data.split("&")[0].split("=")[1]);
-                console.log(data.access_token);
+
+                // If access token received, authenticate with Travis
                 $window.localStorage.githubtoken = data.split("&")[0].split("=")[1];
-                console.log($window.localStorage.githubtoken);
+                console.log("Github Token: " + $window.localStorage.githubtoken);
                 authTravis();
+
             }).
             error(function(data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+
                 alert("Failure.");
                 console.log(data);
+                LoadingService.hide();
+
             });
     }
 
@@ -86,12 +88,18 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, AccountsS
                 // 'Content-Length': 37
               }
           }).success(function (data, status, headers, config) {
+
             console.log("Success!");
             $window.localStorage.travistoken = data.access_token;
             $state.go('app.accounts');
+            LoadingService.hide();
+
           }).error(function (data, status, headers, config) {
+
             alert("Failure." + data);
             console.log(data);
+            LoadingService.hide();
+
           });
     }
 
