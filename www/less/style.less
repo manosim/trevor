@@ -1,6 +1,7 @@
 /* @group Colors */
 
-@AppColor: #A53230;
+@ThemeRed: #A53230;
+@ThemeDarkBlue: #40454F;
 
 @White: #FFF;
 @Gray: #9c9c9c;
@@ -15,7 +16,41 @@
 /* @group Miscellaneous */
 
 body {
-    font-family: 'OpenSans Light';
+    // font-family: 'OpenSans Light';
+}
+
+.bar-header {
+    background-color: @ThemeRed;
+    color: @White;
+
+    .button {
+        color: @White;
+    }
+}
+
+.menu {
+    .bar {
+        background-color: darken(@ThemeRed, 10%);
+
+        .title {
+            color: @White;
+        }
+    }
+
+    .scroll-content {
+        background-color: @Gray;
+    }
+
+    .list {
+        .item {
+            border-color: lighten(@Gray, 10%);
+        }
+
+        .item-content {
+            background-color: @DarkGray;
+            color: @White;
+        }
+    }
 }
 
 /* @end Miscellaneous */
