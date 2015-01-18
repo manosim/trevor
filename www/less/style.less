@@ -229,8 +229,11 @@
 
 .accounts {
     .item {
+        padding-right: 40px;
+
         .badge {
             background-color: @ThemeDarkBlue;
+            .FontOpenSansRegular();
             font-size: 14px;
             right: 15px;
             padding: 2px 6px;
@@ -268,8 +271,39 @@
             }
 
         }
-
     }
 }
 
 /* @end Repos */
+
+
+/* @group Builds */
+
+.builds {
+
+    .item {
+        padding-right: 40px;
+
+        .badge {
+            font-size: 20px;
+            right: 10px;
+        }
+
+        .row {
+            padding: 0;
+
+            .col-50 {
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+
+        }
+    }
+}
+
+/* @end Builds */
