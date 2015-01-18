@@ -6,6 +6,18 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var less = require('gulp-less');
+var plumber = require('gulp-plumber');
+var path = require('path');
+
+gulp.task('less', function () {
+  gulp.src('./www/less/**.less')
+    .pipe(plumber())
+    .pipe(less({
+      paths: [ path.join(__dirname, 'less', 'includes') ]
+    }))
+    .pipe(gulp.dest('./www/css/'));
+});
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -26,7 +38,7 @@ gulp.task('sass', function(done) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+  gulp.watch('./www/less/**.less', ['less']);
 });
 
 gulp.task('install', ['git-check'], function() {

@@ -1,8 +1,8 @@
 <ion-view view-title="Accounts">
-    <ion-content>
+    <ion-content class="accounts">
 
         <a class="item" ng-href="#/app/repos/{{account.login}}" ng-repeat="account in accounts">
-            {{account.name}}
+            <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.name}}
             <p>{{account.login}}</p>
             <span class="badge badge-positive">{{account.repos_count}}</span>
         </a>
