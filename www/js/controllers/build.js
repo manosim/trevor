@@ -46,4 +46,8 @@ angular.module('controller.build', [])
 
     $scope.fetch();
 
+    $scope.openCompare = function() {
+        var compareWindow = window.open($scope.commit.compare_url, '_blank', 'location=yes');
+    };
+
 });

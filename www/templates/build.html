@@ -21,14 +21,35 @@
                 <div class="message">{{commit.message}}</div>
 
                 <div class="row">
-                    <div class="col col-50"><p><i class="icon ion-settings"></i> Build #{{build.number }}</p></div>
-                    <div class="col col-50"><p><i class="icon ion-merge"></i> Branch: {{ build.commit.branch }}</p></div>
-                </div>
-
-                <div class="row">
                     <div class="col col-50"><p><i class="icon ion-clock"></i> Duration: {{build.duration | convertSeconds }}</p></div>
                     <div class="col col-50"><p><i class="icon ion-calendar"></i> Finished: {{ build.finished_at | date:'d MMM' }}</p></div>
                 </div>
+            </div>
+
+            <div class="item item-divider">Commit Info</div>
+            <div class="item commit">
+                <div class="row">
+                    <div class="col col-50"><p><i class="icon ion-merge"></i> Branch: {{ commit.branch }}</p></div>
+                    <div class="col col-50">
+                        <p><i class="icon ion-pull-request"></i> Pull Request:
+                            <span ng-if="build.pull_request">{{ build.pull_request_number }}</span>
+                            <span ng-if="!build.pull_request">-</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-100">
+                        <p><i class="icon ion-ios7-person"></i> Commiter: {{ commit.committer_name }}</p>
+                    </div>
+                </div>
+
+                <div class="row compare">
+                    <div class="col col-100">
+                        <button class="button button-block button-dark icon-left ion-social-github" ng-click="openCompare()">Compare Commit</button>
+                    </div>
+                </div>
+
             </div>
 
             <div class="item item-divider">Jobs</div>
