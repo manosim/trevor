@@ -54,6 +54,12 @@ body {
     }
 }
 
+.badge {
+    .ion-checkmark-circled::before { color: @Pass; }
+    .ion-ios7-circle-filled::before { color: @Started; }
+    .ion-close-circled::before { color: @Fail; }
+}
+
 /* @end Miscellaneous */
 
 
@@ -71,3 +77,37 @@ body {
 }
 
 /* @end Accounts Page */
+
+
+/* @group Repos */
+
+.repos {
+    .list {
+        margin-bottom: 0;
+    }
+
+    .item {
+        .badge {
+            font-size: 20px;
+            right: 10px;
+        }
+
+        .row {
+            padding: 0;
+
+            .col-50 {
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+
+        }
+
+    }
+}
+
+/* @end Repos */
