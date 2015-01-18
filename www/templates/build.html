@@ -1,12 +1,12 @@
-<ion-view view-title="Builds">
-    <ion-content class="builds">
+<ion-view view-title="Build">
+    <ion-content class="build">
 
         <ion-refresher
             pulling-text="Pull to refresh"
             on-refresh="fetch()">
         </ion-refresher>
 
-        <a class="item" ng-href="#/app/build/{{ build.id }}" ng-repeat="build in builds">
+        <div class="item">
             {{build.commit.message}}
 
             <div class="row">
@@ -20,7 +20,11 @@
             </div>
 
             <span class="badge"><i class="icon" ng-class="{'passed': 'balanced ion-checkmark-circled', 'failed': 'assertive ion-close-circled'}[build.state]"></i></span>
-        </a>
+
+            <div class="jobs" ng-repeat="job in build.jobs">
+                {{job.id}}
+            </div>
+        </div>
 
     </ion-content>
 </ion-view>

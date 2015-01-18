@@ -3,4 +3,5 @@ angular.module('controllers',[
     'controller.accounts',
     'controller.repos',
     'controller.builds',
+    'controller.build',
 ]);

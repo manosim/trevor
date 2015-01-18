@@ -75,6 +75,16 @@ angular.module('travis-mobile', [
                 controller: 'BuildsCtrl'
             }
         }
+    })
+
+    .state('app.build', {
+        url: "/build/:buildid",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/build.html",
+                controller: 'BuildCtrl'
+            }
+        }
     });
 
   // if none of the above states are matched, use this as the fallback
