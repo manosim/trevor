@@ -23,7 +23,6 @@ services.factory('AccountsService', function ($window, $http) {
         checkIfOrganization: function () {
 
             angular.forEach(service.accounts, function(value, key) {
-                console.log(value);
                 if (value.type == "organization") {
                     service.hasOrganization = true;
                 }
