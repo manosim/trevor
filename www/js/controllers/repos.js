@@ -1,12 +1,15 @@
 angular.module('controller.repos', ['ionic'])
 
-.controller('ReposCtrl', function($scope, $stateParams, $window, AccountsService, $http) {
+.controller('ReposCtrl', function($scope, $stateParams, $window, LoadingService, AccountsService, $http) {
+
+    LoadingService.show();
 
     var loginId = $stateParams.loginid;
-
     var token = $window.localStorage.travistoken;
 
     $scope.fetch = function() {
+
+
         $http({
             url: 'https://api.travis-ci.org/repos/' + loginId,
             method: "GET",
@@ -19,17 +22,22 @@ angular.module('controller.repos', ['ionic'])
                 'Authorization': 'token ' + token
               }
             }).success(function (data, status, headers, config) {
-                console.log("Success-Repos!");
 
+                console.log("Success-Repos!");
                 $scope.repos = [];
                 angular.forEach(data.repos, function(value, key) {
                         value.short_slug = value.slug.split(loginId + '/')[1];
                         $scope.repos.push(value);
                 });
 
+                LoadingService.hide();
+
             }).error(function (data, status, headers, config) {
+
                 alert("Failure.");
                 console.log(data);
+                LoadingService.hide();
+
             })
             .finally(function() {
                 // Stop the ion-refresher from spinning

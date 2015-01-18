@@ -1,6 +1,8 @@
 var app = angular.module('controller.accounts', ['ionic']);
 
-app.controller('AccountsCtrl', function($scope, $state, $window, $http, AccountsService) {
+app.controller('AccountsCtrl', function($scope, $state, $window, $http, AccountsService, LoadingService) {
+
+    LoadingService.show();
 
     var token = $window.localStorage.travistoken;
     console.log("Travis Token: " + token);
@@ -17,12 +19,18 @@ app.controller('AccountsCtrl', function($scope, $state, $window, $http, Accounts
             // 'Content-Length': 37
           }
       }).success(function (data, status, headers, config) {
+
         console.log("Success-Accounts!");
         AccountsService.setAccounts(data.accounts);
         $scope.accounts = data.accounts;
+        LoadingService.hide();
+
       }).error(function (data, status, headers, config) {
+
         alert("Failure-Accounts.");
         console.log(data);
+        LoadingService.hide();
+
       });
 
 
