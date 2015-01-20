@@ -24,7 +24,7 @@ angular.module('travis-mobile', [
     }
 
     RequestService.setToken($window.localStorage.travistoken || false);
-    AccountsService.setPro($window.localStorage.travispro);
+    AccountsService.setPro($window.localStorage.travispro || true);
 
     if (AccountsService.isLoggedIn()) {
         $state.go('app.accounts');

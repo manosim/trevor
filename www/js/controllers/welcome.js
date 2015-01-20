@@ -95,8 +95,8 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingSe
                 console.log("Success!");
                 console.log("Travis said token is: " + data.access_token);
                 $window.localStorage.travistoken = data.access_token;
-                $window.localStorage.travispro = $scope.pro;
-                RequestService.token = data.access_token;
+                $window.localStorage.travispro = AccountsService.isPro();
+                RequestService.setToken(data.access_token);
                 $state.go('app.accounts');
                 LoadingService.hide();
 

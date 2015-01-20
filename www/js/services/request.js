@@ -2,26 +2,31 @@ var services = angular.module('services.request', ['ionic']);
 
 services.factory('RequestService', function (AccountsService, $q, $window, $http) {
 
-    // Get token wheather Pro or not
-    var domain, host;
-
-    if (AccountsService.isPro()) {
-        domain = "https://api.travis-ci.com";
-        host = "api.travis-ci.com";
-    } else {
-        domain = "https://api.travis-ci.org";
-        host = "api.travis-ci.org";
-    }
-
     var service = {
 
         token: false,
 
         setToken: function (value) {
+
+console.log("----------------");
+console.log(value);
+console.log("----------------");
+
             service.token = value;
         },
 
         request: function (method, url, data) {
+
+            // Get token wheather Pro or not
+            var domain, host;
+
+            if (AccountsService.isPro()) {
+                domain = "https://api.travis-ci.com";
+                host = "api.travis-ci.com";
+            } else {
+                domain = "https://api.travis-ci.org";
+                host = "api.travis-ci.org";
+            }
 
             var deferred = $q.defer();
 
