@@ -3,7 +3,7 @@
 
         <img class="travis-logo" src="images/travis-vertical.png">
 
-        <ion-toggle class="services" ng-init="pro = true" ng-model="pro" toggle-class="toggle-pro">
+        <ion-toggle class="services" ng-model="pro" toggle-class="toggle-pro" ng-change="togglePro()">
             <div class="service" ng-if="pro">
                 Travis CI Pro
                 <div class="desc">Private Repositories</div>

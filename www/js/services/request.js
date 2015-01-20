@@ -6,16 +6,17 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
     var privateUrl = "https://api.travis-ci.com";
 
     // Get token wheather Pro or not
-    var token, domain;
+    var domain;
+
     if (AccountsService.isPro) {
-        token = $window.localStorage.travisprotoken;
         domain = privateUrl;
     } else {
-        token = $window.localStorage.travistoken;
         domain = publicUrl;
     }
 
     var service = {
+
+        token: $window.localStorage.travistoken,
 
         request: function (method, url, data) {
 
@@ -23,12 +24,16 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
 
             var headers = {
                 'Accept': 'application/vnd.travis-ci.2+json',
-                'Authorization': 'token ' + token,
                 // 'User-Agent': 'MyClient/1.0.0',
                 // 'Host': 'api.travis-ci.org',
                 // 'Content-Type': 'application/json',
                 // 'Content-Length': 37
             };
+
+            if (url != "/auth/github") {
+                headers['Authorization'] = "token " + service.token;
+            }
+            console.log(headers);
 
             $http({
                 url: domain + url,
