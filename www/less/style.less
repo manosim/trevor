@@ -2,6 +2,9 @@
 
 @ThemeRed: #A53230;
 @ThemeDarkBlue: #40454F;
+@ThemeGray: #828B8B;
+@ThemeMediumBlue: #357389;
+@ThemeDesBlue: #5E8599;
 
 @White: #FFF;
 @Gray: #9c9c9c;
@@ -192,7 +195,42 @@
         display: block;
         max-width: 165px;
         height: auto;
-        margin: 30% auto 50px auto;
+        margin: 25% auto 20px auto;
+    }
+
+    .services {
+        background: none;
+        border: 0;
+        color: @White;
+        margin: 20px 0;
+
+        &.item {
+            padding: 0 102px 0 20px;
+        }
+
+        .service {
+            .FontOpenSansSemibold();
+            font-size: 20px;
+            line-height: 28px;
+            text-align: center;
+
+            .desc {
+                .FontOpenSansRegular();
+                font-size: 16px;
+                line-height: 16px;
+            }
+        }
+
+        .toggle input + .track {
+            border-color: @ThemeDesBlue;
+            background-color: @ThemeDarkBlue;
+        }
+
+        .toggle input:checked + .track {
+            border-color: @ThemeMediumBlue;
+            background-color: @ThemeMediumBlue;
+        }
+
     }
 
     .button {
