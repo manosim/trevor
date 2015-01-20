@@ -60,7 +60,6 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingSe
 
     };
 
-
     function requestToken(code) {
         $http.post('https://github.com/login/oauth/access_token',{
                 client_id: options.client_id,
@@ -93,7 +92,6 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingSe
 
                 // Success
                 console.log("Success!");
-                console.log("Travis said token is: " + data.access_token);
                 $window.localStorage.travistoken = data.access_token;
                 $window.localStorage.travispro = AccountsService.isPro();
                 RequestService.setToken(data.access_token);

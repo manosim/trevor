@@ -11,7 +11,12 @@ angular.module('travis-mobile', [
     'filters'
 ])
 
+.config(function($ionicConfigProvider) {
+    $ionicConfigProvider.views.maxCache(0);
+})
+
 .run(function($ionicPlatform, AccountsService, RequestService, $state, $window) {
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

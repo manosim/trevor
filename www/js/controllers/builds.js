@@ -9,7 +9,6 @@ angular.module('controller.builds', [])
 
     $scope.fetch = function() {
 
-
         RequestService
             .request("GET", '/builds?repository_id=' + repoId + '/builds/', true)
 

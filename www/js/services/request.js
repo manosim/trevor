@@ -7,11 +7,6 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
         token: false,
 
         setToken: function (value) {
-
-console.log("----------------");
-console.log(value);
-console.log("----------------");
-
             service.token = value;
         },
 
@@ -41,12 +36,6 @@ console.log("----------------");
             if (url != "/auth/github") {
                 headers['Authorization'] = "token " + service.token;
             }
-
-            console.log("+++++++++++++++++");
-            console.log("+++++++++++++++++");
-            console.log("REQUEST to: " + domain + url);
-            console.log("+++++++++++++++++");
-            console.log("+++++++++++++++++");
 
             $http({
                 url: domain + url,
