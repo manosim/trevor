@@ -1,6 +1,6 @@
 angular.module('controller.builds', [])
 
-.controller('BuildsCtrl', function($scope, $stateParams, $window, LoadingService, $http) {
+.controller('BuildsCtrl', function($scope, $stateParams, $window, RequestService, LoadingService) {
 
     var repoId = $stateParams.repoid;
     var token = $window.localStorage.travistoken;
@@ -9,19 +9,11 @@ angular.module('controller.builds', [])
 
     $scope.fetch = function() {
 
-        $http({
-            url: 'https://api.travis-ci.org/builds?repository_id=' + repoId + '/builds/',
-            method: "GET",
-            // data: {token: token},
-            headers: {
-                // 'User-Agent': 'MyClient/1.0.0',
-                'Accept': 'application/vnd.travis-ci.2+json',
-                // 'Host': 'api.travis-ci.org',
-                // 'Content-Type': 'application/json',
-                // 'Content-Length': 37
-                'Authorization': 'token ' + token
-            }
-            }).success(function (data, status, headers, config) {
+
+        RequestService
+            .request("GET", '/builds?repository_id=' + repoId + '/builds/', true)
+
+            .then(function(data) {
 
                 console.log("Success-Builds!");
                 $scope.builds = [];
@@ -38,8 +30,9 @@ angular.module('controller.builds', [])
 
                 LoadingService.hide();
 
-            }).error(function (data, status, headers, config) {
+            }, function(data) {
 
+                // Failure
                 alert("Failure-Builds.");
                 console.log(data);
                 LoadingService.hide();

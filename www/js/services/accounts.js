@@ -5,7 +5,7 @@ services.factory('AccountsService', function ($window, $http) {
     var service = {
 
         accounts: false,
-        isPro: true,
+        pro: true,
 
         setAccounts: function (accountsData) {
             if (service.isLoggedIn()) {
@@ -23,8 +23,12 @@ services.factory('AccountsService', function ($window, $http) {
             return ($window.localStorage.travistoken !== undefined);
         },
 
+        isPro: function () {
+            return service.pro;
+        },
+
         setPro: function (value) {
-            service.isPro = value;
+            service.pro = value;
         }
 
     };

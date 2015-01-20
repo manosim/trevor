@@ -11,7 +11,7 @@ angular.module('travis-mobile', [
     'filters'
 ])
 
-.run(function($ionicPlatform, AccountsService, $state, $window) {
+.run(function($ionicPlatform, AccountsService, RequestService, $state, $window) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -22,6 +22,9 @@ angular.module('travis-mobile', [
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    RequestService.setToken($window.localStorage.travistoken || false);
+    AccountsService.setPro($window.localStorage.travispro);
 
     if (AccountsService.isLoggedIn()) {
         $state.go('app.accounts');
