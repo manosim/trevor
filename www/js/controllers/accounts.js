@@ -1,37 +1,27 @@
 var app = angular.module('controller.accounts', ['ionic']);
 
-app.controller('AccountsCtrl', function($scope, $state, $window, $http, AccountsService, LoadingService) {
+app.controller('AccountsCtrl', function($scope, $state, $window, RequestService, AccountsService, LoadingService) {
 
     LoadingService.show();
 
-    var token = $window.localStorage.travistoken;
+    RequestService
+        .request("GET", false , '/accounts?all=true', false)
+        .then(function(data) {
 
-    $http({
-        url: 'https://api.travis-ci.org/accounts?all=true',
-        method: "GET",
-        headers: {
-            'Accept': 'application/vnd.travis-ci.2+json',
-            'Authorization': 'token ' + token,
-            // 'User-Agent': 'MyClient/1.0.0',
-            // 'Host': 'api.travis-ci.org',
-            // 'Content-Type': 'application/json',
-            // 'Content-Length': 37
-          }
-      }).success(function (data, status, headers, config) {
+            // Success
+            console.log("Success-Accounts!");
+            AccountsService.setAccounts(data.accounts);
+            $scope.accounts = data.accounts;
+            LoadingService.hide();
 
-        console.log("Success-Accounts!");
-        AccountsService.setAccounts(data.accounts);
-        $scope.accounts = data.accounts;
-        LoadingService.hide();
+        }, function(data) {
 
-      }).error(function (data, status, headers, config) {
+            // Failure
+            alert("Failure-Accounts.");
+            console.log(data);
+            LoadingService.hide();
 
-        alert("Failure-Accounts.");
-        console.log(data);
-        LoadingService.hide();
-
-      });
-
+        });
 
     $scope.logOut = function() {
         delete $window.localStorage.githubtoken;
