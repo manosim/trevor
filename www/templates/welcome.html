@@ -2,6 +2,18 @@
     <ion-content class="welcome" scroll="false">
 
         <img class="travis-logo" src="images/travis-vertical.png">
+
+        <ion-toggle class="services" ng-init="pro = true" ng-model="pro" toggle-class="toggle-pro">
+            <div class="service" ng-if="pro">
+                Travis CI Pro
+                <div class="desc">Private Repositories</div>
+            </div>
+            <div class="service" ng-if="!pro">
+                Travis CI
+                <div class="desc">Public Repositories</div>
+            </div>
+        </ion-toggle>
+
         <button class="button button-block button-dark icon-left ion-social-github" ng-click="login()">Login with Github</button>
 
         <div class="bar bar-footer">

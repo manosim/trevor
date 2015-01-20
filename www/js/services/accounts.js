@@ -6,6 +6,7 @@ services.factory('AccountsService', function ($window, $http) {
 
         accounts: false,
         hasOrganization: false,
+        isPro: false,
 
         setAccounts: function (accountsData) {
             if (service.isLoggedIn()) {
