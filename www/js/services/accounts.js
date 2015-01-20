@@ -5,13 +5,11 @@ services.factory('AccountsService', function ($window, $http) {
     var service = {
 
         accounts: false,
-        hasOrganization: false,
-        isPro: false,
+        pro: true,
 
         setAccounts: function (accountsData) {
             if (service.isLoggedIn()) {
                 service.accounts = accountsData;
-                service.checkIfOrganization();
             }
         },
 
@@ -21,18 +19,16 @@ services.factory('AccountsService', function ($window, $http) {
             }
         },
 
-        checkIfOrganization: function () {
-
-            angular.forEach(service.accounts, function(value, key) {
-                if (value.type == "organization") {
-                    service.hasOrganization = true;
-                }
-            });
-
+        isLoggedIn: function () {
+            return ($window.localStorage.travistoken !== undefined);
         },
 
-        isLoggedIn: function () {
-          return ($window.localStorage.travistoken !== undefined);
+        isPro: function () {
+            return service.pro;
+        },
+
+        setPro: function (value) {
+            service.pro = value;
         }
 
     };

@@ -5,7 +5,7 @@ app.controller('AccountsCtrl', function($scope, $state, $window, RequestService,
     LoadingService.show();
 
     RequestService
-        .request("GET", '/accounts?all=true', false)
+        .request("GET", '/accounts?all=true', true)
         .then(function(data) {
 
             // Success
@@ -26,6 +26,7 @@ app.controller('AccountsCtrl', function($scope, $state, $window, RequestService,
     $scope.logOut = function() {
         delete $window.localStorage.githubtoken;
         delete $window.localStorage.travistoken;
+        delete $window.localStorage.travispro;
         $state.go('welcome');
     };
 

@@ -1,26 +1,15 @@
 angular.module('controller.repos', ['ionic'])
 
-.controller('ReposCtrl', function($scope, $stateParams, $window, LoadingService, AccountsService, $http) {
+.controller('ReposCtrl', function($scope, $stateParams, $window, LoadingService, RequestService, AccountsService) {
 
     LoadingService.show();
 
     var loginId = $stateParams.loginid;
-    var token = $window.localStorage.travistoken;
 
     $scope.fetch = function() {
-
-        $http({
-            url: 'https://api.travis-ci.org/repos/' + loginId,
-            method: "GET",
-            headers: {
-                // 'User-Agent': 'MyClient/1.0.0',
-                'Accept': 'application/vnd.travis-ci.2+json',
-                // 'Host': 'api.travis-ci.org',
-                // 'Content-Type': 'application/json',
-                // 'Content-Length': 37
-                'Authorization': 'token ' + token
-              }
-            }).success(function (data, status, headers, config) {
+        RequestService
+            .request("GET", '/repos/' + loginId, true)
+            .then(function(data) {
 
                 console.log("Success-Repos!");
                 $scope.repos = [];
@@ -31,16 +20,19 @@ angular.module('controller.repos', ['ionic'])
 
                 LoadingService.hide();
 
-            }).error(function (data, status, headers, config) {
+            }, function(data) {
 
-                alert("Failure.");
+                // Failure
+                alert("Failure - Repos.");
                 console.log(data);
                 LoadingService.hide();
 
             })
             .finally(function() {
+
                 // Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');
+
             });
     };
 

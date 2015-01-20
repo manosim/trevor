@@ -1,6 +1,13 @@
 var app = angular.module('controller.welcome', ['ionic']);
 
-app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingService, AccountsService) {
+app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingService, AccountsService, RequestService) {
+
+    $scope.pro = AccountsService.isPro();
+
+    $scope.togglePro = function() {
+        $scope.pro = !$scope.pro;
+        AccountsService.setPro($scope.pro);
+    };
 
     var options = {
         client_id: 'a6adc03baaa25c30292c',
@@ -15,6 +22,10 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingSe
     $scope.login = function() {
 
         LoadingService.show();
+
+        if ($scope.pro) {
+            options.scope.push("repo");
+        }
 
         //Build the OAuth consent page URL
         var githubUrl = 'https://github.com/login/oauth/authorize?';
@@ -49,7 +60,6 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingSe
 
     };
 
-
     function requestToken(code) {
         $http.post('https://github.com/login/oauth/access_token',{
                 client_id: options.client_id,
@@ -76,31 +86,26 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingSe
     function authTravis() {
         var token = $window.localStorage.githubtoken;
 
-        $http({
-            url: 'https://api.travis-ci.org/auth/github',
-            method: "POST",
-            data: {github_token: token},
-            headers: {
-                // 'User-Agent': 'MyClient/1.0.0',
-                'Accept': 'application/vnd.travis-ci.2+json',
-                // 'Host': 'api.travis-ci.org',
-                // 'Content-Type': 'application/json',
-                // 'Content-Length': 37
-              }
-          }).success(function (data, status, headers, config) {
+        RequestService
+            .request("POST", '/auth/github', {github_token: token})
+            .then(function(data) {
 
-            console.log("Success!");
-            $window.localStorage.travistoken = data.access_token;
-            $state.go('app.accounts');
-            LoadingService.hide();
+                // Success
+                console.log("Success!");
+                $window.localStorage.travistoken = data.access_token;
+                $window.localStorage.travispro = AccountsService.isPro();
+                RequestService.setToken(data.access_token);
+                $state.go('app.accounts');
+                LoadingService.hide();
 
-          }).error(function (data, status, headers, config) {
+            }, function(data) {
 
-            alert("Failure." + data);
-            console.log(data);
-            LoadingService.hide();
+                // Failure
+                alert("Failure." + data);
+                console.log(data);
+                LoadingService.hide();
 
-          });
+            });
     }
 
 

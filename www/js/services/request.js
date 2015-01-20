@@ -2,33 +2,40 @@ var services = angular.module('services.request', ['ionic']);
 
 services.factory('RequestService', function (AccountsService, $q, $window, $http) {
 
-    var publicUrl = "https://api.travis-ci.org";
-    var privateUrl = "https://api.travis-ci.com";
-
-    // Get token wheather Pro or not
-    var token, domain;
-    if (AccountsService.isPro) {
-        token = $window.localStorage.travisprotoken;
-        domain = privateUrl;
-    } else {
-        token = $window.localStorage.travistoken;
-        domain = publicUrl;
-    }
-
     var service = {
 
+        token: false,
+
+        setToken: function (value) {
+            service.token = value;
+        },
+
         request: function (method, url, data) {
+
+            // Get token wheather Pro or not
+            var domain, host;
+
+            if (AccountsService.isPro()) {
+                domain = "https://api.travis-ci.com";
+                host = "api.travis-ci.com";
+            } else {
+                domain = "https://api.travis-ci.org";
+                host = "api.travis-ci.org";
+            }
 
             var deferred = $q.defer();
 
             var headers = {
                 'Accept': 'application/vnd.travis-ci.2+json',
-                'Authorization': 'token ' + token,
                 // 'User-Agent': 'MyClient/1.0.0',
-                // 'Host': 'api.travis-ci.org',
+                // 'Host': host,
                 // 'Content-Type': 'application/json',
                 // 'Content-Length': 37
             };
+
+            if (url != "/auth/github") {
+                headers['Authorization'] = "token " + service.token;
+            }
 
             $http({
                 url: domain + url,
