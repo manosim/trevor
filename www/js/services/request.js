@@ -5,18 +5,21 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
     var publicUrl = "https://api.travis-ci.org";
     var privateUrl = "https://api.travis-ci.com";
 
+    // Get token wheather Pro or not
+    var token, domain;
+    if (AccountsService.isPro) {
+        token = $window.localStorage.travisprotoken;
+        domain = privateUrl;
+    } else {
+        token = $window.localStorage.travistoken;
+        domain = publicUrl;
+    }
+
     var service = {
 
-        request: function (method, type, url, data) {
+        request: function (method, url, data) {
 
             var deferred = $q.defer();
-
-            var token;
-            if (AccountsService.isPro) {
-                token = $window.localStorage.travisprotoken;
-            } else {
-                token = $window.localStorage.travistoken;
-            }
 
             var headers = {
                 'Accept': 'application/vnd.travis-ci.2+json',
@@ -27,14 +30,8 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
                 // 'Content-Length': 37
             };
 
-            if (type == "pro") {
-                url = privateUrl + url;
-            } else {
-                url = publicUrl + url;
-            }
-
             $http({
-                url: url,
+                url: domain + url,
                 method: method,
                 headers: headers,
                 data : data })

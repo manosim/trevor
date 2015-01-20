@@ -5,7 +5,7 @@ app.controller('AccountsCtrl', function($scope, $state, $window, RequestService,
     LoadingService.show();
 
     RequestService
-        .request("GET", false , '/accounts?all=true', false)
+        .request("GET", '/accounts?all=true', false)
         .then(function(data) {
 
             // Success
