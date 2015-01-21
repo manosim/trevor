@@ -9,7 +9,7 @@ angular.module('controller.build', [])
     $scope.fetch = function() {
 
         RequestService
-            .request("GET", '/builds?repository_id=' + '/builds/' + buildId, true)
+            .request("GET", '/builds/' + buildId, true)
 
             .then(function(data) {
 
