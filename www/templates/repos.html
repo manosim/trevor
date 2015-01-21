@@ -12,9 +12,14 @@
                     <input type="text" placeholder="Search Repositories" ng-model="reposFilter">
                 </label>
             </div>
+
+           <ion-toggle class="show-active" toggle-class="toggle-active" ng-init="onlyActive = true" ng-model="onlyActive" ng-click="onlyActive = !onlyActive">
+                Show Active Repositories
+            </ion-toggle>
+
         </div>
 
-        <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-if="repo.active" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:reposFilter">
+        <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:reposFilter | with:'active':onlyActive">
             {{repo.short_slug}}
 
             <div class="row">
