@@ -28,8 +28,8 @@ angular.module('travis-mobile', [
       StatusBar.styleDefault();
     }
 
-    RequestService.setToken($window.localStorage.travistoken || false);
-    AccountsService.setPro($window.localStorage.travispro || true);
+    RequestService.token = $window.localStorage.travistoken || false;
+    AccountsService.isPro = $window.localStorage.travispro || true;
 
     if (AccountsService.isLoggedIn()) {
         $state.go('app.accounts');

@@ -6,21 +6,19 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
 
         token: false,
 
-        setToken: function (value) {
-            service.token = value;
-        },
-
         request: function (method, url, data) {
 
             // Get token wheather Pro or not
             var domain, host;
 
-            if (AccountsService.isPro()) {
+            if (AccountsService.isPro === true) {
                 domain = "https://api.travis-ci.com";
                 host = "api.travis-ci.com";
-            } else {
+            } else if (AccountsService.isPro === false) {
                 domain = "https://api.travis-ci.org";
                 host = "api.travis-ci.org";
+            } else {
+                alert("ERROR. No domain.");
             }
 
             var deferred = $q.defer();

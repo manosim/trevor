@@ -2,11 +2,11 @@ var app = angular.module('controller.welcome', ['ionic']);
 
 app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingService, AccountsService, RequestService) {
 
-    $scope.pro = AccountsService.isPro();
+    $scope.pro = AccountsService.isPro;
 
     $scope.togglePro = function() {
         $scope.pro = !$scope.pro;
-        AccountsService.setPro($scope.pro);
+        AccountsService.isPro = $scope.pro;
     };
 
     var options = {
@@ -93,8 +93,8 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $http, LoadingSe
                 // Success
                 console.log("Success!");
                 $window.localStorage.travistoken = data.access_token;
-                $window.localStorage.travispro = AccountsService.isPro();
-                RequestService.setToken(data.access_token);
+                $window.localStorage.travispro = AccountsService.isPro;
+                RequestService.token = data.access_token;
                 $state.go('app.accounts');
                 LoadingService.hide();
 

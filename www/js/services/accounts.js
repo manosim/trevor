@@ -1,11 +1,11 @@
 var services = angular.module('services.accounts', []);
 
-services.factory('AccountsService', function ($window, $http) {
+services.factory('AccountsService', function ($window) {
 
     var service = {
 
         accounts: false,
-        pro: true,
+        isPro: true,
 
         setAccounts: function (accountsData) {
             if (service.isLoggedIn()) {
@@ -21,14 +21,6 @@ services.factory('AccountsService', function ($window, $http) {
 
         isLoggedIn: function () {
             return ($window.localStorage.travistoken !== undefined);
-        },
-
-        isPro: function () {
-            return service.pro;
-        },
-
-        setPro: function (value) {
-            service.pro = value;
         }
 
     };
