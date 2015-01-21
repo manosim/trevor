@@ -16,21 +16,4 @@ angular.module('filter.orderObjectBy', [])
 
         return filtered;
     };
-})
-
-
-.filter('with', function() {
-    return function(items, field, onlyActive) {
-        var result = {};
-        angular.forEach(items, function(value, key) {
-            if (onlyActive) {
-                if (value[field] === true) {
-                    result[key] = value;
-                }
-            } else {
-                result[key] = value;
-            }
-        });
-        return result;
-    };
 });
