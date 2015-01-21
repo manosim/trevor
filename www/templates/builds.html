@@ -19,7 +19,13 @@
                 <div class="col col-50"><p><i class="icon ion-calendar"></i> Finished: {{ build.finished_at | date:'d MMM' }}</p></div>
             </div>
 
-            <span class="badge"><i class="icon" ng-class="{'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled'}[build.state]"></i></span>
+            <span class="badge"><i class="icon" ng-class="{
+                'passed': 'ion-checkmark-circled',
+                'started': 'ion-ios7-circle-filled',
+                'failed': 'ion-close-circled,
+                'errored': 'ion-alert-circled,
+                'canceled': 'ion-alert-circled'
+            '}[build.state]"></i></span>
         </a>
 
     </ion-content>
