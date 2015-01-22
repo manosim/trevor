@@ -7,8 +7,8 @@ services.factory('AccountsService', function ($window) {
         accounts: false,
         isPro: true,
 
-        getPro: function (callback) {
-            return callback(service.isPro);
+        getPro: function () {
+            return service.isPro;
         },
 
         setAccounts: function (accountsData) {

@@ -8,22 +8,23 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
 
         request: function (method, url, data) {
 
-            var callback = function (pro) {
+            var deferred = $q.defer();
+
+            var pro = AccountsService.getPro();
 
                 // Get token wheather Pro or not
                 var domain, host;
 
-                if (pro === true) {
+                if (pro === true || pro === "true") {
                     domain = "https://api.travis-ci.com";
                     host = "api.travis-ci.com";
-                } else if (pro === false) {
+                } else if (pro === false || pro === "false") {
                     domain = "https://api.travis-ci.org";
                     host = "api.travis-ci.org";
                 } else {
+                    console.log(typeof pro);
                     alert("ERROR. No domain. Pro is: " + pro);
                 }
-
-                var deferred = $q.defer();
 
                 var headers = {
                     'Accept': 'application/vnd.travis-ci.2+json',
@@ -50,10 +51,8 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
                         deferred.reject(data);
                     });
 
-                return deferred.promise;
-            };
 
-            AccountsService.getPro(callback);
+            return deferred.promise;
 
         }
 
