@@ -20,7 +20,7 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
                     domain = "https://api.travis-ci.org";
                     host = "api.travis-ci.org";
                 } else {
-                    alert("ERROR. No domain.");
+                    alert("ERROR. No domain. Pro is: " + pro);
                 }
 
                 var deferred = $q.defer();
