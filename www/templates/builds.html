@@ -11,7 +11,7 @@
             <a class="button" ng-click="showBuilds = !showBuilds" ng-class="{'false': 'active'}[showBuilds]">Pull Requests</a>
         </div>
 
-        <a class="item" ng-href="#/app/build/{{ build.id }}" ng-repeat="build in builds | orderObjectBy:'number':true | with:'pull_request':!showBuilds">
+        <a class="item" ng-href="#/app/build/{{ build.id }}" ng-repeat="build in builds | with:'pull_request':!showBuilds">
             {{build.commit.message}}
 
             <div class="row">
