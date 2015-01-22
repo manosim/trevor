@@ -7,6 +7,10 @@ services.factory('AccountsService', function ($window) {
         accounts: false,
         isPro: true,
 
+        getPro: function (callback) {
+            return callback(service.isPro);
+        },
+
         setAccounts: function (accountsData) {
             if (service.isLoggedIn()) {
                 service.accounts = accountsData;

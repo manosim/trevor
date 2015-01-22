@@ -8,47 +8,52 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
 
         request: function (method, url, data) {
 
-            // Get token wheather Pro or not
-            var domain, host;
+            var callback = function (pro) {
 
-            if (AccountsService.isPro === true) {
-                domain = "https://api.travis-ci.com";
-                host = "api.travis-ci.com";
-            } else if (AccountsService.isPro === false) {
-                domain = "https://api.travis-ci.org";
-                host = "api.travis-ci.org";
-            } else {
-                alert("ERROR. No domain.");
-            }
+                // Get token wheather Pro or not
+                var domain, host;
 
-            var deferred = $q.defer();
+                if (pro === true) {
+                    domain = "https://api.travis-ci.com";
+                    host = "api.travis-ci.com";
+                } else if (pro === false) {
+                    domain = "https://api.travis-ci.org";
+                    host = "api.travis-ci.org";
+                } else {
+                    alert("ERROR. No domain.");
+                }
 
-            var headers = {
-                'Accept': 'application/vnd.travis-ci.2+json',
-                // 'User-Agent': 'MyClient/1.0.0',
-                // 'Host': host,
-                // 'Content-Type': 'application/json',
-                // 'Content-Length': 37
+                var deferred = $q.defer();
+
+                var headers = {
+                    'Accept': 'application/vnd.travis-ci.2+json',
+                    // 'User-Agent': 'MyClient/1.0.0',
+                    // 'Host': host,
+                    // 'Content-Type': 'application/json',
+                    // 'Content-Length': 37
+                };
+
+                if (url != "/auth/github") {
+                    headers['Authorization'] = "token " + service.token;
+                }
+
+                $http({
+                    url: domain + url,
+                    method: method,
+                    headers: headers,
+                    data : data })
+                    .success(function (data) {
+                        // Success
+                        deferred.resolve(data);
+                    }).error(function (data){
+                        // Failure
+                        deferred.reject(data);
+                    });
+
+                return deferred.promise;
             };
 
-            if (url != "/auth/github") {
-                headers['Authorization'] = "token " + service.token;
-            }
-
-            $http({
-                url: domain + url,
-                method: method,
-                headers: headers,
-                data : data })
-                .success(function (data) {
-                    // Success
-                    deferred.resolve(data);
-                }).error(function (data){
-                    // Failure
-                    deferred.reject(data);
-                });
-
-            return deferred.promise;
+            AccountsService.getPro(callback);
 
         }
 
