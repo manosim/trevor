@@ -67,6 +67,21 @@
 
 /* @end Typography */
 
+/* @group Mixins */
+
+// Border Radius (Same Corners)
+.border-radius (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius:    @radius;
+    border-radius:         @radius;
+
+    -moz-background-clip:    padding;
+    -webkit-background-clip: padding-box;
+    background-clip:         padding-box;
+}
+
+/* @end Mixins */
+
 /* @group Miscellaneous */
 
 .bar-header {
@@ -321,6 +336,23 @@
 /* @group Builds */
 
 .builds {
+
+    .button-bar {
+        border: 0px;
+        .border-radius (0);
+
+        .button {
+            border: 0;
+            background-color: lighten(@ThemeMediumBlue, 10%);
+            background-color: @ThemeDesBlue;
+            color: @White;
+            .border-radius (0);
+
+            &.active {
+                background-color: @ThemeMediumBlue;
+            }
+        }
+    }
 
     .item {
         padding-right: 40px;

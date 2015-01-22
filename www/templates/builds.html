@@ -6,7 +6,7 @@
             on-refresh="fetch()">
         </ion-refresher>
 
-        <div class="button-bar bar-positive padding" ng-init="showBuilds = true">
+        <div class="button-bar" ng-init="showBuilds = true">
             <a class="button" ng-click="showBuilds = !showBuilds" ng-class="{'true': 'active'}[showBuilds]">Builds</a>
             <a class="button" ng-click="showBuilds = !showBuilds" ng-class="{'false': 'active'}[showBuilds]">Pull Requests</a>
         </div>
