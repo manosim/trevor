@@ -9,12 +9,12 @@
         <div class="list">
             <div class="item item-input-inset">
                 <label class="item-input-wrapper">
-                    <input type="text" placeholder="Search Repositories" ng-model="reposFilter">
+                    <input type="text" placeholder="Search Repositories" ng-model="searchReposName">
                 </label>
             </div>
         </div>
 
-        <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-if="repo.active" ng-repeat="repo in repos | filter:reposFilter">
+        <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-if="repo.active" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
             {{repo.short_slug}}
 
             <div class="row">
@@ -23,8 +23,9 @@
             </div>
 
             <span class="badge" ng-if="repo.last_build_state">
-                <i class="icon" ng-class="{'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled'}[repo.last_build_state]"></i>
+                <i class="icon" ng-class="{ 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled'}[repo.last_build_state]"></i>
             </span>
+
         </a>
 
   </ion-content>

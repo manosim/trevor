@@ -14,7 +14,9 @@
                 <div class="row">
                     <div class="col col-50"><p>Build #{{build.number }}</p></div>
                     <div class="col col-50">
-                        <span class="badge"><i class="icon" ng-class="{'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled'}[build.state]"></i></span>
+                        <span class="badge">
+                            <i class="icon" ng-class="{ 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled'}[build.state]"></i>
+                        </span>
                     </div>
                 </div>
 
