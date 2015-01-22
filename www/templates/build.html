@@ -55,7 +55,7 @@
             <div class="item item-divider">Jobs</div>
             <a class="item job" ng-href="#/app/log/{{ job.log_id }}" ng-repeat="job in jobs">
                 <p>Build #{{job.number }}</p>
-                <span class="badge"><i class="icon" ng-class="{'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled'}[job.state]"></i></span>
+                <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled' }[job.state]"></i></span>
             </a>
 
         </div>
