@@ -6,6 +6,11 @@
 
     <ion-content class="accounts">
 
+        <ion-refresher
+            pulling-text="Pull to refresh"
+            on-refresh="fetch()">
+        </ion-refresher>
+
         <a class="item" ng-href="#/app/repos/{{account.login}}" ng-repeat="account in accounts">
             <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.name}}
             <p>{{account.login}}</p>
