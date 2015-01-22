@@ -1,4 +1,5 @@
 angular.module('filters',[
     'filter.convertSeconds',
-    'filter.orderObjectBy'
+    'filter.orderObjectBy',
+    'filter.toggleBuildsPullRequests'
 ]);
