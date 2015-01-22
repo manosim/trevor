@@ -29,9 +29,9 @@ angular.module('travis-mobile', [
     }
 
     RequestService.token = $window.localStorage.travistoken || false;
-    AccountsService.isPro = $window.localStorage.travispro || true;
+    AccountsService.setPro(JSON.parse($window.localStorage.travispro));
 
-    if (AccountsService.isLoggedIn()) {
+    if (AccountsService.isLoggedIn() == "asds") {
         $state.go('app.accounts');
         console.log("Github Token: " + $window.localStorage.githubtoken);
         console.log("Travis Token: " + $window.localStorage.travistoken);

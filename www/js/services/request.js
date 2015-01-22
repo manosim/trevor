@@ -18,11 +18,12 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
                 if (pro === true || pro === "true") {
                     domain = "https://api.travis-ci.com";
                     host = "api.travis-ci.com";
+                    console.log("REQUEST: IS PRO");
                 } else if (pro === false || pro === "false") {
+                    console.log("REQUEST: IS NOT PRO");
                     domain = "https://api.travis-ci.org";
                     host = "api.travis-ci.org";
                 } else {
-                    console.log(typeof pro);
                     alert("ERROR. No domain. Pro is: " + pro);
                 }
 

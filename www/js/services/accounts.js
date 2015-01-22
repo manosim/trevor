@@ -8,7 +8,18 @@ services.factory('AccountsService', function ($window) {
         isPro: true,
 
         getPro: function () {
+            console.log("GETTING PRO");
             return service.isPro;
+        },
+
+        setPro: function (value) {
+            if (value === true) {
+                console.log("SETTING TO PRO");
+                service.isPro = true;
+            } else {
+                console.log("SETTING TO -NOT- PRO");
+                service.isPro = false;
+            }
         },
 
         setAccounts: function (accountsData) {
