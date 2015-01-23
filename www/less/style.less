@@ -123,7 +123,8 @@
     }
 }
 
-.badge {
+.badge,
+.build-number {
     .ion-checkmark-circled::before, .passed { color: @Pass; }
     .ion-ios7-circle-filled::before, .started, .created { color: @Started; } // Same as "Created"
     .ion-close-circled::before, .failed { color: @Fail; }
@@ -373,6 +374,9 @@
             background-color: @ThemeDesBlue;
             color: @White;
             .border-radius (0);
+            font-size: 14px;
+            line-height: 40px;
+            min-height: 40px;
 
             &.active {
                 background-color: @ThemeMediumBlue;
@@ -381,7 +385,8 @@
     }
 
     .item {
-        padding-right: 40px;
+        // padding-right: 40px;
+        padding: 16px 15px 10px 15px;
 
         .badge {
             font-size: 20px;
@@ -391,16 +396,21 @@
         .row {
             padding: 0;
 
-            .col-50 {
-                &:first-child {
-                    padding-left: 0;
-                }
-
-                &:last-child {
-                    padding-right: 0;
-                }
+            .col-100 {
+                padding-left: 0;
+                padding-right: 0;
             }
+        }
 
+        .branch {
+
+            .build-number {
+                float: right;
+            }
+        }
+
+        .duration {
+            float: right;
         }
     }
 }

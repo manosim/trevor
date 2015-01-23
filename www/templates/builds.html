@@ -12,16 +12,24 @@
         </div>
 
         <a class="item" ng-href="#/app/build/{{ build.id }}" ng-repeat="build in builds | with:'pull_request':!showBuilds">
-            {{build.commit.message}}
+            {{ build.commit.message | limitText : true : 35 : '...' }}
 
             <div class="row">
-                <div class="col col-50"><p><i class="icon ion-settings"></i> Build #{{build.number }}</p></div>
-                <div class="col col-50"><p><i class="icon ion-merge"></i> Branch: {{ build.commit.branch }}</p></div>
+                <div class="col col-100">
+                    <p class="branch"><i class="icon ion-merge"></i> Branch: {{ build.commit.branch }}
+                        <span class="build-number" ng-if="build.number">
+                            <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled'}[build.state]"><i class="icon ion-settings"></i> {{ build.number }}</span>
+                        </span>
+                    </p>
+                </div>
             </div>
 
             <div class="row">
-                <div class="col col-50"><p><i class="icon ion-clock"></i> Duration: {{build.duration | convertSeconds }}</p></div>
-                <div class="col col-50"><p><i class="icon ion-calendar"></i> Finished: {{ build.finished_at | date:'d MMM' }}</p></div>
+                <div class="col col-100">
+                    <p class="finished"><i class="icon ion-calendar"></i> Finished on {{ build.finished_at | date:'d MMM' }}
+                        <span class="duration"><i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}</span>
+                    </p>
+                </div>
             </div>
 
             <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled' }[build.state]"></i></span>
