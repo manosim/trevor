@@ -287,6 +287,14 @@
     .item {
         padding-right: 40px;
 
+        &.not-subscribed {
+            opacity: 0.6;
+
+            p span {
+                float: right;
+            }
+        }
+
         .badge {
             background-color: @ThemeDarkBlue;
             .FontOpenSansRegular();

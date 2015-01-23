@@ -4,6 +4,8 @@ app.controller('AccountsCtrl', function($scope, $state, $window, RequestService,
 
     LoadingService.show();
 
+    $scope.pro = AccountsService.getPro();
+
     $scope.fetch = function() {
 
         RequestService
