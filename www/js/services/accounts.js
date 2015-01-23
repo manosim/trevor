@@ -8,18 +8,16 @@ services.factory('AccountsService', function ($window) {
         isPro: true,
 
         getPro: function () {
-            console.log("GETTING PRO");
             return service.isPro;
         },
 
         setPro: function (value) {
-            if (value === true) {
-                console.log("SETTING TO PRO");
-                service.isPro = true;
-            } else {
-                console.log("SETTING TO -NOT- PRO");
+            if (value === false) {
                 service.isPro = false;
+            } else {
+                service.isPro = true;
             }
+            $window.localStorage.travispro = service.isPro;
         },
 
         setAccounts: function (accountsData) {
@@ -35,7 +33,12 @@ services.factory('AccountsService', function ($window) {
         },
 
         isLoggedIn: function () {
-            return ($window.localStorage.travistoken !== undefined);
+            var token = window.localStorage.travistoken;
+            if (token) {
+                console.log("Is logged in.");
+                return true;
+            }
+            return false;
         }
 
     };
