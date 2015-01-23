@@ -14,6 +14,10 @@
         <a class="item" ng-href="#/app/build/{{ build.id }}" ng-repeat="build in builds | with:'pull_request':!showBuilds">
             {{ build.commit.message | limitText : true : 35 : '...' }}
 
+            <div class="row" ng-if="build.pull_request">
+                <div class="col col-100"><p><i class="icon ion-pull-request"></i> Title: {{ build.pull_request_title }}</p></div>
+            </div>
+
             <div class="row">
                 <div class="col col-100">
                     <p class="branch"><i class="icon ion-merge"></i> Branch: {{ build.commit.branch | limitText : true : 22 : '...' }}
