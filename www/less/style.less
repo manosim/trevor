@@ -130,6 +130,17 @@
     .ion-alert-circled::before { color:  @Errored; } // Same as "Canceled"
 }
 
+.no-entries {
+    background-color: @ThemeRed;
+    color: @White;
+    font-size: 18px;
+    text-align: center;
+
+    .icon {
+        font-size: 100px;
+    }
+}
+
 /* @end Miscellaneous */
 
 
@@ -286,6 +297,14 @@
 .accounts {
     .item {
         padding-right: 40px;
+
+        &.not-subscribed {
+            opacity: 0.6;
+
+            p span {
+                float: right;
+            }
+        }
 
         .badge {
             background-color: @ThemeDarkBlue;
