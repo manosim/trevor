@@ -14,10 +14,6 @@
         <a class="item" ng-href="#/app/build/{{ build.id }}" ng-repeat="build in builds | with:'pull_request':!showBuilds">
             {{ build.commit.message | limitText : true : 35 : '...' }}
 
-            <div class="row" ng-if="build.pull_request">
-                <div class="col col-100"><p><i class="icon ion-pull-request"></i> Title: {{ build.pull_request_title }}</p></div>
-            </div>
-
             <div class="row">
                 <div class="col col-100">
                     <p class="branch"><i class="icon ion-merge"></i> Branch: {{ build.commit.branch | limitText : true : 22 : '...' }}
@@ -34,6 +30,10 @@
                         <span class="duration"><i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}</span>
                     </p>
                 </div>
+            </div>
+
+            <div class="row" ng-if="build.pull_request">
+                <div class="col col-100"><p><i class="icon ion-pull-request"></i> <b>#{{ build.pull_request_number }}</b> {{ build.pull_request_title }}</p></div>
             </div>
 
             <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled' }[build.state]"></i></span>
