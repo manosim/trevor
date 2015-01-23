@@ -35,7 +35,7 @@ app.controller('AccountsCtrl', function($scope, $state, $window, RequestService,
     $scope.logOut = function() {
         delete $window.localStorage.githubtoken;
         delete $window.localStorage.travistoken;
-        $window.localStorage.travispro = true;
+        delete $window.localStorage.travispro;
         $state.go('welcome');
     };
 

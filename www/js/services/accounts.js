@@ -11,6 +11,15 @@ services.factory('AccountsService', function ($window) {
             return service.isPro;
         },
 
+        setPro: function (value) {
+            if (value === false) {
+                service.isPro = false;
+            } else {
+                service.isPro = true;
+            }
+            $window.localStorage.travispro = service.isPro;
+        },
+
         setAccounts: function (accountsData) {
             if (service.isLoggedIn()) {
                 service.accounts = accountsData;
@@ -24,7 +33,12 @@ services.factory('AccountsService', function ($window) {
         },
 
         isLoggedIn: function () {
-            return ($window.localStorage.travistoken !== undefined);
+            var token = window.localStorage.travistoken;
+            if (token) {
+                console.log("Is logged in.");
+                return true;
+            }
+            return false;
         }
 
     };
