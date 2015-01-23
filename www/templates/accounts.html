@@ -11,6 +11,13 @@
             on-refresh="fetch()">
         </ion-refresher>
 
+        <div class="row no-entries padding" ng-if="accounts.length < 1">
+            <div class="col col-100 padding">
+                <i class="icon ion-sad"></i>
+                <div class="message">Oops! It seems that there are no accounts. Weird huh?</div>
+            </div>
+        </div>
+
         <a class="item" ng-href="#/app/repos/{{account.login}}" ng-if="pro && account.subscribed" ng-repeat="account in accounts">
             <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.name}}
             <p>{{account.login}}</p>
