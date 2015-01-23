@@ -124,10 +124,10 @@
 }
 
 .badge {
-    .ion-checkmark-circled::before { color: @Pass; }
-    .ion-ios7-circle-filled::before { color: @Started; }
-    .ion-close-circled::before { color: @Fail; }
-    .ion-alert-circled::before { color:  @Errored; } // Same as "Canceled"
+    .ion-checkmark-circled::before, .passed { color: @Pass; }
+    .ion-ios7-circle-filled::before, .started, .created { color: @Started; } // Same as "Created"
+    .ion-close-circled::before, .failed { color: @Fail; }
+    .ion-alert-circled::before, .cancelled, .errored { color:  @Errored; } // Same as "Canceled"
 }
 
 .no-entries {
@@ -327,24 +327,31 @@
     }
 
     .item {
+        padding: 16px 15px 10px 15px;
+
         .badge {
             font-size: 20px;
             right: 10px;
+
+            &.build-badge {
+                font-size: 14px;
+                line-height: 18px;
+                right: 30px;
+            }
         }
 
         .row {
             padding: 0;
+            margin-top: 5px;
 
-            .col-50 {
-                &:first-child {
-                    padding-left: 0;
-                }
+            .col-100 {
+                padding-left: 0;
+                padding-right: 0;
 
-                &:last-child {
-                    padding-right: 0;
+                .duration {
+                    float: right;
                 }
             }
-
         }
     }
 }
