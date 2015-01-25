@@ -1,6 +1,6 @@
 angular.module('controller.build', [])
 
-.controller('BuildCtrl', function($scope, $stateParams, $window, AccountsService, LoadingService, RequestService) {
+.controller('BuildCtrl', function($scope, $stateParams, $window, AccountsService, LoadingService, RequestService, AlertService) {
 
     var buildId = $stateParams.buildid;
     $scope.pro = AccountsService.getPro();
@@ -24,8 +24,7 @@ angular.module('controller.build', [])
             }, function(data) {
 
                 // Failure
-                alert("Failure-Build.");
-                console.log(data);
+                AlertService.raiseAlert("Oops! We couldn't get this build from Travis CI. Please try again.");
                 LoadingService.hide();
 
             })
