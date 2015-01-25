@@ -19,7 +19,7 @@
         </div>
 
         <a class="item" ng-href="#/app/repos/{{account.login}}" ng-if="pro && account.subscribed" ng-repeat="account in accounts">
-            <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.name}}
+            <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.name | limitText : true : 30 : '...'}}
             <p>{{account.login}}</p>
             <span class="badge badge-positive">{{account.repos_count}}</span>
         </a>

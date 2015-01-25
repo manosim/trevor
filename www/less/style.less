@@ -10,6 +10,9 @@
 @Gray: #9c9c9c;
 @DarkGray: #3f3f3f;
 
+@TerminalBackground: #2a2a2a;
+@TerminalText: #F1F1F1;
+
 @Pass: #549e54;
 @Started: #bcaf39;
 @Fail: #b54223;
@@ -63,6 +66,10 @@
 
 .FontOpenSansSemibold() {
     font-family: 'Open Sans - Semibold';
+}
+
+.FontMonospace() {
+    font-family: monospace;
 }
 
 /* @end Typography */
@@ -139,6 +146,28 @@
 
     .icon {
         font-size: 100px;
+    }
+}
+
+.scroll-refresher {
+    background-color: @ThemeRed;
+    color: @White;
+
+    .text-pulling,
+    .icon {
+        color: @White;
+    }
+}
+
+.item-divider {
+    background-color: @ThemeMediumBlue;
+    color: @TerminalText;
+    .FontOpenSansSemibold();
+
+    .build-number {
+        background-color: @White;
+        .border-radius (5px);
+        padding: 0 5px;
     }
 }
 
@@ -297,7 +326,11 @@
 
 .accounts {
     .item {
-        padding-right: 40px;
+        padding: 16px 15px 10px 15px;
+
+        p {
+            margin: 5px 0;
+        }
 
         &.not-subscribed {
             opacity: 0.6;
@@ -323,8 +356,33 @@
 /* @group Repos */
 
 .repos {
+
+    .search {
+        background-color: @ThemeRed;
+
+        .col {
+            padding: 5px 8px;
+        }
+
+        label {
+            background-color: @White;
+        }
+
+        .button {
+            margin: 0;
+            border: 1px solid @TerminalText;
+            .border-radius (5px);
+            height: 34px;
+        }
+
+    }
+
     .list {
         margin-bottom: 0;
+
+        .item-input-inset {
+            background-color: @ThemeRed;
+        }
     }
 
     .item {
@@ -495,12 +553,12 @@
 /* @group Log */
 
 .log {
-    background-color: #2a2a2a;
-    color: #F1F1F1;
+    background-color: @TerminalBackground;
+    color: @TerminalText;
     padding: 10px;
 
     .log-body {
-        font-family: monospace;
+        .FontMonospace();
         font-size: 12px;
     }
 }

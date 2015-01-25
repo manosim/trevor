@@ -13,11 +13,14 @@
             </div>
         </div>
 
-        <div class="list" ng-if="repos.length > 0">
-            <div class="item item-input-inset">
+        <div class="row search" ng-show="repos.length > 0">
+            <div class="col col-80">
                 <label class="item-input-wrapper">
                     <input type="text" placeholder="Search Repositories" ng-model="searchReposName">
                 </label>
+            </div>
+            <div class="col col-20">
+                <button class="button button-small button-full button-light button button-outline" ng-click="searchReposName = ''">Clear</button>
             </div>
         </div>
 
