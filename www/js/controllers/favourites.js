@@ -2,32 +2,34 @@ angular.module('controller.favourites', ['ionic'])
 
 .controller('FavouritesCtrl', function($scope, $stateParams, $window, LoadingService, RequestService, FavouritesService, AccountsService) {
 
-    LoadingService.show();
-
     var favourites = FavouritesService.getFavourites();
-
     $scope.repos = [];
-    angular.forEach(favourites, function(value, key) {
 
-        RequestService
-            .request("GET", '/repos/' + value, true)
-            .then(function(data) {
+    if (favourites.length > 0) {
+        LoadingService.show();
 
-                console.log("Success-Repos!");
-                $scope.repos.push(data.repo);
-                LoadingService.hide();
+        angular.forEach(favourites, function(value, key) {
 
-                console.log($scope.repos);
+            RequestService
+                .request("GET", '/repos/' + value, true)
+                .then(function(data) {
 
-            }, function(data) {
+                    console.log("Success-Repos!");
+                    $scope.repos.push(data.repo);
+                    LoadingService.hide();
 
-                // Failure
-                alert("Failure - Repos.");
-                console.log(data);
-                LoadingService.hide();
+                    console.log($scope.repos);
 
-            });
+                }, function(data) {
 
-    });
+                    // Failure
+                    alert("Failure - Repos.");
+                    console.log(data);
+                    LoadingService.hide();
+
+                });
+
+        });
+    }
 
 });

@@ -11,11 +11,11 @@ services.factory('FavouritesService', function ($window) {
         },
 
         isFavourite: function (id) {
-            angular.forEach(service.favourites, function(value, key) {
-                if (id == value) {
-                    return true;
-                }
-            });
+            var index = service.favourites.indexOf(id);
+
+            if (index > -1) {
+                return true;
+            }
             return false;
         },
 
