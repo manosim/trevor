@@ -1,8 +1,9 @@
 angular.module('controller.build', [])
 
-.controller('BuildCtrl', function($scope, $stateParams, $window, LoadingService, RequestService) {
+.controller('BuildCtrl', function($scope, $stateParams, $window, AccountsService, LoadingService, RequestService) {
 
     var buildId = $stateParams.buildid;
+    $scope.pro = AccountsService.getPro();
 
     LoadingService.show();
 
@@ -38,7 +39,7 @@ angular.module('controller.build', [])
     $scope.fetch();
 
     $scope.openCompare = function() {
-        var compareWindow = window.open($scope.commit.compare_url, '_system', '');
+        var compareWindow = $window.open($scope.commit.compare_url, '_system', '');
     };
 
 });
