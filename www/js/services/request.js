@@ -39,6 +39,10 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
                     headers['Authorization'] = "token " + service.token;
                 }
 
+                if (url.indexOf("logs") > -1) {
+                    headers['Accept'] = "text/plain";
+                }
+
                 $http({
                     url: domain + url,
                     method: method,
