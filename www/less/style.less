@@ -550,7 +550,8 @@
 
 /* @end Build */
 
-/* @group Log */
+
+/* @group Log Page */
 
 .log {
     background-color: @TerminalBackground;
@@ -563,4 +564,58 @@
     }
 }
 
-/* @end Log */
+/* @end Log Page */
+
+
+/* @group About Page */
+
+.about {
+    background-color: @ThemeRed;
+    padding: 20px;
+
+    h3 {
+        .FontOpenSansSemibold();
+        color: @White;
+        text-align: center;
+    }
+
+    p {
+        .FontOpenSansRegular();
+        color: @White;
+        font-size: 16px;
+        padding-bottom: 10px;
+        line-height: 24px;
+
+        b {
+            padding: 0 5px;
+            .border-radius (5px);
+            border: 1px solid @White;
+        }
+    }
+
+    hr {
+        border-bottom: 1px solid @White;
+    }
+
+    .links {
+        .FontOpenSansSemibold();
+        font-size: 18px;
+        color: @White;
+        padding: 0;
+        padding-bottom: 20px;
+
+        .col {
+            padding: 0 5px;
+            text-align: center;
+        }
+    }
+
+    .thankyou-travis {
+        display: block;
+        max-width: 200px;
+        height: auto;
+        margin: 5px auto;
+    }
+}
+
+/* @end About Page */
