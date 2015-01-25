@@ -11,12 +11,11 @@ services.factory('FavouritesService', function ($window) {
         },
 
         isFavourite: function (id) {
-            var index = service.favourites.indexOf(id);
-            if (index > -1) {
-                console.log("Is Favourite.");
-                return true;
-            }
-            console.log("Is NOT Favourite.");
+            angular.forEach(service.favourites, function(value, key) {
+                if (id == value) {
+                    return true;
+                }
+            });
             return false;
         },
 
@@ -39,7 +38,10 @@ services.factory('FavouritesService', function ($window) {
         },
 
         loadFavourites: function () {
-            service.favourites = angular.fromJson($window.localStorage.favourites);
+            var data = angular.fromJson($window.localStorage.favourites);
+            angular.forEach(data, function(value, key) {
+                service.favourites.push(value);
+            });
         },
 
         removeAll: function () {
