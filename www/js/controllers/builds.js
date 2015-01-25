@@ -54,6 +54,7 @@ angular.module('controller.builds', [])
         } else {
             FavouritesService.addFavourite(repoId);
         }
+        $scope.isFavourite = !$scope.isFavourite;
     };
 
 });
