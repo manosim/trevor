@@ -41,7 +41,6 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
 
                 if (url.indexOf("logs") > -1) {
                     headers['Accept'] = "text/plain";
-                    console.log(headers);
                 }
 
                 $http({
