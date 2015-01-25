@@ -26,6 +26,11 @@ services.factory('FavouritesService', function ($window) {
         addFavourite: function (value) {
             service.favourites.push(value);
             service.resaveFavourites();
+
+            // Analytics Tracking
+            if (typeof analytics !== 'undefined'){
+                analytics.trackEvent('Favourites', 'Added Favourite', '');
+            }
         },
 
         removeFavourite: function (value) {
@@ -35,6 +40,11 @@ services.factory('FavouritesService', function ($window) {
                 service.favourites.splice(index, 1);
             }
             service.resaveFavourites();
+
+            // Analytics Tracking
+            if (typeof analytics !== 'undefined'){
+                analytics.trackEvent('Favourites', 'Removed Favourite', '');
+            }
         },
 
         loadFavourites: function () {

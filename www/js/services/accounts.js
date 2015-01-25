@@ -47,6 +47,11 @@ services.factory('AccountsService', function (FavouritesService, $window) {
                 delete $window.localStorage.githubtoken;
                 delete $window.localStorage.travistoken;
                 delete $window.localStorage.travispro;
+
+                // Analytics Tracking
+                if (typeof analytics !== 'undefined'){
+                    analytics.trackEvent('Accounts', 'Logged Out', '');
+                }
             }
         }
 

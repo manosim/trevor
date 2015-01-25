@@ -97,6 +97,12 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
                 $window.localStorage.travistoken = data.access_token;
                 RequestService.token = data.access_token;
                 LoadingService.hide();
+
+                // Analytics Tracking
+                if (typeof analytics !== 'undefined'){
+                    analytics.trackEvent('Accounts', 'Logged In', '');
+                }
+
                 $state.go('app.accounts');
 
             }, function(data) {
