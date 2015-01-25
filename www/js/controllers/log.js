@@ -1,6 +1,6 @@
 angular.module('controller.log', [])
 
-.controller('LogCtrl', function($ionicScrollDelegate, $scope, $stateParams, $window, LoadingService, RequestService) {
+.controller('LogCtrl', function($ionicScrollDelegate, $scope, $stateParams, $window, LoadingService, RequestService, AlertService) {
 
     var logId = $stateParams.logid;
 
@@ -20,8 +20,7 @@ angular.module('controller.log', [])
         }, function(data) {
 
             // Failure
-            alert("Failure-Log.");
-            console.log(data);
+            AlertService.raiseAlert("Oops! We couldn't get this log from Travis CI. Please try again.");
             LoadingService.hide();
 
         });
