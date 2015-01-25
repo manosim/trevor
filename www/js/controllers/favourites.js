@@ -14,16 +14,14 @@ angular.module('controller.favourites', ['ionic'])
                 .request("GET", '/repos/' + value, true)
                 .then(function(data) {
 
-                    console.log("Success-Repos!");
+                    console.log("Success-Favourite Repo!");
                     $scope.repos.push(data.repo);
                     LoadingService.hide();
-
-                    console.log($scope.repos);
 
                 }, function(data) {
 
                     // Failure
-                    alert("Failure - Repos.");
+                    alert("Failure - Favourite Repos.");
                     console.log(data);
                     LoadingService.hide();
 
