@@ -35,7 +35,6 @@ services.factory('AccountsService', function (FavouritesService, $window) {
         isLoggedIn: function () {
             var token = window.localStorage.travistoken;
             if (token) {
-                console.log("Is logged in.");
                 return true;
             }
             return false;
@@ -48,6 +47,11 @@ services.factory('AccountsService', function (FavouritesService, $window) {
                 delete $window.localStorage.githubtoken;
                 delete $window.localStorage.travistoken;
                 delete $window.localStorage.travispro;
+
+                // Analytics Tracking
+                if (typeof analytics !== 'undefined'){
+                    analytics.trackEvent('Accounts', 'Logged Out', '');
+                }
             }
         }
 

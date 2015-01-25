@@ -15,7 +15,7 @@ angular.module('travis-mobile', [
     $ionicConfigProvider.views.maxCache(0);
 })
 
-.run(function($ionicPlatform, AccountsService, RequestService, FavouritesService, $state, $window) {
+.run(function($ionicPlatform, $rootScope, AccountsService, RequestService, FavouritesService, $state, $window) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -28,6 +28,14 @@ angular.module('travis-mobile', [
       StatusBar.styleLightContent();
     }
 
+    // Initialize Google Analytics
+    if (typeof analytics !== 'undefined'){
+        analytics.startTrackerWithId('UA-6891078-46');
+        analytics.trackView('Launched App');
+    } else {
+        console.log("Google Analytics - Unavailable");
+    }
+
     RequestService.token = $window.localStorage.travistoken || false;
     AccountsService.setPro(JSON.parse($window.localStorage.travispro));
 
@@ -37,6 +45,13 @@ angular.module('travis-mobile', [
         console.log("Github Token: " + $window.localStorage.githubtoken);
         console.log("Travis Token: " + $window.localStorage.travistoken);
     }
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        // Log the View Name if it changes
+        if (typeof analytics !== 'undefined'){
+            analytics.trackView(toState.name);
+        }
+    });
 
   });
 })
