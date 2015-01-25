@@ -68,6 +68,10 @@
     font-family: 'Open Sans - Semibold';
 }
 
+.FontMonospace() {
+    font-family: monospace;
+}
+
 /* @end Typography */
 
 /* @group Mixins */
@@ -554,7 +558,7 @@
     padding: 10px;
 
     .log-body {
-        font-family: monospace;
+        .FontMonospace();
         font-size: 12px;
     }
 }

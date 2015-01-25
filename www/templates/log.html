@@ -6,16 +6,9 @@
 
     <ion-content class="log">
 
-        <ion-refresher
-            pulling-text="Pull to refresh"
-            on-refresh="fetch()">
-        </ion-refresher>
-
         <span ng-if="log" class="log-body">{{ log }}</span>
 
         <span ng-if="!log" class="log-body">Oops! It seems that this log has been archived.</span>
-
-        </div>
 
     </ion-content>
 </ion-view>
