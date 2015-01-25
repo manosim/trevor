@@ -1,6 +1,6 @@
 angular.module('controller.favourites', ['ionic'])
 
-.controller('FavouritesCtrl', function($scope, $stateParams, $window, LoadingService, RequestService, FavouritesService, AccountsService) {
+.controller('FavouritesCtrl', function($scope, $stateParams, $window, LoadingService, RequestService, FavouritesService, AccountsService, AlertService) {
 
     var favourites = FavouritesService.getFavourites();
     $scope.repos = [];
@@ -21,8 +21,7 @@ angular.module('controller.favourites', ['ionic'])
                 }, function(data) {
 
                     // Failure
-                    alert("Failure - Favourite Repos.");
-                    console.log(data);
+                    AlertService.raiseAlert("Oops! We couldn't get your favourites' repos info from Travis CI. Please try again.");
                     LoadingService.hide();
 
                 });
