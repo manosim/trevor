@@ -423,6 +423,21 @@
 .build {
 
     .item {
+        padding: 16px 15px 10px 15px;
+
+        &.item-divider {
+            padding: 8px 15px;
+
+            .build-number {
+                .FontOpenSansSemibold();
+                float: right;
+            }
+        }
+
+        .commit-message {
+            white-space: normal;
+            padding-right: 30px;
+        }
 
         .badge {
             font-size: 20px;

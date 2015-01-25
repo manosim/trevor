@@ -8,31 +8,35 @@
 
         <div class="list">
 
-            <div class="item item-divider">Build Details</div>
+            <div class="item item-divider">
+                Build Details
+                <span class="build-number" ng-if="build.number">
+                    <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled'}[build.state]"><i class="icon ion-settings"></i> {{ build.number }}</span>
+                </span>
+            </div>
 
             <div class="item">
+                <div class="commit-message">{{ commit.message }}</div>
+
                 <div class="row">
-                    <div class="col col-50"><p>Build #{{build.number }}</p></div>
-                    <div class="col col-50">
-                        <span class="badge">
-                            <i class="icon" ng-class="{ 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled'}[build.state]"></i>
-                        </span>
+                    <div class="col col-100">
+                        <p class="finished"><i class="icon ion-calendar"></i> Finished on {{ build.finished_at | date:'d MMM' }}
+                            <span class="duration"><i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}</span>
+                        </p>
                     </div>
                 </div>
 
-                <div class="message">{{commit.message}}</div>
-
-                <div class="row">
-                    <div class="col col-50"><p><i class="icon ion-clock"></i> Duration: {{build.duration | convertSeconds }}</p></div>
-                    <div class="col col-50"><p><i class="icon ion-calendar"></i> Finished: {{ build.finished_at | date:'d MMM' }}</p></div>
-                </div>
+                <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled' }[build.state]"></i></span>
             </div>
 
             <div class="item item-divider">Commit Info</div>
             <div class="item commit">
                 <div class="row">
-                    <div class="col col-50"><p><i class="icon ion-merge"></i> Branch: {{ commit.branch }}</p></div>
-                    <div class="col col-50">
+                    <div class="col col-100"><p><i class="icon ion-merge"></i> Branch: {{ commit.branch }}</p></div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-100">
                         <p ng-if="build.pull_request"><i class="icon ion-pull-request"></i> Pull Request: {{ build.pull_request_number }}</span>
                         </p>
                     </div>
