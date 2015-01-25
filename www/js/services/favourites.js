@@ -21,7 +21,7 @@ services.factory('FavouritesService', function ($window) {
         },
 
         resaveFavourites: function () {
-            $window.localStorage.favourites =  angular.toJson(service.favourites);
+            $window.localStorage.favourites = angular.toJson(service.favourites);
         },
 
         addFavourite: function (value) {
