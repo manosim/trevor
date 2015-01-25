@@ -89,7 +89,7 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
         var token = $window.localStorage.githubtoken;
 
         RequestService
-            .request("POST", '/auth/githubs', {github_token: token})
+            .request("POST", '/auth/github', {github_token: token})
             .then(function(data) {
 
                 // Success
