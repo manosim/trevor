@@ -1,6 +1,6 @@
 var services = angular.module('services.request', ['ionic']);
 
-services.factory('RequestService', function (AccountsService, $q, $window, $http) {
+services.factory('RequestService', function (AccountsService, AlertService, $q, $window, $http) {
 
     var service = {
 
@@ -25,6 +25,7 @@ services.factory('RequestService', function (AccountsService, $q, $window, $http
                     host = "api.travis-ci.org";
                 } else {
                     alert("ERROR. No domain. Pro is: " + pro);
+                    AlertService.raiseAlert("Oops! Something went wrong and we couldn't make your request. Please try again.");
                 }
 
                 var headers = {
