@@ -35,7 +35,6 @@ services.factory('AccountsService', function (FavouritesService, $window) {
         isLoggedIn: function () {
             var token = window.localStorage.travistoken;
             if (token) {
-                console.log("Is logged in.");
                 return true;
             }
             return false;
