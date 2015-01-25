@@ -25,7 +25,7 @@ angular.module('travis-mobile', [
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      StatusBar.styleLightContent();
     }
 
     RequestService.token = $window.localStorage.travistoken || false;
