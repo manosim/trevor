@@ -10,6 +10,9 @@
 @Gray: #9c9c9c;
 @DarkGray: #3f3f3f;
 
+@TerminalBackground: #2a2a2a;
+@TerminalText: #F1F1F1;
+
 @Pass: #549e54;
 @Started: #bcaf39;
 @Fail: #b54223;
@@ -509,8 +512,8 @@
 /* @group Log */
 
 .log {
-    background-color: #2a2a2a;
-    color: #F1F1F1;
+    background-color: @TerminalBackground;
+    color: @TerminalText;
     padding: 10px;
 
     .log-body {
