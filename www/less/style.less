@@ -352,8 +352,33 @@
 /* @group Repos */
 
 .repos {
+
+    .search {
+        background-color: @ThemeRed;
+
+        .col {
+            padding: 5px 8px;
+        }
+
+        label {
+            background-color: @White;
+        }
+
+        .button {
+            margin: 0;
+            border: 1px solid @TerminalText;
+            .border-radius (5px);
+            height: 34px;
+        }
+
+    }
+
     .list {
         margin-bottom: 0;
+
+        .item-input-inset {
+            background-color: @ThemeRed;
+        }
     }
 
     .item {
