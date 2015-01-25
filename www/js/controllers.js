@@ -6,4 +6,5 @@ angular.module('controllers',[
     'controller.builds',
     'controller.build',
     'controller.log',
+    'controller.about'
 ]);
