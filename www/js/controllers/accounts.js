@@ -35,11 +35,16 @@ app.controller('AccountsCtrl', function($scope, $state, $window, RequestService,
     $scope.fetch();
 
     $scope.logOut = function() {
-        FavouritesService.removeAll();
-        delete $window.localStorage.githubtoken;
-        delete $window.localStorage.travistoken;
-        delete $window.localStorage.travispro;
+        AccountsService.logOut();
         $state.go('welcome');
     };
+
+});
+
+
+app.controller('LogoutCtrl', function($scope, $state, AccountsService) {
+
+    AccountsService.logOut();
+    $state.go('welcome');
 
 });

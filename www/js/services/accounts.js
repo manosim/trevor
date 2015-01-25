@@ -1,6 +1,6 @@
 var services = angular.module('services.accounts', []);
 
-services.factory('AccountsService', function ($window) {
+services.factory('AccountsService', function (FavouritesService, $window) {
 
     var service = {
 
@@ -20,15 +20,15 @@ services.factory('AccountsService', function ($window) {
             $window.localStorage.travispro = service.isPro;
         },
 
-        setAccounts: function (accountsData) {
-            if (service.isLoggedIn()) {
-                service.accounts = accountsData;
-            }
-        },
-
         getAccounts: function () {
             if (service.isLoggedIn()) {
                 return service.accounts;
+            }
+        },
+
+        setAccounts: function (accountsData) {
+            if (service.isLoggedIn()) {
+                service.accounts = accountsData;
             }
         },
 
@@ -39,6 +39,16 @@ services.factory('AccountsService', function ($window) {
                 return true;
             }
             return false;
+        },
+
+        logOut: function () {
+            if (service.isLoggedIn()) {
+                service.accounts = false;
+                FavouritesService.removeAll();
+                delete $window.localStorage.githubtoken;
+                delete $window.localStorage.travistoken;
+                delete $window.localStorage.travispro;
+            }
         }
 
     };
