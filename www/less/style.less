@@ -584,16 +584,18 @@
         color: @White;
         font-size: 16px;
         padding-bottom: 10px;
+        line-height: 24px;
 
         b {
-            text-decoration: underline;
+            padding: 0 5px;
+            .border-radius (5px);
+            border: 1px solid @White;
         }
     }
 
     hr {
         border-bottom: 1px solid @White;
     }
-
 
     .links {
         .FontOpenSansSemibold();
@@ -614,8 +616,6 @@
         height: auto;
         margin: 5px auto;
     }
-
-
 }
 
 /* @end About Page */
