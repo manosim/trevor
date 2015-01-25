@@ -46,7 +46,7 @@ services.factory('FavouritesService', function ($window) {
 
         removeAll: function () {
             delete $window.localStorage.favourites;
-            service.resaveFavourites();
+            service.favourites = [];
         }
 
     };
