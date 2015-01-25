@@ -1,6 +1,6 @@
 angular.module('controller.repos', ['ionic'])
 
-.controller('ReposCtrl', function($scope, $stateParams, $window, LoadingService, RequestService, AccountsService) {
+.controller('ReposCtrl', function($scope, $stateParams, $window, LoadingService, RequestService, AccountsService, AlertService) {
 
     LoadingService.show();
 
@@ -23,8 +23,7 @@ angular.module('controller.repos', ['ionic'])
             }, function(data) {
 
                 // Failure
-                alert("Failure - Repos.");
-                console.log(data);
+                AlertService.raiseAlert("Oops! We couldn't get your repositories from Travis CI. Please try again.");
                 LoadingService.hide();
 
             })

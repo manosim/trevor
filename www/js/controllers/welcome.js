@@ -1,6 +1,6 @@
 var app = angular.module('controller.welcome', ['ionic']);
 
-app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, LoadingService, AccountsService, RequestService) {
+app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, LoadingService, AccountsService, RequestService, AlertService) {
 
     $scope.pro = true;
 
@@ -78,7 +78,7 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
             }).
             error(function(data, status, headers, config) {
 
-                alert("Failure.");
+                AlertService.raiseAlert("Oops! Something went wrong and we couldn't log you in. Please try again.");
                 console.log(data);
                 LoadingService.hide();
 
@@ -102,8 +102,7 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
             }, function(data) {
 
                 // Failure
-                alert("Failure." + data);
-                console.log(data);
+                AlertService.raiseAlert("Oops! Something went wrong and we couldn't log you in. Please try again.");
                 LoadingService.hide();
 
             });
