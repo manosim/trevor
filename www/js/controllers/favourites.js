@@ -10,16 +10,14 @@ angular.module('controller.favourites', ['ionic'])
     angular.forEach(favourites, function(value, key) {
 
         RequestService
-            .request("GET", '/repos/' + loginId, true)
+            .request("GET", '/repos/' + value, true)
             .then(function(data) {
 
                 console.log("Success-Repos!");
-                angular.forEach(data.repos, function(value, key) {
-                        value.short_slug = value.slug.split(loginId + '/')[1];
-                        $scope.repos.push(value);
-                });
-
+                $scope.repos.push(data.repo);
                 LoadingService.hide();
+
+                console.log($scope.repos);
 
             }, function(data) {
 
