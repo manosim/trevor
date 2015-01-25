@@ -1,6 +1,7 @@
 angular.module('controllers',[
     'controller.welcome',
     'controller.accounts',
+    'controller.favourites',
     'controller.repos',
     'controller.builds',
     'controller.build',

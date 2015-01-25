@@ -3,7 +3,6 @@ var app = angular.module('controller.welcome', ['ionic']);
 app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, LoadingService, AccountsService, RequestService) {
 
     $scope.pro = true;
-    AccountsService.setPro(true);
 
     $scope.togglePro = function() {
         var newPro = !$scope.pro;
@@ -27,6 +26,7 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
 
         if ($scope.pro) {
             options.scope.push("repo");
+            AccountsService.setPro($scope.pro);
         }
 
         //Build the OAuth consent page URL

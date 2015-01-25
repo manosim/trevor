@@ -15,7 +15,7 @@ angular.module('travis-mobile', [
     $ionicConfigProvider.views.maxCache(0);
 })
 
-.run(function($ionicPlatform, AccountsService, RequestService, $state, $window) {
+.run(function($ionicPlatform, AccountsService, RequestService, FavouritesService, $state, $window) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -32,6 +32,7 @@ angular.module('travis-mobile', [
     AccountsService.setPro(JSON.parse($window.localStorage.travispro));
 
     if (AccountsService.isLoggedIn()) {
+        FavouritesService.loadFavourites();
         $state.go('app.accounts');
         console.log("Github Token: " + $window.localStorage.githubtoken);
         console.log("Travis Token: " + $window.localStorage.travistoken);
@@ -61,6 +62,16 @@ angular.module('travis-mobile', [
             'menuContent': {
                 templateUrl: "templates/accounts.html",
                 controller: 'AccountsCtrl'
+            }
+        }
+    })
+
+    .state('app.favourites', {
+        url: "/favourites",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/favourites.html",
+                controller: 'FavouritesCtrl'
             }
         }
     })
