@@ -12,7 +12,7 @@
         </div>
 
         <a class="item" ng-href="#/app/build/{{ build.id }}" ng-repeat="build in builds | with:'pull_request':!showBuilds">
-            {{ build.commit.message | limitText : true : 35 : '...' }}
+            {{ build.commit.message | limitText : true : 30 : '...' }}
 
             <div class="row">
                 <div class="col col-100">
