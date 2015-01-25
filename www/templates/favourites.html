@@ -1,0 +1,45 @@
+<ion-view view-title="Favourites">
+
+    <ion-content class="repos">
+
+        <div class="row no-entries padding" ng-if="repos.length < 1">
+            <div class="col col-100 padding">
+                <i class="icon ion-sad"></i>
+                <div class="message">Oops! It seems that you have no repositories. Weird huh?</div>
+            </div>
+        </div>
+
+        <div class="row search" ng-show="repos.length > 0">
+            <div class="col col-80">
+                <label class="item-input-wrapper">
+                    <input type="text" placeholder="Search Repositories" ng-model="searchReposName">
+                </label>
+            </div>
+            <div class="col col-20">
+                <button class="button button-small button-full button-light button button-outline" ng-click="searchReposName = ''">Clear</button>
+            </div>
+        </div>
+
+        <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-if="repo.active" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
+            {{repo.short_slug}}
+
+            <div class="row">
+                <div class="col col-100">
+                    <p class="build-number"><i class="icon ion-calendar"></i> Finished on {{ repo.last_build_finished_at | date:'d MMM' }}
+                        <span class="duration"><i class="icon ion-clock"></i> Run for {{repo.last_build_duration | convertSeconds }}</span>
+                    </p>
+                </div>
+            </div>
+
+            <span class="badge" ng-if="repo.last_build_state">
+                <i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled'}[repo.last_build_state]"></i>
+            </span>
+
+            <span class="badge build-badge" ng-if="repo.last_build_number">
+                <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled'}[repo.last_build_state]"><i class="icon ion-settings"></i> {{ repo.last_build_number }}</span>
+            </span>
+
+        </a>
+
+  </ion-content>
+</ion-view>

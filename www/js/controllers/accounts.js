@@ -1,6 +1,6 @@
 var app = angular.module('controller.accounts', ['ionic']);
 
-app.controller('AccountsCtrl', function($scope, $state, $window, RequestService, AccountsService, LoadingService) {
+app.controller('AccountsCtrl', function($scope, $state, $window, RequestService, AccountsService, LoadingService, FavouritesService) {
 
     LoadingService.show();
 
@@ -35,6 +35,7 @@ app.controller('AccountsCtrl', function($scope, $state, $window, RequestService,
     $scope.fetch();
 
     $scope.logOut = function() {
+        FavouritesService.removeAll();
         delete $window.localStorage.githubtoken;
         delete $window.localStorage.travistoken;
         delete $window.localStorage.travispro;

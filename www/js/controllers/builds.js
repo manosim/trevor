@@ -1,6 +1,6 @@
 angular.module('controller.builds', [])
 
-.controller('BuildsCtrl', function($scope, $stateParams, $window, RequestService, LoadingService) {
+.controller('BuildsCtrl', function($scope, $stateParams, $window, RequestService, LoadingService, FavouritesService) {
 
     var repoId = $stateParams.repoid;
     var token = $window.localStorage.travistoken;
@@ -45,5 +45,15 @@ angular.module('controller.builds', [])
     };
 
     $scope.fetch();
+
+    $scope.isFavourite = FavouritesService.isFavourite(repoId);
+
+    $scope.addFavourites = function () {
+        if (FavouritesService.isFavourite(repoId)) {
+            FavouritesService.removeFavourite(repoId);
+        } else {
+            FavouritesService.addFavourite(repoId);
+        }
+    };
 
 });
