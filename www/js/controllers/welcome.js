@@ -103,7 +103,6 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
 
                 // Failure
                 AlertService.raiseAlert("Oops! Something went wrong and we couldn't log you in. Please try again.");
-                console.log(data);
                 LoadingService.hide();
 
             });

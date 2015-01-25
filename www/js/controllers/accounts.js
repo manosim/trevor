@@ -1,6 +1,6 @@
 var app = angular.module('controller.accounts', ['ionic']);
 
-app.controller('AccountsCtrl', function($scope, $state, $window, RequestService, AccountsService, LoadingService, FavouritesService) {
+app.controller('AccountsCtrl', function($scope, $state, $window, RequestService, AccountsService, LoadingService, FavouritesService, AlertService) {
 
     LoadingService.show();
 
@@ -21,8 +21,7 @@ app.controller('AccountsCtrl', function($scope, $state, $window, RequestService,
             }, function(data) {
 
                 // Failure
-                alert("Failure-Accounts.");
-                console.log(data);
+                AlertService.raiseAlert("Oops! We couldn't get your accounts from Travis CI. Please try again.");
                 LoadingService.hide();
 
             }).finally(function() {
