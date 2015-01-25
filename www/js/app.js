@@ -93,6 +93,16 @@ angular.module('travis-mobile', [
                 controller: 'BuildCtrl'
             }
         }
+    })
+
+    .state('app.log', {
+        url: "/log/:logid",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/log.html",
+                controller: 'LogCtrl'
+            }
+        }
     });
 
   // if none of the above states are matched, use this as the fallback

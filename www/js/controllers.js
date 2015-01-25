@@ -4,4 +4,5 @@ angular.module('controllers',[
     'controller.repos',
     'controller.builds',
     'controller.build',
+    'controller.log',
 ]);
