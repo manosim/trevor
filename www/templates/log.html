@@ -1,4 +1,9 @@
 <ion-view view-title="Log">
+
+    <ion-nav-buttons side="right">
+      <button class="button button-icon ion-ios7-arrow-up button-dark" ng-click="toTop()" ng-if="log">To Top</button>
+    </ion-nav-buttons>
+
     <ion-content class="log">
 
         <ion-refresher

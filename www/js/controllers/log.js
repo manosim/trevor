@@ -1,6 +1,6 @@
 angular.module('controller.log', [])
 
-.controller('LogCtrl', function($scope, $stateParams, $window, LoadingService, RequestService) {
+.controller('LogCtrl', function($ionicScrollDelegate, $scope, $stateParams, $window, LoadingService, RequestService) {
 
     var logId = $stateParams.logid;
 
@@ -15,6 +15,7 @@ angular.module('controller.log', [])
 
                 console.log("Success-Log with Id!");
                 $scope.log = data;
+                $ionicScrollDelegate.scrollBottom();
 
                 LoadingService.hide();
 
@@ -34,5 +35,9 @@ angular.module('controller.log', [])
     };
 
     $scope.fetch();
+
+    $scope.toTop = function () {
+        $ionicScrollDelegate.scrollTop(true);
+    };
 
 });
