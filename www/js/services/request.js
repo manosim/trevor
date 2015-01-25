@@ -24,7 +24,6 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
                     domain = "https://api.travis-ci.org";
                     host = "api.travis-ci.org";
                 } else {
-                    alert("ERROR. No domain. Pro is: " + pro);
                     AlertService.raiseAlert("Oops! Something went wrong and we couldn't make your request. Please try again.");
                 }
 
