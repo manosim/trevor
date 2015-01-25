@@ -1,6 +1,6 @@
 angular.module('controller.builds', [])
 
-.controller('BuildsCtrl', function($scope, $stateParams, $window, RequestService, LoadingService, FavouritesService) {
+.controller('BuildsCtrl', function($scope, $stateParams, $window, RequestService, LoadingService, FavouritesService, AlertService) {
 
     var repoId = $stateParams.repoid;
     var token = $window.localStorage.travistoken;
@@ -32,8 +32,7 @@ angular.module('controller.builds', [])
             }, function(data) {
 
                 // Failure
-                alert("Failure-Builds.");
-                console.log(data);
+                AlertService.raiseAlert("Oops! We couldn't get this repo's builds from Travis CI. Please try again.");
                 LoadingService.hide();
 
             })
