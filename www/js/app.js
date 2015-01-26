@@ -69,6 +69,7 @@ angular.module('travis-mobile', [
         url: "/app",
         abstract: true,
         templateUrl: "templates/menu.html",
+        controller: 'SidemenuCtrl'
     })
 
     .state('app.accounts', {

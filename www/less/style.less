@@ -105,7 +105,7 @@
     }
 }
 
-.menu {
+.sidemenu {
     .bar {
         background-color: darken(@ThemeRed, 10%);
 
@@ -121,11 +121,23 @@
     .list {
         .item {
             border-color: lighten(@Gray, 10%);
-        }
 
-        .item-content {
-            background-color: darken(@Gray, 5%);
-            color: @White;
+            &.account {
+                .icon::before {
+                    margin-left: 10px;
+                    min-width: 20px;
+                    text-align: center;
+                }
+
+                .item-content {
+                    background-color: darken(@Gray, 10%);
+                }
+            }
+
+            .item-content {
+                background-color: darken(@Gray, 5%);
+                color: @White;
+            }
         }
     }
 }
