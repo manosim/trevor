@@ -6,9 +6,22 @@
 
     <ion-content class="log">
 
-        <span ng-if="log" class="log-body">{{ log }}</span>
+        <div class="row no-entries padding" ng-if="!log">
+            <div class="col col-100 padding">
+                <i class="icon ion-sad"></i>
+                <div class="message">Oops! It seems that there this log has been archived.</div>
+            </div>
+        </div>
 
-        <span ng-if="!log" class="log-body">Oops! It seems that this log has been archived.</span>
+        <div class="log-wrapper">
+            <span ng-if="log" class="log-body">{{ log }}</span>
+
+            <span ng-if="!log" class="log-body">Oops! It seems that this log has been archived.</span>
+
+            <div class="bottom-wrapper" ng-if="log && showRefresh">
+                <button class="button button-block button-outline button-icon icon-left ion-ios7-refresh-outline" ng-click="fetch()">Refresh</button>
+            </div>
+        </div>
 
     </ion-content>
 </ion-view>
