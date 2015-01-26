@@ -71,9 +71,9 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
             success(function(data, status, headers, config) {
 
                 // If access token received, authenticate with Travis
-                $window.localStorage.githubtoken = data.split("&")[0].split("=")[1];
-                console.log("Github Token: " + $window.localStorage.githubtoken);
-                authTravis();
+                var githubtoken = data.split("&")[0].split("=")[1];
+                console.log("Github Token: " + githubtoken);
+                authTravis(githubtoken);
 
             }).
             error(function(data, status, headers, config) {
@@ -85,11 +85,10 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
             });
     }
 
-    function authTravis() {
-        var token = $window.localStorage.githubtoken;
+    function authTravis(githubtoken) {
 
         RequestService
-            .request("POST", '/auth/github', {github_token: token})
+            .request("POST", '/auth/github', {github_token: githubtoken})
             .then(function(data) {
 
                 // Success
