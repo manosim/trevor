@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col col-100">
-                    <p class="build-number"><i class="icon ion-calendar"></i> Finished on {{ repo.last_build_finished_at | date:'d MMM' }}
+                    <p class="build-number"><i class="icon ion-calendar"></i> Finished {{ repo.last_build_finished_at | timeAgo:false }}
                         <span class="duration"><i class="icon ion-clock"></i> Run for {{repo.last_build_duration | convertSeconds }}</span>
                     </p>
                 </div>
