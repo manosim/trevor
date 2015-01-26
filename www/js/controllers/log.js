@@ -4,26 +4,36 @@ angular.module('controller.log', [])
 
     var logId = $stateParams.logid;
 
-    LoadingService.show();
+    $scope.showRefresh = true;
 
-    RequestService
-        .request("GET", '/logs/' + logId, true)
+    $scope.fetch = function() {
 
-        .then(function(data) {
+        LoadingService.show();
 
-            console.log("Success-Log with Id!");
-            $scope.log = data;
-            $ionicScrollDelegate.scrollBottom();
+        RequestService
+            .request("GET", '/logs/' + logId, true)
 
-            LoadingService.hide();
+            .then(function(data) {
 
-        }, function(data) {
+                console.log("Success-Log with Id!");
+                $scope.log = data;
+                $ionicScrollDelegate.scrollBottom(true);
 
-            // Failure
-            AlertService.raiseAlert("Oops! We couldn't get this log from Travis CI. Please try again.");
-            LoadingService.hide();
+                if (data.indexOf("Your build exited with") > -1) {
+                    $scope.showRefresh = false;
+                }
 
-        });
+                LoadingService.hide();
+
+            }, function(data) {
+                // Failure
+                AlertService.raiseAlert("Oops! We couldn't get this log from Travis CI. Please try again.");
+                LoadingService.hide();
+            });
+
+    };
+
+    $scope.fetch();
 
     $scope.toTop = function () {
         $ionicScrollDelegate.scrollTop(true);
