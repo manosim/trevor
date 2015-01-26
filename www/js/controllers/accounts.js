@@ -1,6 +1,6 @@
 var app = angular.module('controller.accounts', ['ionic']);
 
-app.controller('AccountsCtrl', function($scope, $state, $window, RequestService, AccountsService, LoadingService, FavouritesService, AlertService) {
+app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, RequestService, AccountsService, LoadingService, FavouritesService, AlertService) {
 
     LoadingService.show();
 
@@ -16,6 +16,10 @@ app.controller('AccountsCtrl', function($scope, $state, $window, RequestService,
                 console.log("Success-Accounts!");
                 AccountsService.setAccounts(data.accounts);
                 $scope.accounts = data.accounts;
+
+                // Let the sidemenu know that we now have the accounts
+                $rootScope.$broadcast('accountsSet');
+
                 LoadingService.hide();
 
             }, function(data) {

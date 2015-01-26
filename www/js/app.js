@@ -13,6 +13,7 @@ angular.module('travis-mobile', [
 
 .config(function($ionicConfigProvider) {
     $ionicConfigProvider.views.maxCache(0);
+    $ionicConfigProvider.backButton.text('').icon('ion-ios7-arrow-left').previousTitleText(false);
 })
 
 .run(function($ionicPlatform, $rootScope, AccountsService, RequestService, FavouritesService, $state, $window) {
@@ -42,7 +43,6 @@ angular.module('travis-mobile', [
     if (AccountsService.isLoggedIn()) {
         FavouritesService.loadFavourites();
         $state.go('app.accounts');
-        console.log("Github Token: " + $window.localStorage.githubtoken);
         console.log("Travis Token: " + $window.localStorage.travistoken);
     }
 
@@ -69,6 +69,7 @@ angular.module('travis-mobile', [
         url: "/app",
         abstract: true,
         templateUrl: "templates/menu.html",
+        controller: 'SidemenuCtrl'
     })
 
     .state('app.accounts', {

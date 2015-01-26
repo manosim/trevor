@@ -44,7 +44,6 @@ services.factory('AccountsService', function (FavouritesService, $window) {
             if (service.isLoggedIn()) {
                 service.accounts = false;
                 FavouritesService.removeAll();
-                delete $window.localStorage.githubtoken;
                 delete $window.localStorage.travistoken;
                 delete $window.localStorage.travispro;
 
