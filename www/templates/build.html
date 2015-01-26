@@ -18,9 +18,10 @@
             <div class="item">
                 <div class="commit-message">{{ commit.message }}</div>
 
-                <div class="row" ng-if="build.finished_at">
+                <div class="row">
                     <div class="col col-100">
-                        <p><i class="icon ion-calendar"></i> Finished on {{ build.finished_at | date:'d MMM' }}</p>
+                        <p ng-if="build.finished_at"><i class="icon ion-calendar"></i> Finished on {{ build.finished_at | timeAgo }}</p>
+                        <p ng-if="!build.finished_at"><i class="icon ion-calendar"></i> Still Running</p>
                     </div>
                 </div>
 
