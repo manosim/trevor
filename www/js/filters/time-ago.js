@@ -3,7 +3,7 @@ angular.module('filter.timeAgo', [])
 .filter('timeAgo', function () {
 
         return function (time) {
-            if (!time) return "never";
+            if (!time) return "Not yet";
 
             var local = Date.now();
 
