@@ -43,7 +43,6 @@ angular.module('travis-mobile', [
     if (AccountsService.isLoggedIn()) {
         FavouritesService.loadFavourites();
         $state.go('app.accounts');
-        console.log("Github Token: " + $window.localStorage.githubtoken);
         console.log("Travis Token: " + $window.localStorage.travistoken);
     }
 
