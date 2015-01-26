@@ -17,7 +17,7 @@
 
         <ion-content>
             <ion-list>
-                <ion-item nav-clear menu-close href="#/app/accounts"><i class="icon ion-ios7-list-outline"></i> Accounts</ion-item>
+                <ion-item nav-clear menu-close href="#/app/accounts"><i class="icon ion-ios7-person-outline"></i> Accounts</ion-item>
 
                 <ion-item nav-clear menu-close ng-repeat="account in accounts" class="account" ng-href="#/app/repos/{{account.login}}">
                     <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{ account.login }}
