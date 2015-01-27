@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col col-100">
                     <p class="build-number" ng-if="build.finished_at && build.duration">
-                        <i class="icon ion-calendar"></i> Finished {{ build.finished_at | timeAgo }}
+                        <i class="icon ion-calendar"></i> {{ build.finished_at | timeAgo }}
                         <span class="duration"><i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}</span>
                     </p>
                     <p class="build-number" ng-if="!build.finished_at && !build.duration">
