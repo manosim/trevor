@@ -17,7 +17,7 @@ angular.module('controller.log', [])
 
                 console.log("Success-Log with Id!");
                 $scope.log = data;
-                $ionicScrollDelegate.scrollBottom(true);
+                $ionicScrollDelegate.scrollBottom();
 
                 if (data.indexOf("Your build exited with") > -1) {
                     $scope.showRefresh = false;
@@ -37,6 +37,10 @@ angular.module('controller.log', [])
 
     $scope.toTop = function () {
         $ionicScrollDelegate.scrollTop(true);
+    };
+
+    $scope.toBottom = function () {
+        $ionicScrollDelegate.scrollBottom(true);
     };
 
 });
