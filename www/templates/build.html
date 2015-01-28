@@ -67,14 +67,9 @@
 
             <div class="item item-divider">Jobs</div>
 
-            <a class="item item-icon-right job" ng-if="job.finished_at" ng-href="#/app/log/{{ job.log_id }}" ng-repeat="job in jobs">
+            <a class="item item-icon-right job" ng-href="#/app/log/{{ job.log_id }}" ng-repeat="job in jobs">
                 <p>Build #{{ job.number }}</p>
                 <i class="icon ion-ios7-arrow-forward"></i>
-                <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled' }[job.state]"></i></span>
-            </a>
-
-            <a class="item job not-done" ng-if="!job.finished_at" ng-repeat="job in jobs">
-                <p>Build #{{ job.number }}</p>
                 <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled' }[job.state]"></i></span>
             </a>
 
