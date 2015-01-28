@@ -1,7 +1,7 @@
 {
-  "name": "travis-mobile",
+  "name": "Trevor",
   "version": "1.0.0",
-  "description": "travis-mobile: An Ionic project",
+  "description": "Continuous Integration on the go",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
