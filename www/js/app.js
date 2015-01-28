@@ -48,18 +48,19 @@ angular.module('travis-mobile', [
 
     // Rate my app init and settings
     if (window.AppRate) {
-      var customLocale = {};
-      customLocale.title = "Rate Travor";
-      customLocale.message = "Your feedback is important for Trevor! Would you mind taking a moment to rate it? Thank you for your downloading Trevor!";
-      customLocale.cancelButtonLabel = "No, Thanks";
-      customLocale.laterButtonLabel = "Remind Me Later";
-      customLocale.rateButtonLabel = "Rate It Now";
+        var customLocale = {};
+        customLocale.title = "Rate Travor";
+        customLocale.message = "Your feedback is important for Trevor! Would you mind taking a moment to rate it? Thank you for downloading Trevor!";
+        customLocale.cancelButtonLabel = "No, Thanks";
+        customLocale.laterButtonLabel = "Remind Me Later";
+        customLocale.rateButtonLabel = "Rate It Now";
 
-      AppRate.preferences.storeAppURL.ios = '962155187';
-      AppRate.preferences.storeAppURL.android = 'market://details?id=com.iamemmanouil.trevor';
-      AppRate.preferences.usesUntilPrompt = 3;
-      AppRate.preferences.promptAgainForEachNewVersion = true;
-      AppRate.promptForRating();
+        AppRate.preferences.storeAppURL.ios = '962155187';
+        AppRate.preferences.storeAppURL.android = 'market://details?id=com.iamemmanouil.trevor';
+        AppRate.preferences.usesUntilPrompt = 3;
+        AppRate.preferences.promptAgainForEachNewVersion = true;
+        AppRate.preferences.customLocale = customLocale;
+        AppRate.promptForRating();
     }
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
