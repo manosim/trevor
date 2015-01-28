@@ -15,5 +15,9 @@
     "gulp-util": "^2.2.14",
     "gulp-plumber": "^0.6.6",
     "shelljs": "^0.3.0"
-  }
+  },
+  "cordovaPlugins": [
+    "org.apache.cordova.dialogs",
+    "org.apache.cordova.inappbrowser"
+  ]
 }
