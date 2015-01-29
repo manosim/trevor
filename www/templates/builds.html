@@ -11,6 +11,10 @@
             on-refresh="fetch()">
         </ion-refresher>
 
+        <div class="repo-name" ng-if="repoName">
+            <i class="icon ion-social-github"></i> {{ repoName }}
+        </div>
+
         <div class="button-bar" ng-init="showBuilds = true">
             <a class="button" ng-click="showBuilds = !showBuilds" ng-class="{'true': 'active'}[showBuilds]">Builds</a>
             <a class="button" ng-click="showBuilds = !showBuilds" ng-class="{'false': 'active'}[showBuilds]">Pull Requests</a>

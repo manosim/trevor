@@ -20,8 +20,8 @@
             </div>
         </div>
 
-        <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
-            {{repo.slug}}
+        <a class="item" ng-click="goTo(repo.id, repo.short_slug)" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
+            {{repo.short_slug}}
 
             <div class="row">
                 <div class="col col-100">

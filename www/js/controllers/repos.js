@@ -1,6 +1,6 @@
 angular.module('controller.repos', ['ionic'])
 
-.controller('ReposCtrl', function($scope, $stateParams, $window, LoadingService, RequestService, AccountsService, AlertService) {
+.controller('ReposCtrl', function($scope, $state, $stateParams, $window, LoadingService, RequestService, AccountsService, AlertService, MemoryService) {
 
     LoadingService.show();
 
@@ -36,5 +36,10 @@ angular.module('controller.repos', ['ionic'])
     };
 
     $scope.fetch();
+
+    $scope.goTo = function (id, repoName) {
+        MemoryService.setRepoName(repoName);
+        $state.go('app.builds', { repoid: id });
+    };
 
 });
