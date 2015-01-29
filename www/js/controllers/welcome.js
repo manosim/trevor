@@ -49,6 +49,7 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
             if (code) {
                 requestToken(code);
             } else if (error) {
+                AlertService.raiseAlert("Oops! Something went wrong and we couldn't log you in using Github. Please try again.");
                 LoadingService.hide();
             }
 
