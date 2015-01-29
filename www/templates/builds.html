@@ -23,7 +23,7 @@
                 <div class="col col-100">
                     <p class="branch"><i class="icon ion-merge"></i> Branch: {{ build.commit.branch | limitText : true : 22 : '...' }}
                         <span class="build-number" ng-if="build.number">
-                            <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled'}[build.state]"><i class="icon ion-settings"></i> {{ build.number }}</span>
+                            <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled', 'received': 'received' }[build.state]"><i class="icon ion-settings"></i> {{ build.number }}</span>
                         </span>
                     </p>
                 </div>
@@ -45,7 +45,7 @@
                 <div class="col col-100"><p><i class="icon ion-pull-request"></i> <b>#{{ build.pull_request_number }}</b> {{ build.pull_request_title }}</p></div>
             </div>
 
-            <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled' }[build.state]"></i></span>
+            <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios7-circle-filled' }[build.state]"></i></span>
         </a>
 
     </ion-content>

@@ -40,11 +40,11 @@
             </div>
 
             <span class="badge" ng-if="repo.last_build_state">
-                <i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled'}[repo.last_build_state]"></i>
+                <i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios7-circle-filled' }[repo.last_build_state]"></i>
             </span>
 
             <span class="badge build-badge" ng-if="repo.last_build_number">
-                <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled'}[repo.last_build_state]"><i class="icon ion-settings"></i> {{ repo.last_build_number }}</span>
+                <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled', 'received': 'received'}[repo.last_build_state]"><i class="icon ion-settings"></i> {{ repo.last_build_number }}</span>
             </span>
 
         </a>
