@@ -14,7 +14,10 @@
         <div class="row welcome-banner" ng-if="accounts.length > 0">
             <div class="col col-100 padding">
                 <img src="images/travis-mascot.png" class="logo">
-                <div class="message">Welcome to Travis Mobile.</div>
+                <span ng-if="greeting">Hi {{ greeting }}!</span>
+                <span ng-if="!greeting">Welcome to Trevor!</span>
+                <div class="pro" ng-if="pro">You are logged in to Travis Pro.</div>
+                <div class="pro" ng-if="!pro">You are logged in to Travis CI for Open Source.</div>
             </div>
         </div>
 
