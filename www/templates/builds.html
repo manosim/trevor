@@ -39,8 +39,8 @@
                         <i class="icon ion-calendar"></i> {{ build.finished_at | timeAgo }}
                         <span class="duration"><i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}</span>
                     </p>
-                    <p class="build-number" ng-if="!build.finished_at && !build.duration">
-                        <i class="icon ion-calendar"></i> Still Running
+                    <p class="build-status" ng-if="!build.finished_at && !build.duration">
+                        <i class="icon ion-calendar"></i> Status: {{ build.state }}
                     </p>
                 </div>
             </div>
