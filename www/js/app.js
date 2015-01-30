@@ -31,7 +31,7 @@ angular.module('travis-mobile', [
 
     // Initialize Google Analytics
     if (typeof analytics !== 'undefined'){
-        analytics.startTrackerWithId('UA-6891078-46');
+        analytics.startTrackerWithId('UA-59182334-2');
         analytics.trackView('Launched App');
     } else {
         console.log("Google Analytics - Unavailable");
