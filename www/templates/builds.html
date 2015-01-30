@@ -40,7 +40,7 @@
                         <span class="duration"><i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}</span>
                     </p>
                     <p class="build-status" ng-if="!build.finished_at && !build.duration">
-                        <i class="icon ion-calendar"></i> Status: {{ build.state }}
+                        <i class="icon ion-calendar"></i> {{ build.state }}
                     </p>
                 </div>
             </div>

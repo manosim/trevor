@@ -34,7 +34,7 @@
                         <span class="duration"><i class="icon ion-clock"></i> Run for {{repo.last_build_duration | convertSeconds }}</span>
                     </p>
                     <p class="build-status" ng-if="!repo.last_build_finished_at && !repo.last_build_duration">
-                        <i class="icon ion-calendar"></i> Status: {{ repo.last_build_state }}
+                        <i class="icon ion-calendar"></i> {{ repo.last_build_state }}
                     </p>
                 </div>
             </div>
