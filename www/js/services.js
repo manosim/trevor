@@ -3,5 +3,6 @@ angular.module('services',[
     'services.favourites',
     'services.loading',
     'services.request',
-    'services.alert'
+    'services.alert',
+    'services.memory'
 ]);

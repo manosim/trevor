@@ -11,6 +11,10 @@
             on-refresh="fetch()">
         </ion-refresher>
 
+        <div class="repo-name" ng-if="repoName">
+            <i class="icon ion-social-github"></i> {{ repoName }}
+        </div>
+
         <div class="button-bar" ng-init="showBuilds = true">
             <a class="button" ng-click="showBuilds = !showBuilds" ng-class="{'true': 'active'}[showBuilds]">Builds</a>
             <a class="button" ng-click="showBuilds = !showBuilds" ng-class="{'false': 'active'}[showBuilds]">Pull Requests</a>
@@ -23,7 +27,7 @@
                 <div class="col col-100">
                     <p class="branch"><i class="icon ion-merge"></i> Branch: {{ build.commit.branch | limitText : true : 22 : '...' }}
                         <span class="build-number" ng-if="build.number">
-                            <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled'}[build.state]"><i class="icon ion-settings"></i> {{ build.number }}</span>
+                            <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled', 'received': 'received' }[build.state]"><i class="icon ion-settings"></i> {{ build.number }}</span>
                         </span>
                     </p>
                 </div>
@@ -35,8 +39,8 @@
                         <i class="icon ion-calendar"></i> {{ build.finished_at | timeAgo }}
                         <span class="duration"><i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}</span>
                     </p>
-                    <p class="build-number" ng-if="!build.finished_at && !build.duration">
-                        <i class="icon ion-calendar"></i> Still Running
+                    <p class="build-status" ng-if="!build.finished_at && !build.duration">
+                        <i class="icon ion-calendar"></i> {{ build.state }}
                     </p>
                 </div>
             </div>
@@ -45,7 +49,7 @@
                 <div class="col col-100"><p><i class="icon ion-pull-request"></i> <b>#{{ build.pull_request_number }}</b> {{ build.pull_request_title }}</p></div>
             </div>
 
-            <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled' }[build.state]"></i></span>
+            <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios7-circle-filled' }[build.state]"></i></span>
         </a>
 
     </ion-content>

@@ -4,6 +4,7 @@ angular.module('controller.sidemenu', [])
 
     $rootScope.$on('accountsSet', function (event) {
         $scope.accounts = AccountsService.getAccounts();
+        $scope.pro = AccountsService.getPro();
     });
 
 });

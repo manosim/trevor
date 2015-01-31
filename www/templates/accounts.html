@@ -11,6 +11,16 @@
             on-refresh="fetch()">
         </ion-refresher>
 
+        <div class="row welcome-banner" ng-if="accounts.length > 0">
+            <div class="col col-100 padding">
+                <img src="images/travis-mascot.png" class="logo">
+                <span ng-if="greeting">Hi {{ greeting }}!</span>
+                <span ng-if="!greeting">Welcome to Trevor!</span>
+                <div class="pro" ng-if="pro">You are logged in to Travis Pro.</div>
+                <div class="pro" ng-if="!pro">You are logged in to Travis CI for Open Source.</div>
+            </div>
+        </div>
+
         <div class="row no-entries padding" ng-if="accounts.length < 1">
             <div class="col col-100 padding">
                 <i class="icon ion-sad"></i>

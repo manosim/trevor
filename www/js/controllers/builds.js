@@ -1,9 +1,10 @@
 angular.module('controller.builds', [])
 
-.controller('BuildsCtrl', function($scope, $stateParams, $window, RequestService, LoadingService, FavouritesService, AlertService) {
+.controller('BuildsCtrl', function($scope, $stateParams, $window, RequestService, LoadingService, FavouritesService, AlertService, MemoryService) {
 
     var repoId = $stateParams.repoid;
     var token = $window.localStorage.travistoken;
+    $scope.repoName = MemoryService.getRepoName();
 
     LoadingService.show();
 

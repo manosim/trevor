@@ -24,7 +24,7 @@ angular.module('filter.timeAgo', [])
                 HOUR = 3600,
                 DAY = 86400;
 
-            if (offset < MINUTE)               span = [ '', raw ? 'now' : 'about a minute' ];
+            if (offset < MINUTE)               span = [ '', 'about a minute' ];
             else if (offset < (MINUTE * 60))   span = [ Math.round(Math.abs(offset / MINUTE)), 'min' ];
             else if (offset < (HOUR * 24))     span = [ Math.round(Math.abs(offset / HOUR)), 'hour' ];
             else                               span = [ Math.round(Math.abs(offset / DAY)), 'day' ];

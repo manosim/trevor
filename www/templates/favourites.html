@@ -1,11 +1,15 @@
 <ion-view view-title="Favourites">
 
-    <ion-content class="repos">
+    <ion-content class="repos favourites" has-bouncing="false">
 
         <div class="row no-entries padding" ng-if="repos.length < 1">
             <div class="col col-100 padding">
-                <i class="icon ion-sad"></i>
-                <div class="message">Oops! It seems that you have no favourites. You can favourite a repo by pressing the heart icon on its page.</div>
+                <i class="icon ion-happy"></i>
+                <div class="tip">
+                    To favourite a repo tap the heart its builds page.
+                    <img src="images/favourites.png" class="screenshot">
+                </div>
+
             </div>
         </div>
 
@@ -20,8 +24,8 @@
             </div>
         </div>
 
-        <a class="item" ng-href="#/app/builds/{{repo.id}}" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
-            {{repo.slug}}
+        <a class="item" ng-click="goTo(repo.id, repo.short_slug)" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
+            {{repo.short_slug}}
 
             <div class="row">
                 <div class="col col-100">

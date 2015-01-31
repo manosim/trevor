@@ -16,6 +16,7 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, Req
                 console.log("Success-Accounts!");
                 AccountsService.setAccounts(data.accounts);
                 $scope.accounts = data.accounts;
+                $scope.greeting = getGreeting(data.accounts);
 
                 // Let the sidemenu know that we now have the accounts
                 $rootScope.$broadcast('accountsSet');
@@ -40,6 +41,20 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, Req
     $scope.logOut = function() {
         AccountsService.logOut();
         $state.go('welcome');
+    };
+
+    function getGreeting (accounts) {
+        var greeting = false;
+        angular.forEach(accounts, function(account, key) {
+            if (account.type == "user" && !greeting) {
+                if (account.name) {
+                    greeting = account.name
+                } else {
+                    greeting = account.login
+                }
+            }
+        });
+        return greeting;
     };
 
 });

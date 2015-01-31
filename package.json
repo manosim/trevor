@@ -1,7 +1,7 @@
 {
-  "name": "travis-mobile",
+  "name": "Trevor",
   "version": "1.0.0",
-  "description": "travis-mobile: An Ionic project",
+  "description": "Continuous Integration on the go",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
@@ -15,5 +15,15 @@
     "gulp-util": "^2.2.14",
     "gulp-plumber": "^0.6.6",
     "shelljs": "^0.3.0"
-  }
+  },
+  "cordovaPlugins": [
+    "org.apache.cordova.console",
+    "org.apache.cordova.device",
+    "com.ionic.keyboard",
+    "org.apache.cordova.statusbar",
+    "com.danielcwilson.plugins.googleanalytics",
+    "org.pushandplay.cordova.apprate",
+    "org.apache.cordova.dialogs",
+    "org.apache.cordova.inappbrowser"
+  ]
 }

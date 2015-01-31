@@ -97,6 +97,10 @@
 
     .button {
         color: @White;
+
+        &.back-button {
+            padding: 0 5px;
+        }
     }
 
     .title {
@@ -115,7 +119,7 @@
     }
 
     .scroll-content {
-        background-color: darken(@Gray, 5%);
+        background-color: @ThemeDarkBlue;
     }
 
     .list {
@@ -131,8 +135,8 @@
             }
 
             .item-content {
-                padding: 15px 10px;
-                background-color: darken(@Gray, 5%);
+                padding: 12px 10px;
+                background-color: @ThemeDarkBlue;
                 color: @White;
             }
 
@@ -145,7 +149,7 @@
                 }
 
                 .item-content {
-                    background-color: darken(@Gray, 10%);
+                    background-color: darken(@ThemeMediumBlue, 10%);
                 }
             }
 
@@ -156,7 +160,7 @@
 .badge,
 .build-number {
     .ion-checkmark-circled::before, .passed { color: @Pass; }
-    .ion-ios7-circle-filled::before, .started, .created { color: @Started; } // Same as "Created"
+    .ion-ios7-circle-filled::before, .started, .created, .received { color: @Started; } // Same as "Created"
     .ion-close-circled::before, .failed { color: @Fail; }
     .ion-alert-circled::before, .cancelled, .errored { color:  @Errored; } // Same as "Canceled"
 }
@@ -348,6 +352,24 @@
 /* @group Accounts Page */
 
 .accounts {
+
+    .welcome-banner {
+        background-color: @ThemeRed;
+        color: @White;
+        font-size: 18px;
+        text-align: center;
+
+        .logo {
+            display: block;
+            margin: 0px auto;
+            max-width: 125px;
+        }
+
+        .pro {
+            font-size: 14px;
+        }
+    }
+
     .item {
         padding: 16px 15px 10px 15px;
 
@@ -379,6 +401,28 @@
 /* @group Repos */
 
 .repos {
+
+    &.favourites {
+
+        .no-entries {
+            padding: 0;
+
+            .icon {
+                font-size: 65px;
+            }
+
+            .tip {
+                font-size: 16px;
+                padding: 20px;
+
+                .screenshot {
+                    display: block;
+                    margin: 0 auto;
+                    max-width: 250px;
+                }
+            }
+        }
+    }
 
     .search {
         background-color: @ThemeRed;
@@ -422,6 +466,10 @@
             }
         }
 
+        .build-status {
+            text-transform: capitalize;
+        }
+
         .row {
             padding: 0;
             margin-top: 5px;
@@ -444,6 +492,14 @@
 /* @group Builds */
 
 .builds {
+
+    .repo-name {
+        padding: 10px 15px;
+        background-color: @ThemeRed;
+        color: @White;
+        font-size: 16px;
+        text-align: center;
+    }
 
     .button-bar {
         border: 0px;
@@ -490,6 +546,10 @@
             }
         }
 
+        .build-status {
+            text-transform: capitalize;
+        }
+
         .duration {
             float: right;
         }
@@ -529,6 +589,10 @@
             white-space: normal;
         }
 
+        .build-status {
+            text-transform: capitalize;
+        }
+
         .row {
             padding: 0;
 
@@ -565,7 +629,19 @@
             line-height: 22px;
 
             .badge {
-                top: 8px;
+                top: 18px;
+                right: 35px;
+
+                .icon {
+
+                    &::before {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            .ion-ios7-arrow-forward {
+                color: @ThemeGray;
             }
         }
     }
