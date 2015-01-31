@@ -13,7 +13,6 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
     var options = {
         client_id: 'a6adc03baaa25c30292c',
         client_secret: '49c6d6012de3988db2364b49e161f8fe3052e920',
-        redirect_uri: 'http://btnlab.uk/callback.html',
         scope: [
             "user:email", "read:org", "repo_deployment",
             "repo:status", "write:repo_hook"
@@ -31,7 +30,7 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
 
         //Build the OAuth consent page URL
         var githubUrl = 'https://github.com/login/oauth/authorize?';
-        var authUrl = githubUrl + 'client_id=' + options.client_id + '&redirect_uri=' + options.redirect_uri + '&scope=' + options.scope;
+        var authUrl = githubUrl + 'client_id=' + options.client_id + '&scope=' + options.scope;
         var authWindow = $window.open(authUrl, '_blank', 'location=no,toolbar=yes,clearcache=yes');
 
         authWindow.addEventListener('loadstart', function(e) {
