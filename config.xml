@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.iamemmanouil.trevor" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Trevor</name>
-  <description>Continuous Integration on the go</description>
-  <author email="manos@iamemmanouil.com" href="http://www.iamemmanouil.com/">
-      Emmanouil Konstantinidis
-  </author>
-  <content src="index.html"/>
-  <access origin="*"/>
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="BackupWebStorage" value="none"/>
-  <feature name="StatusBar">
-      <param name="ios-package" value="CDVStatusBar" onload="true"/>
-  </feature>
+    <name>Trevor</name>
+    <description>Continuous Integration on the go</description>
+    <author email="manos@iamemmanouil.com" href="http://www.iamemmanouil.com/">Emmanouil Konstantinidis</author>
+    <content src="index.html"/>
+    <access origin="*"/>
+
+    <!-- Preferences -->
+    <preference name="webviewbounce" value="false"/>
+    <preference name="UIWebViewBounce" value="false"/>
+    <preference name="DisallowOverscroll" value="true"/>
+    <preference name="BackupWebStorage" value="none"/>
+
+    <feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" onload="true"/>
+    </feature>
 </widget>
