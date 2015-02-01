@@ -29,6 +29,12 @@ angular.module('travis-mobile', [
       StatusBar.styleLightContent();
     }
 
+    if (window.cordova) {
+        setTimeout(function() {
+            window.navigator.splashscreen.hide();
+        }, 600);
+    }
+
     // Initialize Google Analytics
     if (typeof analytics !== 'undefined'){
         analytics.startTrackerWithId('UA-59182334-2');
