@@ -41,6 +41,16 @@
         <icon src="res/icons/ios/Icon-Small-50@2x.png" width="100" height="100" />
     </platform>
 
+    <!-- Android App Icons & Splash Screens -->
+    <platform name="android">
+        <icon src="res/icons/android/36.png" density="ldpi" />
+        <icon src="res/icons/android/48.png" density="mdpi" />
+        <icon src="res/icons/android/72.png" density="hdpi" />
+        <icon src="res/icons/android/96.png" density="xhdpi" />
+        <icon src="res/icons/android/144.png" density="xxhdpi" />
+        <icon src="res/icons/android/192.png" density="xxxhdpi" />
+    </platform>
+
     <feature name="StatusBar">
         <param name="ios-package" value="CDVStatusBar" onload="true"/>
     </feature>
