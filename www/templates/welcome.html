@@ -1,8 +1,10 @@
 <ion-view hide-nav-bar="true" view-title="Welcome">
-    <ion-content class="welcome" scroll="false">
+    <ion-content class="welcome" has-bouncing="false">
 
         <img class="trevor-logo" src="images/trevor-logo.png">
-        <div class="slogan">Trevor brings <img class="inline-logo" src="images/travis-horizontal.png"> <br />simply everywhere.</div>
+        <div class="slogan">Trevor brings <img class="logo" src="images/travis-horizontal.png"> simply everywhere.</div>
+
+        <div class="switch-tip"><img src="images/switch-tip.png" class="tip"></div>
 
         <ion-toggle class="services" ng-model="pro" toggle-class="toggle-pro" ng-change="togglePro()">
             <div class="service" ng-if="pro">
@@ -11,18 +13,19 @@
             </div>
             <div class="service" ng-if="!pro">
                 Travis CI
-                <div class="desc">Public Repositories</div>
+                <div class="desc">for Open Source</div>
             </div>
         </ion-toggle>
 
         <button class="button button-block button-dark icon-left ion-social-github" ng-click="login()">Login with Github</button>
 
-        <div class="bar bar-footer">
-            <div class="disclaimer">
-                Travis CI and its logo belong to Travis.<br />
-                This is not an official Travis mobile application.
-            </div>
-        </div>
-
     </ion-content>
+
+    <ion-footer-bar class="welcome bar-footer">
+        <div class="disclaimer">
+            Travis CI and its logo belong to Travis.<br />
+            This is not an official Travis mobile application.
+        </div>
+    </ion-footer-bar>
+
 </ion-view>

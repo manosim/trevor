@@ -1,4 +1,4 @@
-/* @group Colors */
+ @group Colors */
 
 @ThemeRed: #A53230;
 @ThemeDarkBlue: #40454F;
@@ -281,20 +281,33 @@
         display: block;
         max-width: 105px;
         height: auto;
-        margin: 25% auto 20px auto;
+        margin: 15% auto 10px auto;
     }
 
     .slogan {
         .FontOpenSansLight();
         font-size: 22px;
-        line-height: 26px;
+        line-height: 22px;
         text-align: center;
         color: @White;
+        margin-top: 20px;
 
-        .inline-logo {
-            display: inline-block;
+        .logo {
+            display: block;
             max-height: 35px;
-            vertical-align: bottom;
+            margin: 3px auto;
+        }
+    }
+
+    .switch-tip {
+        text-align: center;
+        padding: 0 20px;
+        margin: 40px auto 0 auto;
+
+        .tip {
+            display: block;
+            width: 100%;
+            height: auto;
         }
     }
 
@@ -302,7 +315,7 @@
         background: none;
         border: 0;
         color: @White;
-        margin: 50px 0 20px 0;
+        margin: 0 0 20px 0;
 
         &.item {
             padding: 0 102px 0 20px;
@@ -337,20 +350,14 @@
         border: 0;
     }
 
-    .bar-footer {
-
+    &.bar-footer {
         background: none;
         background-color: @ThemeRed;
         border: 0;
 
-
-        height: auto;
-        display: block;
-        z-index: 9999;
-
         .disclaimer {
             display: block;
-            padding: 10px 0;
+            padding: 0;
             .FontOpenSansRegular();
             font-size: 12px;
             color: @White;
@@ -743,4 +750,4 @@
     }
 }
 
-/* @end About Page */
+/* @end About Page
