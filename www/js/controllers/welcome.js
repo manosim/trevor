@@ -2,7 +2,7 @@ var app = angular.module('controller.welcome', ['ionic']);
 
 app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, LoadingService, AccountsService, RequestService, AlertService) {
 
-    $scope.pro = true;
+    $scope.pro = false;
 
     $scope.togglePro = function() {
         var newPro = !$scope.pro;
