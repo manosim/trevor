@@ -7,7 +7,6 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
     $scope.togglePro = function() {
         var newPro = !$scope.pro;
         $scope.pro = newPro;
-        AccountsService.setPro(newPro);
     };
 
     var options = {
@@ -22,10 +21,10 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
     $scope.login = function() {
 
         LoadingService.show();
+        AccountsService.setPro($scope.pro);
 
         if ($scope.pro) {
             options.scope.push("repo");
-            AccountsService.setPro($scope.pro);
         }
 
         //Build the OAuth consent page URL
