@@ -30,7 +30,7 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
         //Build the OAuth consent page URL
         var githubUrl = 'https://github.com/login/oauth/authorize?';
         var authUrl = githubUrl + 'client_id=' + options.client_id + '&scope=' + options.scope;
-        var authWindow = $window.open(authUrl, '_blank', 'location=no,toolbar=yes,clearcache=yes');
+        var authWindow = $window.open(authUrl, '_blank', 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=Close,clearcache=yes');
 
         authWindow.addEventListener('loadstart', function(e) {
             var url = (typeof e.url !== 'undefined' ? e.url : e.originalEvent.url),
