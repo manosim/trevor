@@ -12,10 +12,11 @@
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
 
-    <ion-side-menu side="left" class="sidemenu">
+    <ion-side-menu side="left" class="sidemenu" expose-aside-when="large">
         <ion-header-bar class="bar"><h1 class="title">Menu</h1></ion-header-bar>
 
-        <ion-content>
+        <ion-content has-bouncing="false">
+
             <ion-list>
                 <ion-item nav-clear menu-close href="#/app/accounts"><i class="icon ion-ios7-person-outline"></i> Accounts</ion-item>
 
@@ -31,6 +32,7 @@
                 <ion-item nav-clear menu-close href="#/app/about"><i class="icon ion-ios7-information-outline"></i> About</ion-item>
                 <ion-item nav-clear menu-close href="#/app/logout"><i class="icon ion-log-out"></i> Logout</ion-item>
             </ion-list>
+
         </ion-content>
 
     </ion-side-menu>

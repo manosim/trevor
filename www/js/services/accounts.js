@@ -5,17 +5,17 @@ services.factory('AccountsService', function (FavouritesService, $window) {
     var service = {
 
         accounts: false,
-        isPro: true,
+        isPro: false,
 
         getPro: function () {
             return service.isPro;
         },
 
         setPro: function (value) {
-            if (value === false) {
-                service.isPro = false;
-            } else {
+            if (value === true) {
                 service.isPro = true;
+            } else {
+                service.isPro = false;
             }
             $window.localStorage.travispro = service.isPro;
         },

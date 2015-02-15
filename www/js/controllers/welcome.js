@@ -2,12 +2,11 @@ var app = angular.module('controller.welcome', ['ionic']);
 
 app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, LoadingService, AccountsService, RequestService, AlertService) {
 
-    $scope.pro = true;
+    $scope.pro = false;
 
     $scope.togglePro = function() {
         var newPro = !$scope.pro;
         $scope.pro = newPro;
-        AccountsService.setPro(newPro);
     };
 
     var options = {
@@ -22,16 +21,16 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
     $scope.login = function() {
 
         LoadingService.show();
+        AccountsService.setPro($scope.pro);
 
         if ($scope.pro) {
             options.scope.push("repo");
-            AccountsService.setPro($scope.pro);
         }
 
         //Build the OAuth consent page URL
         var githubUrl = 'https://github.com/login/oauth/authorize?';
         var authUrl = githubUrl + 'client_id=' + options.client_id + '&scope=' + options.scope;
-        var authWindow = $window.open(authUrl, '_blank', 'location=no,toolbar=yes,clearcache=yes');
+        var authWindow = $window.open(authUrl, '_blank', 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=Close,clearcache=yes');
 
         authWindow.addEventListener('loadstart', function(e) {
             var url = (typeof e.url !== 'undefined' ? e.url : e.originalEvent.url),

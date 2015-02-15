@@ -277,18 +277,45 @@
     padding: 10px;
     background-color: @ThemeRed;
 
-    .travis-logo {
+    .trevor-logo {
         display: block;
-        max-width: 165px;
+        max-width: 105px;
         height: auto;
-        margin: 25% auto 20px auto;
+        margin: 15% auto 10px auto;
+    }
+
+    .slogan {
+        .FontOpenSansLight();
+        font-size: 22px;
+        line-height: 22px;
+        text-align: center;
+        color: @White;
+        margin-top: 20px;
+
+        .logo {
+            display: block;
+            max-height: 35px;
+            margin: 3px auto;
+        }
+    }
+
+    .switch-tip {
+        text-align: center;
+        padding: 0 20px;
+        margin: 40px auto 0 auto;
+
+        .tip {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
     }
 
     .services {
         background: none;
         border: 0;
         color: @White;
-        margin: 20px 0;
+        margin: 0 0 20px 0;
 
         &.item {
             padding: 0 102px 0 20px;
@@ -323,24 +350,20 @@
         border: 0;
     }
 
-    .bar-footer {
-
+    &.bar-footer {
         background: none;
         background-color: @ThemeRed;
         border: 0;
-
-
         height: auto;
-        display: block;
-        z-index: 9999;
 
         .disclaimer {
-            display: block;
-            padding: 10px 0;
             .FontOpenSansRegular();
             font-size: 12px;
-            color: @White;
             text-align: center;
+            color: @White;
+            display: block;
+            margin: 0 auto;
+            padding: 0;
         }
     }
 
@@ -403,6 +426,10 @@
 .repos {
 
     &.favourites {
+
+        &.no-favourites {
+            background-color: @ThemeRed;
+        }
 
         .no-entries {
             padding: 0;
@@ -696,6 +723,7 @@
             padding: 0 5px;
             .border-radius (5px);
             border: 1px solid @White;
+            display: inline-block;
         }
     }
 

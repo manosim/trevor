@@ -6,3 +6,5 @@ platforms/
 plugins/
 
 www/css/style.css
+www/css/tablet.css
+

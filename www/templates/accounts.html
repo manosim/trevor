@@ -29,20 +29,20 @@
         </div>
 
         <a class="item" ng-href="#/app/repos/{{account.login}}" ng-if="pro && account.subscribed" ng-repeat="account in accounts">
-            <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.name | limitText : true : 30 : '...'}}
-            <p>{{account.login}}</p>
+            <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.login | limitText : true : 30 : '...'}}
+            <p ng-if="account.name">{{account.name}}</p>
             <span class="badge badge-positive">{{account.repos_count}}</span>
         </a>
 
         <a class="item not-subscribed" ng-if="pro && !account.subscribed" ng-repeat="account in accounts">
-            <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.name}}
-            <p>{{account.login}}<span>Not Subscribed</span></p>
+            <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.login | limitText : true : 30 : '...'}}
+            <p>{{account.name}}<span>Not Subscribed</span></p>
             <span class="badge badge-positive">{{account.repos_count}}</span>
         </a>
 
         <a class="item" ng-href="#/app/repos/{{account.login}}" ng-if="!pro" ng-repeat="account in accounts">
-            <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.name}}
-            <p>{{account.login}}</p>
+            <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{account.login | limitText : true : 30 : '...'}}
+            <p ng-if="account.name">{{account.name}}</p>
             <span class="badge badge-positive">{{account.repos_count}}</span>
         </a>
 

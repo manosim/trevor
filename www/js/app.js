@@ -29,9 +29,15 @@ angular.module('travis-mobile', [
       StatusBar.styleLightContent();
     }
 
+    if (window.cordova) {
+        setTimeout(function() {
+            window.navigator.splashscreen.hide();
+        }, 600);
+    }
+
     // Initialize Google Analytics
     if (typeof analytics !== 'undefined'){
-        analytics.startTrackerWithId('UA-59182334-2');
+        analytics.startTrackerWithId('UA-59790043-2');
         analytics.trackView('Launched App');
     } else {
         console.log("Google Analytics - Unavailable");
@@ -48,7 +54,7 @@ angular.module('travis-mobile', [
         // Rate my app init and settings
         if (window.AppRate) {
             var customLocale = {};
-            customLocale.title = "Rate Travor";
+            customLocale.title = "Rate Trevor";
             customLocale.message = "Your feedback is important for Trevor! Would you mind taking a moment to rate it? Thank you for downloading Trevor!";
             customLocale.cancelButtonLabel = "No, Thanks";
             customLocale.laterButtonLabel = "Remind Me Later";
