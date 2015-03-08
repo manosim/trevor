@@ -1,7 +1,7 @@
 <ion-view view-title="Builds">
 
     <ion-nav-buttons side="right">
-      <button class="button button-icon button-dark" ng-class="{true: 'ion-ios7-heart', false: 'ion-ios7-heart-outline'}[isFavourite]" ng-click="addFavourites()"></button>
+      <button class="button button-icon button-dark" ng-class="{true: 'ion-ios-heart', false: 'ion-ios-heart-outline'}[isFavourite]" ng-click="addFavourites()"></button>
     </ion-nav-buttons>
 
     <ion-content class="builds">
@@ -49,7 +49,7 @@
                 <div class="col col-100"><p><i class="icon ion-pull-request"></i> <b>#{{ build.pull_request_number }}</b> {{ build.pull_request_title }}</p></div>
             </div>
 
-            <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios7-circle-filled' }[build.state]"></i></span>
+            <span class="badge"><i class="icon" ng-class="{ 'created': 'ion-ios-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios-circle-filled' }[build.state]"></i></span>
         </a>
 
     </ion-content>

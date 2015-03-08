@@ -18,18 +18,18 @@
         <ion-content has-bouncing="false">
 
             <ion-list>
-                <ion-item nav-clear menu-close href="#/app/accounts"><i class="icon ion-ios7-person-outline"></i> Accounts</ion-item>
+                <ion-item nav-clear menu-close href="#/app/accounts"><i class="icon ion-ios-person-outline"></i> Accounts</ion-item>
 
                 <ion-item nav-clear menu-close ng-if="pro && account.subscribed" ng-repeat="account in accounts" class="account" ng-href="#/app/repos/{{account.login}}">
-                    <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{ account.login }}
+                    <i class="icon" ng-class="{'user': 'ion-ios-person', 'organization': 'ion-ios-people'}[account.type]"></i> {{ account.login }}
                 </ion-item>
 
                 <ion-item nav-clear menu-close ng-if="!pro" ng-repeat="account in accounts" class="account" ng-href="#/app/repos/{{account.login}}">
-                    <i class="icon" ng-class="{'user': 'ion-ios7-person', 'organization': 'ion-ios7-people'}[account.type]"></i> {{ account.login }} <span class="badge">{{account.repos_count}}</span>
+                    <i class="icon" ng-class="{'user': 'ion-ios-person', 'organization': 'ion-ios-people'}[account.type]"></i> {{ account.login }} <span class="badge">{{account.repos_count}}</span>
                 </ion-item>
 
-                <ion-item nav-clear menu-close href="#/app/favourites"><i class="icon ion-ios7-heart"></i> Favourites</ion-item>
-                <ion-item nav-clear menu-close href="#/app/about"><i class="icon ion-ios7-information-outline"></i> About</ion-item>
+                <ion-item nav-clear menu-close href="#/app/favourites"><i class="icon ion-ios-heart"></i> Favourites</ion-item>
+                <ion-item nav-clear menu-close href="#/app/about"><i class="icon ion-ios-information-outline"></i> About</ion-item>
                 <ion-item nav-clear menu-close href="#/app/logout"><i class="icon ion-log-out"></i> Logout</ion-item>
             </ion-list>
 
