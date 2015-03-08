@@ -13,7 +13,7 @@ angular.module('travis-mobile', [
 
 .config(function($ionicConfigProvider) {
     $ionicConfigProvider.views.maxCache(0);
-    $ionicConfigProvider.backButton.text('').icon('ion-ios7-arrow-left').previousTitleText(false);
+    $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-left').previousTitleText(false);
 })
 
 .run(function($ionicPlatform, $rootScope, AccountsService, RequestService, FavouritesService, $state, $window) {
