@@ -21,10 +21,10 @@
 @TerminalText: #F1F1F1;
 
 @Pass: #3FA75F;
-@Started: #bcaf39;
+@Started: #D2C93B;
 @Fail: #DB423C;
-@Errored: #a8a8a9;
-@Canceled: #a8a8a9;
+@Errored: #A1A0A0;
+@Canceled: #A1A0A0;
 
 /* @end colors */
 
@@ -92,6 +92,31 @@
     -moz-background-clip:    padding;
     -webkit-background-clip: padding-box;
     background-clip:         padding-box;
+}
+
+.BgBuildStatus() {
+
+    &.bg-status-started,
+    &.bg-status-created,
+    &.bg-status-received {
+        background-color: @Started;
+        color: @White;
+    }
+
+    &.bg-status-passed {
+        background-color: @Pass;
+        color: @White;
+    }
+
+    &.bg-status-errored {
+        background-color: @Errored;
+        color: @DarkGray;
+    }
+
+    &.bg-status-canceled {
+        background-color: @Canceled;
+        color: @DarkGray;
+    }
 }
 
 /* @end Mixins */
@@ -515,8 +540,7 @@
         }
 
         .status {
-            background-color: @Pass;
-            color: @White;
+            .BgBuildStatus();
             position: absolute;
             right: 0;
             top: 0;
