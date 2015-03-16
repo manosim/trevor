@@ -14,8 +14,10 @@ angular.module('controller.repos', ['ionic'])
                 console.log("Success-Repos!");
                 $scope.repos = [];
                 angular.forEach(data.repos, function(value, key) {
-                        value.short_slug = value.slug.split(loginId + '/')[1];
+                    value.short_slug = value.slug.split(loginId + '/')[1];
+                    if (value.active != null) {
                         $scope.repos.push(value);
+                    };
                 });
 
                 LoadingService.hide();
