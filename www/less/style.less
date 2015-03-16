@@ -1,3 +1,10 @@
+/* @group Imports */
+
+@import "octicons.less";
+
+/* @end Imports */
+
+
 /* @group Colors */
 
 @ThemeRed: #A53230;
@@ -8,14 +15,14 @@
 
 @White: #FFF;
 @Gray: #9c9c9c;
-@DarkGray: #3f3f3f;
+@DarkGray: #595959;
 
 @TerminalBackground: #2a2a2a;
 @TerminalText: #F1F1F1;
 
-@Pass: #549e54;
+@Pass: #3FA75F;
 @Started: #bcaf39;
-@Fail: #b54223;
+@Fail: #DB423C;
 @Errored: #a8a8a9;
 @Canceled: #a8a8a9;
 
@@ -484,34 +491,51 @@
     }
 
     .item {
-        padding: 16px 15px 10px 15px;
+        .FontOpenSansRegular();
+        padding: 10px 65px 10px 10px;
 
-        .badge {
-            font-size: 20px;
-            right: 10px;
+        .name {
+            .FontOpenSansSemibold();
+            font-size: 16px;
+            color: darken(@DarkGray, 20%);
+            margin: 0 0 3px 3px;
+        }
 
-            &.build-badge {
-                font-size: 14px;
-                line-height: 18px;
-                right: 30px;
+        .build-finished,
+        .build-duration {
+            color: @DarkGray;
+            font-size: 14px;
+            margin: 2px 0;
+
+            .icon {
+                display: inline-block;
+                min-width: 18px;
+                text-align: center;
             }
         }
 
-        .build-status {
-            text-transform: capitalize;
-        }
+        .status {
+            background-color: @Pass;
+            color: @White;
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            padding: 10px 5px;
+            width: 60px;
 
-        .row {
-            padding: 0;
-            margin-top: 5px;
+            .icon {
+                display: block;
+                text-align: center;
+                font-size: 20px;
+                margin: 8px 0;
+            }
 
-            .col-100 {
-                padding-left: 0;
-                padding-right: 0;
-
-                .duration {
-                    float: right;
-                }
+            .build-number {
+                .FontOpenSansSemibold();
+                font-size: 14px;
+                text-align: center;
+                padding: 5px 0;
             }
         }
     }
