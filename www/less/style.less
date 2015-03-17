@@ -665,30 +665,21 @@
             color: @DarkGray;
         }
 
-        .build-finished {
-            font-size: 14px;
-            color: @DarkGray;
-
-        }
-
-        .build-duration {
-            font-size: 14px;
-            color: @DarkGray;
-
-        }
-
-        .build-running {
-            text-transform: capitalize;
-            font-size: 14px;
-        }
-
+        .build-finished,
+        .build-duration,
+        .build-status,
+        .build-started,
         .build-pr {
             font-size: 14px;
-            text-transform: capitalize;
             color: @DarkGray;
+            text-transform: capitalize;
 
+            .icon,
             .octicon {
+                display: inline-block;
                 font-size: 14px;
+                min-width: 18px;
+                text-align: center;
             }
         }
 

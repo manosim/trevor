@@ -40,9 +40,13 @@
                 <i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}
             </div>
 
-            <p class="build-running" ng-if="!build.finished_at && !build.duration">
-                <i class="icon ion-calendar"></i> {{ build.state }}
+            <p class="build-status" ng-if="!build.finished_at && !build.duration">
+                <span class="octicon octicon-hourglass"></span> {{ build.state }}
             </p>
+
+            <div class="build-started" ng-if="!build.finished_at">
+                <i class="icon ion-calendar"></i> {{ build.started_at | timeAgo }}
+            </div>
 
             <div class="build-pr" ng-if="build.pull_request">
                 <span class="octicon octicon-git-pull-request"></span> {{ build.pull_request_number }}: {{ build.pull_request_title }}
