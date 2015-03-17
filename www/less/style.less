@@ -108,6 +108,11 @@
         color: @White;
     }
 
+    &.bg-status-failed {
+        background-color: @Fail;
+        color: @White;
+    }
+
     &.bg-status-errored {
         background-color: @Errored;
         color: @DarkGray;
@@ -116,6 +121,31 @@
     &.bg-status-canceled {
         background-color: @Canceled;
         color: @DarkGray;
+    }
+}
+
+.TextBuildStatus() {
+
+    &.text-status-started,
+    &.text-status-created,
+    &.text-status-received {
+        color: @Started;
+    }
+
+    &.text-status-passed {
+        color: @Pass;
+    }
+
+    &.text-status-failed {
+        color: @Fail;
+    }
+
+    &.text-status-errored {
+        color: @Errored;
+    }
+
+    &.text-status-canceled {
+        color: @Canceled;
     }
 }
 
@@ -601,36 +631,83 @@
     }
 
     .item {
-        // padding-right: 40px;
-        padding: 16px 15px 10px 15px;
+        padding: 10px 10px 10px 60px;
+        .FontOpenSansRegular();
 
-        .badge {
-            font-size: 20px;
-            right: 10px;
+        .name {
+            .FontOpenSansSemibold();
+            font-size: 16px;
+            color: darken(@DarkGray, 20%);
+            text-transform: capitalize;
         }
 
-        .row {
-            padding: 0;
+        .build-number {
+            display: inline-block;
+            font-size: 14px;
+            .FontOpenSansSemibold();
+            .TextBuildStatus();
+            min-width: 50px;
 
-            .col-100 {
-                padding-left: 0;
-                padding-right: 0;
+            .octicon {
+                font-size: 14px;
             }
         }
 
         .branch {
+            display: inline-block;
+            font-size: 14px;
+            color: @DarkGray;
+        }
 
-            .build-number {
-                float: right;
+        .build-finished {
+            font-size: 14px;
+            color: @DarkGray;
+
+        }
+
+        .build-duration {
+            font-size: 14px;
+            color: @DarkGray;
+
+        }
+
+        .build-running {
+            text-transform: capitalize;
+            font-size: 14px;
+        }
+
+        .build-pr {
+            font-size: 14px;
+            text-transform: capitalize;
+            color: @DarkGray;
+
+            .octicon {
+                font-size: 14px;
             }
         }
 
-        .build-status {
-            text-transform: capitalize;
-        }
+        .status {
+            .BgBuildStatus();
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            padding: 10px 5px;
+            width: 45px;
 
-        .duration {
-            float: right;
+            .icon {
+                display: block;
+                text-align: center;
+                font-size: 20px;
+                margin: 8px 0;
+            }
+
+            .build-number {
+                .FontOpenSansSemibold();
+                font-size: 14px;
+                text-align: center;
+                padding: 5px 0;
+            }
         }
     }
 }
