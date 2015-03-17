@@ -30,7 +30,7 @@
 
             <div class="build-number text-status-{{build.state}}"><span class="octicon octicon-tools"></span> {{ build.number }}</div>
 
-            <div class="branch"><span class="octicon octicon-git-branch"></span> Branch: {{ build.commit.branch | limitText : true : 22 : '...' }}</div>
+            <div class="branch"><span class="octicon octicon-git-branch"></span> {{ build.commit.branch }}</div>
 
             <div class="build-finished" ng-if="build.finished_at">
                 <i class="icon ion-calendar"></i> {{ build.finished_at | timeAgo }}

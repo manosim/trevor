@@ -557,16 +557,22 @@
         }
 
         .build-finished,
-        .build-duration {
+        .build-duration,
+        .build-status,
+        .build-started {
             color: @DarkGray;
             font-size: 14px;
             margin: 2px 0;
+            text-transform: capitalize;
 
-            .icon {
+            .icon,
+            .octicon {
                 display: inline-block;
+                font-size: 14px;
                 min-width: 18px;
                 text-align: center;
             }
+
         }
 
         .status {
