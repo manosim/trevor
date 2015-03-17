@@ -22,23 +22,23 @@
 
         <a class="item" ng-href="#/app/build/{{ build.id }}" ng-repeat="build in builds | with:'pull_request':!showBuilds">
 
-            <div class="name">{{ build.commit.message | limitText : true : 30 : '...' }}</div>
+            <div class="name">{{ build.commit.message }}</div>
 
             <div class="status bg-status-{{build.state}}">
                 <i class="icon" ng-class="{ 'created': 'ion-ios-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios-circle-filled' }[build.state]"></i>
                 <span class="octicon" ng-class="{true: 'octicon-git-pull-request', false: 'octicon-repo-push'}[build.pull_request]"></span>
             </div>
 
-            <div class="build-number text-status-{{build.state}}"><span class="octicon octicon-tools"></span> {{ build.number }}</div>
+            <span class="build-number text-status-{{build.state}}"><span class="octicon octicon-tools"></span> {{ build.number }}</span>
 
-            <div class="branch"><span class="octicon octicon-git-branch"></span> {{ build.commit.branch }}</div>
+            <span class="build-duration" ng-if="build.duration">
+                <i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}
+            </span>
+
+            <div class="build-branch"><span class="octicon octicon-git-branch"></span> {{ build.commit.branch }}</div>
 
             <div class="build-finished" ng-if="build.finished_at">
                 <i class="icon ion-calendar"></i> {{ build.finished_at | timeAgo }}
-            </div>
-
-            <div class="build-duration" ng-if="build.duration">
-                <i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}
             </div>
 
             <p class="build-status" ng-if="!build.finished_at && !build.duration">

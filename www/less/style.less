@@ -149,6 +149,12 @@
     }
 }
 
+.TruncateText() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* @end Mixins */
 
 /* @group Miscellaneous */
@@ -677,10 +683,11 @@
             font-size: 16px;
             color: darken(@DarkGray, 20%);
             text-transform: capitalize;
+            .TruncateText();
+            margin-right: 5px;
         }
 
         .build-number {
-            display: inline-block;
             font-size: 14px;
             .FontOpenSansSemibold();
             .TextBuildStatus();
@@ -690,21 +697,14 @@
             }
         }
 
-        .branch {
-            display: inline-block;
-            font-size: 14px;
-            color: @DarkGray;
-            margin-left: 10px;
-        }
-
         .build-finished,
         .build-duration,
         .build-status,
         .build-started,
-        .build-pr {
+        .build-pr,
+        .build-branch {
             font-size: 14px;
             color: @DarkGray;
-            text-transform: capitalize;
 
             .icon,
             .octicon {
