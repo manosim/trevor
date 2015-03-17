@@ -28,22 +28,18 @@
             </div>
         </div>
 
-        <a class="item" ng-href="#/app/repos/{{account.login}}" ng-if="pro && account.subscribed" ng-repeat="account in accounts">
-            <i class="icon" ng-class="{'user': 'ion-ios-person', 'organization': 'ion-ios-people'}[account.type]"></i> {{account.login | limitText : true : 30 : '...'}}
-            <p ng-if="account.name">{{account.name}}</p>
-            <span class="badge badge-positive">{{account.repos_count}}</span>
-        </a>
+        <a class="item" ng-href="#/app/repos/{{account.login}}" ng-class="{false: 'not-subscribed'}[account.subscribed]" ng-repeat="account in accounts">
 
-        <a class="item not-subscribed" ng-if="pro && !account.subscribed" ng-repeat="account in accounts">
-            <i class="icon" ng-class="{'user': 'ion-ios-person', 'organization': 'ion-ios-people'}[account.type]"></i> {{account.login | limitText : true : 30 : '...'}}
-            <p>{{account.name}}<span>Not Subscribed</span></p>
-            <span class="badge badge-positive">{{account.repos_count}}</span>
-        </a>
+            <div class="name">{{ account.login }}</div>
 
-        <a class="item" ng-href="#/app/repos/{{account.login}}" ng-if="!pro" ng-repeat="account in accounts">
-            <i class="icon" ng-class="{'user': 'ion-ios-person', 'organization': 'ion-ios-people'}[account.type]"></i> {{account.login | limitText : true : 30 : '...'}}
-            <p ng-if="account.name">{{account.name}}</p>
-            <span class="badge badge-positive">{{account.repos_count}}</span>
+            <div class="info" ng-if="account.name && account.subscribed">{{ account.name }}</div>
+            <div class="info" ng-if="!account.subscribed">Not Subscribed</div>
+
+            <div class="status">
+                <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
+                <div class="repos-count">{{ account.repos_count }}</div>
+            </div>
+
         </a>
 
     </ion-content>

@@ -460,26 +460,52 @@
     }
 
     .item {
-        padding: 16px 15px 10px 15px;
-
-        p {
-            margin: 5px 0;
-        }
+        .FontOpenSansRegular();
+        padding: 10px 65px 10px 15px;
 
         &.not-subscribed {
             opacity: 0.6;
-
-            p span {
-                float: right;
-            }
         }
 
-        .badge {
-            background-color: @ThemeDarkBlue;
-            .FontOpenSansRegular();
+        .name {
+            .FontOpenSansSemibold();
+            font-size: 16px;
+            color: darken(@DarkGray, 20%);
+            margin: 3px 0;
+        }
+
+        .info {
+            color: @DarkGray;
             font-size: 14px;
-            right: 15px;
-            padding: 2px 6px;
+            margin: 2px 0;
+            text-transform: capitalize;
+        }
+
+        .status {
+            background-color: @ThemeMediumBlue;
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            padding: 10px 5px;
+            width: 60px;
+
+            .icon,
+            .octicon {
+                display: block;
+                text-align: center;
+                font-size: 20px;
+                margin: 5px 0;
+                color: @White;
+            }
+
+            .repos-count {
+                .FontOpenSansSemibold();
+                font-size: 14px;
+                color: @White;
+                text-align: center;
+                margin: 5px 0;
+            }
         }
     }
 }
