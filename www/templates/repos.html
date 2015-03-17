@@ -40,8 +40,8 @@
                 <span class="octicon octicon-hourglass"></span> {{repo.last_build_state }}
             </div>
 
-            <div class="build-started" ng-if="!repo.last_build_finished_at && repo.last_build_started_at">
-                <i class="icon ion-clock"></i> {{ repo.last_build_started_at | timeAgo }}
+            <div class="build-started" ng-if="!repo.last_build_finished_at">
+                <i class="icon ion-clock" ng-if="repo.last_build_started_at"></i> {{ repo.last_build_started_at | timeAgo }}
             </div>
 
             <div class="status bg-status-{{repo.last_build_state}}" ng-if="repo.last_build_state">
