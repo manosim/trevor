@@ -32,8 +32,8 @@
 
             <div class="name">{{ account.login }}</div>
 
-            <div class="info" ng-if="account.name && account.subscribed">{{ account.name }}</div>
-            <div class="info" ng-if="!account.subscribed">Not Subscribed</div>
+            <div class="info" ng-if="!(pro && !account.subscribed)">{{ account.name }}</div>
+            <div class="info" ng-if="pro && !account.subscribed">Not Subscribed</div>
 
             <div class="status">
                 <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
