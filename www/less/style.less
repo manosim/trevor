@@ -689,6 +689,7 @@
             display: inline-block;
             font-size: 14px;
             color: @DarkGray;
+            margin-left: 10px;
         }
 
         .build-finished,
@@ -718,11 +719,16 @@
             padding: 10px 5px;
             width: 45px;
 
-            .icon {
+            .icon,
+            .octicon {
                 display: block;
                 text-align: center;
                 font-size: 20px;
                 margin: 8px 0;
+            }
+
+            .octicon {
+                margin: 15px 0;
             }
 
             .build-number {

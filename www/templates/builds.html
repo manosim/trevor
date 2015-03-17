@@ -26,6 +26,7 @@
 
             <div class="status bg-status-{{build.state}}">
                 <i class="icon" ng-class="{ 'created': 'ion-ios-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios-circle-filled' }[build.state]"></i>
+                <span class="octicon" ng-class="{true: 'octicon-git-pull-request', false: 'octicon-repo-push'}[build.pull_request]"></span>
             </div>
 
             <div class="build-number text-status-{{build.state}}"><span class="octicon octicon-tools"></span> {{ build.number }}</div>
