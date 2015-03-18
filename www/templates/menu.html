@@ -18,19 +18,31 @@
         <ion-content has-bouncing="false">
 
             <ion-list>
-                <ion-item nav-clear menu-close href="#/app/accounts"><i class="icon ion-ios-person-outline"></i> Accounts</ion-item>
 
-                <ion-item nav-clear menu-close ng-if="pro && account.subscribed" ng-repeat="account in accounts" class="account" ng-href="#/app/repos/{{account.login}}">
-                    <i class="icon" ng-class="{'user': 'ion-ios-person', 'organization': 'ion-ios-people'}[account.type]"></i> {{ account.login }}
+                <ion-item nav-clear menu-close href="#/app/accounts">
+                    <span class="octicon octicon-person"></span> Accounts
                 </ion-item>
 
-                <ion-item nav-clear menu-close ng-if="!pro" ng-repeat="account in accounts" class="account" ng-href="#/app/repos/{{account.login}}">
-                    <i class="icon" ng-class="{'user': 'ion-ios-person', 'organization': 'ion-ios-people'}[account.type]"></i> {{ account.login }} <span class="badge">{{account.repos_count}}</span>
+                <ion-item nav-clear menu-close ng-if="(pro && account.subscribed) || !pro" ng-repeat="account in accounts" class="account" ng-href="#/app/repos/{{account.login}}">
+                    {{ account.login }}
+                    <div class="status">
+                        <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
+                        <div class="account-info">{{ account.repos_count }}</div>
+                    </div>
                 </ion-item>
 
-                <ion-item nav-clear menu-close href="#/app/favourites"><i class="icon ion-ios-heart"></i> Favourites</ion-item>
-                <ion-item nav-clear menu-close href="#/app/about"><i class="icon ion-ios-information-outline"></i> About</ion-item>
-                <ion-item nav-clear menu-close href="#/app/logout"><i class="icon ion-log-out"></i> Logout</ion-item>
+                <ion-item nav-clear menu-close href="#/app/favourites">
+                    <i class="icon ion-ios-heart"></i> Favourites
+                </ion-item>
+
+                <ion-item nav-clear menu-close href="#/app/about">
+                    <i class="icon ion-information-circled"></i> About
+                </ion-item>
+
+                <ion-item nav-clear menu-close href="#/app/logout">
+                    <span class="octicon octicon-sign-out"></span> Logout
+                </ion-item>
+
             </ion-list>
 
         </ion-content>
