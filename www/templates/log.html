@@ -20,9 +20,14 @@
             </span>
 
             <span ng-if="!log" class="log-body">Oops! It seems that this log has been archived.</span>
+        </div>
 
-            <div class="bottom-wrapper" ng-if="log && showRefresh">
-                <button class="button button-block button-outline button-icon icon-left ion-ios-refresh-outline" ng-click="fetch()">Refresh</button>
+        <div class="row log-toolbar" ng-if="log">
+            <div class="col" ng-class="{true: 'col-50', false: 'col-100'}[showRefresh]" ng-if="showRefresh">
+                <button class="button button-small button-full button-outline" ng-click="fetch()">Refresh</button>
+            </div>
+            <div class="col" ng-class="{true: 'col-50', false: 'col-100'}[showRefresh]">
+                <button class="button button-small button-full button-outline">Email Log</button>
             </div>
         </div>
 
