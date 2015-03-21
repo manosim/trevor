@@ -11,6 +11,8 @@ var plumber = require('gulp-plumber');
 var path = require('path');
 var stripDebug = require('gulp-strip-debug');
 var uglify = require('gulp-uglify');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 
 gulp.task('concat', function() {
@@ -50,6 +52,15 @@ gulp.task('less', function () {
     }))
     .pipe(gulp.dest('./www/css/'));
 });
+
+
+gulp.task('jshint', function() {
+  return gulp.src(['./www/js/**/*.js', '!./www/js/dist/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish))
+    .pipe(jshint.reporter('fail'));
+});
+
 
 gulp.task('watch', function() {
   gulp.watch('./www/less/**.less', ['less']);
@@ -98,3 +109,4 @@ gulp.task('git-check', function(done) {
 });
 
 gulp.task('release', ['less', 'concat', 'remove-logs', 'uglify']);
+gulp.task('test', ['jshint']);

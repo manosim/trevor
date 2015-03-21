@@ -33,6 +33,6 @@ angular.module('filter.timeAgo', [])
             span = span.join(' ');
 
             return (time <= local) ? span + ' ago' : 'in ' + span;
-        }
+        };
 
-})
+});
