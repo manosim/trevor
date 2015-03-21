@@ -58,6 +58,7 @@ gulp.task('jshint', function() {
   return gulp.src(['./www/js/**/*.js', '!./www/js/dist/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter(stylish));
+    .pipe(jshint.reporter('fail'))
 });
 
 
