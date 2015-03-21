@@ -1,4 +1,4 @@
-Trevor App [![Build Status](https://magnum.travis-ci.com/ekonstantinidis/travis-mobile.svg?token=9QR4ewbqbkEmHps6q5sq&branch=master)](https://magnum.travis-ci.com/ekonstantinidis/travis-mobile)
+Trevor [![Build Status](https://magnum.travis-ci.com/ekonstantinidis/travis-mobile.svg?token=9QR4ewbqbkEmHps6q5sq&branch=master)](https://magnum.travis-ci.com/ekonstantinidis/travis-mobile)
 =====================
 A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
 
@@ -6,6 +6,7 @@ A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
 
 ## Running the app on the browser
 
+    npm install
     ionic serve
     gulp watch
 
