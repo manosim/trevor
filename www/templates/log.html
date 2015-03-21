@@ -1,8 +1,8 @@
 <ion-view view-title="Log">
 
     <ion-nav-buttons side="right">
-      <button class="button button-icon ion-ios7-arrow-up button-dark" ng-click="toTop()" ng-if="log"></button>
-      <button class="button button-icon ion-ios7-arrow-down button-dark" ng-click="toBottom()" ng-if="log"></button>
+      <button class="button button-icon ion-ios-arrow-up button-dark" ng-click="toTop()" ng-if="log"></button>
+      <button class="button button-icon ion-ios-arrow-down button-dark" ng-click="toBottom()" ng-if="log"></button>
     </ion-nav-buttons>
 
     <ion-content class="log">
@@ -20,10 +20,10 @@
             </span>
 
             <span ng-if="!log" class="log-body">Oops! It seems that this log has been archived.</span>
+        </div>
 
-            <div class="bottom-wrapper" ng-if="log && showRefresh">
-                <button class="button button-block button-outline button-icon icon-left ion-ios7-refresh-outline" ng-click="fetch()">Refresh</button>
-            </div>
+        <div class="log-toolbar" ng-if="log && showRefresh">
+            <button class="button button-small button-full button-outline" ng-click="fetch()">Refresh</button>
         </div>
 
     </ion-content>

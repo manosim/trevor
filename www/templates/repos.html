@@ -3,13 +3,14 @@
 
         <ion-refresher
             pulling-text="Pull to refresh"
-            on-refresh="fetch()">
+            on-refresh="fetch()"
+            spinner="ripple">
         </ion-refresher>
 
         <div class="row no-entries padding" ng-if="repos.length < 1">
             <div class="col col-100 padding">
                 <i class="icon ion-happy"></i>
-                <div class="message">It seems that you there no repositories here. Weird huh?</div>
+                <div class="message">It seems that there no active repositories here. Weird huh?</div>
             </div>
         </div>
 
@@ -25,27 +26,29 @@
         </div>
 
         <a class="item" ng-click="goTo(repo.id, repo.short_slug)" ng-if="repo.active" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
-            {{repo.short_slug}}
 
-            <div class="row">
-                <div class="col col-100">
-                    <p class="build-number" ng-if="repo.last_build_finished_at && repo.last_build_duration">
-                        <i class="icon ion-calendar"></i> {{ repo.last_build_finished_at | timeAgo }}
-                        <span class="duration"><i class="icon ion-clock"></i> Run for {{repo.last_build_duration | convertSeconds }}</span>
-                    </p>
-                    <p class="build-status" ng-if="!repo.last_build_finished_at && !repo.last_build_duration">
-                        <i class="icon ion-calendar"></i> {{ repo.last_build_state }}
-                    </p>
-                </div>
+            <div class="name">{{ repo.short_slug }}</div>
+
+            <div class="build-finished" ng-if="repo.last_build_finished_at">
+                <i class="icon ion-calendar"></i> {{ repo.last_build_finished_at | timeAgo }}
             </div>
 
-            <span class="badge" ng-if="repo.last_build_state">
-                <i class="icon" ng-class="{ 'created': 'ion-ios7-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios7-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios7-circle-filled' }[repo.last_build_state]"></i>
-            </span>
+            <div class="build-duration" ng-if="repo.last_build_duration">
+                <i class="icon ion-clock"></i> Run for {{repo.last_build_duration | convertSeconds }}
+            </div>
 
-            <span class="badge build-badge" ng-if="repo.last_build_number">
-                <span ng-class="{ 'created': 'created', 'passed': 'passed', 'started': 'started', 'failed': 'failed', 'errored': 'errored', 'canceled': 'canceled', 'received': 'received'}[repo.last_build_state]"><i class="icon ion-settings"></i> {{ repo.last_build_number }}</span>
-            </span>
+            <div class="build-status" ng-if="!repo.last_build_duration || !repo.last_build_duration">
+                <span class="octicon octicon-hourglass"></span> {{repo.last_build_state }}
+            </div>
+
+            <div class="build-started" ng-if="!repo.last_build_finished_at">
+                <i class="icon ion-clock" ng-if="repo.last_build_started_at"></i> {{ repo.last_build_started_at | timeAgo }}
+            </div>
+
+            <div class="status bg-status-{{repo.last_build_state}}" ng-if="repo.last_build_state">
+                <i class="icon" ng-class="{ 'created': 'ion-ios-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios-circle-filled' }[repo.last_build_state]"></i>
+                <div class="build-number">{{ repo.last_build_number }}</div>
+            </div>
 
         </a>
 
