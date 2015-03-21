@@ -36,12 +36,15 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
                 };
 
                 if (url != "/auth/github") {
-                    headers['Authorization'] = "token " + service.token;
+                    headers.Authorization = "token " + service.token;
                 }
 
                 if (url.indexOf("logs") > -1) {
-                    headers['Accept'] = "text/plain";
+                    headers.Accept = "text/plain";
                 }
+
+                console.log("headers: " + headers);
+                console.log(headers);
 
                 $http({
                     url: domain + url,

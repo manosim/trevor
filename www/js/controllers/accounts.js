@@ -48,14 +48,14 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, Req
         angular.forEach(accounts, function(account, key) {
             if (account.type == "user" && !greeting) {
                 if (account.name) {
-                    greeting = account.name
+                    greeting = account.name;
                 } else {
-                    greeting = account.login
+                    greeting = account.login;
                 }
             }
         });
         return greeting;
-    };
+    }
 
 });
 
