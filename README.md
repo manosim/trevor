@@ -2,6 +2,8 @@ Trevor App [![Build Status](https://magnum.travis-ci.com/ekonstantinidis/travis-
 =====================
 A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
 
+![Trevor App](https://raw.github.com/ekonstantinidis/travis-mobile/master/www/images/press.png)
+
 ## Running the app on the browser
 
     ionic serve
