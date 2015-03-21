@@ -5,6 +5,6 @@ node_modules/
 platforms/
 plugins/
 
-www/css/style.css
-www/css/tablet.css
-
+www/css/*
+www/css/*
+www/js/dist/*
