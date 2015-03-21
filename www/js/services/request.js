@@ -43,9 +43,6 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
                     headers.Accept = "text/plain";
                 }
 
-                console.log("headers: " + headers);
-                console.log(headers);
-
                 $http({
                     url: domain + url,
                     method: method,
