@@ -38,6 +38,18 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, Req
 
     $scope.fetch();
 
+    $scope.shouldDisable = function(subscribed, education) {
+        console.log(subscribed);
+        console.log(education);
+        if (AccountsService.getPro() == false) {
+            return false;
+        }
+        if (subscribed || education) {
+            return false;
+        }
+        return true;
+    };
+
     $scope.logOut = function() {
         AccountsService.logOut();
         $state.go('welcome');

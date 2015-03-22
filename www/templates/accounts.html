@@ -29,12 +29,12 @@
             </div>
         </div>
 
-        <a class="item" ng-href="#/app/repos/{{account.login}}" ng-class="{false: 'not-subscribed'}[account.subscribed]" ng-repeat="account in accounts">
+        <a class="item" ng-href="#/app/repos/{{account.login}}" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts">
 
-            <div class="name">{{ account.login }}</div>
+            <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="pro && account.education"></span></div>
 
-            <div class="info" ng-if="!(pro && !account.subscribed)">{{ account.name }}</div>
-            <div class="info" ng-if="pro && !account.subscribed">Not Subscribed</div>
+            <div class="info" ng-if="!pro || account.subscribed || account.education">{{ account.name }}</div>
+            <div class="info" ng-if="pro && !account.subscribed && !account.education">Not Subscribed</div>
 
             <div class="status">
                 <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
