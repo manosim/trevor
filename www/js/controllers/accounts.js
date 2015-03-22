@@ -39,9 +39,7 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, Req
     $scope.fetch();
 
     $scope.shouldDisable = function(subscribed, education) {
-        console.log(subscribed);
-        console.log(education);
-        if (AccountsService.getPro() == false) {
+        if (!AccountsService.getPro()) {
             return false;
         }
         if (subscribed || education) {
