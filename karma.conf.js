@@ -43,7 +43,14 @@ module.exports = function(config) {
             // 'tests/filters/*.js',
 
             // Templates
-            'www/templates/**/*.html',
+            'www/templates/*.html',
+    ],
+
+
+    // Exclude Files
+    exclude: [
+        'gulpfile.js',
+        'karma.conf.js',
     ],
 
 
