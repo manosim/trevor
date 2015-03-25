@@ -23,7 +23,7 @@
                     <span class="octicon octicon-person"></span> Accounts
                 </ion-item>
 
-                <ion-item nav-clear menu-close ng-if="(pro && account.subscribed) || !pro" ng-repeat="account in accounts" class="account" ng-href="#/app/repos/{{account.login}}">
+                <ion-item nav-clear menu-close ng-if="(pro && account.subscribed) || (pro && account.education) || !pro" ng-repeat="account in accounts" class="account" ng-href="#/app/repos/{{account.login}}">
                     {{ account.login }}
                     <div class="status">
                         <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
