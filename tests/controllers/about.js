@@ -2,7 +2,7 @@
 
 describe("Testing the WelcomeCtrl.", function () {
 
-    var scope, createController;
+    var scope, createController, window;
 
     beforeEach(function(){
 
@@ -13,10 +13,12 @@ describe("Testing the WelcomeCtrl.", function () {
 
             scope = $injector.get('$rootScope');
             controller = $injector.get('$controller');
+            window = $injector.get('$window');
 
             createController = function() {
-                return controller('WelcomeCtrl', {
+                return controller('AboutCtrl', {
                     '$scope' : $injector.get('$rootScope'),
+                    '$window' : window,
                 });
             };
         });
@@ -25,7 +27,13 @@ describe("Testing the WelcomeCtrl.", function () {
 
     it("Should go to the welcome screen.", function () {
 
+        spyOn(window, 'open');
+
         var controller = createController();
+
+        scope.goTo("http://www.iamemmanouil.com/")
+
+        expect(window.open).toHaveBeenCalledWith("http://www.iamemmanouil.com/", "_system");
 
     });
 
