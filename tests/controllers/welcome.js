@@ -2,21 +2,25 @@
 
 describe("Testing the WelcomeCtrl.", function () {
 
-    var scope, createController;
+    var scope, createController, loadingService, accountsService;
 
     beforeEach(function(){
 
         angular.mock.module('trevor');
         angular.mock.module('templates');
 
-        inject(function ($injector) {
+        inject(function ($injector, LoadingService, AccountsService) {
 
             scope = $injector.get('$rootScope');
             controller = $injector.get('$controller');
+            loadingService = LoadingService;
+            accountsService = AccountsService;
 
             createController = function() {
                 return controller('WelcomeCtrl', {
                     '$scope' : $injector.get('$rootScope'),
+                    'LoadingService' : loadingService,
+                    'AccountsService' : accountsService,
                 });
             };
         });
@@ -25,7 +29,19 @@ describe("Testing the WelcomeCtrl.", function () {
 
     it("Should go to the welcome screen.", function () {
 
+        spyOn(loadingService, 'show');
+        spyOn(accountsService, 'setPro');
+
+        expect(scope.pro).toBeFalsy();
+
         var controller = createController();
+
+        scope.togglePro();
+        expect(scope.pro).toBeTruthy();
+
+        scope.login();
+        expect(loadingService.show).toHaveBeenCalled();
+        expect(accountsService.setPro).toHaveBeenCalledWith(scope.pro);
 
     });
 
