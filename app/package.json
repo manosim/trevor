@@ -1,6 +1,6 @@
 {
   "name": "Trevor",
-  "version": "1.0.0",
+  "version": "1.5.1",
   "description": "Continuous Integration on the go",
   "dependencies": {
     "gulp": "^3.5.6",
