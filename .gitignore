@@ -8,3 +8,5 @@ plugins/
 www/css/*
 www/css/*
 www/js/dist/*
+
+npm-debug.log

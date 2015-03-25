@@ -12,3 +12,4 @@ before_script:
 
 script:
   - gulp test
+  - node_modules/karma/bin/karma start --single-run
