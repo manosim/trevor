@@ -4,6 +4,7 @@
 node_modules/
 platforms/
 plugins/
+coverage/
 
 www/css/*
 www/css/*
