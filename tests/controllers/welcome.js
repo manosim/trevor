@@ -2,7 +2,7 @@
 
 describe("Testing the WelcomeCtrl.", function () {
 
-    var scope, createController, loadingService, accountsService;
+    var scope, createController, window, loadingService, accountsService;
 
     beforeEach(function(){
 
@@ -13,12 +13,14 @@ describe("Testing the WelcomeCtrl.", function () {
 
             scope = $injector.get('$rootScope');
             controller = $injector.get('$controller');
+            window = $injector.get('$window');
             loadingService = LoadingService;
             accountsService = AccountsService;
 
             createController = function() {
                 return controller('WelcomeCtrl', {
                     '$scope' : $injector.get('$rootScope'),
+                    '$window' : window,
                     'LoadingService' : loadingService,
                     'AccountsService' : accountsService,
                 });
@@ -31,6 +33,7 @@ describe("Testing the WelcomeCtrl.", function () {
 
         spyOn(loadingService, 'show');
         spyOn(accountsService, 'setPro');
+        spyOn(window.open, 'addEventListener').andReturn("http://www.github.com/?code=123");
 
         expect(scope.pro).toBeFalsy();
 

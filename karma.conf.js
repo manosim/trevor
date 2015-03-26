@@ -42,6 +42,9 @@ module.exports = function(config) {
             // 'tests/services/*.js',
             // 'tests/filters/*.js',
 
+            // Mocks
+            'tests/mocks/*.js',
+
             // Templates
             'www/templates/*.html',
     ],
