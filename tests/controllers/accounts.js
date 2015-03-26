@@ -81,7 +81,7 @@ describe("Testing the AccountsCtrl.", function () {
             "accounts": [
                 {
                     "id": 24446,
-                    "name": "John Doe",
+                    "name": "",
                     "login": "johndoe",
                     "type": "user",
                     "repos_count": 6,
@@ -109,7 +109,7 @@ describe("Testing the AccountsCtrl.", function () {
         httpBackend.flush();
 
         expect(accountsService.getPro()).toBeTruthy();
-        expect(scope.greeting).toBe("John Doe");
+        expect(scope.greeting).toBe("johndoe");
     });
 
 
@@ -144,12 +144,15 @@ describe("Testing the AccountsCtrl.", function () {
 
     it("Should DISABLE if pro and NOT subscribed and NOT education.", function () {
 
-        accountsService.setPro(true);
-
         var controller = createController();
 
+        accountsService.setPro(true);
         var disable = scope.shouldDisable(false, false);
         expect(disable).toBeTruthy();
+
+        accountsService.setPro(false);
+        var disable = scope.shouldDisable(false, false);
+        expect(disable).toBeFalsy();
     });
 
 
