@@ -2,18 +2,19 @@
 
 describe("Testing the AccountsCtrl.", function () {
 
-    var scope, createController, httpBackend, loadingService, accountsService;
+    var scope, createController, httpBackend, loadingService, alertService, accountsService;
 
     beforeEach(function(){
 
         angular.mock.module('trevor');
         angular.mock.module('templates');
 
-        inject(function ($injector, LoadingService, AccountsService) {
+        inject(function ($injector, LoadingService, AlertService, AccountsService) {
 
             scope = $injector.get('$rootScope');
             controller = $injector.get('$controller');
             httpBackend = $injector.get('$httpBackend');
+            alertService = AlertService;
             loadingService = LoadingService;
             accountsService = AccountsService;
 
@@ -21,6 +22,7 @@ describe("Testing the AccountsCtrl.", function () {
                 return controller('AccountsCtrl', {
                     '$scope' : $injector.get('$rootScope'),
                     'LoadingService' : loadingService,
+                    'AlertService' : alertService,
                     'AccountsService' : accountsService,
                 });
             };
@@ -108,6 +110,23 @@ describe("Testing the AccountsCtrl.", function () {
 
         expect(accountsService.getPro()).toBeTruthy();
         expect(scope.greeting).toBe("John Doe");
+    });
+
+
+    it("Should FAIL to get the accounts from Travis CI PRO.", function () {
+
+        accountsService.setPro(true);
+        spyOn(alertService, 'raiseAlert');
+        spyOn(loadingService, 'hide');
+
+        httpBackend.expectGET("https://api.travis-ci.com/accounts?all=true").respond(400, "ERROR.");
+
+        var controller = createController();
+
+        httpBackend.flush();
+
+        expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! We couldn't get your accounts from Travis CI. Please try again.");
+        expect(loadingService.hide).toHaveBeenCalled();
     });
 
 
