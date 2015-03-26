@@ -33,7 +33,6 @@ describe("Testing the WelcomeCtrl.", function () {
 
         spyOn(loadingService, 'show');
         spyOn(accountsService, 'setPro');
-        spyOn(window.open, 'addEventListener').andReturn("http://www.github.com/?code=123");
 
         expect(scope.pro).toBeFalsy();
 
@@ -44,6 +43,7 @@ describe("Testing the WelcomeCtrl.", function () {
 
         scope.login();
         expect(loadingService.show).toHaveBeenCalled();
+
         expect(accountsService.setPro).toHaveBeenCalledWith(scope.pro);
 
     });
