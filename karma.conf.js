@@ -40,7 +40,7 @@ module.exports = function(config) {
             // Tests
             'tests/controllers/*.js',
             // 'tests/services/*.js',
-            // 'tests/filters/*.js',
+            'tests/filters/*.js',
 
             // Mocks
             'tests/mocks/*.js',
