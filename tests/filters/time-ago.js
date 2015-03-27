@@ -24,11 +24,26 @@ describe("Testing the filter time-ago.", function () {
         var baseTime = new Date(2015, 4, 23);
         jasmine.clock().mockDate(baseTime);
 
-        result = filter('timeAgo')("2015-02-23T08:58:03");
-        expect(result).toBe("89 days ago");
+        result = filter('timeAgo')(baseTime - 50);
+        expect(result).toBe(" about a minute ago");
 
-        result = filter('timeAgo')("2014-04-10T08:58:03");
-        expect(result).toBe("408 days ago");
+        result = filter('timeAgo')(baseTime - 2000000);
+        expect(result).toBe("33 mins ago");
+
+        result = filter('timeAgo')(baseTime - 9000000);
+        expect(result).toBe("3 hours ago");
+
+        result = filter('timeAgo')(baseTime - 909000000);
+        expect(result).toBe("11 days ago");
+
+        result = filter('timeAgo')(["hello",  "world"]);
+        expect(result).toBe(undefined);
+
+        result = filter('timeAgo')();
+        expect(result).toBe("Not yet");
+
+        result = filter('timeAgo')("25 March 2015");
+        expect(result).toBe("59 days ago");
 
     });
 
