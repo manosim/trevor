@@ -29,7 +29,17 @@ describe("Testing the AccountsService.", function () {
         windowMock.localStorage.travistoken = "123123123";
         windowMock.localStorage.travispro = true;
 
+        // Mock analytics
+        windowMock.analytics = {
+            trackEvent: function() {
+
+            }
+        }
+
         accountsService.logOut();
+
+        // Re-undefine analytics
+        windowMock.analytics = undefined
 
         windowMock.localStorage.travistoken = "123123123";
         windowMock.localStorage.travispro = true;
@@ -42,6 +52,9 @@ describe("Testing the AccountsService.", function () {
 
         var accounts = accountsService.getAccounts();
         expect(accounts).toBe(data);
+
+
+        // spyOn(window.analytics, 'trackEvent').and.returnValue({})
 
     });
 
