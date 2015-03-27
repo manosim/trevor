@@ -31,6 +31,24 @@ describe("Testing the WelcomeCtrl.", function () {
 
     it("Should go to the welcome screen.", function () {
 
+        // in your test add a mock for window (remember to reset back to normal window after)
+        window.open = function(url, target, settings){
+            return {
+                addEventListener: function(event, callback){
+                    if (event == 'loadstart'){
+                        callback({
+                            url: 'http://www.github.com/?code=123123123',
+                            originalEvent:{},
+
+                        });
+                    } else if (event == 'exit') {
+                        callback();
+                    }
+                },
+                close: function(){}
+            };
+        };
+
         spyOn(loadingService, 'show');
         spyOn(accountsService, 'setPro');
 
