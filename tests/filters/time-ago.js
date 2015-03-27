@@ -21,7 +21,7 @@ describe("Testing the filter time-ago.", function () {
 
         var result;
 
-        var baseTime = new Date(2015, 4, 23);
+        var baseTime = new Date(2015, 4, 23, 18, 00);
         jasmine.clock().mockDate(baseTime);
 
         result = filter('timeAgo')(baseTime - 50);
@@ -43,7 +43,19 @@ describe("Testing the filter time-ago.", function () {
         expect(result).toBe("Not yet");
 
         result = filter('timeAgo')("25 March 2015");
-        expect(result).toBe("59 days ago");
+        expect(result).toBe("60 days ago");
+
+        angular = {
+            isDate : function(time) {
+                return {
+                    getTime: function() {
+
+                    }
+                };
+            }
+        };
+        result = filter('timeAgo')(baseTime);
+        expect(result).toBe(" about a minute ago");
 
     });
 
