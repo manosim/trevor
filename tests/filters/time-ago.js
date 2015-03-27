@@ -21,11 +21,14 @@ describe("Testing the filter time-ago.", function () {
 
         var result;
 
+        var baseTime = new Date(2015, 4, 23);
+        jasmine.clock().mockDate(baseTime);
+
         result = filter('timeAgo')("2015-02-23T08:58:03");
-        expect(result).toBe("32 days ago");
+        expect(result).toBe("89 days ago");
 
         result = filter('timeAgo')("2014-04-10T08:58:03");
-        expect(result).toBe("351 days ago");
+        expect(result).toBe("408 days ago");
 
     });
 
