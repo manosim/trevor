@@ -35,7 +35,7 @@ describe("Testing the WelcomeCtrl.", function () {
     });
 
 
-    it("Should go to the welcome screen.", function () {
+    it("Should try to login the user.", function () {
 
         // in your test add a mock for window (remember to reset back to normal window after)
         window.open = function(url, target, settings){
@@ -90,6 +90,96 @@ describe("Testing the WelcomeCtrl.", function () {
         httpBackend.flush();
         expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! Something went wrong and we couldn't log you in. Please try again.");
 
+
+        // Get travis token should fail
+        scope.login();
+        expect(loadingService.show).toHaveBeenCalled();
+        expect(accountsService.setPro).toHaveBeenCalledWith(scope.pro);
+
+        var data = "abc=def&123";
+        httpBackend.expectPOST("https://github.com/login/oauth/access_token").respond(data);
+        httpBackend.expectPOST("https://api.travis-ci.com/auth/github").respond(400, "ERROR.");
+        httpBackend.flush();
+        expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! Something went wrong and we couldn't log you in. Please try again.");
+
+    });
+
+    it("Should try to login the user.", function () {
+
+        // in your test add a mock for window (remember to reset back to normal window after)
+        window.open = function(url, target, settings){
+            return {
+                addEventListener: function(event, callback){
+                    if (event == 'loadstart'){
+                        callback({
+                            url: 'http://www.github.com/?code=123123123',
+                            originalEvent:{},
+
+                        });
+                    } else if (event == 'exit') {
+                        callback();
+                    }
+                },
+                close: function(){}
+            };
+        };
+
+
+        // Mock analytics
+        window.analytics = {
+            trackEvent: function() {
+
+            }
+        }
+
+        spyOn(loadingService, 'show');
+        spyOn(accountsService, 'setPro');
+        spyOn(alertService, 'raiseAlert');
+        spyOn(state, 'go');
+
+        expect(scope.pro).toBeFalsy();
+
+        var controller = createController();
+
+        scope.togglePro();
+        expect(scope.pro).toBeTruthy();
+
+        // Should login user
+        scope.login();
+        expect(loadingService.show).toHaveBeenCalled();
+        expect(accountsService.setPro).toHaveBeenCalledWith(scope.pro);
+
+        var data = "abc=def&123";
+        httpBackend.expectPOST("https://github.com/login/oauth/access_token").respond(data);
+        var data_travis = { "access_token": "1234567890" };
+        httpBackend.expectPOST("https://api.travis-ci.com/auth/github").respond(data);
+        httpBackend.flush();
+
+        expect(state.go).toHaveBeenCalledWith("app.accounts");
+
+        // Request token should fail
+        scope.login();
+        expect(loadingService.show).toHaveBeenCalled();
+        expect(accountsService.setPro).toHaveBeenCalledWith(scope.pro);
+
+        var data = "abc=def&123";
+        httpBackend.expectPOST("https://github.com/login/oauth/access_token").respond(400, "ERROR.");
+        httpBackend.flush();
+        expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! Something went wrong and we couldn't log you in. Please try again.");
+
+
+        // Get travis token should fail
+        scope.login();
+        expect(loadingService.show).toHaveBeenCalled();
+        expect(accountsService.setPro).toHaveBeenCalledWith(scope.pro);
+
+        var data = "abc=def&123";
+        httpBackend.expectPOST("https://github.com/login/oauth/access_token").respond(data);
+        httpBackend.expectPOST("https://api.travis-ci.com/auth/github").respond(400, "ERROR.");
+        httpBackend.flush();
+        expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! Something went wrong and we couldn't log you in. Please try again.");
+
+        window.analytics = undefined;
 
     });
 
