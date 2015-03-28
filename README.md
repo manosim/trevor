@@ -23,5 +23,7 @@ Then prepare for release for each store.
 
 
 ## Running the tests
+*Gulp* runs jshint and *NPM* runs the karma-jasmine tests.
 
     gulp test
+    npm test
