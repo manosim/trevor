@@ -2,20 +2,21 @@
 
 describe("Testing the WelcomeCtrl.", function () {
 
-    var scope, createController, window, loadingService, accountsService;
+    var scope, createController, window, loadingService, accountsService, alertService;
 
     beforeEach(function(){
 
         angular.mock.module('trevor');
         angular.mock.module('templates');
 
-        inject(function ($injector, LoadingService, AccountsService) {
+        inject(function ($injector, LoadingService, AccountsService, AlertService) {
 
             scope = $injector.get('$rootScope');
             controller = $injector.get('$controller');
             window = $injector.get('$window');
             loadingService = LoadingService;
             accountsService = AccountsService;
+            alertService = AlertService;
 
             createController = function() {
                 return controller('WelcomeCtrl', {
@@ -23,11 +24,13 @@ describe("Testing the WelcomeCtrl.", function () {
                     '$window' : window,
                     'LoadingService' : loadingService,
                     'AccountsService' : accountsService,
+                    'AlertService' : alertService,
                 });
             };
         });
 
     });
+
 
     it("Should go to the welcome screen.", function () {
 
@@ -66,4 +69,36 @@ describe("Testing the WelcomeCtrl.", function () {
 
     });
 
+    it("Should get an error from github.", function () {
+
+        // in your test add a mock for window (remember to reset back to normal window after)
+        window.open = function(url, target, settings){
+            return {
+                addEventListener: function(event, callback){
+                    if (event == 'loadstart'){
+                        callback({
+                            url: 'http://www.github.com/?error=Ooops',
+                            originalEvent:{},
+
+                        });
+                    } else if (event == 'exit') {
+                        callback();
+                    }
+                },
+                close: function(){}
+            };
+        };
+
+        spyOn(alertService, 'raiseAlert');
+        spyOn(accountsService, 'setPro');
+
+        expect(scope.pro).toBeFalsy();
+
+        var controller = createController();
+
+        scope.login();
+
+        expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! Something went wrong and we couldn't log you in using Github. Please try again.");
+
+    });
 });
