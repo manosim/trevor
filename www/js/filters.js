@@ -1,6 +1,6 @@
 angular.module('filters',[
     'filter.convertSeconds',
     'filter.orderObjectBy',
-    'filter.toggleBuildsPullRequests',
+    'filter.toggleTo',
     'filter.timeAgo'
 ]);
