@@ -2,7 +2,7 @@
 
 describe("Testing the WelcomeCtrl.", function () {
 
-    var scope, createController, window, loadingService, accountsService, alertService;
+    var scope, state, createController, window, httpBackend, loadingService, accountsService, alertService;
 
     beforeEach(function(){
 
@@ -12,8 +12,10 @@ describe("Testing the WelcomeCtrl.", function () {
         inject(function ($injector, LoadingService, AccountsService, AlertService) {
 
             scope = $injector.get('$rootScope');
+            state = $injector.get('$state');
             controller = $injector.get('$controller');
             window = $injector.get('$window');
+            httpBackend = $injector.get('$httpBackend');
             loadingService = LoadingService;
             accountsService = AccountsService;
             alertService = AlertService;
@@ -21,6 +23,7 @@ describe("Testing the WelcomeCtrl.", function () {
             createController = function() {
                 return controller('WelcomeCtrl', {
                     '$scope' : $injector.get('$rootScope'),
+                    '$state' : $injector.get('$state'),
                     '$window' : window,
                     'LoadingService' : loadingService,
                     'AccountsService' : accountsService,
@@ -54,6 +57,8 @@ describe("Testing the WelcomeCtrl.", function () {
 
         spyOn(loadingService, 'show');
         spyOn(accountsService, 'setPro');
+        spyOn(alertService, 'raiseAlert');
+        spyOn(state, 'go');
 
         expect(scope.pro).toBeFalsy();
 
@@ -62,10 +67,29 @@ describe("Testing the WelcomeCtrl.", function () {
         scope.togglePro();
         expect(scope.pro).toBeTruthy();
 
+        // Should login user
         scope.login();
         expect(loadingService.show).toHaveBeenCalled();
-
         expect(accountsService.setPro).toHaveBeenCalledWith(scope.pro);
+
+        var data = "abc=def&123";
+        httpBackend.expectPOST("https://github.com/login/oauth/access_token").respond(data);
+        var data_travis = { "access_token": "1234567890" };
+        httpBackend.expectPOST("https://api.travis-ci.com/auth/github").respond(data);
+        httpBackend.flush();
+
+        expect(state.go).toHaveBeenCalledWith("app.accounts");
+
+        // Request token should fail
+        scope.login();
+        expect(loadingService.show).toHaveBeenCalled();
+        expect(accountsService.setPro).toHaveBeenCalledWith(scope.pro);
+
+        var data = "abc=def&123";
+        httpBackend.expectPOST("https://github.com/login/oauth/access_token").respond(400, "ERROR.");
+        httpBackend.flush();
+        expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! Something went wrong and we couldn't log you in. Please try again.");
+
 
     });
 
