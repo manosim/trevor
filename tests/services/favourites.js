@@ -19,7 +19,7 @@ describe("Testing the FavouritesService.", function () {
 
     });
 
-    it("Should get the accounts from the service.", function () {
+    it("Should add and remove favourites.", function () {
 
         var favourites;
 
