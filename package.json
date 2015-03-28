@@ -32,11 +32,11 @@
     "org.apache.cordova.device",
     "com.ionic.keyboard",
     "org.apache.cordova.statusbar",
+    "org.apache.cordova.splashscreen",
     "com.danielcwilson.plugins.googleanalytics",
     "org.pushandplay.cordova.apprate",
     "org.apache.cordova.dialogs",
-    "org.apache.cordova.inappbrowser",
-    "org.apache.cordova.splashscreen"
+    "org.apache.cordova.inappbrowser"
   ],
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
