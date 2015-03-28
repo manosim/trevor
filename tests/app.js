@@ -66,13 +66,13 @@ describe("Testing the FavouritesService.", function () {
         // Mock analytics
         window.analytics = {
             trackEvent: function() {
-                console.log("... Faking analytics ...");
+
             },
             trackView: function(value) {
-                console.log("... Faking analytics ...");
+
             },
             startTrackerWithId: function(value) {
-                console.log("... Faking analytics ...");
+
             },
         };
 
