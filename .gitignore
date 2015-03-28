@@ -4,7 +4,10 @@
 node_modules/
 platforms/
 plugins/
+coverage/
 
 www/css/*
 www/css/*
 www/js/dist/*
+
+npm-debug.log

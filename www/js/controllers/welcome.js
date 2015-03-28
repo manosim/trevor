@@ -33,6 +33,7 @@ app.controller('WelcomeCtrl', function($scope, $state, $window, $q, $http, Loadi
         var authWindow = $window.open(authUrl, '_blank', 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=Close,clearcache=yes');
 
         authWindow.addEventListener('loadstart', function(e) {
+
             var url = (typeof e.url !== 'undefined' ? e.url : e.originalEvent.url),
                 raw_code = /code=([^&]*)/.exec(e.url) || null,
                 code = (raw_code && raw_code.length > 1) ? raw_code[1] : null,
