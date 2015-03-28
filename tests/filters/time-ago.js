@@ -45,15 +45,14 @@ describe("Testing the filter time-ago.", function () {
         result = filter('timeAgo')("25 March 2015");
         expect(result).toBe("60 days ago");
 
-        angular = {
-            isDate : function(time) {
-                return {
-                    getTime: function() {
+        spyOn(angular, "isDate").and.callFake(function() {
+            return {
+                getTime: function() {
 
-                    }
-                };
-            }
-        };
+                }
+            };
+        });
+
         result = filter('timeAgo')(baseTime);
         expect(result).toBe(" about a minute ago");
 

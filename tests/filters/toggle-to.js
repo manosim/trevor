@@ -50,6 +50,12 @@ describe("Testing the filter toggle builds.", function () {
 
         result = filter('toggleTo')(data.builds, "pr");
 
+
+        result = filter('toggleTo')(data.builds, "builds");
+
+
+        result = filter('toggleTo')(data.builds);
+
     });
 
 });
