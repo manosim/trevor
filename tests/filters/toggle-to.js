@@ -49,12 +49,15 @@ describe("Testing the filter toggle builds.", function () {
         var result;
 
         result = filter('toggleTo')(data.builds, "pr");
-
+        expect(result.length).toEqual(1);
+        expect(result[0]['id']).toEqual(2);
 
         result = filter('toggleTo')(data.builds, "builds");
-
+        expect(result.length).toEqual(1);
+        expect(result[0]['id']).toEqual(1);
 
         result = filter('toggleTo')(data.builds);
+        expect(result.length).toEqual(2);
 
     });
 
