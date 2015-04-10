@@ -5,10 +5,11 @@ angular.module('controller.repos', ['ionic'])
     LoadingService.show();
 
     var loginId = $stateParams.loginid;
+    var pro = $stateParams.isPro;
 
     $scope.fetch = function() {
         RequestService
-            .request("GET", '/repos/' + loginId, true)
+            .request("GET", '/repos/' + loginId, pro, false)
             .then(function(data) {
 
                 console.log("Success-Repos!");

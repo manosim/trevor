@@ -118,7 +118,7 @@ angular.module('trevor', [
     })
 
     .state('app.repos', {
-        url: "/repos/:loginid",
+        url: "/repos/:loginid?isPro",
         views: {
             'menuContent': {
                 templateUrl: "templates/repos.html",

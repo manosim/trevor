@@ -10,11 +10,11 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
 
                 var domain, host;
 
-                if (!pro) {
+                if (pro == "false" || !pro) {
                     console.log("REQUEST: IS NOT PRO");
                     domain = "https://api.travis-ci.org";
                     host = "api.travis-ci.org";
-                } else if (pro) {
+                } else if (pro == "true" || pro) {
                     domain = "https://api.travis-ci.com";
                     host = "api.travis-ci.com";
                     console.log("REQUEST: IS PRO");
@@ -30,9 +30,9 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
 
                 if (url != "/auth/github") {
                     var token;
-                    if (!pro) {
+                    if (pro == "false" || !pro) {
                         token = AccountsService.tokens.os;
-                    } else if (pro) {
+                    } else if (pro == "true" || pro) {
                         token = AccountsService.tokens.pro;
                     }
                     console.log("Travis Token: " + token);

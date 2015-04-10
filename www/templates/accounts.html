@@ -33,7 +33,7 @@
         <div class="list">
 
             <div class="item item-divider">Travis CI for Open Source</div>
-            <a class="item" ng-href="#/app/repos/{{account.login}}" ng-repeat="account in accounts.os">
+            <a class="item" ui-sref="app.repos({ loginid: account.login, isPro: false })" ng-repeat="account in accounts.os">
 
                 <div class="name">{{ account.login }}</div>
 
@@ -52,7 +52,7 @@
             </div>
 
             <div class="item item-divider">Travis Pro</div>
-            <a class="item" ng-href="#/app/repos/{{account.login}}" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.pro">
+            <a class="item" ui-sref="app.repos({ loginid: account.login, isPro: true })" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.pro">
 
                 <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="pro && account.education"></span></div>
 
