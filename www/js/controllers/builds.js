@@ -4,7 +4,7 @@ angular.module('controller.builds', [])
 
     var slug = $stateParams.loginid + "/" + $stateParams.repo;
     var isPro = $scope.isPro = $stateParams.ispro;
-    $scope.repoName = $stateParams.repo;
+    $scope.repoName = slug;
 
     LoadingService.show();
 
