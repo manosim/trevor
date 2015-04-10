@@ -12,9 +12,9 @@
             spinner="ripple">
         </ion-refresher>
 
-        <div class="row welcome-banner" ng-if="accounts.os.length > 0 || accounts.pro.length > 0">
-            <div class="col col-100 padding">
-                <img src="images/travis-mascot.png" class="logo">
+        <div class="welcome-banner">
+            <img src="images/dashboard.png" class="logo">
+            <div class="padding" ng-if="accounts.os.length > 0 || accounts.pro.length > 0">
                 <span ng-if="greeting">Hi {{ greeting }}!</span>
                 <span ng-if="!greeting">Welcome to Trevor!</span>
             </div>
