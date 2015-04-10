@@ -1,8 +1,9 @@
 angular.module('controller.log', [])
 
-.controller('LogCtrl', function($ionicScrollDelegate, $scope, $stateParams, $window, LoadingService, RequestService, AlertService) {
+.controller('LogCtrl', function($ionicScrollDelegate, $scope, $stateParams, LoadingService, RequestService, AlertService) {
 
     var logId = $stateParams.logid;
+    var isPro = $scope.isPro = $stateParams.ispro;
 
     $scope.showRefresh = true;
 
@@ -11,7 +12,7 @@ angular.module('controller.log', [])
         LoadingService.show();
 
         RequestService
-            .request("GET", '/logs/' + logId, true)
+            .request("GET", '/logs/' + logId, isPro, false)
 
             .then(function(data) {
 

@@ -148,7 +148,7 @@ angular.module('trevor', [
     })
 
     .state('app.log', {
-        url: "/log/:logid",
+        url: "/log/:logid?ispro",
         views: {
             'menuContent': {
                 templateUrl: "templates/log.html",
