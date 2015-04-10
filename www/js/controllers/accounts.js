@@ -4,18 +4,36 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, Req
 
     LoadingService.show();
 
-    $scope.pro = AccountsService.getPro();
+    var isLoggedIn = {
+        os: $window.localStorage.travisostoken || false,
+        pro: $window.localStorage.travisprotoken || false,
+    };
 
-    $scope.fetch = function() {
+    $scope.accounts = {
+        os: false,
+        pro: false,
+    };
+
+    $scope.login = function(pro) {
+        console.log('scope.login: ' + pro);
+    };
+
+    var fetchAccounts = function(pro) {
 
         RequestService
-            .request("GET", '/accounts?all=true', true)
+            .request("GET", '/accounts?all=true', pro, false)
             .then(function(data) {
 
                 // Success
-                console.log("Success-Accounts!");
-                AccountsService.setAccounts(data.accounts);
-                $scope.accounts = data.accounts;
+                console.log("Success-Accounts! (Pro: "+ pro + ")");
+
+                if (!pro) {
+                    $scope.accounts.os = data.accounts;
+                } else {
+                    $scope.accounts.pro = data.accounts;
+                }
+
+                AccountsService.setAccounts(data.accounts, pro);
                 $scope.greeting = getGreeting(data.accounts);
 
                 // Let the sidemenu know that we now have the accounts
@@ -36,12 +54,19 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, Req
 
     };
 
-    $scope.fetch();
+    $scope.fetchData = function() {
+        if (isLoggedIn.os) {
+            fetchAccounts(false);
+        }
+
+        if (isLoggedIn.pro) {
+            fetchAccounts(true);
+        }
+    };
+
+    $scope.fetchData();
 
     $scope.shouldDisable = function(subscribed, education) {
-        if (!AccountsService.getPro()) {
-            return false;
-        }
         if (subscribed || education) {
             return false;
         }

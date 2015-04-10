@@ -4,20 +4,19 @@ services.factory('AccountsService', function (FavouritesService, $window) {
 
     var service = {
 
-        accounts: false,
-        isPro: false,
-
-        getPro: function () {
-            return service.isPro;
+        accounts: {
+            os: false,
+            pro: false,
         },
 
-        setPro: function (value) {
-            if (value === true) {
-                service.isPro = true;
-            } else {
-                service.isPro = false;
-            }
-            $window.localStorage.travispro = service.isPro;
+        tokens: {
+            os: false,
+            pro: false,
+        },
+
+        setTokens: function () {
+            service.tokens.os = $window.localStorage.travisostoken || false;
+            service.tokens.pro = $window.localStorage.travisprotoken || false;
         },
 
         getAccounts: function () {
@@ -26,26 +25,29 @@ services.factory('AccountsService', function (FavouritesService, $window) {
             }
         },
 
-        setAccounts: function (accountsData) {
-            if (service.isLoggedIn()) {
-                service.accounts = accountsData;
+        setAccounts: function (accountsData, pro) {
+            if (!pro) {
+                service.accounts.os = accountsData;
+            } else if (pro) {
+                service.accounts.pro = accountsData;
             }
         },
 
         isLoggedIn: function () {
-            var token = window.localStorage.travistoken;
-            if (token) {
-                return true;
-            }
-            return false;
+            var tokenOs = $window.localStorage.travisostoken || false;
+            var tokenPro = $window.localStorage.travisprotoken || false;
+            return {
+                os: tokenOs,
+                pro: tokenPro,
+            };
         },
 
         logOut: function () {
             if (service.isLoggedIn()) {
                 service.accounts = false;
                 FavouritesService.removeAll();
-                delete $window.localStorage.travistoken;
-                delete $window.localStorage.travispro;
+                delete $window.localStorage.travisostoken;
+                delete $window.localStorage.travisprotoken;
 
                 // Analytics Tracking
                 if (typeof analytics !== 'undefined'){

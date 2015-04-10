@@ -43,13 +43,12 @@ angular.module('trevor', [
         console.log("Google Analytics - Unavailable");
     }
 
-    RequestService.token = $window.localStorage.travistoken || false;
-    AccountsService.setPro(JSON.parse($window.localStorage.travispro));
+    // RequestService.token = $window.localStorage.travistoken || false;
+    AccountsService.setTokens();
 
     if (AccountsService.isLoggedIn()) {
         FavouritesService.loadFavourites();
         $state.go('app.accounts');
-        console.log("Travis Token: " + $window.localStorage.travistoken);
 
         // Rate my app init and settings
         if (window.AppRate) {

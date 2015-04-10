@@ -1,28 +1,23 @@
 var services = angular.module('services.request', ['ionic']);
 
-services.factory('RequestService', function (AlertService, $q, $window, $http) {
+services.factory('RequestService', function (AccountsService, AlertService, $q, $window, $http) {
 
     var service = {
-
-        token: false,
 
         request: function (method, url, pro, data) {
 
             var deferred = $q.defer();
 
-                // Get token wheather Pro or not
                 var domain, host;
 
-                if (pro === true || pro === "true") {
-                    domain = "https://api.travis-ci.com";
-                    host = "api.travis-ci.com";
-                    console.log("REQUEST: IS PRO");
-                } else if (pro === false || pro === "false") {
+                if (!pro) {
                     console.log("REQUEST: IS NOT PRO");
                     domain = "https://api.travis-ci.org";
                     host = "api.travis-ci.org";
-                } else {
-                    AlertService.raiseAlert("Oops! Something went wrong and we couldn't make your request. Please try again.");
+                } else if (pro) {
+                    domain = "https://api.travis-ci.com";
+                    host = "api.travis-ci.com";
+                    console.log("REQUEST: IS PRO");
                 }
 
                 var headers = {
@@ -34,7 +29,14 @@ services.factory('RequestService', function (AlertService, $q, $window, $http) {
                 };
 
                 if (url != "/auth/github") {
-                    headers.Authorization = "token " + service.token;
+                    var token;
+                    if (!pro) {
+                        token = AccountsService.tokens.os;
+                    } else if (pro) {
+                        token = AccountsService.tokens.pro;
+                    }
+                    console.log("Travis Token: " + token);
+                    headers.Authorization = "token " + token;
                 }
 
                 if (url.indexOf("logs") > -1) {

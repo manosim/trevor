@@ -8,7 +8,7 @@
 
         <ion-refresher
             pulling-text="Pull to refresh"
-            on-refresh="fetch()"
+            on-refresh="fetchData()"
             spinner="ripple">
         </ion-refresher>
 
@@ -33,12 +33,11 @@
         <div class="list">
 
             <div class="item item-divider">Travis CI for Open Source</div>
-            <a class="item" ng-href="#/app/repos/{{account.login}}" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.os">
+            <a class="item" ng-href="#/app/repos/{{account.login}}" ng-repeat="account in accounts.os">
 
-                <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="pro && account.education"></span></div>
+                <div class="name">{{ account.login }}</div>
 
-                <div class="info" ng-if="!pro || account.subscribed || account.education">{{ account.name }}</div>
-                <div class="info" ng-if="pro && !account.subscribed && !account.education">Not Subscribed</div>
+                <div class="info">{{ account.name }}</div>
 
                 <div class="status">
                     <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
