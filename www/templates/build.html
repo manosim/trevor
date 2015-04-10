@@ -39,7 +39,7 @@
 
                 <div class="committer"><span class="octicon octicon-person"></span> {{ commit.committer_name }}</div>
 
-                <div class="compare" ng-if="!pro">
+                <div class="compare" ng-if="!isPro || isPro == 'false'">
                     <button class="button button-block button-dark icon-left ion-social-github" ng-click="openCompare()">Compare Commit</button>
                 </div>
 

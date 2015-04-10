@@ -138,7 +138,7 @@ angular.module('trevor', [
     })
 
     .state('app.build', {
-        url: "/build/:buildid",
+        url: "/build/:buildid?ispro",
         views: {
             'menuContent': {
                 templateUrl: "templates/build.html",
