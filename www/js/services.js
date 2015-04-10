@@ -4,5 +4,4 @@ angular.module('services',[
     'services.loading',
     'services.request',
     'services.alert',
-    'services.memory'
 ]);
