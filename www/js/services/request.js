@@ -1,16 +1,14 @@
 var services = angular.module('services.request', ['ionic']);
 
-services.factory('RequestService', function (AccountsService, AlertService, $q, $window, $http) {
+services.factory('RequestService', function (AlertService, $q, $window, $http) {
 
     var service = {
 
         token: false,
 
-        request: function (method, url, data) {
+        request: function (method, url, pro, data) {
 
             var deferred = $q.defer();
-
-            var pro = AccountsService.getPro();
 
                 // Get token wheather Pro or not
                 var domain, host;
