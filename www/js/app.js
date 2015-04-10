@@ -118,7 +118,7 @@ angular.module('trevor', [
     })
 
     .state('app.repos', {
-        url: "/repos/:loginid?isPro",
+        url: "/repos/:loginid?ispro",
         views: {
             'menuContent': {
                 templateUrl: "templates/repos.html",
@@ -128,7 +128,7 @@ angular.module('trevor', [
     })
 
     .state('app.builds', {
-        url: "/builds/:repoid",
+        url: "/builds/:loginid/:repo?ispro",
         views: {
             'menuContent': {
                 templateUrl: "templates/builds.html",

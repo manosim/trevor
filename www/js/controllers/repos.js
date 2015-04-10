@@ -1,15 +1,15 @@
 angular.module('controller.repos', ['ionic'])
 
-.controller('ReposCtrl', function($scope, $state, $stateParams, $window, LoadingService, RequestService, AccountsService, AlertService, MemoryService) {
+.controller('ReposCtrl', function($scope, $stateParams, $window, LoadingService, RequestService, AlertService) {
 
     LoadingService.show();
 
-    var loginId = $stateParams.loginid;
-    var pro = $stateParams.isPro;
+    var loginId = $scope.loginId = $stateParams.loginid;
+    var isPro = $scope.isPro = $stateParams.ispro;
 
     $scope.fetch = function() {
         RequestService
-            .request("GET", '/repos/' + loginId, pro, false)
+            .request("GET", '/repos/' + loginId, isPro, false)
             .then(function(data) {
 
                 console.log("Success-Repos!");
@@ -39,10 +39,5 @@ angular.module('controller.repos', ['ionic'])
     };
 
     $scope.fetch();
-
-    $scope.goTo = function (id, repoName) {
-        MemoryService.setRepoName(repoName);
-        $state.go('app.builds', { repoid: id });
-    };
 
 });
