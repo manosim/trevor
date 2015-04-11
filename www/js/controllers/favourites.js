@@ -1,6 +1,6 @@
 angular.module('controller.favourites', ['ionic'])
 
-.controller('FavouritesCtrl', function($scope, $state, $stateParams, $window, LoadingService, RequestService, FavouritesService, AccountsService, AlertService, MemoryService) {
+.controller('FavouritesCtrl', function($scope, LoadingService, RequestService, FavouritesService, AlertService) {
 
     var favourites = FavouritesService.getFavourites();
     $scope.repos = [];
@@ -10,10 +10,12 @@ angular.module('controller.favourites', ['ionic'])
 
         angular.forEach(favourites, function(value, key) {
             RequestService
-                .request("GET", '/repos/' + value, true)
+                .request("GET", "/repos/" + value.slug, value.isPro, false)
                 .then(function(data) {
                     console.log("Success-Favourite Repo!");
+                    data.repo.login_id = data.repo.slug.split('/')[0];
                     data.repo.short_slug = data.repo.slug.split('/')[1];
+                    data.repo.is_pro = value.isPro;
                     $scope.repos.push(data.repo);
                     LoadingService.hide();
                 }, function(data) {
@@ -23,10 +25,5 @@ angular.module('controller.favourites', ['ionic'])
                 });
         });
     }
-
-    $scope.goTo = function (id, repoName) {
-        MemoryService.setRepoName(repoName);
-        $state.go('app.builds', { repoid: id });
-    };
 
 });
