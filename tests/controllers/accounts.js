@@ -305,7 +305,5 @@ describe("Testing the AccountsCtrl - Login.", function () {
 
         expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! Something went wrong and we couldn't log you in using Github. Please try again.");
 
-        window.analytics = undefined;
-
     });
 });
