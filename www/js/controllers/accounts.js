@@ -176,10 +176,10 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
                 // Success
                 console.log("Success!");
 
-                if (pro == "false" || !pro) {
+                if (pro == "false" || pro === false) {
                     AccountsService.tokens.os = data.access_token;
                     $window.localStorage.travisostoken = data.access_token;
-                } else if (pro == "true" || pro) {
+                } else if (pro == "true" || pro === true) {
                     AccountsService.tokens.pro = data.access_token;
                     $window.localStorage.travisprotoken = data.access_token;
                 }

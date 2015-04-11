@@ -26,9 +26,9 @@ services.factory('AccountsService', function (FavouritesService, $window) {
         },
 
         setAccounts: function (accountsData, pro) {
-            if (!pro) {
+            if (pro === false || pro == "false") {
                 service.accounts.os = accountsData;
-            } else if (pro) {
+            } else if (pro === true || pro == "true") {
                 service.accounts.pro = accountsData;
             }
         },

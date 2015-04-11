@@ -21,40 +21,27 @@ describe("Testing the AccountsService.", function () {
 
     it("Should get the accounts from the service.", function () {
 
-        var data = [
-            {username: "manos"},
-            {username: "johndoe"},
-        ];
+        var data = {
+            os: {username: "manos"},
+            pro: {username: "johndoe"}
+        };
 
-        windowMock.localStorage.travistoken = "123123123";
-        windowMock.localStorage.travispro = true;
-
-        // Mock analytics
-        windowMock.analytics = {
-            trackEvent: function() {
-
-            }
-        }
-
-        accountsService.logOut();
-
-        // Re-undefine analytics
-        windowMock.analytics = undefined
-
-        windowMock.localStorage.travistoken = "123123123";
-        windowMock.localStorage.travispro = true;
+        windowMock.localStorage.travisostoken = "123123123";
+        windowMock.localStorage.travisprotoken = "456456456";
 
         var isLoggedIn = accountsService.isLoggedIn();
-        expect(isLoggedIn).toBeTruthy();
+        expect(isLoggedIn.os).toBeTruthy();
+        expect(isLoggedIn.pro).toBeTruthy();
 
-        accountsService.setAccounts(data);
-        expect(accountsService.accounts).toBe(data);
+        accountsService.setAccounts(data.os, false);
+        accountsService.setAccounts(data.pro, true);
+
+        expect(accountsService.accounts.os).toBe(data.os);
+        expect(accountsService.accounts.pro).toBe(data.pro);
 
         var accounts = accountsService.getAccounts();
-        expect(accounts).toBe(data);
-
-
-        // spyOn(window.analytics, 'trackEvent').and.returnValue({})
+        expect(accounts.os).toBe(data.os);
+        expect(accounts.pro).toBe(data.pro);
 
     });
 

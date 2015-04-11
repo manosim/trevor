@@ -23,9 +23,9 @@ describe("Testing the RequestService.", function () {
     it("Should try to make a request without pro variable set.", function () {
 
         spyOn(alertService, 'raiseAlert');
-        spyOn(accountsService, 'getPro').and.returnValue("TEST");
 
-        requestService.request("POST", "http://www.api.com/", {});
+        requestService.request("POST", "http://www.api.com/", "asdasdasd", false);
+
         expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! Something went wrong and we couldn't make your request. Please try again.");
 
     });
