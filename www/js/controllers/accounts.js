@@ -29,9 +29,6 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
                 AccountsService.setAccounts(data.accounts, pro);
                 $scope.greeting = getGreeting(data.accounts);
 
-                // Let the sidemenu know that we now have the accounts
-                $rootScope.$broadcast('accountsSet');
-
                 LoadingService.hide();
 
             }, function(data) {

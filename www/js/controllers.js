@@ -1,5 +1,4 @@
 angular.module('controllers',[
-    'controller.sidemenu',
     'controller.accounts',
     'controller.favourites',
     'controller.repos',
