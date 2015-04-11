@@ -94,7 +94,6 @@ describe("Testing the AccountsCtrl.", function () {
         expect(scope.accounts.os[1].name).toBe("DabApps");
         expect(scope.accounts.os[1].repos_count).toEqual(13);
         expect(loadingService.hide).toHaveBeenCalled();
-        expect(scope.greeting).toBe("John Doe");
     });
 
     it("Should get the accounts for Travis CI PRO.", function () {
@@ -135,7 +134,6 @@ describe("Testing the AccountsCtrl.", function () {
 
         httpBackend.flush();
 
-        expect(scope.greeting).toBe("johndoe");
     });
 
 

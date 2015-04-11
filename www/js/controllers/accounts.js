@@ -27,7 +27,6 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
                 }
 
                 AccountsService.setAccounts(data.accounts, pro);
-                $scope.greeting = getGreeting(data.accounts);
 
                 LoadingService.hide();
 
@@ -67,20 +66,6 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
         }
         return true;
     };
-
-    function getGreeting (accounts) {
-        var greeting = false;
-        angular.forEach(accounts, function(account, key) {
-            if (account.type == "user" && !greeting) {
-                if (account.name) {
-                    greeting = account.name;
-                } else {
-                    greeting = account.login;
-                }
-            }
-        });
-        return greeting;
-    }
 
     // Start Login
     var options = {
