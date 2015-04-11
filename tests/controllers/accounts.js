@@ -2,14 +2,14 @@
 
 describe("Testing the AccountsCtrl.", function () {
 
-    var scope, createController, httpBackend, loadingService, alertService, accountsService;
+    var scope, createController, httpBackend, loadingService, alertService, requestService, accountsService, windowMock;
 
     beforeEach(function(){
 
         angular.mock.module('trevor');
         angular.mock.module('templates');
 
-        inject(function ($injector, LoadingService, AlertService, AccountsService) {
+        inject(function ($injector, LoadingService, AlertService, AccountsService, RequestService) {
 
             scope = $injector.get('$rootScope');
             controller = $injector.get('$controller');
@@ -17,6 +17,8 @@ describe("Testing the AccountsCtrl.", function () {
             alertService = AlertService;
             loadingService = LoadingService;
             accountsService = AccountsService;
+            requestService = RequestService;
+            windowMock = $injector.get('$window');
 
             createController = function() {
                 return controller('AccountsCtrl', {
@@ -24,6 +26,8 @@ describe("Testing the AccountsCtrl.", function () {
                     'LoadingService' : loadingService,
                     'AlertService' : alertService,
                     'AccountsService' : accountsService,
+                    'RequestService': requestService,
+                    '$window' : windowMock,
                 });
             };
 
@@ -54,7 +58,12 @@ describe("Testing the AccountsCtrl.", function () {
             ]
         };
 
-        accountsService.setPro(false);
+        spyOn(accountsService, "isLoggedIn").and.returnValue({
+            os: true,
+            pro: false
+        });
+
+        accountsService.tokens.os = "123123123";
 
         spyOn(loadingService, 'show');
         spyOn(loadingService, 'hide');
@@ -67,10 +76,9 @@ describe("Testing the AccountsCtrl.", function () {
 
         httpBackend.flush();
 
-        expect(scope.accounts[0].type).toBe("user");
-        expect(scope.accounts[1].name).toBe("DabApps");
-        expect(scope.accounts[1].repos_count).toEqual(13);
-        expect(accountsService.getPro()).toBeFalsy();
+        expect(scope.accounts.os[0].type).toBe("user");
+        expect(scope.accounts.os[1].name).toBe("DabApps");
+        expect(scope.accounts.os[1].repos_count).toEqual(13);
         expect(loadingService.hide).toHaveBeenCalled();
         expect(scope.greeting).toBe("John Doe");
     });
@@ -100,7 +108,12 @@ describe("Testing the AccountsCtrl.", function () {
             ]
         };
 
-        accountsService.setPro(true);
+        spyOn(accountsService, "isLoggedIn").and.returnValue({
+            os: false,
+            pro: true
+        });
+
+        accountsService.tokens.pro = "123123123";
 
         httpBackend.expectGET("https://api.travis-ci.com/accounts?all=true").respond(data);
 
@@ -108,16 +121,21 @@ describe("Testing the AccountsCtrl.", function () {
 
         httpBackend.flush();
 
-        expect(accountsService.getPro()).toBeTruthy();
         expect(scope.greeting).toBe("johndoe");
     });
 
 
     it("Should FAIL to get the accounts from Travis CI PRO.", function () {
 
-        accountsService.setPro(true);
         spyOn(alertService, 'raiseAlert');
         spyOn(loadingService, 'hide');
+
+        spyOn(accountsService, "isLoggedIn").and.returnValue({
+            os: false,
+            pro: true
+        });
+
+        accountsService.tokens.pro = "123123123";
 
         httpBackend.expectGET("https://api.travis-ci.com/accounts?all=true").respond(400, "ERROR.");
 
@@ -132,13 +150,16 @@ describe("Testing the AccountsCtrl.", function () {
 
     it("Should logout a logged in user.", function () {
 
-        accountsService.setPro(true);
+        spyOn(accountsService, 'logOut');
 
         var controller = createController();
 
         scope.logOut();
 
-        expect(accountsService.isLoggedIn()).toBeFalsy();
+        expect(accountsService.logOut).toHaveBeenCalled();
+        expect(accountsService.isLoggedIn().os).toBeFalsy();
+        expect(accountsService.isLoggedIn().pro).toBeFalsy();
+
     });
 
 
@@ -146,69 +167,18 @@ describe("Testing the AccountsCtrl.", function () {
 
         var controller = createController();
 
-        accountsService.setPro(true);
         var disable = scope.shouldDisable(false, false);
         expect(disable).toBeTruthy();
 
-        accountsService.setPro(false);
-        var disable = scope.shouldDisable(false, false);
-        expect(disable).toBeFalsy();
     });
 
 
     it("Should not disable if pro and subscribed.", function () {
 
-        accountsService.setPro(true);
-
         var controller = createController();
 
         var disable = scope.shouldDisable(true, false);
         expect(disable).toBeFalsy();
-    });
-
-
-});
-
-
-describe("Testing the LogoutCtrl.", function () {
-
-    var scope, state, createController, accountsService;
-
-    beforeEach(function(){
-
-        angular.mock.module('trevor');
-        angular.mock.module('templates');
-
-        inject(function ($injector, LoadingService, AccountsService) {
-
-            scope = $injector.get('$rootScope');
-            controller = $injector.get('$controller');
-            state = $injector.get('$state');
-            accountsService = AccountsService;
-
-            createController = function() {
-                return controller('LogoutCtrl', {
-                    '$scope' : $injector.get('$rootScope'),
-                    '$state' : $injector.get('$state'),
-                    'AccountsService' : accountsService,
-                });
-            };
-
-        });
-
-    });
-
-
-    it("Should logout a logged in user.", function () {
-
-        spyOn(accountsService, 'logOut');
-        spyOn(state, 'go');
-
-        var controller = createController();
-
-        expect(accountsService.logOut).toHaveBeenCalled();
-        expect(state.go).toHaveBeenCalledWith("welcome");
-
     });
 
 });

@@ -98,15 +98,6 @@ angular.module('trevor', [
         }
     })
 
-    .state('app.logout', {
-        url: "/logout",
-        views: {
-            'menuContent': {
-                controller: 'LogoutCtrl'
-            }
-        }
-    })
-
     .state('app.favourites', {
         url: "/favourites",
         views: {

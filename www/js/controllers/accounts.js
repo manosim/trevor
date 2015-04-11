@@ -1,11 +1,8 @@
 var app = angular.module('controller.accounts', ['ionic']);
 
-app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, $http, RequestService, AccountsService, LoadingService, AlertService) {
+app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, RequestService, AccountsService, LoadingService, AlertService) {
 
-    var isLoggedIn = {
-        os: $window.localStorage.travisostoken || false,
-        pro: $window.localStorage.travisprotoken || false,
-    };
+    var isLoggedIn = AccountsService.isLoggedIn();
 
     $scope.accounts = {
         os: false,
@@ -76,7 +73,6 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, $ht
 
     $scope.logOut = function() {
         AccountsService.logOut();
-        $state.go('welcome');
     };
 
     function getGreeting (accounts) {
@@ -205,13 +201,5 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $state, $window, $ht
 
             });
     }
-
-});
-
-
-app.controller('LogoutCtrl', function($scope, $state, AccountsService) {
-
-    AccountsService.logOut();
-    $state.go('welcome');
 
 });
