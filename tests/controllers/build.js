@@ -37,7 +37,6 @@ describe("Testing the BuildCtrl.", function () {
 
     it("Should get the repos for an account.", function () {
 
-        accountsService.setPro(false);
         var buildId = stateparams.buildid;
         spyOn(window, 'open');
 
@@ -132,6 +131,13 @@ describe("Testing the BuildCtrl.", function () {
             "annotations": []
         };
 
+        spyOn(accountsService, "isLoggedIn").and.returnValue({
+            os: true,
+            pro: false
+        });
+
+        accountsService.tokens.os = "123123123";
+
         httpBackend.expectGET("https://api.travis-ci.org/builds/" + buildId).respond(data);
 
         var controller = createController();
@@ -149,7 +155,6 @@ describe("Testing the BuildCtrl.", function () {
 
     it("Should FAILT to get the repos for an account.", function () {
 
-        accountsService.setPro(false);
         var buildId = stateparams.buildid;
         spyOn(alertService, 'raiseAlert');
 
