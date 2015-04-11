@@ -30,18 +30,56 @@ describe("Testing the FavouritesService.", function () {
             }
         }
 
-        favouritesService.addFavourite("123");
-        favouritesService.addFavourite("456");
-        favouritesService.addFavourite("789");
+        favouritesService.addFavourite("ekonstantinidis/travis-mobile", "true");
+        favouritesService.addFavourite("ekonstantinidis/ionic-project-template", "false");
 
-        favourites = favouritesService.getFavourites();
-        expect(favourites.length).toEqual(3);
+        var iptFav = favouritesService.isFavourite("ekonstantinidis/ionic-project-template");
+        expect(iptFav).toBeTruthy();
 
-        favouritesService.removeFavourite("789");
-        favourites = favouritesService.getFavourites();
-        expect(favourites.length).toEqual(2);
+        expect(favouritesService.favourites.length).toEqual(2);
+
+        favouritesService.removeFavourite("ekonstantinidis/ionic-project-template");
+
+        expect(favouritesService.favourites.length).toEqual(1);
+
+        var iptFavAfter = favouritesService.isFavourite("ekonstantinidis/ionic-project-template");
+        expect(iptFavAfter).toBeFalsy();
 
         windowMock.analytics = undefined;
+
+    });
+
+
+    it("Should remove all favourites.", function () {
+
+        favouritesService.removeAll();
+
+        favouritesService.addFavourite("ekonstantinidis/travis-mobile", "true");
+        favouritesService.addFavourite("ekonstantinidis/ionic-project-template", "false");
+
+        expect(favouritesService.favourites.length).toEqual(2);
+
+        favouritesService.removeAll();
+
+        expect(favouritesService.favourites.length).toEqual(0);
+
+    });
+
+
+    it("Should get all favourites.", function () {
+
+        favouritesService.removeAll();
+
+        favouritesService.addFavourite("ekonstantinidis/travis-mobile", "true");
+        favouritesService.addFavourite("ekonstantinidis/ionic-project-template", "false");
+
+        var favourites = favouritesService.getFavourites();
+
+        expect(favourites.length).toEqual(2);
+        expect(favourites[0].slug).toBe("ekonstantinidis/travis-mobile");
+        expect(favourites[0].isPro).toBe("true");
+        expect(favourites[1].slug).toBe("ekonstantinidis/ionic-project-template");
+        expect(favourites[1].isPro).toBe("false");
 
     });
 
