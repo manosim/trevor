@@ -93,7 +93,6 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
     };
 
     $scope.login = function(pro) {
-        console.log('scope.login: ' + pro);
 
         LoadingService.show();
 
@@ -160,7 +159,6 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
     }
 
     function authTravis(githubtoken, pro) {
-
         RequestService
             .request("POST", "/auth/github", pro, {github_token: githubtoken})
             .then(function(data) {
