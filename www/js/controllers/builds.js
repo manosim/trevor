@@ -48,11 +48,12 @@ angular.module('controller.builds', [])
 
     $scope.isFavourite = FavouritesService.isFavourite(slug);
 
-    $scope.addFavourites = function () {
-        if (FavouritesService.isFavourite(repoId)) {
-            FavouritesService.removeFavourite(repoId);
+    $scope.toggleFavourite = function () {
+        console.log("isFavourite: " + $scope.isFavourite);
+        if ($scope.isFavourite) {
+            FavouritesService.removeFavourite(slug);
         } else {
-            FavouritesService.addFavourite(repoId);
+            FavouritesService.addFavourite(slug, isPro);
         }
         $scope.isFavourite = !$scope.isFavourite;
     };
