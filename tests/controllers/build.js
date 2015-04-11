@@ -18,7 +18,10 @@ describe("Testing the BuildCtrl.", function () {
             loadingService = LoadingService;
             accountsService = AccountsService;
 
-            stateparams = { buildid: "123123" };
+            stateparams = {
+                buildid: "123123",
+                ispro: false
+            };
 
             createController = function() {
                 return controller('BuildCtrl', {
@@ -38,6 +41,8 @@ describe("Testing the BuildCtrl.", function () {
     it("Should get the repos for an account.", function () {
 
         var buildId = stateparams.buildid;
+        var isPro = stateparams.ispro;
+
         spyOn(window, 'open');
 
         data = {

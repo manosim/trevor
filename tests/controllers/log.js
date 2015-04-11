@@ -17,7 +17,10 @@ describe("Testing the LogCtrl.", function () {
             httpBackend = $injector.get('$httpBackend');
             alertService = AlertService;
 
-            stateparams = { logid: "123456" };
+            stateparams = {
+                logid: "123456",
+                ispro: false
+            };
 
             createController = function() {
                 return controller('LogCtrl', {
@@ -32,8 +35,9 @@ describe("Testing the LogCtrl.", function () {
     it("Should get the log of a build", function () {
 
         var logId = stateparams.logid;
+        var isPro = stateparams.ispro;
 
-        var data = "Hello! Your build exited with 0."
+        var data = "Hello! Your build exited with 0.";
 
         httpBackend.expectGET("https://api.travis-ci.org/logs/" + logId).respond(data);
 

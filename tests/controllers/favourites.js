@@ -2,33 +2,26 @@
 
 describe("Testing the FavouritesCtrl.", function () {
 
-    var scope, state, createController, httpBackend, alertService, favouritesService, memoryService;
+    var scope, createController, httpBackend, alertService, favouritesService;
 
     beforeEach(function(){
 
         angular.mock.module('trevor');
         angular.mock.module('templates');
 
-        inject(function ($injector, AlertService, FavouritesService, MemoryService) {
+        inject(function ($injector, AlertService, FavouritesService) {
 
             scope = $injector.get('$rootScope');
-            state = $injector.get('$state');
             controller = $injector.get('$controller');
             httpBackend = $injector.get('$httpBackend');
             alertService = AlertService;
             favouritesService = FavouritesService;
-            memoryService = MemoryService;
-
-            stateparams = { logid: "123456" };
 
             createController = function() {
                 return controller('FavouritesCtrl', {
                     '$scope' : scope,
-                    '$state' : state,
-                    '$stateParams' : stateparams,
                     'AlertService': alertService,
                     'FavouritesService': favouritesService,
-                    'MemoryService': memoryService,
                 });
             };
         });
@@ -53,11 +46,14 @@ describe("Testing the FavouritesCtrl.", function () {
             }
         };
 
-        spyOn(favouritesService, 'getFavourites').and.returnValue(['123123']);
-        spyOn(memoryService, 'setRepoName');
-        spyOn(state, 'go');
+        spyOn(favouritesService, 'getFavourites').and.returnValue([
+            {
+                slug: "ekonstantinidis/test",
+                isPro: false
+            }
+        ]);
 
-        httpBackend.expectGET("https://api.travis-ci.org/repos/" + 123123).respond(data);
+        httpBackend.expectGET("https://api.travis-ci.org/repos/ekonstantinidis/test").respond(data);
 
         var controller = createController();
 
@@ -65,18 +61,20 @@ describe("Testing the FavouritesCtrl.", function () {
 
         expect(scope.repos[0].id).toEqual(123123);
 
-        scope.goTo(123123, "testRepo");
-        expect(memoryService.setRepoName).toHaveBeenCalledWith("testRepo");
-        expect(state.go).toHaveBeenCalledWith('app.builds', Object({ repoid: 123123 }));
-
     });
 
     it("Should FAIL to get the details for all the favourites repos.", function () {
 
-        spyOn(favouritesService, 'getFavourites').and.returnValue(['123123']);
+        spyOn(favouritesService, 'getFavourites').and.returnValue([
+            {
+                slug: "ekonstantinidis/test",
+                isPro: false
+            }
+        ]);
+
         spyOn(alertService, 'raiseAlert');
 
-        httpBackend.expectGET("https://api.travis-ci.org/repos/" + 123123).respond(400, "ERROR.");
+        httpBackend.expectGET("https://api.travis-ci.org/repos/ekonstantinidis/test").respond(400, "ERROR.");
 
         var controller = createController();
 
