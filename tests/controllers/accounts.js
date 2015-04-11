@@ -277,6 +277,45 @@ describe("Testing the AccountsCtrl - Login.", function () {
 
     });
 
+
+    it("Should try to login the user - Open Source.", function () {
+
+        // in your test add a mock for window (remember to reset back to normal window after)
+        window.open = function(url, target, settings){
+            return {
+                addEventListener: function(event, callback){
+                    if (event == 'loadstart'){
+                        callback({
+                            url: 'http://www.github.com/?code=123123123',
+                            originalEvent:{},
+
+                        });
+                    } else if (event == 'exit') {
+                        callback();
+                    }
+                },
+                close: function(){}
+            };
+        };
+
+        spyOn(loadingService, 'show');
+        spyOn(alertService, 'raiseAlert');
+
+        var controller = createController();
+
+        // Should login user - Success
+        scope.login(false);
+        expect(loadingService.show).toHaveBeenCalled();
+
+        var data = "abc=theGithubToken&123";
+        httpBackend.expectPOST("https://github.com/login/oauth/access_token").respond(data);
+        var data_travis = { "access_token": "1234567890" };
+        httpBackend.expectPOST("https://api.travis-ci.org/auth/github").respond(data);
+        httpBackend.expectGET("https://api.travis-ci.org/accounts?all=true").respond({data: "accounts from travis"});
+        httpBackend.flush();
+
+    });
+
     it("Should get an error from github.", function () {
 
         // in your test add a mock for window (remember to reset back to normal window after)
