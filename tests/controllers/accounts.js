@@ -2,14 +2,14 @@
 
 describe("Testing the AccountsCtrl.", function () {
 
-    var scope, createController, httpBackend, loadingService, alertService, requestService, accountsService, windowMock;
+    var scope, createController, httpBackend, loadingService, alertService, requestService, accountsService, favouritesService, windowMock;
 
     beforeEach(function(){
 
         angular.mock.module('trevor');
         angular.mock.module('templates');
 
-        inject(function ($injector, LoadingService, AlertService, AccountsService, RequestService) {
+        inject(function ($injector, LoadingService, AlertService, AccountsService, RequestService, FavouritesService) {
 
             scope = $injector.get('$rootScope');
             controller = $injector.get('$controller');
@@ -18,6 +18,7 @@ describe("Testing the AccountsCtrl.", function () {
             loadingService = LoadingService;
             accountsService = AccountsService;
             requestService = RequestService;
+            favouritesService = FavouritesService;
             windowMock = $injector.get('$window');
 
             createController = function() {
@@ -27,11 +28,24 @@ describe("Testing the AccountsCtrl.", function () {
                     'AlertService' : alertService,
                     'AccountsService' : accountsService,
                     'RequestService': requestService,
+                    'FavouritesService': favouritesService,
                     '$window' : windowMock,
                 });
             };
 
         });
+
+    });
+
+    it("Should logout a logged in user.", function () {
+
+        spyOn(accountsService, 'logOut');
+
+        var controller = createController();
+
+        scope.logOut();
+
+        expect(accountsService.logOut).toHaveBeenCalled();
 
     });
 
@@ -148,21 +162,6 @@ describe("Testing the AccountsCtrl.", function () {
     });
 
 
-    it("Should logout a logged in user.", function () {
-
-        spyOn(accountsService, 'logOut');
-
-        var controller = createController();
-
-        scope.logOut();
-
-        expect(accountsService.logOut).toHaveBeenCalled();
-        expect(accountsService.isLoggedIn().os).toBeFalsy();
-        expect(accountsService.isLoggedIn().pro).toBeFalsy();
-
-    });
-
-
     it("Should DISABLE if pro and NOT subscribed and NOT education.", function () {
 
         var controller = createController();
@@ -171,7 +170,6 @@ describe("Testing the AccountsCtrl.", function () {
         expect(disable).toBeTruthy();
 
     });
-
 
     it("Should not disable if pro and subscribed.", function () {
 

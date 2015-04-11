@@ -20,9 +20,7 @@ services.factory('AccountsService', function (FavouritesService, $window) {
         },
 
         getAccounts: function () {
-            if (service.isLoggedIn()) {
-                return service.accounts;
-            }
+            return service.accounts;
         },
 
         setAccounts: function (accountsData, pro) {
@@ -34,25 +32,32 @@ services.factory('AccountsService', function (FavouritesService, $window) {
         },
 
         isLoggedIn: function () {
-            var tokenOs = $window.localStorage.travisostoken || false;
-            var tokenPro = $window.localStorage.travisprotoken || false;
+
+            var isLoggedInOs = false;
+            var isLoggedInPro = false;
+            if (service.tokens.os) { isLoggedInOs = true; }
+            if (service.tokens.pro) { isLoggedInPro = true; }
+
             return {
-                os: tokenOs,
-                pro: tokenPro,
+                os: isLoggedInOs,
+                pro: isLoggedInPro,
             };
         },
 
         logOut: function () {
-            if (service.isLoggedIn()) {
-                service.accounts = false;
-                FavouritesService.removeAll();
-                delete $window.localStorage.travisostoken;
-                delete $window.localStorage.travisprotoken;
+            service.accounts.os = false;
+            service.accounts.pro = false;
+            service.tokens.os = false;
+            service.tokens.pro = false;
 
-                // Analytics Tracking
-                if (typeof analytics !== 'undefined'){
-                    analytics.trackEvent('Accounts', 'Logged Out', '');
-                }
+            delete $window.localStorage.travisostoken;
+            delete $window.localStorage.travisprotoken;
+
+            FavouritesService.removeAll();
+
+            // Analytics Tracking
+            if (typeof analytics !== 'undefined'){
+                analytics.trackEvent('Accounts', 'Logged Out', '');
             }
         }
 

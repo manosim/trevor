@@ -68,10 +68,6 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
         return true;
     };
 
-    $scope.logOut = function() {
-        AccountsService.logOut();
-    };
-
     function getGreeting (accounts) {
         var greeting = false;
         angular.forEach(accounts, function(account, key) {
@@ -140,7 +136,6 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
 
     };
 
-
     function requestToken(code, pro) {
         $http.post('https://github.com/login/oauth/access_token',{
                 client_id: options.client_id,
@@ -198,5 +193,9 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
 
             });
     }
+
+    $scope.logOut = function() {
+        AccountsService.logOut();
+    };
 
 });
