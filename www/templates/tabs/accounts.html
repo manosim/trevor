@@ -1,17 +1,12 @@
 <ion-view view-title="Accounts">
 
-    <ion-nav-bar class="bar-positive">
-        <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-buttons side="left">
+        <a ui-sref="tab.about"><button class="button button-icon ion-ios-information-outline"></button></a>
+    </ion-nav-buttons>
 
-        <ion-nav-buttons side="left">
-            <a ui-sref="tab.about"><button class="button button-icon ion-ios-information-outline"></button></a>
-        </ion-nav-buttons>
-
-        <ion-nav-buttons side="right">
-            <button class="button button-icon button-logout" ng-click="logOut()"><span class="octicon octicon-sign-out"></span></button>
-        </ion-nav-buttons>
-    </ion-nav-bar>
-
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-logout" ng-click="logOut()"><span class="octicon octicon-sign-out"></span></button>
+    </ion-nav-buttons>
 
     <ion-content class="accounts">
 

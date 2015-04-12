@@ -183,69 +183,24 @@
     }
 }
 
-.sidemenu {
-    .bar {
-        background-color: darken(@ThemeRed, 10%);
+.tabs {
+    border-top: 2px solid @ThemeRed;
+    padding-top: 0;
 
-        .title {
-            color: @White;
-        }
+    .tab-item {
+        padding-top: 2px;
     }
 
-    .scroll-content {
+    .tab-item-active {
+        background-color: darken(@ThemeRed, 5%);
+    }
+}
+
+.tabs-trevor {
+    border-top: 1px solid @ThemeRed;
+
+    > .tabs {
         background-color: @ThemeDarkBlue;
-    }
-
-    .list {
-        .item {
-            border-color: lighten(@Gray, 10%);
-
-            .icon,
-            .octicon {
-                display: inline-block;
-                font-size: 18px;
-                min-width: 35px;
-                text-align: center;
-            }
-
-            .item-content {
-                padding: 12px 10px;
-                background-color: @ThemeDarkBlue;
-                color: @White;
-            }
-
-            &.account {
-
-                .item-content {
-                    background-color: darken(@ThemeMediumBlue, 10%);
-                    padding: 12px 10px 12px 40px;
-
-                    .status {
-                        background-color: @ThemeMediumBlue;
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        height: 100%;
-                        padding: 7px 5px;
-                        width: 80px;
-
-                        .account-info {
-                            display: inline-block;
-                            .FontOpenSansSemibold();
-                            font-size: 16px;
-                            color: @White;
-                            text-align: center;
-                            margin: 5px 0;
-
-                            .octicon {
-                                margin: 0;
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
     }
 }
 
