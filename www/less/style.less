@@ -185,24 +185,12 @@
     }
 }
 
-.tabs {
-    border-top: 2px solid @ThemeRed;
-    padding-top: 0;
-
-    .tab-item {
-        padding-top: 2px;
-    }
+.tabs-trevor > .tabs,
+.tabs-trevor.tabs-striped > .tabs {
+    background-color: @ThemeDarkBlue;
 
     .tab-item-active {
         background-color: darken(@ThemeRed, 5%);
-    }
-}
-
-.tabs-trevor {
-    border-top: 1px solid @ThemeRed;
-
-    > .tabs {
-        background-color: @ThemeDarkBlue;
     }
 }
 
