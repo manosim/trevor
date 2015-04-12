@@ -24,8 +24,6 @@
             </div>
         </div>
 
-        <!-- <a class="item" ui-sref="app.build({ buildid: build.id, ispro: isPro })" ng-repeat="build in builds | toggleTo:showBuilds"> -->
-
         <a class="item" ui-sref="app.builds({ loginid: repo.login_id, repo: repo.short_slug, ispro: repo.is_pro })" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
 
             <div class="name">{{ repo.short_slug }}</div>

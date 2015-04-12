@@ -22,7 +22,7 @@
             <div class="col col-33"><a class="button button-full" ng-click="showBuilds = 'pr'" ng-class="{'pr': 'active'}[showBuilds]">Pull Requests</a></div>
         </div>
 
-        <a class="item" ui-sref="app.build({ buildid: build.id, ispro: isPro })" ng-repeat="build in builds | toggleTo:showBuilds">
+        <a class="item" ui-sref="tab.build({ buildid: build.id, ispro: isPro })" ng-repeat="build in builds | toggleTo:showBuilds">
 
             <div class="name">{{ build.commit.message }}</div>
 

@@ -11,11 +11,6 @@ angular.module('trevor', [
     'filters'
 ])
 
-.config(function($ionicConfigProvider) {
-    $ionicConfigProvider.views.maxCache(0);
-    $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-left').previousTitleText(false);
-})
-
 .run(function($ionicPlatform, $rootScope, AccountsService, RequestService, FavouritesService, $state, $window) {
 
   $ionicPlatform.ready(function() {
@@ -48,7 +43,7 @@ angular.module('trevor', [
 
     if (AccountsService.isLoggedIn()) {
         FavouritesService.loadFavourites();
-        $state.go('app.accounts');
+        $state.go('tab.accounts');
 
         // Rate my app init and settings
         if (window.AppRate) {
@@ -78,79 +73,95 @@ angular.module('trevor', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
+
+  $ionicConfigProvider.views.maxCache(0);
+  $ionicConfigProvider.backButton.icon("ion-ios-arrow-left");
+  $ionicConfigProvider.backButton.text("");
+  $ionicConfigProvider.backButton.previousTitleText(false);
+
   $stateProvider
 
-    .state('app', {
-        url: "/app",
+    .state('tab', {
+        url: "/tab",
         abstract: true,
-        templateUrl: "templates/menu.html",
+        templateUrl: "templates/tabs.html"
     })
 
-    .state('app.accounts', {
+    .state('tab.accounts', {
         url: "/accounts",
         views: {
-            'menuContent': {
-                templateUrl: "templates/accounts.html",
+            'tab-accounts': {
+                templateUrl: "templates/tabs/accounts.html",
                 controller: 'AccountsCtrl'
             }
         }
     })
 
-    .state('app.favourites', {
+    .state('tab.favourites', {
         url: "/favourites",
         views: {
-            'menuContent': {
-                templateUrl: "templates/favourites.html",
+            'tab-favourites': {
+                templateUrl: "templates/tabs/favourites.html",
                 controller: 'FavouritesCtrl'
             }
         }
     })
 
-    .state('app.repos', {
+    .state('tab.search', {
+        url: "/search",
+        views: {
+            'tab-search': {
+                templateUrl: "templates/tabs/search.html",
+                controller: 'SearchCtrl'
+            }
+        }
+    })
+
+    .state('tab.repos', {
         url: "/repos/:loginid?ispro",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/repos.html",
                 controller: 'ReposCtrl'
             }
         }
     })
 
-    .state('app.builds', {
+    .state('tab.builds', {
         url: "/builds/:loginid/:repo?ispro",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/builds.html",
                 controller: 'BuildsCtrl'
             }
         }
     })
 
-    .state('app.build', {
+    .state('tab.build', {
         url: "/build/:buildid?ispro",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/build.html",
                 controller: 'BuildCtrl'
             }
         }
     })
 
-    .state('app.log', {
+    .state('tab.log', {
         url: "/log/:logid?ispro",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/log.html",
                 controller: 'LogCtrl'
             }
         }
     })
 
-    .state('app.about', {
+    .state('tab.about', {
         url: "/about",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/about.html",
                 controller: 'AboutCtrl'
             }
@@ -158,6 +169,6 @@ angular.module('trevor', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/accounts');
+  $urlRouterProvider.otherwise('/tab/accounts');
 
 });
