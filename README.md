@@ -23,7 +23,6 @@ Then prepare for release for each store.
 
 
 ## Running the tests
-*Gulp* runs jshint and *NPM* runs the karma-jasmine tests.
+There are jshint tests(through *gulp*) and karma-jasmine tests(through *NPM*). To un both:
 
-    gulp test
     npm test

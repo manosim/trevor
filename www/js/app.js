@@ -38,9 +38,6 @@ angular.module('trevor', [
         console.log("Google Analytics - Unavailable");
     }
 
-    // RequestService.token = $window.localStorage.travistoken || false;
-    AccountsService.setTokens();
-
     if (AccountsService.isLoggedIn()) {
         FavouritesService.loadFavourites();
         $state.go('tab.accounts');

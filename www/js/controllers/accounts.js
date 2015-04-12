@@ -2,6 +2,8 @@ var app = angular.module('controller.accounts', ['ionic']);
 
 app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, RequestService, AccountsService, LoadingService, AlertService) {
 
+    AccountsService.setTokens();
+
     var isLoggedIn = AccountsService.isLoggedIn();
 
     $scope.accounts = {
