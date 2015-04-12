@@ -159,27 +159,29 @@
 
 /* @group Miscellaneous */
 
-.bar-header {
-    background-color: @ThemeRed;
-    color: @White;
-
-    .button {
+.bar {
+    &.bar-trevor {
+        background-color: @ThemeRed;
         color: @White;
 
-        &.back-button {
-            padding: 0 5px;
-        }
+        .button {
+            color: @White;
 
-        &.button-logout {
-            .octicon {
-                font-size: 22px;
+            &.back-button {
+                padding: 0 5px;
+            }
+
+            &.button-logout {
+                .octicon {
+                    font-size: 22px;
+                }
             }
         }
-    }
 
-    .title {
-        .FontOpenSansSemibold();
-        font-size: 20px;
+        .title {
+            .FontOpenSansSemibold();
+            font-size: 20px;
+        }
     }
 }
 
