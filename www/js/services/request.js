@@ -44,6 +44,10 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
                     headers.Accept = "text/plain";
                 }
 
+                if ((pro == "false" || pro === false) && url.indexOf("/repos/") > -1) {
+                    headers.Authorization = undefined;
+                }
+
                 if (url.indexOf("/repos?orderBy=name&active=true") > -1) {
                     headers.Authorization = undefined;
                 }
