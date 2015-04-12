@@ -410,8 +410,8 @@
 /* @group Search Page */
 
 .search {
-    .search-form {
         background-color: @ThemeRed;
+    .search-form {
 
         .item {
             padding: 5px 15px;
@@ -439,6 +439,19 @@
                 border: 0;
                 min-height: 0;
             }
+        }
+    }
+
+    .no-results {
+        background-color: @ThemeRed;
+        color: @White;
+        font-size: 18px;
+        text-align: center;
+
+        .icon {
+            font-size: 65px;
+            margin: 10px 0;
+            display: block;
         }
     }
 }
@@ -513,6 +526,7 @@
             font-size: 16px;
             color: darken(@DarkGray, 20%);
             margin: 0 0 3px 3px;
+            .TruncateText();
         }
 
         .build-finished,

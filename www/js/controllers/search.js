@@ -2,17 +2,13 @@ angular.module('controller.search', [])
 
 .controller('SearchCtrl', function($scope, LoadingService, RequestService, AlertService) {
 
-    $scope.doSearch = function(slug, author) {
+    $scope.doSearch = function(keywords) {
         LoadingService.show();
 
         var searchUrl = "/repos?orderBy=name&active=true";
 
-        if (slug) {
-            searchUrl = searchUrl + "&search=" + slug;
-        }
-
-        if (author) {
-            searchUrl = searchUrl + "&owner_name=" + author;
+        if (keywords) {
+            searchUrl = searchUrl + "&search=" + keywords;
         }
 
         RequestService

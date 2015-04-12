@@ -4,21 +4,24 @@
 
     <div class="list search-form">
         <label class="item item-input item-stacked-label">
-            <span class="input-label">Repository Name</span>
-            <input type="text" placeholder="doe-framework" ng-model="slug">
-        </label>
-        <label class="item item-input item-stacked-label">
-            <span class="input-label">Author/Organization</span>
-            <input type="text" placeholder="johndoe" ng-model="author">
+            <span class="input-label">Keywords</span>
+            <input type="text" placeholder="doe-framework" ng-model="keywords">
         </label>
         <div class="search-button">
-            <button class="button button-block button-dark" ng-click="doSearch(slug, author)">Search</button>
+            <button class="button button-block button-dark" ng-click="doSearch(keywords)">Search</button>
+        </div>
+    </div>
+
+    <div class="row no-results padding" ng-if="results.length < 1">
+        <div class="col col-100 padding">
+            <i class="icon ion-happy"></i>
+            <div class="message">Oops! We couldn't find any results. Please try again!</div>
         </div>
     </div>
 
     <a class="item" ui-sref="tab.builds({ loginid: repo.login_id, repo: repo.short_slug, ispro: false })" ng-if="repo.active" ng-repeat="repo in results | filter:searchReposName">
 
-        <div class="name">{{ repo.short_slug }}</div>
+        <div class="name">{{ repo.slug }}</div>
 
         <div class="build-finished" ng-if="repo.last_build_finished_at">
             <i class="icon ion-calendar"></i> {{ repo.last_build_finished_at | timeAgo }}
