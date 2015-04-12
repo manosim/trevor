@@ -232,7 +232,7 @@
 }
 
 .item-divider {
-    background-color: @ThemeMediumBlue;
+    background-color: @ThemeDarkBlue;
     color: @TerminalText;
     .FontOpenSansSemibold();
 
@@ -328,10 +328,14 @@
 
         .logo {
             display: block;
-            max-width: 220px;
+            max-width: 280px;
             margin: 0 auto;
-            padding: 5px 0;
+            padding: 0;
         }
+    }
+
+    .item-divider {
+        border: 0;
     }
 
     .item {
@@ -387,8 +391,16 @@
     }
 
     .item-button {
+        background-color: @ThemeRed;
+        border: 0;
         display: block;
         padding: 0 10px;
+
+        .button {
+            min-height: 0;
+            border: 0;
+            .BorderRadius(0);
+        }
     }
 }
 
