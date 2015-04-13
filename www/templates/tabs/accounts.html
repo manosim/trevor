@@ -52,7 +52,7 @@
             <div class="item item-divider">Travis Pro</div>
             <a class="item" ui-sref="tab.repos({ loginid: account.login, ispro: true })" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.pro">
 
-                <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="pro && account.education"></span></div>
+                <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="account.education"></span></div>
 
                 <div class="info" ng-if="!pro || account.subscribed || account.education">{{ account.name }}</div>
                 <div class="info" ng-if="pro && !account.subscribed && !account.education">Not Subscribed</div>
