@@ -4,25 +4,19 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
 
     var service = {
 
-        token: false,
-
-        request: function (method, url, data) {
+        request: function (method, url, pro, data) {
 
             var deferred = $q.defer();
 
-            var pro = AccountsService.getPro();
-
-                // Get token wheather Pro or not
                 var domain, host;
-
-                if (pro === true || pro === "true") {
-                    domain = "https://api.travis-ci.com";
-                    host = "api.travis-ci.com";
-                    console.log("REQUEST: IS PRO");
-                } else if (pro === false || pro === "false") {
+                if (pro == "false" || pro === false) {
                     console.log("REQUEST: IS NOT PRO");
                     domain = "https://api.travis-ci.org";
                     host = "api.travis-ci.org";
+                } else if (pro == "true" || pro === true) {
+                    domain = "https://api.travis-ci.com";
+                    host = "api.travis-ci.com";
+                    console.log("REQUEST: IS PRO");
                 } else {
                     AlertService.raiseAlert("Oops! Something went wrong and we couldn't make your request. Please try again.");
                 }
@@ -36,7 +30,14 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
                 };
 
                 if (url != "/auth/github") {
-                    headers.Authorization = "token " + service.token;
+                    var token;
+                    if (pro == "false" || pro === false) {
+                        token = AccountsService.tokens.os;
+                    } else if (pro == "true" || pro === true) {
+                        token = AccountsService.tokens.pro;
+                    }
+                    console.log("Travis Token: " + token);
+                    headers.Authorization = "token " + token;
                 }
 
                 if (url.indexOf("logs") > -1) {

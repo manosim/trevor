@@ -39,7 +39,7 @@
 
                 <div class="committer"><span class="octicon octicon-person"></span> {{ commit.committer_name }}</div>
 
-                <div class="compare" ng-if="!pro">
+                <div class="compare" ng-if="!isPro || isPro == 'false'">
                     <button class="button button-block button-dark icon-left ion-social-github" ng-click="openCompare()">Compare Commit</button>
                 </div>
 
@@ -47,7 +47,7 @@
 
             <div class="item item-divider">Jobs</div>
 
-            <a class="item item-icon-right job" ng-href="#/app/log/{{ job.log_id }}" ng-repeat="job in jobs">
+            <a class="item item-icon-right job" ui-sref="app.log({ logid: job.log_id, ispro: isPro })" ng-repeat="job in jobs">
                 <div class="status bg-status-{{job.state}}">
                     <i class="icon" ng-class="{ 'created': 'ion-ios-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios-circle-filled' }[job.state]"></i>
                 </div>

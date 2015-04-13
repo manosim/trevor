@@ -8,18 +8,12 @@
 
         <ion-refresher
             pulling-text="Pull to refresh"
-            on-refresh="fetch()"
+            on-refresh="fetchData()"
             spinner="ripple">
         </ion-refresher>
 
-        <div class="row welcome-banner" ng-if="accounts.length > 0">
-            <div class="col col-100 padding">
-                <img src="images/travis-mascot.png" class="logo">
-                <span ng-if="greeting">Hi {{ greeting }}!</span>
-                <span ng-if="!greeting">Welcome to Trevor!</span>
-                <div class="pro" ng-if="pro">You are logged in to Travis Pro.</div>
-                <div class="pro" ng-if="!pro">You are logged in to Travis CI for Open Source.</div>
-            </div>
+        <div class="welcome-banner">
+            <img src="images/welcome-banner.png" class="logo">
         </div>
 
         <div class="row no-entries padding" ng-if="accounts.length < 1">
@@ -29,19 +23,50 @@
             </div>
         </div>
 
-        <a class="item" ng-href="#/app/repos/{{account.login}}" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts">
 
-            <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="pro && account.education"></span></div>
+        <div class="list">
 
-            <div class="info" ng-if="!pro || account.subscribed || account.education">{{ account.name }}</div>
-            <div class="info" ng-if="pro && !account.subscribed && !account.education">Not Subscribed</div>
+            <div class="item item-divider">Travis CI for Open Source</div>
+            <a class="item" ui-sref="app.repos({ loginid: account.login, ispro: false })" ng-repeat="account in accounts.os">
 
-            <div class="status">
-                <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
-                <div class="repos-count">{{ account.repos_count }}</div>
+                <div class="name">{{ account.login }}</div>
+
+                <div class="info">{{ account.name }}</div>
+
+                <div class="status">
+                    <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
+                    <div class="repos-count">{{ account.repos_count }}</div>
+                </div>
+
+            </a>
+            <div class="item item-button" ng-if="!accounts.os">
+                <button class="button button-block button-stable icon-left ion-social-github" ng-click="login(false)">
+                    Login with Github
+                </button>
             </div>
 
-        </a>
+            <div class="item item-divider">Travis Pro</div>
+            <a class="item" ui-sref="app.repos({ loginid: account.login, ispro: true })" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.pro">
+
+                <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="pro && account.education"></span></div>
+
+                <div class="info" ng-if="!pro || account.subscribed || account.education">{{ account.name }}</div>
+                <div class="info" ng-if="pro && !account.subscribed && !account.education">Not Subscribed</div>
+
+                <div class="status">
+                    <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
+                    <div class="repos-count">{{ account.repos_count }}</div>
+                </div>
+
+            </a>
+            <div class="item item-button" ng-if="!accounts.pro">
+                <button class="button button-block button-stable icon-left ion-social-github" ng-click="login(true)">
+                    Login with Github
+                </button>
+            </div>
+
+        </div>
+
 
     </ion-content>
 </ion-view>

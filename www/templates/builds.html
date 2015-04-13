@@ -1,14 +1,14 @@
 <ion-view view-title="Builds">
 
     <ion-nav-buttons side="right">
-      <button class="button button-icon button-dark" ng-class="{true: 'ion-ios-heart', false: 'ion-ios-heart-outline'}[isFavourite]" ng-click="addFavourites()"></button>
+      <button class="button button-icon button-dark" ng-class="{true: 'ion-ios-heart', false: 'ion-ios-heart-outline'}[isFavourite]" ng-click="toggleFavourite()"></button>
     </ion-nav-buttons>
 
     <ion-content class="builds">
 
         <ion-refresher
             pulling-text="Pull to refresh"
-            on-refresh="fetch()"
+            on-refresh="fetchData()"
             spinner="ripple">
         </ion-refresher>
 
@@ -22,7 +22,7 @@
             <div class="col col-33"><a class="button button-full" ng-click="showBuilds = 'pr'" ng-class="{'pr': 'active'}[showBuilds]">Pull Requests</a></div>
         </div>
 
-        <a class="item" ng-href="#/app/build/{{ build.id }}" ng-repeat="build in builds | toggleTo:showBuilds">
+        <a class="item" ui-sref="app.build({ buildid: build.id, ispro: isPro })" ng-repeat="build in builds | toggleTo:showBuilds">
 
             <div class="name">{{ build.commit.message }}</div>
 

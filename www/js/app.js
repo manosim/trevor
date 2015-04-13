@@ -43,13 +43,12 @@ angular.module('trevor', [
         console.log("Google Analytics - Unavailable");
     }
 
-    RequestService.token = $window.localStorage.travistoken || false;
-    AccountsService.setPro(JSON.parse($window.localStorage.travispro));
+    // RequestService.token = $window.localStorage.travistoken || false;
+    AccountsService.setTokens();
 
     if (AccountsService.isLoggedIn()) {
         FavouritesService.loadFavourites();
         $state.go('app.accounts');
-        console.log("Travis Token: " + $window.localStorage.travistoken);
 
         // Rate my app init and settings
         if (window.AppRate) {
@@ -82,17 +81,10 @@ angular.module('trevor', [
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('welcome', {
-        url: "/welcome",
-        templateUrl: 'templates/welcome.html',
-        controller: 'WelcomeCtrl'
-    })
-
     .state('app', {
         url: "/app",
         abstract: true,
         templateUrl: "templates/menu.html",
-        controller: 'SidemenuCtrl'
     })
 
     .state('app.accounts', {
@@ -101,15 +93,6 @@ angular.module('trevor', [
             'menuContent': {
                 templateUrl: "templates/accounts.html",
                 controller: 'AccountsCtrl'
-            }
-        }
-    })
-
-    .state('app.logout', {
-        url: "/logout",
-        views: {
-            'menuContent': {
-                controller: 'LogoutCtrl'
             }
         }
     })
@@ -125,7 +108,7 @@ angular.module('trevor', [
     })
 
     .state('app.repos', {
-        url: "/repos/:loginid",
+        url: "/repos/:loginid?ispro",
         views: {
             'menuContent': {
                 templateUrl: "templates/repos.html",
@@ -135,7 +118,7 @@ angular.module('trevor', [
     })
 
     .state('app.builds', {
-        url: "/builds/:repoid",
+        url: "/builds/:loginid/:repo?ispro",
         views: {
             'menuContent': {
                 templateUrl: "templates/builds.html",
@@ -145,7 +128,7 @@ angular.module('trevor', [
     })
 
     .state('app.build', {
-        url: "/build/:buildid",
+        url: "/build/:buildid?ispro",
         views: {
             'menuContent': {
                 templateUrl: "templates/build.html",
@@ -155,7 +138,7 @@ angular.module('trevor', [
     })
 
     .state('app.log', {
-        url: "/log/:logid",
+        url: "/log/:logid?ispro",
         views: {
             'menuContent': {
                 templateUrl: "templates/log.html",
@@ -175,6 +158,6 @@ angular.module('trevor', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/welcome');
+  $urlRouterProvider.otherwise('/accounts');
 
 });

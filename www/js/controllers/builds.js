@@ -1,17 +1,17 @@
 angular.module('controller.builds', [])
 
-.controller('BuildsCtrl', function($scope, $stateParams, $window, RequestService, LoadingService, FavouritesService, AlertService, MemoryService) {
+.controller('BuildsCtrl', function($scope, $stateParams, RequestService, LoadingService, FavouritesService, AlertService) {
 
-    var repoId = $stateParams.repoid;
-    var token = $window.localStorage.travistoken;
-    $scope.repoName = MemoryService.getRepoName();
+    var slug = $stateParams.loginid + "/" + $stateParams.repo;
+    var isPro = $scope.isPro = $stateParams.ispro;
+    $scope.repoName = slug;
 
     LoadingService.show();
 
-    $scope.fetch = function() {
+    $scope.fetchData = function() {
 
         RequestService
-            .request("GET", '/builds?repository_id=' + repoId + '/builds/', true)
+            .request("GET", "/repos/" + slug + "/builds", isPro, true)
 
             .then(function(data) {
 
@@ -44,15 +44,16 @@ angular.module('controller.builds', [])
 
     };
 
-    $scope.fetch();
+    $scope.fetchData();
 
-    $scope.isFavourite = FavouritesService.isFavourite(repoId);
+    $scope.isFavourite = FavouritesService.isFavourite(slug);
 
-    $scope.addFavourites = function () {
-        if (FavouritesService.isFavourite(repoId)) {
-            FavouritesService.removeFavourite(repoId);
+    $scope.toggleFavourite = function () {
+        console.log("isFavourite: " + $scope.isFavourite);
+        if ($scope.isFavourite) {
+            FavouritesService.removeFavourite(slug);
         } else {
-            FavouritesService.addFavourite(repoId);
+            FavouritesService.addFavourite(slug, isPro);
         }
         $scope.isFavourite = !$scope.isFavourite;
     };

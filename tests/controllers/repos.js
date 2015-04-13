@@ -2,35 +2,34 @@
 
 describe("Testing the AccountsCtrl.", function () {
 
-    var scope, state, createController, httpBackend, loadingService, alertService, accountsService, memoryService;
+    var scope, stateParams, createController, httpBackend, loadingService, alertService, accountsService;
 
     beforeEach(function(){
 
         angular.mock.module('trevor');
         angular.mock.module('templates');
 
-        inject(function ($injector, LoadingService, AlertService, AccountsService, MemoryService) {
+        inject(function ($injector, LoadingService, AlertService, AccountsService) {
 
             scope = $injector.get('$rootScope');
-            state = $injector.get('$state');
             controller = $injector.get('$controller');
             httpBackend = $injector.get('$httpBackend');
             alertService = AlertService;
             loadingService = LoadingService;
             accountsService = AccountsService;
-            memoryService = MemoryService;
 
-            stateparams = { loginid: "johndoe" };
+            stateparams = {
+                loginid: "johndoe",
+                ispro: false
+            };
 
             createController = function() {
                 return controller('ReposCtrl', {
                     '$scope' : $injector.get('$rootScope'),
-                    '$state' : state,
                     '$stateParams' : stateparams,
                     'LoadingService' : loadingService,
                     'AlertService' : alertService,
                     'AccountsService' : accountsService,
-                    'MemoryService' : memoryService,
                 });
             };
 
@@ -40,9 +39,8 @@ describe("Testing the AccountsCtrl.", function () {
 
     it("Should get the repos for an account.", function () {
 
-        accountsService.setPro(false);
         var loginId = stateparams.loginid;
-        spyOn(state, 'go');
+        var isPro = stateparams.ispro;
 
         data = {
             "repos": [
@@ -85,16 +83,13 @@ describe("Testing the AccountsCtrl.", function () {
         expect(scope.repos.length).toEqual(1);
         expect(scope.repos[0].short_slug).toBe("django-nicend");
 
-        scope.goTo(123, "my-repository");
-
-        expect(state.go).toHaveBeenCalledWith('app.builds', Object({ repoid: 123 }));
-
     });
 
     it("Should FAILT to get the repos for an account.", function () {
 
-        accountsService.setPro(false);
         var loginId = stateparams.loginid;
+        var isPro = stateparams.ispro;
+
         spyOn(alertService, 'raiseAlert');
 
         httpBackend.expectGET("https://api.travis-ci.org/repos/" + loginId).respond(400, "ERROR.");

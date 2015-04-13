@@ -10,21 +10,27 @@ services.factory('FavouritesService', function ($window) {
             return service.favourites;
         },
 
-        isFavourite: function (id) {
-            var index = service.favourites.indexOf(id);
-
-            if (index > -1) {
-                return true;
-            }
-            return false;
+        isFavourite: function (slug) {
+            var found = false;
+            angular.forEach(service.favourites, function(value, key) {
+                if (value.slug == slug && !found) {
+                    found = true;
+                }
+            });
+            return found;
         },
 
         resaveFavourites: function () {
             $window.localStorage.favourites = angular.toJson(service.favourites);
         },
 
-        addFavourite: function (value) {
-            service.favourites.push(value);
+        addFavourite: function (slug, isPro) {
+            var favourite = {
+                slug: slug,
+                isPro: isPro
+            };
+
+            service.favourites.push(favourite);
             service.resaveFavourites();
 
             // Analytics Tracking
@@ -33,12 +39,13 @@ services.factory('FavouritesService', function ($window) {
             }
         },
 
-        removeFavourite: function (value) {
-            var index = service.favourites.indexOf(value);
+        removeFavourite: function (slug) {
+            angular.forEach(service.favourites, function(value, key) {
+                if (value.slug == slug) {
+                    service.favourites.splice(key, 1);
+                }
+            });
 
-            if (index > -1) {
-                service.favourites.splice(index, 1);
-            }
             service.resaveFavourites();
 
             // Analytics Tracking

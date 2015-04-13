@@ -4,53 +4,60 @@ services.factory('AccountsService', function (FavouritesService, $window) {
 
     var service = {
 
-        accounts: false,
-        isPro: false,
-
-        getPro: function () {
-            return service.isPro;
+        accounts: {
+            os: false,
+            pro: false,
         },
 
-        setPro: function (value) {
-            if (value === true) {
-                service.isPro = true;
-            } else {
-                service.isPro = false;
-            }
-            $window.localStorage.travispro = service.isPro;
+        tokens: {
+            os: false,
+            pro: false,
+        },
+
+        setTokens: function () {
+            service.tokens.os = $window.localStorage.travisostoken || false;
+            service.tokens.pro = $window.localStorage.travisprotoken || false;
         },
 
         getAccounts: function () {
-            if (service.isLoggedIn()) {
-                return service.accounts;
-            }
+            return service.accounts;
         },
 
-        setAccounts: function (accountsData) {
-            if (service.isLoggedIn()) {
-                service.accounts = accountsData;
+        setAccounts: function (accountsData, pro) {
+            if (pro === false || pro == "false") {
+                service.accounts.os = accountsData;
+            } else if (pro === true || pro == "true") {
+                service.accounts.pro = accountsData;
             }
         },
 
         isLoggedIn: function () {
-            var token = window.localStorage.travistoken;
-            if (token) {
-                return true;
-            }
-            return false;
+
+            var isLoggedInOs = false;
+            var isLoggedInPro = false;
+            if (service.tokens.os) { isLoggedInOs = true; }
+            if (service.tokens.pro) { isLoggedInPro = true; }
+
+            return {
+                os: isLoggedInOs,
+                pro: isLoggedInPro,
+            };
         },
 
         logOut: function () {
-            if (service.isLoggedIn()) {
-                service.accounts = false;
-                FavouritesService.removeAll();
-                delete $window.localStorage.travistoken;
-                delete $window.localStorage.travispro;
+            service.accounts.os = false;
+            service.accounts.pro = false;
+            service.tokens.os = false;
+            service.tokens.pro = false;
 
-                // Analytics Tracking
-                if (typeof analytics !== 'undefined'){
-                    analytics.trackEvent('Accounts', 'Logged Out', '');
-                }
+            delete $window.localStorage.travisostoken;
+            delete $window.localStorage.travisprotoken;
+
+            FavouritesService.removeAll();
+
+            // Analytics Tracking
+            if (typeof analytics !== 'undefined'){
+                analytics.trackEvent('Accounts', 'Logged Out', '');
             }
         }
 

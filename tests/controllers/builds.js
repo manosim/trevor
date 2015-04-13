@@ -19,7 +19,11 @@ describe("Testing the BuildCtrl.", function () {
             accountsService = AccountsService;
             favouritesService = FavouritesService;
 
-            stateparams = { repoid: "123123" };
+            stateparams = {
+                loginid: "ekonstantinidis",
+                repo: "demo-project",
+                ispro: false
+            };
 
             createController = function() {
                 return controller('BuildsCtrl', {
@@ -38,8 +42,9 @@ describe("Testing the BuildCtrl.", function () {
 
     it("Should get the repos for an account.", function () {
 
-        accountsService.setPro(false);
-        var repoId = stateparams.repoid;
+        var loginId = stateparams.loginid;
+        var repo = stateparams.repo;
+        var isPro = stateparams.ispro;
 
         data = {
             "builds": [
@@ -84,7 +89,7 @@ describe("Testing the BuildCtrl.", function () {
             ]
         };
 
-        httpBackend.expectGET("https://api.travis-ci.org/builds?repository_id=" + repoId + "/builds/").respond(data);
+        httpBackend.expectGET("https://api.travis-ci.org/repos/" + loginId + "/" + repo + "/builds").respond(data);
 
         var controller = createController();
 
@@ -93,20 +98,22 @@ describe("Testing the BuildCtrl.", function () {
         expect(scope.builds[0].id).toEqual(51802125);
         expect(scope.builds[0].commit.id).toEqual(14869644);
 
-        scope.addFavourites();
+        scope.toggleFavourite();
         expect(scope.isFavourite).toBe(true);
 
-        scope.addFavourites();
+        scope.toggleFavourite();
         expect(scope.isFavourite).toBe(false);
 
     });
     it("Should get the repos for an account.", function () {
 
-        accountsService.setPro(false);
-        var repoId = stateparams.repoid;
+        var loginId = stateparams.loginid;
+        var repo = stateparams.repo;
+        var isPro = stateparams.ispro;
+
         spyOn(alertService, 'raiseAlert');
 
-        httpBackend.expectGET("https://api.travis-ci.org/builds?repository_id=" + repoId + "/builds/").respond(400, "ERROR.");
+        httpBackend.expectGET("https://api.travis-ci.org/repos/" + loginId + "/" + repo + "/builds").respond(400, "ERROR.");
 
         var controller = createController();
 

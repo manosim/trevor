@@ -3,14 +3,14 @@ angular.module('controller.build', [])
 .controller('BuildCtrl', function($scope, $stateParams, $window, AccountsService, LoadingService, RequestService, AlertService) {
 
     var buildId = $stateParams.buildid;
-    $scope.pro = AccountsService.getPro();
+    var isPro = $scope.isPro = $stateParams.ispro;
 
     LoadingService.show();
 
     $scope.fetch = function() {
 
         RequestService
-            .request("GET", '/builds/' + buildId, true)
+            .request("GET", '/builds/' + buildId, isPro, false)
 
             .then(function(data) {
 

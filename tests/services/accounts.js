@@ -2,18 +2,19 @@
 
 describe("Testing the AccountsService.", function () {
 
-    var scope, windowMock, accountsService;
+    var scope, windowMock, accountsService, favouritesService;
 
     beforeEach(function(){
 
         angular.mock.module('trevor');
         angular.mock.module('templates');
 
-        inject(function ($injector, AccountsService) {
+        inject(function ($injector, AccountsService, FavouritesService) {
 
             scope = $injector.get('$rootScope');
             windowMock = $injector.get('$window');
             accountsService = AccountsService;
+            favouritesService = FavouritesService;
 
         });
 
@@ -21,41 +22,51 @@ describe("Testing the AccountsService.", function () {
 
     it("Should get the accounts from the service.", function () {
 
-        var data = [
-            {username: "manos"},
-            {username: "johndoe"},
-        ];
+        var data = {
+            os: {username: "manos"},
+            pro: {username: "johndoe"}
+        };
 
-        windowMock.localStorage.travistoken = "123123123";
-        windowMock.localStorage.travispro = true;
+        windowMock.localStorage.travisostoken = "123123123";
+        windowMock.localStorage.travisprotoken = "456456456";
 
-        // Mock analytics
-        windowMock.analytics = {
-            trackEvent: function() {
+        accountsService.setTokens();
 
-            }
-        }
+        expect(accountsService.isLoggedIn().os).toBeTruthy();
+        expect(accountsService.isLoggedIn().pro).toBeTruthy();
+
+        accountsService.setAccounts(data.os, false);
+        accountsService.setAccounts(data.pro, true);
+
+        expect(accountsService.accounts.os).toBe(data.os);
+        expect(accountsService.accounts.pro).toBe(data.pro);
+
+        var accounts = accountsService.getAccounts();
+        expect(accounts.os).toBe(data.os);
+        expect(accounts.pro).toBe(data.pro);
+
+    });
+
+    it("Should logout a user.", function () {
+
+        spyOn(favouritesService, 'removeAll');
+
+        windowMock.localStorage.travisostoken = "123123123";
+        windowMock.localStorage.travisprotoken = "456456456";
+
+        accountsService.setTokens();
+
+        expect(accountsService.isLoggedIn().os).toBeTruthy();
+        expect(accountsService.isLoggedIn().pro).toBeTruthy();
 
         accountsService.logOut();
 
-        // Re-undefine analytics
-        windowMock.analytics = undefined
+        expect(accountsService.isLoggedIn().os).toBeFalsy();
+        expect(accountsService.isLoggedIn().pro).toBeFalsy();
+        expect(accountsService.tokens.os).toBeFalsy();
+        expect(accountsService.tokens.pro).toBeFalsy();
 
-        windowMock.localStorage.travistoken = "123123123";
-        windowMock.localStorage.travispro = true;
-
-        var isLoggedIn = accountsService.isLoggedIn();
-        expect(isLoggedIn).toBeTruthy();
-
-        accountsService.setAccounts(data);
-        expect(accountsService.accounts).toBe(data);
-
-        var accounts = accountsService.getAccounts();
-        expect(accounts).toBe(data);
-
-
-        // spyOn(window.analytics, 'trackEvent').and.returnValue({})
-
+        expect(favouritesService.removeAll).toHaveBeenCalled();
     });
 
 });
