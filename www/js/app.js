@@ -11,17 +11,17 @@ angular.module('trevor', [
     'filters'
 ])
 
-.run(function($ionicPlatform, $rootScope, AccountsService, RequestService, FavouritesService, $state, $window) {
+.run(function($ionicPlatform, $rootScope, FavouritesService) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleLightContent();
+        // org.apache.cordova.statusbar required
+        StatusBar.styleLightContent();
     }
 
     if (window.cordova) {
@@ -38,27 +38,24 @@ angular.module('trevor', [
         console.log("Google Analytics - Unavailable");
     }
 
-    if (AccountsService.isLoggedIn()) {
-        FavouritesService.loadFavourites();
-        $state.go('tab.accounts');
+    // Rate my app init and settings
+    if (window.AppRate) {
+        var customLocale = {};
+        customLocale.title = "Rate Trevor";
+        customLocale.message = "Your feedback is important for Trevor! Would you mind taking a moment to rate it? Thank you for downloading Trevor!";
+        customLocale.cancelButtonLabel = "No, Thanks";
+        customLocale.laterButtonLabel = "Remind Me Later";
+        customLocale.rateButtonLabel = "Rate It Now";
 
-        // Rate my app init and settings
-        if (window.AppRate) {
-            var customLocale = {};
-            customLocale.title = "Rate Trevor";
-            customLocale.message = "Your feedback is important for Trevor! Would you mind taking a moment to rate it? Thank you for downloading Trevor!";
-            customLocale.cancelButtonLabel = "No, Thanks";
-            customLocale.laterButtonLabel = "Remind Me Later";
-            customLocale.rateButtonLabel = "Rate It Now";
-
-            AppRate.preferences.storeAppURL.ios = '962155187';
-            AppRate.preferences.storeAppURL.android = 'market://details?id=com.iamemmanouil.trevor';
-            AppRate.preferences.usesUntilPrompt = 3;
-            AppRate.preferences.promptAgainForEachNewVersion = true;
-            AppRate.preferences.customLocale = customLocale;
-            AppRate.promptForRating();
-        }
+        AppRate.preferences.storeAppURL.ios = '962155187';
+        AppRate.preferences.storeAppURL.android = 'market://details?id=com.iamemmanouil.trevor';
+        AppRate.preferences.usesUntilPrompt = 3;
+        AppRate.preferences.promptAgainForEachNewVersion = true;
+        AppRate.preferences.customLocale = customLocale;
+        AppRate.promptForRating();
     }
+
+    FavouritesService.loadFavourites();
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         // Log the View Name if it changes

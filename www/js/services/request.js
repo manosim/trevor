@@ -30,13 +30,13 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
                 };
 
                 if ((pro == "true" || pro === true) && url != "/auth/github") {
-                    var token = AccountsService.tokens.pro;
-                    headers.Authorization = "token " + token;
+                    var tokenPro = AccountsService.tokens.pro;
+                    headers.Authorization = "token " + tokenPro;
                 }
 
-                if (pro == "false" || pro === false && url == "/accounts?all=true") {
-                    var token = AccountsService.tokens.os;
-                    headers.Authorization = "token " + token;
+                if ((pro == "false" || pro === false) && url == "/accounts?all=true") {
+                    var tokenOs = AccountsService.tokens.os;
+                    headers.Authorization = "token " + tokenOs;
                 }
 
                 if (url.indexOf("logs") > -1) {
