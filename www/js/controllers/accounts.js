@@ -180,6 +180,8 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
     }
 
     $scope.logOut = function() {
+        $scope.accounts.os = false;
+        $scope.accounts.pro =  false;
         AccountsService.logOut();
     };
 
