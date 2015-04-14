@@ -5,9 +5,11 @@ angular.module('controller.log', ['ansiToHtml'])
     ansi2html, $sce
 ) {
 
-    var logId = $stateParams.logid;
+    var jobId = $stateParams.jobid;
     var isPro = $scope.isPro = $stateParams.ispro;
 
+    $scope.log = false;
+    $scope.logArchived = false;
     $scope.showRefresh = true;
 
     $scope.fetch = function() {
@@ -15,21 +17,47 @@ angular.module('controller.log', ['ansiToHtml'])
         LoadingService.show();
 
         RequestService
-            .request("GET", '/logs/' + logId, isPro, false)
+            .requestLog("/jobs/" + jobId + "/log?cors_hax=true", isPro)
 
-            .then(function(data) {
+            .then(function(payload) {
 
-                console.log("Success-Log with Id!");
-                $scope.log = $sce.trustAsHtml(ansi2html.toHtml(data));
-                $ionicScrollDelegate.scrollBottom();
+                console.log("Success-Log with jobId?");
 
-                if (data.indexOf("Your build exited with") > -1) {
+                var data = payload.data;
+                var status = payload.status;
+
+                if (status == 200) {
+
+                    angular.forEach(data.log.parts, function(value, key) {
+                        value.content = $sce.trustAsHtml(ansi2html.toHtml(value.content));
+
+                        if (value.final === true) {
+                            $scope.showRefresh = false;
+                        }
+                    });
+
+                    $scope.log = data.log;
+                    LoadingService.hide();
+
+                } else if (status == 204) {
+
                     $scope.showRefresh = false;
+                    var location = payload.location;
+                    RequestService
+                        .requestLogTxt(location)
+                        .then(function(data) {
+                            $scope.logArchived = $sce.trustAsHtml(ansi2html.toHtml(data));;
+                            LoadingService.hide();
+                            $ionicScrollDelegate.scrollBottom();
+                        }, function(data, status, headers, config) {
+                            // Failure
+                            AlertService.raiseAlert("Oops! We couldn't get this log from Travis CI. Please try again.");
+                            LoadingService.hide();
+                        });
+
                 }
 
-                LoadingService.hide();
-
-            }, function(data) {
+            }, function(data, status, headers, config) {
                 // Failure
                 AlertService.raiseAlert("Oops! We couldn't get this log from Travis CI. Please try again.");
                 LoadingService.hide();

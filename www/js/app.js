@@ -143,7 +143,7 @@ angular.module('trevor', [
     })
 
     .state('tab.log', {
-        url: "/log/:logid?ispro",
+        url: "/log/:jobid?ispro",
         views: {
             'tab-accounts': {
                 templateUrl: "templates/log.html",
