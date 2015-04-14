@@ -22,6 +22,9 @@ module.exports = function(config) {
             // Angular Mocks
             'node_modules/angular-mocks/angular-mocks.js',
 
+            // Other libs
+            'www/lib/ansi2html.js',
+
             // App
             'www/js/app.js',
 

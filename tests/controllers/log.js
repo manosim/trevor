@@ -13,6 +13,7 @@ describe("Testing the LogCtrl.", function () {
 
             scope = $injector.get('$rootScope');
             state = $injector.get('$state');
+            sce = $injector.get('$sce');
             controller = $injector.get('$controller');
             httpBackend = $injector.get('$httpBackend');
             alertService = AlertService;
@@ -48,7 +49,7 @@ describe("Testing the LogCtrl.", function () {
         scope.toTop();
         scope.toBottom();
 
-        expect(scope.log).toBe("Hello! Your build exited with 0.");
+        expect(sce.getTrustedHtml(scope.log)).toBe("Hello! Your build exited with 0.");
     });
 
     it("Should FAIL to get the log of a build", function () {

@@ -15,9 +15,7 @@
         </div>
 
         <div class="log-wrapper">
-            <span ng-if="log" class="log-body">
-                <pre>{{ log }}</pre>
-            </span>
+            <div ng-if="log" class="log-body" ng-bind-html="log"></div>
 
             <span ng-if="!log" class="log-body">Oops! It seems that this log has been archived.</span>
         </div>

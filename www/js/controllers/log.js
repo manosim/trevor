@@ -1,6 +1,9 @@
-angular.module('controller.log', [])
+angular.module('controller.log', ['ansiToHtml'])
 
-.controller('LogCtrl', function($ionicScrollDelegate, $scope, $stateParams, LoadingService, RequestService, AlertService) {
+.controller('LogCtrl', function(
+    $ionicScrollDelegate, $scope, $stateParams, LoadingService, RequestService, AlertService,
+    ansi2html, $sce
+) {
 
     var logId = $stateParams.logid;
     var isPro = $scope.isPro = $stateParams.ispro;
@@ -17,7 +20,7 @@ angular.module('controller.log', [])
             .then(function(data) {
 
                 console.log("Success-Log with Id!");
-                $scope.log = data;
+                $scope.log = $sce.trustAsHtml(ansi2html.toHtml(data));
                 $ionicScrollDelegate.scrollBottom();
 
                 if (data.indexOf("Your build exited with") > -1) {
