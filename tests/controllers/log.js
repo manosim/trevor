@@ -33,7 +33,7 @@ describe("Testing the LogCtrl.", function () {
         });
     });
 
-    it("Should get the log of a build", function () {
+    it("Should get the log of a build (not AWS)", function () {
 
         var jobId = stateparams.jobid;
         var isPro = stateparams.ispro;
@@ -69,12 +69,38 @@ describe("Testing the LogCtrl.", function () {
         scope.toTop();
         scope.toBottom();
 
-        console.log(scope.log);
-
-        // expect(scope.log).toContain("Using worker");
         expect(sce.getTrustedHtml(scope.log.parts[0].content)).toContain("Using worker");
         expect(sce.getTrustedHtml(scope.log.parts[1].content)).toContain("travis_fold:start:system");
         expect(scope.logArchived).toBeFalsy();
+        expect(scope.showRefresh).toBeTruthy();
+    });
+
+
+    it("Should get the log of a build from AWS", function () {
+
+        var jobId = stateparams.jobid;
+        var isPro = stateparams.ispro;
+
+        var payload = {
+            location: "http://www.aws.com/"
+        };
+
+        var data = "Using worker: worker-linux-027f0490-2.bb.travis-ci.org:travis-linux-11\n\n travis_fold:start:system_info2% (6/260)   \u001B[K\rremote: Compressing objects:   3% (8/260)   \u001B[K\rremote: Compressing objects:\r\n";
+
+        httpBackend.expectGET("https://api.travis-ci.org/jobs/" + jobId + "/log?cors_hax=true").respond(204, {}, {"location":"http://www.aws.com/thelog.txt"});
+
+        httpBackend.expectGET("http://www.aws.com/thelog.txt").respond(data);
+
+        var controller = createController();
+
+        httpBackend.flush();
+
+        scope.toTop();
+        scope.toBottom();
+
+        expect(scope.log).toBeFalsy();
+        expect(scope.showRefresh).toBeFalsy();
+        expect(sce.getTrustedHtml(scope.logArchived)).toContain("Using worker: worker-linux")
     });
 
     it("Should FAIL to get the log of a build", function () {
