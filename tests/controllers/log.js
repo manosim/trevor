@@ -118,8 +118,6 @@ describe("Testing the LogCtrl.", function () {
         expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! We couldn't get this log from Travis CI. Please try again.");
     });
 
-
-
     it("Should get the log of a build from AWS", function () {
 
         spyOn(alertService, 'raiseAlert');
@@ -147,6 +145,5 @@ describe("Testing the LogCtrl.", function () {
 
         expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! We couldn't get this log from Travis CI. Please try again.");
     });
-
 
 });

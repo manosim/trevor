@@ -30,4 +30,22 @@ describe("Testing the RequestService.", function () {
 
     });
 
+    it("Should get a log as pro.", function () {
+
+        spyOn(alertService, 'raiseAlert');
+
+        requestService.requestLog("https://api.travis-ci.com/jobs/123/log?cors_hax=true", "true");
+
+    });
+
+    it("Should fail to set pro or os.", function () {
+
+        spyOn(alertService, 'raiseAlert');
+
+        requestService.requestLog("https://api.travis-ci.com/jobs/123/log?cors_hax=true", "hello");
+
+        expect(alertService.raiseAlert).toHaveBeenCalledWith("Oops! Something went wrong and we couldn't make your request. Please try again.");
+
+    });
+
 });

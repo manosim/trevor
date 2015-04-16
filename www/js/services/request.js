@@ -39,10 +39,6 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
                     headers.Authorization = "token " + tokenOs;
                 }
 
-                if (url.indexOf("logs") > -1) {
-                    headers.Accept = "application/json; chunked=true; version=2, text/plain; version=2";
-                }
-
                 $http({
                     url: domain + url,
                     method: method,
