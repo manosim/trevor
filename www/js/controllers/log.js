@@ -1,8 +1,7 @@
-angular.module('controller.log', ['ansiToHtml'])
+angular.module('controller.log', [])
 
 .controller('LogCtrl', function(
-    $ionicScrollDelegate, $scope, $stateParams, LoadingService, RequestService, AlertService,
-    ansi2html, $sce
+    $ionicScrollDelegate, $scope, $stateParams, LoadingService, RequestService, AlertService, $sce
 ) {
 
     var jobId = $stateParams.jobid;
@@ -29,7 +28,7 @@ angular.module('controller.log', ['ansiToHtml'])
                 if (status == 200) {
 
                     angular.forEach(data.log.parts, function(value, key) {
-                        value.content = $sce.trustAsHtml(ansi2html.toHtml(value.content));
+                        value.content = $sce.trustAsHtml(ansi_up.ansi_to_html(value.content));
 
                         if (value.final === true) {
                             $scope.showRefresh = false;
@@ -46,7 +45,7 @@ angular.module('controller.log', ['ansiToHtml'])
                     RequestService
                         .requestLogTxt(location)
                         .then(function(data) {
-                            $scope.logArchived = $sce.trustAsHtml(ansi2html.toHtml(data));;
+                            $scope.logArchived = $sce.trustAsHtml(ansi_up.ansi_to_html(data));;
                             LoadingService.hide();
                             $ionicScrollDelegate.scrollBottom();
                         }, function(data, status, headers, config) {
