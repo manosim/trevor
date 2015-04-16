@@ -100,9 +100,9 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
                         var payload = {
                             data: data,
                             status: status,
-                        }
+                        };
                         if (status == 204) {
-                            payload.location = headers('Location')
+                            payload.location = headers('Location');
                         }
                         deferred.resolve(payload);
                     }).error(function (data){

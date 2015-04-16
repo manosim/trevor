@@ -45,7 +45,7 @@ angular.module('controller.log', [])
                     RequestService
                         .requestLogTxt(location)
                         .then(function(data) {
-                            $scope.logArchived = $sce.trustAsHtml(ansi_up.ansi_to_html(data));;
+                            $scope.logArchived = $sce.trustAsHtml(ansi_up.ansi_to_html(data));
                             LoadingService.hide();
                             $ionicScrollDelegate.scrollBottom();
                         }, function(data, status, headers, config) {

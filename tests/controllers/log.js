@@ -19,7 +19,7 @@ describe("Testing the LogCtrl.", function () {
             alertService = AlertService;
 
             stateparams = {
-                logid: "123456",
+                jobid: "123456",
                 ispro: false
             };
 
@@ -35,12 +35,32 @@ describe("Testing the LogCtrl.", function () {
 
     it("Should get the log of a build", function () {
 
-        var logId = stateparams.logid;
+        var jobId = stateparams.jobid;
         var isPro = stateparams.ispro;
 
-        var data = "Hello! Your build exited with 0.";
+        var data = {
+            "log": {
+                "id":40600989,
+                "job_id":58803444,
+                "type":"Log",
+                "parts": [
+                    {
+                        "id":7382907890,
+                        "number": 1,
+                        "content": "Using worker: worker-linux-027f0490-2.bb.travis-ci.org:travis-linux-11\n\n",
+                        "final": false
+                    },
+                    {
+                        "id":7382908544,
+                        "number": 2,
+                        "content": "travis_fold:start:system_info2% (6/260)   \u001B[K\rremote: Compressing objects:   3% (8/260)   \u001B[K\rremote: Compressing objects:\r\n",
+                        "final":false
+                    }
+                ]
+            }
+        };
 
-        httpBackend.expectGET("https://api.travis-ci.org/logs/" + logId).respond(data);
+        httpBackend.expectGET("https://api.travis-ci.org/jobs/" + jobId + "/log?cors_hax=true").respond(200, data);
 
         var controller = createController();
 
@@ -49,16 +69,21 @@ describe("Testing the LogCtrl.", function () {
         scope.toTop();
         scope.toBottom();
 
-        expect(sce.getTrustedHtml(scope.log)).toBe("Hello! Your build exited with 0.");
+        console.log(scope.log);
+
+        // expect(scope.log).toContain("Using worker");
+        expect(sce.getTrustedHtml(scope.log.parts[0].content)).toContain("Using worker");
+        expect(sce.getTrustedHtml(scope.log.parts[1].content)).toContain("travis_fold:start:system");
+        expect(scope.logArchived).toBeFalsy();
     });
 
     it("Should FAIL to get the log of a build", function () {
 
-        var logId = stateparams.logid;
+        var jobId = stateparams.jobid;
 
         spyOn(alertService, 'raiseAlert');
 
-        httpBackend.expectGET("https://api.travis-ci.org/logs/" + logId).respond(400, "ERROR.");
+        httpBackend.expectGET("https://api.travis-ci.org/jobs/" + jobId + "/log?cors_hax=true").respond(400, "ERROR.");
 
         var controller = createController();
 
