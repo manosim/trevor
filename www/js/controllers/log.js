@@ -36,6 +36,7 @@ angular.module('controller.log', [])
                     });
 
                     $scope.log = data.log;
+                    $ionicScrollDelegate.scrollBottom(true);
                     LoadingService.hide();
 
                 } else if (status == 204) {

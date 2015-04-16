@@ -11,7 +11,7 @@ angular.module('trevor', [
     'filters'
 ])
 
-.run(function($ionicPlatform, $rootScope, FavouritesService) {
+.run(function($ionicPlatform, $rootScope, AccountsService, FavouritesService) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -54,6 +54,8 @@ angular.module('trevor', [
         AppRate.preferences.customLocale = customLocale;
         AppRate.promptForRating();
     }
+
+    AccountsService.setTokens();
 
     FavouritesService.loadFavourites();
 

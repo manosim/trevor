@@ -15,17 +15,17 @@
         </div>
 
         <div class="log-wrapper">
-            <!-- <div ng-if="log.length > 0" class="log-body" ng-repeat="part in log.parts"> -->
-            <div class="log-body" ng-if="log" ng-repeat="part in log.parts">
-                <p ng-bind-html="part.content"></p>
+
+            <div class="log-body" ng-repeat="part in log.parts">
+                <pre ng-bind-html="part.content"></pre>
             </div>
 
-            <pre class="log-body" ng-bind-html="logArchived"></pre>
+            <pre class="log-body" ng-if="logArchived" ng-bind-html="logArchived"></pre>
 
             <span ng-if="!log && !logArchived" class="log-body">Oops! It seems that this log has been archived.</span>
         </div>
 
-        <div class="log-toolbar" ng-if="log || logArchived&& showRefresh">
+        <div class="log-toolbar" ng-if="(log || logArchived) && showRefresh">
             <button class="button button-small button-full button-outline" ng-click="fetch()">Refresh</button>
         </div>
 
