@@ -28,7 +28,7 @@ angular.module('controller.log', [])
                 if (status == 200) {
 
                     angular.forEach(data.log.parts, function(value, key) {
-                        value.content = $sce.trustAsHtml(ansi_up.ansi_to_html(value.content));
+                        value.content = $sce.trustAsHtml(ansi_up.ansi_to_html(value.content, {use_classes: true}));
 
                         if (value.final === true) {
                             $scope.showRefresh = false;
@@ -46,7 +46,7 @@ angular.module('controller.log', [])
                     RequestService
                         .requestLogTxt(location)
                         .then(function(data) {
-                            $scope.logArchived = $sce.trustAsHtml(ansi_up.ansi_to_html(data));
+                            $scope.logArchived = $sce.trustAsHtml(ansi_up.ansi_to_html(data, {use_classes: true}));
                             LoadingService.hide();
                             $ionicScrollDelegate.scrollBottom();
                         }, function(data, status, headers, config) {
