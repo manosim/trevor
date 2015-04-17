@@ -32,6 +32,9 @@ angular.module('controller.favourites', ['ionic'])
 
                     });
             });
+        } else {
+            // Stop the ion-refresher from spinning
+            $scope.$broadcast('scroll.refreshComplete');
         }
     };
 
