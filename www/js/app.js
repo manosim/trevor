@@ -55,8 +55,6 @@ angular.module('trevor', [
         AppRate.promptForRating();
     }
 
-    AccountsService.setTokens();
-
     FavouritesService.loadFavourites();
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {

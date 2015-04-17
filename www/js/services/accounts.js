@@ -10,13 +10,8 @@ services.factory('AccountsService', function (FavouritesService, $window) {
         },
 
         tokens: {
-            os: false,
-            pro: false,
-        },
-
-        setTokens: function () {
-            service.tokens.os = $window.localStorage.travisostoken || false;
-            service.tokens.pro = $window.localStorage.travisprotoken || false;
+            os: $window.localStorage.travisostoken || false,
+            pro: $window.localStorage.travisprotoken || false,
         },
 
         getAccounts: function () {
