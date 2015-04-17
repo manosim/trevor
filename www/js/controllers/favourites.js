@@ -19,7 +19,10 @@ angular.module('controller.favourites', ['ionic'])
                         data.repo.short_slug = data.repo.slug.split('/')[1];
                         data.repo.is_pro = value.isPro;
                         $scope.repos.push(data.repo);
-                        LoadingService.hide();
+
+                        if (key + 1 == favourites.length) {
+                            LoadingService.hide();
+                        }
                     }, function(data) {
                         // Failure
                         AlertService.raiseAlert("Oops! We couldn't get your favourites' repos info from Travis CI. Please try again.");
