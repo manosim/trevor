@@ -4,9 +4,16 @@ A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
 
 ![Trevor App](www/images/press.png)
 
-## Running the app on the browser
+
+## Install Packages
+*NPM* will install all the project dependecies. Then *gulp* will install **ionic** and **ngCordova** from bower.
 
     npm install
+    gulp install
+
+
+## Running the app on the browser
+
     ionic serve
     gulp watch
 
