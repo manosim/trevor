@@ -41,7 +41,7 @@
     "org.pushandplay.cordova.apprate"
   ],
   "scripts": {
-    "test": "gulp test & karma start --single-run --browsers PhantomJS"
+    "test": "gulp test && karma start --single-run --browsers PhantomJS"
   },
   "cordovaPlatforms": [
     "ios",
