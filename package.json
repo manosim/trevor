@@ -33,12 +33,12 @@
     "org.apache.cordova.dialogs",
     "org.apache.cordova.console",
     "org.apache.cordova.device",
-    "com.ionic.keyboard",
-    "org.apache.cordova.statusbar",
     "org.apache.cordova.splashscreen",
     "com.danielcwilson.plugins.googleanalytics",
     "org.apache.cordova.inappbrowser",
-    "org.pushandplay.cordova.apprate"
+    "org.pushandplay.cordova.apprate",
+    "org.apache.cordova.statusbar",
+    "com.ionic.keyboard"
   ],
   "scripts": {
     "test": "gulp test && karma start --single-run --browsers PhantomJS"
