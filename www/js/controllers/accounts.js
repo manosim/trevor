@@ -28,7 +28,11 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
 
                 AccountsService.setAccounts(data.accounts, pro);
 
-                LoadingService.hide();
+                if (!isLoggedIn.pro) {
+                    LoadingService.hide();
+                } else if (isLoggedIn.pro && pro) {
+                    LoadingService.hide();
+                }
 
             }, function(data) {
 
