@@ -6,6 +6,7 @@ node_js:
 before_script:
   - npm install -g gulp
   - npm install -g karma-cli
+  - gulp install
   - npm install
   - gulp release
 
