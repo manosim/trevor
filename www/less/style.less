@@ -354,6 +354,8 @@
             font-size: 16px;
             color: darken(@DarkGray, 20%);
             margin: 3px 0;
+            margin-left: 50px;
+            .TruncateText();
         }
 
         .info {
@@ -361,6 +363,8 @@
             font-size: 14px;
             margin: 2px 0;
             text-transform: capitalize;
+            margin-left: 50px;
+            .TruncateText();
         }
 
         .status {
@@ -875,18 +879,24 @@
     .log-body {
         .FontMonospace();
         font-size: 12px;
-    }
 
-    .log-toolbar {
-        padding: 10px;
+        .ansi-black-fg { color: #FFF; }
+        .ansi-red-fg { color: #FF6C60; }
+        .ansi-green-fg { color: #0A0; }
+        .ansi-yellow-fg { color: #FFFFCB; }
+        .ansi-blue-fg { color: #B5DCFE; }
+        .ansi-magenta-fg { color: #FF73FD; }
+        .ansi-cyan-fg { color: #5FF; }
+        .ansi-white-fg { color: #FFF; }
 
-        .button {
-            margin: 0;
-            border: 1px solid @TerminalText;
-            .BorderRadius(5px);
-            height: 34px;
-            padding: 0;
-        }
+        .ansi-bright-black-fg { color: #FFF; }
+        .ansi-bright-red-fg { color: #FF6C60; }
+        .ansi-bright-green-fg { color: #0A0; }
+        .ansi-bright-yellow-fg { color: #FFFFCB; }
+        .ansi-bright-blue-fg { color: #B5DCFE; }
+        .ansi-bright-magenta-fg { color: #FF73FD; }
+        .ansi-bright-cyan-fg { color: #5FF; }
+        .ansi-bright-white-fg { color: #FFF; }
     }
 }
 

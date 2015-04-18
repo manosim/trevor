@@ -31,7 +31,10 @@
         <div class="list">
 
             <div class="item item-divider">Travis CI for Open Source</div>
-            <a class="item" ui-sref="tab.repos({ loginid: account.login, ispro: false })" ng-repeat="account in accounts.os">
+            <a class="item item-avatar" ui-sref="tab.repos({ loginid: account.login, ispro: false })" ng-repeat="account in accounts.os">
+
+                <img ng-src="{{account.avatar_url}}" ng-if="account.avatar_url" />
+                <img ng-src="images/trevor-logo.png" ng-if="!account.avatar_url" />
 
                 <div class="name">{{ account.login }}</div>
 
@@ -50,7 +53,10 @@
             </div>
 
             <div class="item item-divider">Travis Pro</div>
-            <a class="item" ui-sref="tab.repos({ loginid: account.login, ispro: true })" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.pro">
+            <a class="item item-avatar" ui-sref="tab.repos({ loginid: account.login, ispro: true })" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.pro">
+
+                <img ng-src="{{account.avatar_url}}" ng-if="account.avatar_url" />
+                <img ng-src="images/trevor-logo.png" ng-if="!account.avatar_url" />
 
                 <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="account.education"></span></div>
 

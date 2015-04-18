@@ -24,6 +24,7 @@ gulp.task('concat', function() {
       './www/js/services/*.js',
       './www/js/filters.js',
       './www/js/filters/*.js',
+      './node_modules/ansi_up/ansi_up.js',
     ])
     .pipe(concat('main.js'))
     .pipe(gulp.dest('./www/js/dist/'));

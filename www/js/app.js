@@ -11,7 +11,7 @@ angular.module('trevor', [
     'filters'
 ])
 
-.run(function($ionicPlatform, $rootScope, FavouritesService) {
+.run(function($ionicPlatform, $rootScope, AccountsService, FavouritesService) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -143,7 +143,7 @@ angular.module('trevor', [
     })
 
     .state('tab.log', {
-        url: "/log/:logid?ispro",
+        url: "/log/:jobid?ispro",
         views: {
             'tab-accounts': {
                 templateUrl: "templates/log.html",

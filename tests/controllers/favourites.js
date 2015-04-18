@@ -63,6 +63,17 @@ describe("Testing the FavouritesCtrl.", function () {
 
     });
 
+    it("Should try to get the details for 0(zero) favourites.", function () {
+
+        spyOn(favouritesService, 'getFavourites').and.returnValue([]);
+        spyOn(scope, '$broadcast');
+
+        var controller = createController();
+
+        expect(scope.$broadcast).toHaveBeenCalled();
+
+    });
+
     it("Should FAIL to get the details for all the favourites repos.", function () {
 
         spyOn(favouritesService, 'getFavourites').and.returnValue([

@@ -2,8 +2,6 @@ var app = angular.module('controller.accounts', ['ionic']);
 
 app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, RequestService, AccountsService, LoadingService, AlertService) {
 
-    AccountsService.setTokens();
-
     var isLoggedIn = AccountsService.isLoggedIn();
 
     $scope.accounts = {
@@ -30,7 +28,11 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
 
                 AccountsService.setAccounts(data.accounts, pro);
 
-                LoadingService.hide();
+                if (!isLoggedIn.pro) {
+                    LoadingService.hide();
+                } else if (isLoggedIn.pro && pro) {
+                    LoadingService.hide();
+                }
 
             }, function(data) {
 

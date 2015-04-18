@@ -1,30 +1,35 @@
 <ion-view view-title="Log">
 
+    <ion-nav-buttons side="left">
+       <button class="button button-icon button-dark ion-ios-refresh-outline" ng-click="fetch()" ng-if="(log || logArchived) && showRefresh"></button>
+    </ion-nav-buttons>
+
     <ion-nav-buttons side="right">
-      <button class="button button-icon ion-ios-arrow-up button-dark" ng-click="toTop()" ng-if="log"></button>
-      <button class="button button-icon ion-ios-arrow-down button-dark" ng-click="toBottom()" ng-if="log"></button>
+      <button class="button button-icon ion-ios-arrow-up button-dark" ng-click="toTop()" ng-if="log || logArchived"></button>
+      <button class="button button-icon ion-ios-arrow-down button-dark" ng-click="toBottom()" ng-if="log || logArchived"></button>
     </ion-nav-buttons>
 
     <ion-content class="log">
 
-        <div class="row no-entries padding" ng-if="!log">
+        <div class="row no-entries padding" ng-if="!log && !logArchived">
             <div class="col col-100 padding">
                 <i class="icon ion-sad"></i>
-                <div class="message">Oops! It seems that this log has been archived.</div>
+                <div class="message">Oops! It seems that we can't find this log.</div>
             </div>
         </div>
 
         <div class="log-wrapper">
-            <span ng-if="log" class="log-body">
-                <pre>{{ log }}</pre>
-            </span>
 
-            <span ng-if="!log" class="log-body">Oops! It seems that this log has been archived.</span>
-        </div>
+            <div class="log-body" ng-if="log" ng-repeat="part in log.parts">
+                <pre ng-bind-html="part.content"></pre>
+            </div>
 
-        <div class="log-toolbar" ng-if="log && showRefresh">
-            <button class="button button-small button-full button-outline" ng-click="fetch()">Refresh</button>
+            <pre class="log-body" ng-if="logArchived" ng-bind-html="logArchived"></pre>
+
+            <span ng-if="!log && !logArchived" class="log-body">Oops! It seems that this log has been archived.</span>
+
         </div>
 
     </ion-content>
+
 </ion-view>

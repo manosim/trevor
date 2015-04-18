@@ -27,10 +27,8 @@ describe("Testing the AccountsService.", function () {
             pro: {username: "johndoe"}
         };
 
-        windowMock.localStorage.travisostoken = "123123123";
-        windowMock.localStorage.travisprotoken = "456456456";
-
-        accountsService.setTokens();
+        accountsService.tokens.os = "123123123";
+        accountsService.tokens.pro = "456456456";
 
         expect(accountsService.isLoggedIn().os).toBeTruthy();
         expect(accountsService.isLoggedIn().pro).toBeTruthy();
@@ -51,10 +49,8 @@ describe("Testing the AccountsService.", function () {
 
         spyOn(favouritesService, 'removeAll');
 
-        windowMock.localStorage.travisostoken = "123123123";
-        windowMock.localStorage.travisprotoken = "456456456";
-
-        accountsService.setTokens();
+        accountsService.tokens.os = "123123123";
+        accountsService.tokens.pro = "456456456";
 
         expect(accountsService.isLoggedIn().os).toBeTruthy();
         expect(accountsService.isLoggedIn().pro).toBeTruthy();
