@@ -159,95 +159,45 @@
 
 /* @group Miscellaneous */
 
-.bar-header {
-    background-color: @ThemeRed;
-    color: @White;
-
-    .button {
+.bar {
+    &.bar-trevor {
+        background-color: @ThemeRed;
+        border-color: @ThemeRed;
+        background-image: none;
         color: @White;
 
-        &.back-button {
-            padding: 0 5px;
-        }
-
-        &.button-logout {
-            .octicon {
-                font-size: 22px;
-            }
-        }
-    }
-
-    .title {
-        .FontOpenSansSemibold();
-        font-size: 20px;
-    }
-}
-
-.sidemenu {
-    .bar {
-        background-color: darken(@ThemeRed, 10%);
-
-        .title {
+        .button {
             color: @White;
-        }
-    }
 
-    .scroll-content {
-        background-color: @ThemeDarkBlue;
-    }
-
-    .list {
-        .item {
-            border-color: lighten(@Gray, 10%);
-
-            .icon,
-            .octicon {
-                display: inline-block;
-                font-size: 18px;
-                min-width: 35px;
-                text-align: center;
+            &.back-button {
+                padding: 0 5px;
             }
 
-            .item-content {
-                padding: 12px 10px;
-                background-color: @ThemeDarkBlue;
-                color: @White;
-            }
-
-            &.account {
-
-                .item-content {
-                    background-color: darken(@ThemeMediumBlue, 10%);
-                    padding: 12px 10px 12px 40px;
-
-                    .status {
-                        background-color: @ThemeMediumBlue;
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        height: 100%;
-                        padding: 7px 5px;
-                        width: 80px;
-
-                        .account-info {
-                            display: inline-block;
-                            .FontOpenSansSemibold();
-                            font-size: 16px;
-                            color: @White;
-                            text-align: center;
-                            margin: 5px 0;
-
-                            .octicon {
-                                margin: 0;
-                            }
-                        }
-                    }
+            &.button-logout {
+                .octicon {
+                    font-size: 22px;
                 }
             }
+        }
 
+        .title {
+            .FontOpenSansSemibold();
+            font-size: 20px;
         }
     }
 }
+
+.tabs-trevor > .tabs,
+.tabs-trevor.tabs-striped > .tabs {
+    background-color: @ThemeDarkBlue;
+    border-color: @ThemeDarkBlue;
+    background-image: linear-gradient(0deg, #40454f, #40454f 50%, transparent 50%);
+
+    .tab-item-active {
+        background-color: darken(@ThemeRed, 5%);
+    }
+}
+
 
 .badge,
 .build-number {
@@ -367,107 +317,6 @@
 /* @end Loading Service */
 
 
-/* @group Welcome Screen */
-
-.welcome {
-    padding: 10px;
-    background-color: @ThemeRed;
-
-    .trevor-logo {
-        display: block;
-        max-width: 105px;
-        height: auto;
-        margin: 15% auto 10px auto;
-    }
-
-    .slogan {
-        .FontOpenSansLight();
-        font-size: 22px;
-        line-height: 22px;
-        text-align: center;
-        color: @White;
-        margin-top: 20px;
-
-        .logo {
-            display: block;
-            max-height: 35px;
-            margin: 3px auto;
-        }
-    }
-
-    .switch-tip {
-        text-align: center;
-        padding: 0 20px;
-        margin: 40px auto 0 auto;
-
-        .tip {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-    }
-
-    .services {
-        background: none;
-        border: 0;
-        color: @White;
-        margin: 0 0 20px 0;
-
-        &.item {
-            padding: 0 102px 0 20px;
-        }
-
-        .service {
-            .FontOpenSansSemibold();
-            font-size: 20px;
-            line-height: 28px;
-            text-align: center;
-
-            .desc {
-                .FontOpenSansRegular();
-                font-size: 16px;
-                line-height: 16px;
-            }
-        }
-
-        .toggle input + .track {
-            border-color: @ThemeDesBlue;
-            background-color: @ThemeDarkBlue;
-        }
-
-        .toggle input:checked + .track {
-            border-color: @ThemeMediumBlue;
-            background-color: @ThemeMediumBlue;
-        }
-
-    }
-
-    .button {
-        border: 0;
-    }
-
-    &.bar-footer {
-        background: none;
-        background-color: @ThemeRed;
-        border: 0;
-        height: auto;
-
-        .disclaimer {
-            .FontOpenSansRegular();
-            font-size: 12px;
-            text-align: center;
-            color: @White;
-            display: block;
-            margin: 0 auto;
-            padding: 0;
-        }
-    }
-
-}
-
-/* @end Welcome Screen */
-
-
 /* @group Accounts Page */
 
 .accounts {
@@ -559,6 +408,58 @@
 /* @end Accounts Page */
 
 
+/* @group Search Page */
+
+.search {
+    background-color: @ThemeRed;
+
+    .search-form {
+        .item {
+            padding: 5px 15px;
+            border: 0;
+
+            .input-label {
+                padding: 5px 0;
+                color: @White;
+            }
+
+            input[type="text"] {
+                color: @White;
+                padding: 5px 10px;
+                background-color: @ThemeRed;
+                border: 0;
+                .BorderRadius(0);
+                border-bottom: 1px solid @White;
+            }
+        }
+
+        .search-button {
+            padding: 5px 15px;
+
+            .button {
+                border: 0;
+                min-height: 0;
+            }
+        }
+    }
+
+    .no-results {
+        background-color: @ThemeRed;
+        color: @White;
+        font-size: 18px;
+        text-align: center;
+
+        .icon {
+            font-size: 65px;
+            margin: 10px 0;
+            display: block;
+        }
+    }
+}
+
+/* @end Search Page */
+
+
 /* @group Repos */
 
 .repos {
@@ -626,6 +527,7 @@
             font-size: 16px;
             color: darken(@DarkGray, 20%);
             margin: 0 0 3px 3px;
+            .TruncateText();
         }
 
         .build-finished,

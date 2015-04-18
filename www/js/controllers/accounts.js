@@ -2,6 +2,8 @@ var app = angular.module('controller.accounts', ['ionic']);
 
 app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, RequestService, AccountsService, LoadingService, AlertService) {
 
+    AccountsService.setTokens();
+
     var isLoggedIn = AccountsService.isLoggedIn();
 
     $scope.accounts = {
@@ -178,6 +180,8 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
     }
 
     $scope.logOut = function() {
+        $scope.accounts.os = false;
+        $scope.accounts.pro =  false;
         AccountsService.logOut();
     };
 

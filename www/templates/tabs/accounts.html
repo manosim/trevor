@@ -1,7 +1,11 @@
 <ion-view view-title="Accounts">
 
+    <ion-nav-buttons side="left">
+        <a ui-sref="tab.about"><button class="button button-icon ion-ios-information-outline"></button></a>
+    </ion-nav-buttons>
+
     <ion-nav-buttons side="right">
-      <button class="button button-icon button-logout" ng-click="logOut()"><span class="octicon octicon-sign-out"></span></button>
+        <button class="button button-icon button-logout" ng-if="accounts.os || accounts.pro" ng-click="logOut()"><span class="octicon octicon-sign-out"></span></button>
     </ion-nav-buttons>
 
     <ion-content class="accounts">
@@ -27,7 +31,7 @@
         <div class="list">
 
             <div class="item item-divider">Travis CI for Open Source</div>
-            <a class="item" ui-sref="app.repos({ loginid: account.login, ispro: false })" ng-repeat="account in accounts.os">
+            <a class="item" ui-sref="tab.repos({ loginid: account.login, ispro: false })" ng-repeat="account in accounts.os">
 
                 <div class="name">{{ account.login }}</div>
 
@@ -46,9 +50,9 @@
             </div>
 
             <div class="item item-divider">Travis Pro</div>
-            <a class="item" ui-sref="app.repos({ loginid: account.login, ispro: true })" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.pro">
+            <a class="item" ui-sref="tab.repos({ loginid: account.login, ispro: true })" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.pro">
 
-                <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="pro && account.education"></span></div>
+                <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="account.education"></span></div>
 
                 <div class="info" ng-if="!pro || account.subscribed || account.education">{{ account.name }}</div>
                 <div class="info" ng-if="pro && !account.subscribed && !account.education">Not Subscribed</div>
@@ -67,6 +71,6 @@
 
         </div>
 
-
     </ion-content>
+
 </ion-view>

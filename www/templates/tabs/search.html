@@ -1,0 +1,50 @@
+<ion-view view-title="Search">
+
+    <ion-content class="repos search">
+
+    <div class="list search-form">
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Keywords</span>
+            <input type="text" placeholder="doe-framework" ng-model="keywords">
+        </label>
+        <div class="search-button">
+            <button class="button button-block button-dark" ng-click="doSearch(keywords)">Search</button>
+        </div>
+    </div>
+
+    <div class="row no-results padding" ng-if="results.length < 1">
+        <div class="col col-100 padding">
+            <i class="icon ion-happy"></i>
+            <div class="message">Oops! We couldn't find any results. Please try again!</div>
+        </div>
+    </div>
+
+    <a class="item" ui-sref="tab.builds({ loginid: repo.login_id, repo: repo.short_slug, ispro: false })" ng-if="repo.active" ng-repeat="repo in results | filter:searchReposName">
+
+        <div class="name">{{ repo.slug }}</div>
+
+        <div class="build-finished" ng-if="repo.last_build_finished_at">
+            <i class="icon ion-calendar"></i> {{ repo.last_build_finished_at | timeAgo }}
+        </div>
+
+        <div class="build-duration" ng-if="repo.last_build_duration">
+            <i class="icon ion-clock"></i> Run for {{repo.last_build_duration | convertSeconds }}
+        </div>
+
+        <div class="build-status" ng-if="!repo.last_build_duration || !repo.last_build_duration">
+            <span class="octicon octicon-hourglass"></span> {{repo.last_build_state }}
+        </div>
+
+        <div class="build-started" ng-if="!repo.last_build_finished_at">
+            <i class="icon ion-clock" ng-if="repo.last_build_started_at"></i> {{ repo.last_build_started_at | timeAgo }}
+        </div>
+
+        <div class="status bg-status-{{repo.last_build_state}}" ng-if="repo.last_build_state">
+            <i class="icon" ng-class="{ 'created': 'ion-ios-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios-circle-filled' }[repo.last_build_state]"></i>
+            <div class="build-number">{{ repo.last_build_number }}</div>
+        </div>
+
+    </a>
+
+    </ion-content>
+</ion-view>

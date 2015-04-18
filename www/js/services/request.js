@@ -23,21 +23,20 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
 
                 var headers = {
                     'Accept': 'application/vnd.travis-ci.2+json',
-                    // 'User-Agent': 'MyClient/1.0.0',
-                    // 'Host': host,
+                    'User-Agent': 'Trevor/1.5.3',
+                    'Host': host,
                     // 'Content-Type': 'application/json',
                     // 'Content-Length': 37
                 };
 
-                if (url != "/auth/github") {
-                    var token;
-                    if (pro == "false" || pro === false) {
-                        token = AccountsService.tokens.os;
-                    } else if (pro == "true" || pro === true) {
-                        token = AccountsService.tokens.pro;
-                    }
-                    console.log("Travis Token: " + token);
-                    headers.Authorization = "token " + token;
+                if ((pro == "true" || pro === true) && url != "/auth/github") {
+                    var tokenPro = AccountsService.tokens.pro;
+                    headers.Authorization = "token " + tokenPro;
+                }
+
+                if ((pro == "false" || pro === false) && url == "/accounts?all=true") {
+                    var tokenOs = AccountsService.tokens.os;
+                    headers.Authorization = "token " + tokenOs;
                 }
 
                 if (url.indexOf("logs") > -1) {

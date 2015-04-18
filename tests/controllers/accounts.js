@@ -218,6 +218,8 @@ describe("Testing the AccountsCtrl - Login.", function () {
 
     it("Should try to login the user - PRO.", function () {
 
+        accountsService.logOut();
+
         // in your test add a mock for window (remember to reset back to normal window after)
         window.open = function(url, target, settings){
             return {
@@ -277,6 +279,8 @@ describe("Testing the AccountsCtrl - Login.", function () {
 
 
     it("Should try to login the user - Open Source.", function () {
+
+        accountsService.logOut();
 
         // in your test add a mock for window (remember to reset back to normal window after)
         window.open = function(url, target, settings){

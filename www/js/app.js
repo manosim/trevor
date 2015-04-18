@@ -11,22 +11,17 @@ angular.module('trevor', [
     'filters'
 ])
 
-.config(function($ionicConfigProvider) {
-    $ionicConfigProvider.views.maxCache(0);
-    $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-left').previousTitleText(false);
-})
-
-.run(function($ionicPlatform, $rootScope, AccountsService, RequestService, FavouritesService, $state, $window) {
+.run(function($ionicPlatform, $rootScope, FavouritesService) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleLightContent();
+        // org.apache.cordova.statusbar required
+        StatusBar.styleLightContent();
     }
 
     if (window.cordova) {
@@ -43,30 +38,24 @@ angular.module('trevor', [
         console.log("Google Analytics - Unavailable");
     }
 
-    // RequestService.token = $window.localStorage.travistoken || false;
-    AccountsService.setTokens();
+    // Rate my app init and settings
+    if (window.AppRate) {
+        var customLocale = {};
+        customLocale.title = "Rate Trevor";
+        customLocale.message = "Your feedback is important for Trevor! Would you mind taking a moment to rate it? Thank you for downloading Trevor!";
+        customLocale.cancelButtonLabel = "No, Thanks";
+        customLocale.laterButtonLabel = "Remind Me Later";
+        customLocale.rateButtonLabel = "Rate It Now";
 
-    if (AccountsService.isLoggedIn()) {
-        FavouritesService.loadFavourites();
-        $state.go('app.accounts');
-
-        // Rate my app init and settings
-        if (window.AppRate) {
-            var customLocale = {};
-            customLocale.title = "Rate Trevor";
-            customLocale.message = "Your feedback is important for Trevor! Would you mind taking a moment to rate it? Thank you for downloading Trevor!";
-            customLocale.cancelButtonLabel = "No, Thanks";
-            customLocale.laterButtonLabel = "Remind Me Later";
-            customLocale.rateButtonLabel = "Rate It Now";
-
-            AppRate.preferences.storeAppURL.ios = '962155187';
-            AppRate.preferences.storeAppURL.android = 'market://details?id=com.iamemmanouil.trevor';
-            AppRate.preferences.usesUntilPrompt = 3;
-            AppRate.preferences.promptAgainForEachNewVersion = true;
-            AppRate.preferences.customLocale = customLocale;
-            AppRate.promptForRating();
-        }
+        AppRate.preferences.storeAppURL.ios = '962155187';
+        AppRate.preferences.storeAppURL.android = 'market://details?id=com.iamemmanouil.trevor';
+        AppRate.preferences.usesUntilPrompt = 3;
+        AppRate.preferences.promptAgainForEachNewVersion = true;
+        AppRate.preferences.customLocale = customLocale;
+        AppRate.promptForRating();
     }
+
+    FavouritesService.loadFavourites();
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         // Log the View Name if it changes
@@ -78,79 +67,95 @@ angular.module('trevor', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
+
+  $ionicConfigProvider.views.maxCache(0);
+  $ionicConfigProvider.backButton.icon("ion-ios-arrow-left");
+  $ionicConfigProvider.backButton.text("");
+  $ionicConfigProvider.backButton.previousTitleText(false);
+
   $stateProvider
 
-    .state('app', {
-        url: "/app",
+    .state('tab', {
+        url: "/tab",
         abstract: true,
-        templateUrl: "templates/menu.html",
+        templateUrl: "templates/tabs.html"
     })
 
-    .state('app.accounts', {
+    .state('tab.accounts', {
         url: "/accounts",
         views: {
-            'menuContent': {
-                templateUrl: "templates/accounts.html",
+            'tab-accounts': {
+                templateUrl: "templates/tabs/accounts.html",
                 controller: 'AccountsCtrl'
             }
         }
     })
 
-    .state('app.favourites', {
+    .state('tab.favourites', {
         url: "/favourites",
         views: {
-            'menuContent': {
-                templateUrl: "templates/favourites.html",
+            'tab-favourites': {
+                templateUrl: "templates/tabs/favourites.html",
                 controller: 'FavouritesCtrl'
             }
         }
     })
 
-    .state('app.repos', {
+    .state('tab.search', {
+        url: "/search",
+        views: {
+            'tab-search': {
+                templateUrl: "templates/tabs/search.html",
+                controller: 'SearchCtrl'
+            }
+        }
+    })
+
+    .state('tab.repos', {
         url: "/repos/:loginid?ispro",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/repos.html",
                 controller: 'ReposCtrl'
             }
         }
     })
 
-    .state('app.builds', {
+    .state('tab.builds', {
         url: "/builds/:loginid/:repo?ispro",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/builds.html",
                 controller: 'BuildsCtrl'
             }
         }
     })
 
-    .state('app.build', {
+    .state('tab.build', {
         url: "/build/:buildid?ispro",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/build.html",
                 controller: 'BuildCtrl'
             }
         }
     })
 
-    .state('app.log', {
+    .state('tab.log', {
         url: "/log/:logid?ispro",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/log.html",
                 controller: 'LogCtrl'
             }
         }
     })
 
-    .state('app.about', {
+    .state('tab.about', {
         url: "/about",
         views: {
-            'menuContent': {
+            'tab-accounts': {
                 templateUrl: "templates/about.html",
                 controller: 'AboutCtrl'
             }
@@ -158,6 +163,6 @@ angular.module('trevor', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/accounts');
+  $urlRouterProvider.otherwise('/tab/accounts');
 
 });

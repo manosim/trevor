@@ -2,6 +2,12 @@
 
     <ion-content class="repos favourites" ng-class="{'true': 'no-favourites'}[repos.length < 1]">
 
+        <ion-refresher
+            pulling-text="Pull to refresh"
+            on-refresh="fetchData()"
+            spinner="ripple">
+        </ion-refresher>
+
         <div class="row no-entries padding" ng-if="repos.length < 1">
             <div class="col col-100 padding">
                 <i class="icon ion-happy"></i>
@@ -24,9 +30,7 @@
             </div>
         </div>
 
-        <!-- <a class="item" ui-sref="app.build({ buildid: build.id, ispro: isPro })" ng-repeat="build in builds | toggleTo:showBuilds"> -->
-
-        <a class="item" ui-sref="app.builds({ loginid: repo.login_id, repo: repo.short_slug, ispro: repo.is_pro })" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
+        <a class="item" ui-sref="tab.builds({ loginid: repo.login_id, repo: repo.short_slug, ispro: repo.is_pro })" ng-repeat="repo in repos | orderObjectBy:'last_build_id':true | filter:searchReposName">
 
             <div class="name">{{ repo.short_slug }}</div>
 

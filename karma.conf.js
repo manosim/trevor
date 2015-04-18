@@ -45,6 +45,7 @@ module.exports = function(config) {
 
             // Templates
             'www/templates/*.html',
+            'www/templates/tabs/*.html',
     ],
 
 
