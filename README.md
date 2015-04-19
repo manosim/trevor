@@ -6,7 +6,7 @@ A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
 
 
 ## Install Packages
-*NPM* will install all the project dependecies. Then *gulp* will install **ionic** and **ngCordova** from bower.
+*NPM* will install all the project dependecies. Then *gulp* will install **ionic** through bower.
 
     npm install
     gulp install
@@ -26,10 +26,10 @@ A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
     ionic build ios
     ionic build android
 
-Then prepare for release for each store.
+Then prepare to release for each store.
 
 
 ## Running the tests
-There are jshint tests(through *gulp*) and karma-jasmine tests(through *NPM*). To un both:
+There are jshint tests(through *gulp*) and karma-jasmine tests(through *NPM*). To run both:
 
     npm test
