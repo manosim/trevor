@@ -21,7 +21,7 @@ services.factory('FavouritesService', function ($window) {
         },
 
         resaveFavourites: function () {
-            $window.localStorage.favourites = angular.toJson(service.favourites);
+            $window.localStorage.favouritesv2 = angular.toJson(service.favourites);
         },
 
         addFavourite: function (slug, isPro) {
@@ -55,14 +55,14 @@ services.factory('FavouritesService', function ($window) {
         },
 
         loadFavourites: function () {
-            var data = angular.fromJson($window.localStorage.favourites);
+            var data = angular.fromJson($window.localStorage.favouritesv2);
             angular.forEach(data, function(value, key) {
                 service.favourites.push(value);
             });
         },
 
         removeAll: function () {
-            delete $window.localStorage.favourites;
+            delete $window.localStorage.favouritesv2;
             service.favourites = [];
         }
 

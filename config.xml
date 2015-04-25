@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.iamemmanouil.trevor" version="1.7.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.iamemmanouil.trevor" version="1.7.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Trevor</name>
     <description>Continuous Integration on the go</description>
     <author email="manos@iamemmanouil.com" href="http://www.iamemmanouil.com/">Emmanouil Konstantinidis</author>
