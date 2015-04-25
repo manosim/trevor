@@ -1,6 +1,6 @@
 {
   "name": "Trevor",
-  "version": "1.0.0",
+  "version": "1.7.5",
   "description": "Continuous Integration on the go",
   "dependencies": {
     "ansi_up": "^1.1.3",
