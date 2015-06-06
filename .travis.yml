@@ -19,4 +19,4 @@ script:
   - npm test
 
 after_script:
-  - codeclimate < ./coverage/"PhantomJS 1.9.8 (Mac OS X 0.0.0)"/lcov.info
+  - codeclimate < ./coverage/!(user*)/lcov.info
