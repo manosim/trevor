@@ -10,9 +10,9 @@ addons:
 install:
   - npm install -g gulp
   - npm install -g karma-cli
+  - npm install -g codeclimate-test-reporter
   - npm install
   - gulp install
-  - npm install -g codeclimate-test-reporter
 
 script:
   - gulp release
