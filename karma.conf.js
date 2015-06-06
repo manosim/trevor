@@ -68,8 +68,11 @@ module.exports = function(config) {
 
 
     coverageReporter: {
-      type : 'text',
-      dir : 'coverage/',
+      reporters: [
+        {type: "html", dir: "coverage"},
+        {type: "lcovonly", dir: "coverage"},
+        {type: "text"}
+      ],
     },
 
 
