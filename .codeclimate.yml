@@ -2,8 +2,8 @@ languages:
   JavaScript: true
 
 exclude_paths:
-- "hooks/"
-- "res/"
-- "scss/"
-- "tests/"
+- "hooks/*"
+- "res/*"
+- "scss/*"
+- "tests/*"
 - "gulpfile.js"
