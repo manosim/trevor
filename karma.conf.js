@@ -73,7 +73,6 @@ module.exports = function(config) {
         {type: "lcovonly", dir: "coverage"},
         {type: "text"}
       ],
-      dir : 'coverage/',
     },
 
 
