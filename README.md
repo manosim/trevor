@@ -1,6 +1,16 @@
-Trevor [![Build Status](https://magnum.travis-ci.com/ekonstantinidis/trevor.svg?token=9QR4ewbqbkEmHps6q5sq&branch=master)](https://magnum.travis-ci.com/ekonstantinidis/trevor)
-=====================
-A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
+# Trevor
+[![travis][travis-image]][travis-url]
+[![cc-gpa][cc-gpa-image]][cc-gpa-url]
+[![cc-coverage][cc-coverage-image]][cc-coverage-url]
+
+[travis-image]: https://travis-ci.org/ekonstantinidis/trevor.svg?branch=master
+[travis-url]: https://travis-ci.org/ekonstantinidis/trevor
+[cc-gpa-image]: https://codeclimate.com/github/ekonstantinidis/trevor/badges/gpa.svg
+[cc-gpa-url]: https://codeclimate.com/github/ekonstantinidis/trevor
+[cc-coverage-image]: https://codeclimate.com/github/ekonstantinidis/trevor/badges/coverage.svg
+[cc-coverage-url]: https://codeclimate.com/github/ekonstantinidis/trevor/coverage
+
+### A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
 
 ![Trevor App](www/images/press.png)
 
