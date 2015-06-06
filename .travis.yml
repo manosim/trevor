@@ -1,14 +1,22 @@
 language: node_js
 
 node_js:
-  - 0.10
+  - '0.10.36'
 
-before_script:
+addons:
+  code_climate:
+    repo_token: b3d717b3f1ba847818ef2d3c035cc66d1d17c73928f18745d50e9a590a1301a7
+
+install:
   - npm install -g gulp
   - npm install -g karma-cli
-  - gulp install
   - npm install
-  - gulp release
+  - gulp install
+  - npm install -g codeclimate-test-reporter
 
 script:
+  - gulp release
   - npm test
+
+after_script:
+  - codeclimate < ./coverage/lcov.info
