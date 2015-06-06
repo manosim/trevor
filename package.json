@@ -44,7 +44,7 @@
     "test": "gulp test && karma start --single-run --browsers PhantomJS"
   },
   "cordovaPlatforms": [
-    "ios",
-    "android"
+    "android",
+    "ios"
   ]
 }
