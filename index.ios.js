@@ -36,6 +36,23 @@ var Trevor = React.createClass({
       });
   },
 
+  renderBuilds: function () {
+    var builds;
+    if (this.state.builds) {
+      builds = (
+        <View>
+          {_.map(this.state.builds, function (build) {
+            console.log(build.id);
+            return (
+              <Text key={build.id}>{build.id}: {build.state}</Text>
+            );
+          })}
+        </View>
+      );
+    }
+    return builds;
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
@@ -49,11 +66,7 @@ var Trevor = React.createClass({
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
-        {_.map(this.state.builds, function (build) {
-          console.log('.......');
-          console.log(build.id);
-          return <Text>{build.id}</Text>
-        })}
+        {this.renderBuilds()}
       </View>
     );
   }
