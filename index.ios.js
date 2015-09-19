@@ -13,6 +13,35 @@ var {
 } = React;
 
 var Trevor = React.createClass({
+  getInitialState: function() {
+    return {
+      loading: false,
+      builds: []
+    };
+  },
+
+  componentWillMount: function() {
+    this.fetchData();
+  },
+
+  fetchData: function () {
+    this.setState({
+      loading: true
+    });
+
+    fetch('https://api.travis-ci.org/repos/ekonstantinidis/gitify/builds')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          loading: false,
+          builds: responseJson
+        });
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
