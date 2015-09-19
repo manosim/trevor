@@ -5,6 +5,8 @@
 'use strict';
 
 var React = require('react-native');
+var _ = require('underscore');
+
 var {
   AppRegistry,
   StyleSheet,
@@ -21,14 +23,6 @@ var Trevor = React.createClass({
   },
 
   componentWillMount: function() {
-    this.fetchData();
-  },
-
-  fetchData: function () {
-    this.setState({
-      loading: true
-    });
-
     fetch('https://api.travis-ci.org/repos/ekonstantinidis/gitify/builds')
       .then((response) => response.json())
       .then((responseJson) => {
@@ -55,6 +49,11 @@ var Trevor = React.createClass({
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
+        {_.map(this.state.builds, function (build) {
+          console.log('.......');
+          console.log(build.id);
+          return <Text>{build.id}</Text>
+        })}
       </View>
     );
   }

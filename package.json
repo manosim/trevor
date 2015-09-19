@@ -28,6 +28,7 @@
   },
   "homepage": "http://www.trevorapp.com",
   "dependencies": {
-    "react-native": "=0.11.0"
+    "react-native": "=0.11.0",
+    "underscore": "=1.8.3"
   }
 }
