@@ -12,7 +12,7 @@ var {
   View,
 } = React;
 
-var trevor = React.createClass({
+var Trevor = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ var styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('trevor', () => trevor);
+AppRegistry.registerComponent('Trevor', () => Trevor);
