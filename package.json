@@ -2,8 +2,10 @@
   "name": "trevor",
   "version": "2.0.0",
   "description": "Continuous Integration on the go",
+  "private": true,
   "main": "index.js",
   "scripts": {
+    "start": "node_modules/react-native/packager/packager.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/ekonstantinidis/trevor/issues"
   },
-  "homepage": "http://www.trevorapp.com"
+  "homepage": "http://www.trevorapp.com",
+  "dependencies": {
+    "react-native": "=0.11.0"
+  }
 }
