@@ -2,12 +2,4 @@
 # http://git-scm.com/docs/gitignore
 
 node_modules/
-platforms/
-plugins/
-coverage/
-
-www/css/
-www/lib/
-www/js/dist/*
-
 npm-debug.log
