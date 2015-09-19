@@ -50,4 +50,4 @@ var styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('Trevor', () => Trevor);
+AppRegistry.registerComponent('trevor', () => Trevor);
