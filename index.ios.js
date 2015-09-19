@@ -23,12 +23,18 @@ var Trevor = React.createClass({
   },
 
   componentWillMount: function() {
-    fetch('https://api.travis-ci.org/repos/ekonstantinidis/gitify/builds')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
+    var self = this;
+    fetch('https://api.travis-ci.org/repos/ekonstantinidis/gitify/builds', {
+      headers: {
+        'Accept': 'application/vnd.travis-ci.2+json'
+      }
+    })
+      .then(function(response) {
+        return response.json()
+      }).then(function(json) {
+        self.setState({
           loading: false,
-          builds: responseJson
+          builds: json.builds
         });
       })
       .catch((error) => {
@@ -42,7 +48,6 @@ var Trevor = React.createClass({
       builds = (
         <View>
           {_.map(this.state.builds, function (build) {
-            console.log(build.id);
             return (
               <Text key={build.id}>{build.id}: {build.state}</Text>
             );
