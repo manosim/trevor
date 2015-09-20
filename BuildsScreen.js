@@ -52,15 +52,31 @@ var BuildsScreen = React.createClass({
 
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     var finishedDate = moment(rowData.finished_at).fromNow();
+    var duration = moment.duration(rowData.duration, "seconds").humanize(false);
+    var stateClass;
+
+    switch(rowData.state) {
+      case "passed":
+        stateClass = styles.statePassed;
+        break;
+      case "failed":
+        stateClass = styles.stateFailed;
+        break;
+      default:
+        stateClass = styles.stateErrored;
+    }
 
     return (
       <View style={styles.buildRow}>
-        <View style={styles.buildStatus}>
-          <Text>✔︎</Text>
-          <Text>{rowData.number}</Text>
+        <View style={[styles.buildStatus, stateClass]}>
+          <Text style={styles.stateIcon}>✔︎</Text>
+          <Text style={styles.buildType}>{rowData.pull_request}</Text>
         </View>
         <View style={styles.buildInfo}>
-          <Text>{rowData.id}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.buildNumber}>#{rowData.number}</Text>
+            <Text style={styles.buildDuration}>Run for {duration}</Text>
+          </View>
           <Text>{finishedDate}</Text>
           <Text>{rowData.state}</Text>
         </View>
@@ -105,12 +121,40 @@ var styles = StyleSheet.create({
   },
   buildStatus: {
     flex: 0.1,
-    padding: 10,
-    backgroundColor: '#DB423C'
+    padding: 10
+  },
+  stateIcon: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: 'white'
+  },
+
+  buildType: {
+
   },
   buildInfo: {
     flex: 0.9,
     padding: 10
+  },
+  buildNumber: {
+    flexDirection: 'column',
+    flex: 0.2,
+    fontSize: 14,
+    fontWeight: 'bold'
+  },
+  buildDuration: {
+    flexDirection: 'column',
+    flex: 0.8,
+    fontSize: 14,
+  },
+  statePassed: {
+    backgroundColor: '#3FA75F'
+  },
+  stateFailed: {
+    backgroundColor: '#DB423C'
+  },
+  stateErrored: {
+    backgroundColor: '#A1A0A0'
   }
 });
 
