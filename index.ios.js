@@ -14,6 +14,9 @@ var Trevor = React.createClass({
     return (
       <NavigatorIOS
         style={styles.container}
+        barTintColor='#A53230'
+        titleTextColor='#FFFFFF'
+        tintColor='#FFFFFF'
         initialRoute={{
           title: 'Builds',
           component: BuildsScreen,
@@ -25,8 +28,7 @@ var Trevor = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'white',
+    flex: 1
   },
 });
 
