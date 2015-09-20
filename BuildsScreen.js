@@ -8,6 +8,7 @@ var React = require('react-native');
 var moment = require('moment');
 
 var {
+  ActivityIndicatorIOS,
   StyleSheet,
   Text,
   View,
@@ -26,6 +27,9 @@ var BuildsScreen = React.createClass({
 
   componentWillMount: function() {
     var self = this;
+    this.setState({
+      loading: true
+    });
     fetch('https://api.travis-ci.org/repos/ekonstantinidis/gitify/builds', {
       headers: {
         'Accept': 'application/vnd.travis-ci.2+json'
@@ -63,11 +67,20 @@ var BuildsScreen = React.createClass({
   },
 
   render: function() {
+    var loading = this.state.loading ?
+      ( <ActivityIndicatorIOS
+          animating={this.state.loading}
+          style={styles.loading}
+          size="large" />) :
+      ( <View/>);
+
     return (
-      <ListView
-        dataSource={this.state.builds}
-        renderRow={this._renderBuildRow}
-        style={styles.container} />
+      <View style={styles.container}>
+        {loading}
+        <ListView
+          dataSource={this.state.builds}
+          renderRow={this._renderBuildRow} />
+      </View>
     );
   }
 });
@@ -76,6 +89,11 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF'
+  },
+  loading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   buildRow: {
     flex: 1,
