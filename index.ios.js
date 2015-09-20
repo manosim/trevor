@@ -30,6 +30,6 @@ var styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('trevor', () => Trevor);
+AppRegistry.registerComponent('Trevor', () => Trevor);
 
 module.exports = Trevor;
