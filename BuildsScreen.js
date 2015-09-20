@@ -16,6 +16,8 @@ var {
 } = React;
 
 var BuildsScreen = React.createClass({
+  displayName: 'BuildsScreen',
+
   getInitialState: function() {
     return {
       loading: false,
@@ -49,7 +51,7 @@ var BuildsScreen = React.createClass({
   },
 
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
-    var finishedDate = moment(rowData.finished_at).format("YYYY-MM-DD")
+    var finishedDate = moment(rowData.finished_at).fromNow();
 
     return (
       <View style={styles.buildRow}>
@@ -104,8 +106,7 @@ var styles = StyleSheet.create({
   buildStatus: {
     flex: 0.1,
     padding: 10,
-    backgroundColor: 'red',
-    color: 'white'
+    backgroundColor: '#DB423C'
   },
   buildInfo: {
     flex: 0.9,
