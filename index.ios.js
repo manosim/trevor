@@ -5,20 +5,23 @@
 'use strict';
 
 var React = require('react-native');
-var _ = require('underscore');
+var moment = require('moment');
 
 var {
   AppRegistry,
   StyleSheet,
   Text,
   View,
+  ListView
 } = React;
 
 var Trevor = React.createClass({
   getInitialState: function() {
     return {
       loading: false,
-      builds: []
+      builds: new ListView.DataSource({
+          rowHasChanged: (row1, row2) => row1 !== row2,
+        }).cloneWithRows([])
     };
   },
 
@@ -34,7 +37,7 @@ var Trevor = React.createClass({
       }).then(function(json) {
         self.setState({
           loading: false,
-          builds: json.builds
+          builds: self.state.builds.cloneWithRows(json.builds)
         });
       })
       .catch((error) => {
@@ -42,37 +45,30 @@ var Trevor = React.createClass({
       });
   },
 
-  renderBuilds: function () {
-    var builds;
-    if (this.state.builds) {
-      builds = (
-        <View>
-          {_.map(this.state.builds, function (build) {
-            return (
-              <Text key={build.id}>{build.id}: {build.state}</Text>
-            );
-          })}
+  _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
+    var finishedDate = moment(rowData.finished_at).format("YYYY-MM-DD")
+
+    return (
+      <View style={styles.buildRow}>
+        <View style={styles.buildStatus}>
+          <Text>✔︎</Text>
+          <Text>{rowData.number}</Text>
         </View>
-      );
-    }
-    return builds;
+        <View style={styles.buildInfo}>
+          <Text>{rowData.id}</Text>
+          <Text>{finishedDate}</Text>
+          <Text>{rowData.state}</Text>
+        </View>
+      </View>
+    );
   },
 
   render: function() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-        {this.renderBuilds()}
-      </View>
+      <ListView
+        dataSource={this.state.builds}
+        renderRow={this._renderBuildRow}
+        style={styles.container} />
     );
   }
 });
@@ -80,20 +76,23 @@ var Trevor = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  buildRow: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 0,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  buildStatus: {
+    flex: 0.2,
+    padding: 10,
+    backgroundColor: 'red',
+    color: 'white'
   },
+  buildInfo: {
+    flex: 0.8,
+    padding: 10
+  }
 });
 
 AppRegistry.registerComponent('trevor', () => Trevor);
