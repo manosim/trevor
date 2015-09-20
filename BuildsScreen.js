@@ -5,6 +5,7 @@
 'use strict';
 
 var React = require('react-native');
+var _ = require('underscore');
 var moment = require('moment');
 require("moment-duration-format");
 
@@ -41,9 +42,18 @@ var BuildsScreen = React.createClass({
       .then(function(response) {
         return response.json()
       }).then(function(json) {
+        var builds = json.builds;
+
+        _.map(builds, function (obj) {
+          var commit = _.find(json.commits, function(commit){
+            return obj.commit_id == commit.id;
+          });
+          obj.commit = commit;
+        });
+
         self.setState({
           loading: false,
-          builds: self.state.builds.cloneWithRows(json.builds)
+          builds: self.state.builds.cloneWithRows(builds)
         });
       })
       .catch((error) => {
@@ -79,8 +89,8 @@ var BuildsScreen = React.createClass({
             <Text style={styles.buildNumber}>#{rowData.number}</Text>
             <Text style={styles.buildFinished}>{finishedDate}</Text>
           </View>
+          <Text style={styles.buildMessage} numberOfLines={1}>{rowData.commit.message}</Text>
           <Text style={styles.buildDuration}>Run for {duration}</Text>
-          <Text>{rowData.state}</Text>
         </View>
       </View>
     );
@@ -130,7 +140,9 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white'
   },
-
+  buildMessage: {
+    flex: 1
+  },
   buildType: {
 
   },
