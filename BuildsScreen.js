@@ -6,6 +6,7 @@
 
 var React = require('react-native');
 var moment = require('moment');
+require("moment-duration-format");
 
 var {
   ActivityIndicatorIOS,
@@ -52,7 +53,8 @@ var BuildsScreen = React.createClass({
 
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     var finishedDate = moment(rowData.finished_at).fromNow();
-    var duration = moment.duration(rowData.duration, "seconds").humanize(false);
+    var duration = moment.duration(rowData.duration, "seconds").format("[Run for] m [minutes], s [seconds]");
+
     var stateClass;
 
     switch(rowData.state) {
@@ -75,9 +77,9 @@ var BuildsScreen = React.createClass({
         <View style={styles.buildInfo}>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.buildNumber}>#{rowData.number}</Text>
-            <Text style={styles.buildDuration}>Run for {duration}</Text>
+            <Text style={styles.buildFinished}>{finishedDate}</Text>
           </View>
-          <Text>{finishedDate}</Text>
+          <Text style={styles.buildDuration}>Run for {duration}</Text>
           <Text>{rowData.state}</Text>
         </View>
       </View>
@@ -139,13 +141,13 @@ var styles = StyleSheet.create({
   buildNumber: {
     flexDirection: 'column',
     flex: 0.2,
-    fontSize: 14,
     fontWeight: 'bold'
   },
-  buildDuration: {
+  buildFinished: {
     flexDirection: 'column',
     flex: 0.8,
-    fontSize: 14,
+  },
+  buildDuration: {
   },
   statePassed: {
     backgroundColor: '#3FA75F'
