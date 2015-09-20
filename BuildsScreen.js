@@ -98,11 +98,11 @@ var BuildsScreen = React.createClass({
           <Text style={styles.buildType}>{rowData.pull_request}</Text>
         </View>
         <View style={styles.buildInfo}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', marginBottom: 2}}>
             <Text style={styles.buildNumber}>#{rowData.number}</Text>
             <Text style={styles.buildFinished}>{finishedDate}</Text>
           </View>
-          <Text style={styles.buildMessage} numberOfLines={1}>{rowData.commit.message}</Text>
+          <Text style={[styles.buildMessage, {marginBottom: 2}]} numberOfLines={1}>{rowData.commit.message}</Text>
           <Text style={styles.buildDuration}>Run for {duration}</Text>
         </View>
       </View>
