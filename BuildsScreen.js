@@ -6,6 +6,7 @@
 
 var React = require('react-native');
 var _ = require('underscore');
+var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
 require("moment-duration-format");
 
@@ -61,9 +62,21 @@ var BuildsScreen = React.createClass({
       });
   },
 
+  getStatusIcon: function (status) {
+    switch(status) {
+      case "passed":
+        return "check";
+      case "failed":
+        return "x";
+      default:
+        return "question";
+    }
+  },
+
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     var finishedDate = moment(rowData.finished_at).fromNow();
     var duration = moment.duration(rowData.duration, "seconds").format("[Run for] m [minutes], s [seconds]");
+    var statusIcon = this.getStatusIcon(rowData.state);
 
     var stateClass;
 
@@ -81,7 +94,7 @@ var BuildsScreen = React.createClass({
     return (
       <View style={styles.buildRow}>
         <View style={[styles.buildStatus, stateClass]}>
-          <Text style={styles.stateIcon}>✔︎</Text>
+          <Icon name={statusIcon} style={styles.stateIcon} />
           <Text style={styles.buildType}>{rowData.pull_request}</Text>
         </View>
         <View style={styles.buildInfo}>
@@ -136,8 +149,8 @@ var styles = StyleSheet.create({
     padding: 10
   },
   stateIcon: {
-    fontSize: 20,
-    textAlign: 'center',
+    justifyContent: 'center',
+    fontSize: 24,
     color: 'white'
   },
   buildMessage: {
