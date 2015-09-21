@@ -21,7 +21,7 @@ var Trevor = React.createClass({
         tintColor='#FFFFFF'
         initialRoute={{
           title: 'Repos',
-          component: BuildsScreen,
+          component: ReposScreen,
         }}
       />
     );

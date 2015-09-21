@@ -13,7 +13,8 @@ var {
   StyleSheet,
   Text,
   View,
-  ListView
+  ListView,
+  TouchableHighlight
 } = React;
 
 var ReposScreen = React.createClass({
@@ -57,22 +58,28 @@ var ReposScreen = React.createClass({
       });
   },
 
+  _pressRow: function (item) {
+    console.log(item);
+  },
+
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     var repoName = rowData.slug.split('/')[1];
     var finishedDate = moment(rowData.last_build_finished_at).fromNow();
     var duration = moment.duration(rowData.last_build_duration, "seconds").format("[Run for] m [minutes], s [seconds]");
 
     return (
-      <View style={styles.buildRow}>
-        <View style={styles.buildInfo}>
-          <Text style={styles.repoName}>{repoName}</Text>
-          <Text style={styles.buildFinished}>{finishedDate}</Text>
-          <Text style={styles.buildDuration}>Run for {duration}</Text>
+      <TouchableHighlight activeOpacity={0.85} underlayColor={'white'} onPress={() => this._pressRow(rowData)}>
+        <View style={styles.buildRow} >
+          <View style={styles.buildInfo}>
+            <Text style={styles.repoName}>{repoName}</Text>
+            <Text style={styles.buildFinished}>{finishedDate}</Text>
+            <Text style={styles.buildDuration}>Run for {duration}</Text>
+          </View>
+          <StatusSidebar
+            buildState={rowData.last_build_state}
+            buildNumber={rowData.last_build_number} />
         </View>
-        <StatusSidebar
-          buildState={rowData.last_build_state}
-          buildNumber={rowData.last_build_number} />
-      </View>
+      </TouchableHighlight>
     );
   },
 
