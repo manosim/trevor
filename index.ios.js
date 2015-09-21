@@ -7,7 +7,6 @@ var {
   StyleSheet,
 } = React;
 
-var BuildsScreen = require('./App/Components/BuildsScreen');
 var ReposScreen = require('./App/Components/ReposScreen');
 
 var Trevor = React.createClass({

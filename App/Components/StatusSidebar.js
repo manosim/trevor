@@ -34,6 +34,10 @@ var StatusSidebar = React.createClass({
         statusIcon = "x";
         stateClass = styles.stateFailed;
         break;
+      case "errored":
+        statusIcon = "alert";
+        stateClass = styles.stateErrored;
+        break;
       default:
         statusIcon = "question";
         stateClass = styles.stateErrored;

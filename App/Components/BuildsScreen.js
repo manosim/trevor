@@ -35,7 +35,7 @@ var BuildsScreen = React.createClass({
     this.setState({
       loading: true
     });
-    fetch('https://api.travis-ci.org/repos/ekonstantinidis/gitify/builds', {
+    fetch(`https://api.travis-ci.org/repos/${this.props.slug}/builds`, {
       headers: {
         'Accept': 'application/vnd.travis-ci.2+json'
       }
@@ -111,6 +111,7 @@ var BuildsScreen = React.createClass({
   _renderHeader: function () {
     return (
       <View style={styles.segmentWrapper}>
+        <Text style={styles.repoName}>{this.props.slug}</Text>
         <SegmentedControlIOS
           style={styles.segment}
           values={['All', 'Builds', 'Pull Requests']}
@@ -148,6 +149,12 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
+  },
+  repoName: {
+    fontSize: 16,
+    color: 'white',
+    marginBottom: 8,
+    textAlign: 'center'
   },
   segmentWrapper: {
     padding: 10,

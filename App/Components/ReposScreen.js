@@ -8,6 +8,7 @@ require("moment-duration-format");
 
 var StatusSidebar = require('./StatusSidebar');
 var Loading = require('./Loading');
+var BuildsScreen = require('./BuildsScreen');
 
 var {
   StyleSheet,
@@ -58,8 +59,12 @@ var ReposScreen = React.createClass({
       });
   },
 
-  _pressRow: function (item) {
-    console.log(item);
+  _pressRow: function (details) {
+    this.props.navigator.push({
+      title: "Builds",
+      component: BuildsScreen,
+      passProps: {slug: details.slug}
+    });
   },
 
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
