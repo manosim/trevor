@@ -67,24 +67,25 @@ var Dashboard = React.createClass({
       loading: true
     });
 
-    console.log(code);
+    var data = JSON.stringify({
+      client_id: options.client_id,
+      client_secret: options.client_secret,
+      code: code
+    });
 
     fetch('https://github.com/login/oauth/access_token', {
       method: 'post',
-      body: JSON.stringify({
-        client_id: options.client_id,
-        client_secret: options.client_secret,
-        code: code
-      }),
+      body: data,
       headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       }
     })
       .then(function(response) {
-        console.log(response);
         return response.json()
       }).then(function(json) {
-        console.log(json.body.access_token);
+        // Handle Token
+        console.log(json.access_token);
       })
       .catch((error) => {
         console.warn(error);
