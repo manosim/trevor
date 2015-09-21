@@ -21,8 +21,9 @@ var BuildsScreen = React.createClass({
   getInitialState: function() {
     return {
       loading: false,
-      buildsFilter: 0,
-      builds: new ListView.DataSource({
+      segmentIndex: 0,
+      builds: [],
+      buildsSource: new ListView.DataSource({
           rowHasChanged: (row1, row2) => row1 !== row2,
         }).cloneWithRows([])
     };
@@ -52,7 +53,8 @@ var BuildsScreen = React.createClass({
 
         self.setState({
           loading: false,
-          builds: self.state.builds.cloneWithRows(builds)
+          builds: builds,
+          buildsSource: self.state.buildsSource.cloneWithRows(builds)
         });
       })
       .catch((error) => {
@@ -107,6 +109,33 @@ var BuildsScreen = React.createClass({
     );
   },
 
+  _onSegmentChange: function (value) {
+    switch(value) {
+      case "Builds":
+        var filtered = _.filter(this.state.builds, function(obj) {
+          console.log(obj.pull_request);
+          return obj.pull_request == false;
+        });
+        this.setState({
+          buildsSource: this.state.buildsSource.cloneWithRows(filtered)
+        });
+        break;
+      case "Pull Requests":
+        var filtered = _.filter(this.state.builds, function (obj) {
+          console.log(obj.pull_request);
+          return obj.pull_request == true;
+        });
+        this.setState({
+          buildsSource: this.state.buildsSource.cloneWithRows(filtered)
+        });
+        break;
+      default:
+        this.setState({
+          buildsSource: this.state.buildsSource.cloneWithRows(this.state.builds)
+        });
+      }
+  },
+
   _renderHeader: function () {
     return (
       <View style={styles.segmentWrapper}>
@@ -114,7 +143,8 @@ var BuildsScreen = React.createClass({
           style={styles.segment}
           values={['All', 'Builds', 'Pull Requests']}
           tintColor="#FFF"
-          selectedIndex={this.state.buildsFilter} />
+          selectedIndex={0}
+          onValueChange={this._onSegmentChange} />
       </View>
     );
   },
@@ -134,7 +164,7 @@ var BuildsScreen = React.createClass({
 
     return (
       <ListView
-        dataSource={this.state.builds}
+        dataSource={this.state.buildsSource}
         renderRow={this._renderBuildRow}
         renderHeader={this._renderHeader}>
       </ListView>
