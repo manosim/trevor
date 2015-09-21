@@ -6,6 +6,8 @@ var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
 require("moment-duration-format");
 
+var StatusSidebar = require('./StatusSidebar');
+
 var {
   ActivityIndicatorIOS,
   StyleSheet,
@@ -56,47 +58,21 @@ var BuildsScreen = React.createClass({
       });
   },
 
-  getStatusIcon: function (status) {
-    switch(status) {
-      case "passed":
-        return "check";
-      case "failed":
-        return "x";
-      default:
-        return "question";
-    }
-  },
-
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     var repoName = rowData.slug.split('/')[1];
-    console.log(repoName);
     var finishedDate = moment(rowData.last_build_finished_at).fromNow();
     var duration = moment.duration(rowData.last_build_duration, "seconds").format("[Run for] m [minutes], s [seconds]");
-    var statusIcon = this.getStatusIcon(rowData.last_build_state);
-
-    var stateClass;
-    switch(rowData.last_build_state) {
-      case "passed":
-        stateClass = styles.statePassed;
-        break;
-      case "failed":
-        stateClass = styles.stateFailed;
-        break;
-      default:
-        stateClass = styles.stateErrored;
-    }
 
     return (
       <View style={styles.buildRow}>
         <View style={styles.buildInfo}>
-          <Text style={[styles.repoName, {marginBottom: 2}]}>{repoName}</Text>
+          <Text style={styles.repoName}>{repoName}</Text>
           <Text style={styles.buildFinished}>{finishedDate}</Text>
           <Text style={styles.buildDuration}>Run for {duration}</Text>
         </View>
-        <View style={[styles.buildStatus, stateClass]}>
-          <Icon name={statusIcon} style={styles.stateIcon} />
-          <Text style={styles.buildNumber}>{rowData.last_build_number}</Text>
-        </View>
+        <StatusSidebar
+          buildState={rowData.last_build_state}
+          buildNumber={rowData.last_build_number} />
       </View>
     );
   },
@@ -124,8 +100,7 @@ var BuildsScreen = React.createClass({
       <ListView
         dataSource={this.state.reposSource}
         renderRow={this._renderBuildRow}
-        renderSeparator={this._renderSeparator}>
-      </ListView>
+        renderSeparator={this._renderSeparator} />
     );
   }
 });
@@ -145,53 +120,21 @@ var styles = StyleSheet.create({
     fontSize: 20,
     margin: 15
   },
-  segmentWrapper: {
-    padding: 10,
-    backgroundColor: '#357389'
-  },
-  segment: {
-    color: 'white'
-  },
-  listWrapper: {
-
-  },
   buildRow: {
     flexDirection: 'row',
     flex: 1,
     padding: 0
   },
-  buildStatus: {
-    flex: 0.1,
-    padding: 10,
-    justifyContent: 'center',
-
-  },
-  stateIcon: {
-    fontSize: 24,
-    color: 'white',
-    justifyContent: 'center',
-  },
-  buildNumber: {
-    flex: 1,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-    marginTop: 10
-  },
   repoName: {
     fontWeight: 'bold',
     fontSize: 16
-  },
-  buildType: {
-
   },
   buildInfo: {
     flex: 0.9,
     padding: 10
   },
   buildFinished: {
-    flexDirection: 'column',
-    flex: 0.8,
+
   },
   buildDuration: {
 
@@ -199,15 +142,6 @@ var styles = StyleSheet.create({
   separator: {
     height: 2,
     backgroundColor: '#e9e9e9'
-  },
-  statePassed: {
-    backgroundColor: '#3FA75F'
-  },
-  stateFailed: {
-    backgroundColor: '#DB423C'
-  },
-  stateErrored: {
-    backgroundColor: '#A1A0A0'
   }
 });
 
