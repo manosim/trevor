@@ -121,9 +121,9 @@ var BuildsScreen = React.createClass({
     );
   },
 
-  _renderSeparator: function () {
+  _renderSeparator: function (sectionID: number | string, rowID: number | string, adjacentRowHighlighted: boolean) {
     return (
-      <View style={styles.separator} />
+      <View key={"SEP_" + sectionID + "_" + rowID} style={styles.separator} />
     );
   },
 
