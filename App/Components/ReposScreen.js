@@ -7,14 +7,13 @@ var moment = require('moment');
 require("moment-duration-format");
 
 var StatusSidebar = require('./StatusSidebar');
+var Loading = require('./Loading');
 
 var {
-  ActivityIndicatorIOS,
   StyleSheet,
   Text,
   View,
-  ListView,
-  SegmentedControlIOS
+  ListView
 } = React;
 
 var BuildsScreen = React.createClass({
@@ -86,15 +85,9 @@ var BuildsScreen = React.createClass({
   render: function() {
     if (this.state.loading) {
       return (
-        <View style={styles.containerloading}>
-          <ActivityIndicatorIOS
-            animating={this.state.loading}
-            color="#357389"
-            size="large" />
-          <Text style={styles.loadingText}>Loading repositories</Text>
-        </View>
+        <Loading text='Repositories' />
       );
-    };
+    }
 
     return (
       <ListView
@@ -109,16 +102,6 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
-  },
-  containerloading: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  loadingText: {
-    fontSize: 20,
-    margin: 15
   },
   buildRow: {
     flexDirection: 'row',

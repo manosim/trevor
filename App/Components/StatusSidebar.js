@@ -25,7 +25,6 @@ var StatusSidebar = React.createClass({
   componentWillMount: function() {
     var statusIcon, stateClass;
 
-    console.log(this.props.buildState);
     switch(this.props.buildState) {
       case "passed":
         statusIcon = "check";
