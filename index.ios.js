@@ -13,6 +13,7 @@ var Trevor = React.createClass({
   render: function() {
     return (
       <NavigatorIOS
+        ref="nav"
         style={styles.container}
         barTintColor='#A53230'
         titleTextColor='#FFFFFF'
@@ -29,7 +30,7 @@ var Trevor = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1
-  },
+  }
 });
 
 AppRegistry.registerComponent('Trevor', () => Trevor);

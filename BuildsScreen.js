@@ -1,7 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 
 var React = require('react-native');
@@ -15,7 +11,8 @@ var {
   StyleSheet,
   Text,
   View,
-  ListView
+  ListView,
+  SegmentedControlIOS
 } = React;
 
 var BuildsScreen = React.createClass({
@@ -24,6 +21,7 @@ var BuildsScreen = React.createClass({
   getInitialState: function() {
     return {
       loading: false,
+      buildsFilter: 0,
       builds: new ListView.DataSource({
           rowHasChanged: (row1, row2) => row1 !== row2,
         }).cloneWithRows([])
@@ -110,16 +108,27 @@ var BuildsScreen = React.createClass({
   },
 
   render: function() {
-    var loading = this.state.loading ?
-      ( <ActivityIndicatorIOS
-          animating={this.state.loading}
-          style={styles.loading}
-          size="large" />) :
-      ( <View/>);
+    if (this.state.loading) {
+      return (
+        <View style={styles.containerloading}>
+          <ActivityIndicatorIOS
+            animating={this.state.loading}
+            color="#357389"
+            size="large" />
+          <Text style={styles.loadingText}>Loading builds</Text>
+        </View>
+      );
+    };
 
     return (
       <View style={styles.container}>
-        {loading}
+        <View style={styles.segmentWrapper}>
+          <SegmentedControlIOS
+            style={styles.segment}
+            values={['All', 'Builds', 'Pull Requests']}
+            tintColor="#357389"
+            selectedIndex={this.state.buildsFilter} />
+        </View>
         <ListView
           dataSource={this.state.builds}
           renderRow={this._renderBuildRow} />
@@ -131,16 +140,31 @@ var BuildsScreen = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#F5FCFF',
   },
-  loading: {
+  containerloading: {
     flex: 1,
+    backgroundColor: '#F5FCFF',
     alignItems: 'center',
     justifyContent: 'center'
   },
+  loadingText: {
+    fontSize: 20,
+    margin: 15
+  },
+  segmentWrapper: {
+    padding: 10,
+    backgroundColor: 'yellow',
+  },
+  segment: {
+    // marginTop: 64
+  },
+  listWrapper: {
+
+  },
   buildRow: {
-    flex: 1,
     flexDirection: 'row',
+    flex: 1,
     padding: 0,
     marginBottom: 1
   },
@@ -154,7 +178,7 @@ var styles = StyleSheet.create({
     color: 'white'
   },
   buildMessage: {
-    flex: 1
+
   },
   buildType: {
 
@@ -173,6 +197,7 @@ var styles = StyleSheet.create({
     flex: 0.8,
   },
   buildDuration: {
+
   },
   statePassed: {
     backgroundColor: '#3FA75F'
