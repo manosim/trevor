@@ -107,6 +107,18 @@ var BuildsScreen = React.createClass({
     );
   },
 
+  _renderHeader: function () {
+    return (
+      <View style={styles.segmentWrapper}>
+        <SegmentedControlIOS
+          style={styles.segment}
+          values={['All', 'Builds', 'Pull Requests']}
+          tintColor="#FFF"
+          selectedIndex={this.state.buildsFilter} />
+      </View>
+    );
+  },
+
   render: function() {
     if (this.state.loading) {
       return (
@@ -121,18 +133,11 @@ var BuildsScreen = React.createClass({
     };
 
     return (
-      <View style={styles.container}>
-        <View style={styles.segmentWrapper}>
-          <SegmentedControlIOS
-            style={styles.segment}
-            values={['All', 'Builds', 'Pull Requests']}
-            tintColor="#357389"
-            selectedIndex={this.state.buildsFilter} />
-        </View>
-        <ListView
-          dataSource={this.state.builds}
-          renderRow={this._renderBuildRow} />
-      </View>
+      <ListView
+        dataSource={this.state.builds}
+        renderRow={this._renderBuildRow}
+        renderHeader={this._renderHeader}>
+      </ListView>
     );
   }
 });
@@ -154,10 +159,10 @@ var styles = StyleSheet.create({
   },
   segmentWrapper: {
     padding: 10,
-    backgroundColor: 'yellow',
+    backgroundColor: '#357389'
   },
   segment: {
-    // marginTop: 64
+    color: 'white'
   },
   listWrapper: {
 
