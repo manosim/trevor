@@ -7,7 +7,7 @@ var {
   StyleSheet,
 } = React;
 
-var ReposScreen = require('./App/Components/ReposScreen');
+var Dashboard = require('./App/Components/Dashboard');
 
 var Trevor = React.createClass({
   render: function() {
@@ -19,8 +19,8 @@ var Trevor = React.createClass({
         titleTextColor='#FFFFFF'
         tintColor='#FFFFFF'
         initialRoute={{
-          title: 'Repos',
-          component: ReposScreen,
+          title: 'Dashboard',
+          component: Dashboard,
         }}
       />
     );

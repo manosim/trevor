@@ -77,7 +77,7 @@ var ReposScreen = React.createClass({
         <View style={styles.buildRow} >
           <View style={styles.buildInfo}>
             <Text style={styles.repoName}>{repoName}</Text>
-            <Text style={styles.buildFinished}>{finishedDate}</Text>
+            <Text style={styles.buildFinished}>Finished {finishedDate}</Text>
             <Text style={styles.buildDuration}>Run for {duration}</Text>
           </View>
           <StatusSidebar
