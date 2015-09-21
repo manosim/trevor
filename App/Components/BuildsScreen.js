@@ -6,8 +6,10 @@ var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
 require("moment-duration-format");
 
+var StatusSidebar = require('./StatusSidebar');
+var Loading = require('./Loading');
+
 var {
-  ActivityIndicatorIOS,
   StyleSheet,
   Text,
   View,
@@ -21,7 +23,6 @@ var BuildsScreen = React.createClass({
   getInitialState: function() {
     return {
       loading: false,
-      segmentIndex: 0,
       builds: [],
       buildsSource: new ListView.DataSource({
           rowHasChanged: (row1, row2) => row1 !== row2,
@@ -62,48 +63,20 @@ var BuildsScreen = React.createClass({
       });
   },
 
-  getStatusIcon: function (status) {
-    switch(status) {
-      case "passed":
-        return "check";
-      case "failed":
-        return "x";
-      default:
-        return "question";
-    }
-  },
-
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     var finishedDate = moment(rowData.finished_at).fromNow();
     var duration = moment.duration(rowData.duration, "seconds").format("[Run for] m [minutes], s [seconds]");
-    var statusIcon = this.getStatusIcon(rowData.state);
-
-    var stateClass;
-
-    switch(rowData.state) {
-      case "passed":
-        stateClass = styles.statePassed;
-        break;
-      case "failed":
-        stateClass = styles.stateFailed;
-        break;
-      default:
-        stateClass = styles.stateErrored;
-    }
 
     return (
       <View style={styles.buildRow}>
-        <View style={[styles.buildStatus, stateClass]}>
-          <Icon name={statusIcon} style={styles.stateIcon} />
-          <Text style={styles.buildType}>{rowData.pull_request}</Text>
-        </View>
+        <StatusSidebar
+          buildState={rowData.state}
+          buildNumber={rowData.number} />
+
         <View style={styles.buildInfo}>
-          <View style={{flexDirection: 'row', marginBottom: 2}}>
-            <Text style={styles.buildNumber}>#{rowData.number}</Text>
-            <Text style={styles.buildFinished}>{finishedDate}</Text>
-          </View>
-          <Text style={[styles.buildMessage, {marginBottom: 2}]} numberOfLines={1}>{rowData.commit.message}</Text>
+          <Text style={styles.buildMessage} numberOfLines={1}>{rowData.commit.message}</Text>
           <Text style={styles.buildDuration}>Run for {duration}</Text>
+          <Text style={styles.buildFinished}>Finished {finishedDate}</Text>
         </View>
       </View>
     );
@@ -113,7 +86,6 @@ var BuildsScreen = React.createClass({
     switch(value) {
       case "Builds":
         var filtered = _.filter(this.state.builds, function(obj) {
-          console.log(obj.pull_request);
           return obj.pull_request == false;
         });
         this.setState({
@@ -149,25 +121,25 @@ var BuildsScreen = React.createClass({
     );
   },
 
+  _renderSeparator: function () {
+    return (
+      <View style={styles.separator} />
+    );
+  },
+
   render: function() {
     if (this.state.loading) {
       return (
-        <View style={styles.containerloading}>
-          <ActivityIndicatorIOS
-            animating={this.state.loading}
-            color="#357389"
-            size="large" />
-          <Text style={styles.loadingText}>Loading builds</Text>
-        </View>
+        <Loading text='Builds' />
       );
-    };
+    }
 
     return (
       <ListView
         dataSource={this.state.buildsSource}
         renderRow={this._renderBuildRow}
-        renderHeader={this._renderHeader}>
-      </ListView>
+        renderHeader={this._renderHeader}
+        renderSeparator={this._renderSeparator} />
     );
   }
 });
@@ -177,25 +149,9 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
-  containerloading: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  loadingText: {
-    fontSize: 20,
-    margin: 15
-  },
   segmentWrapper: {
     padding: 10,
     backgroundColor: '#357389'
-  },
-  segment: {
-    color: 'white'
-  },
-  listWrapper: {
-
   },
   buildRow: {
     flexDirection: 'row',
@@ -203,45 +159,23 @@ var styles = StyleSheet.create({
     padding: 0,
     marginBottom: 1
   },
-  buildStatus: {
-    flex: 0.1,
-    padding: 10
-  },
-  stateIcon: {
-    justifyContent: 'center',
-    fontSize: 24,
-    color: 'white'
-  },
   buildMessage: {
-
-  },
-  buildType: {
-
+    marginBottom: 2
   },
   buildInfo: {
     flex: 0.9,
     padding: 10
-  },
-  buildNumber: {
-    flexDirection: 'column',
-    flex: 0.2,
-    fontWeight: 'bold'
   },
   buildFinished: {
     flexDirection: 'column',
     flex: 0.8,
   },
   buildDuration: {
-
+    marginBottom: 2
   },
-  statePassed: {
-    backgroundColor: '#3FA75F'
-  },
-  stateFailed: {
-    backgroundColor: '#DB423C'
-  },
-  stateErrored: {
-    backgroundColor: '#A1A0A0'
+  separator: {
+    height: 2,
+    backgroundColor: '#e9e9e9'
   }
 });
 

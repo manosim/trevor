@@ -16,8 +16,8 @@ var {
   ListView
 } = React;
 
-var BuildsScreen = React.createClass({
-  displayName: 'BuildsScreen',
+var ReposScreen = React.createClass({
+  displayName: 'ReposScreen',
 
   getInitialState: function() {
     return {
@@ -128,4 +128,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = BuildsScreen;
+module.exports = ReposScreen;
