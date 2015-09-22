@@ -14,6 +14,9 @@ var {
   TouchableHighlight
 } = React;
 
+var Api = require('../Utils/Api');
+var ReposScreen = require('./ReposScreen');
+
 var options = {
     client_id: '1977d96493704415daa0',
     client_secret: '05a3daa3b49f5fc3684b031dcad1862223c2c2fb',
@@ -73,27 +76,28 @@ var Dashboard = React.createClass({
       code: code
     });
 
-    fetch('https://github.com/login/oauth/access_token', {
-      method: 'post',
-      body: data,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(function(response) {
-        return response.json()
-      }).then(function(json) {
-        // Handle Token
-        console.log(json.access_token);
-      })
-      .catch((error) => {
-        console.warn(error);
+    Api.getGithubToken(data)
+      .then(function (res) {
+        self.requestTravisToken(res.access_token);
       });
   },
 
-  doCallback: function () {
+  requestTravisToken: function (githubToken) {
+    var self = this;
+    var data = JSON.stringify({
+      github_token: githubToken
+    });
 
+    Api.getTravisToken(data)
+      .then(function (res) {
+        // FIXME: Store the token
+
+        self.props.navigator.push({
+          title: "Repos",
+          component: ReposScreen,
+          passProps: {isPro: false}
+        });
+      });
   },
 
   render: function() {

@@ -8,6 +8,7 @@ var {
 } = React;
 
 var Dashboard = require('./App/Components/Dashboard');
+// var Dashboard = require('./App/Components/ReposScreen.js');
 
 var Trevor = React.createClass({
   render: function() {
