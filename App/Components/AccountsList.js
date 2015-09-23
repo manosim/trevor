@@ -5,15 +5,12 @@ var _ = require('underscore');
 var Icon = require('react-native-vector-icons/Octicons');
 
 var Api = require('../Utils/Api');
-var StatusSidebar = require('./StatusSidebar');
 var Loading = require('./Loading');
-var BuildsScreen = require('./BuildsScreen');
 
 var {
   StyleSheet,
   Text,
   View,
-  ListView,
   TouchableHighlight
 } = React;
 
@@ -23,10 +20,7 @@ var AccountsList = React.createClass({
   getInitialState: function() {
     return {
       loading: false,
-      accounts: [],
-      accountsSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }).cloneWithRows([]),
+      accounts: []
     };
   },
 
@@ -37,41 +31,65 @@ var AccountsList = React.createClass({
   loadAccounts: function (isPro) {
     var self = this;
 
+    this.setState({
+      loading: true
+    });
+
     Api.getAccounts(isPro)
       .then(function (res) {
         self.setState({
           loading: false,
-          accounts: res.accounts,
-          accountsSource: self.state.accountsSource.cloneWithRows(res.accounts)
+          accounts: res.accounts
         });
       });
   },
 
-  _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
+  getTypeIcon: function (type) {
+    console.log(type);
+    switch (type) {
+      case 'user':
+        return 'person';
+      case 'organization':
+        return 'organization';
+      default:
+        return 'x';
+    }
+  },
+
+  _renderAccount: function (account) {
+    console.log('........');
+    console.log(account);
+    console.log(account.type);
+    console.log('........');
+    var icon = this.getTypeIcon(account.type);
+
     return (
       <View style={styles.accountRow}>
         <View style={styles.buildInfo}>
-          <Text style={styles.fullName} numberOfLines={1}>{rowData.name}</Text>
-          <Text style={styles.login}>{rowData.login}</Text>
+          <Icon style={styles.typeIcon} name={icon} />
+          <Text style={styles.login}>{account.login}</Text>
+          <Text style={styles.fullName} numberOfLines={1}>{account.name}</Text>
+          <Text style={styles.count}>{account.repos_count}</Text>
         </View>
       </View>
     );
   },
 
-  _renderSeparator: function (
-    sectionID: number | string, rowID: number | string, adjacentRowHighlighted: boolean
-  ) {
-    return (
-      <View key={'SEP_' + sectionID + '_' + rowID} style={styles.separator} />
-    );
-  },
-
   render: function() {
+    var self = this;
+
+    if (this.state.loading) {
+      return (
+        <Loading text="Accounts" />
+      );
+    }
+
     return (
-      <ListView
-        dataSource={this.state.accountsSource}
-        renderRow={this._renderBuildRow}
-        renderSeparator={this._renderSeparator} />
+      <View>
+        {_.map(this.state.accounts, function (account) {
+          return self._renderAccount(account);
+        })}
+      </View>
     );
   }
 });
@@ -81,9 +99,23 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
+  typeIcon: {
+    fontSize: 24,
+    color: 'red',
+    justifyContent: 'center',
+  },
   accountRow: {
     flexDirection: 'row',
-    flex: 1
+  },
+  login: {
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  fullName: {
+
+  },
+  count: {
+    backgroundColor: 'yellow'
   }
 });
 

@@ -20,6 +20,14 @@ var AuthStore = {
     }
   },
 
+  isLoggedIn: function (isPro) {
+    if (isPro) {
+      return this.tokenPro !== null;
+    } else {
+      return this.tokenOs !== null;
+    }
+  },
+
   clear: function () {
     try {
       AsyncStorage.clear();

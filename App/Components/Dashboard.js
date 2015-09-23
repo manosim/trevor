@@ -19,6 +19,7 @@ var {
 } = React;
 
 var Api = require('../Utils/Api');
+var AuthStore = require('../Stores/Auth');
 var ReposScreen = require('./ReposScreen');
 
 var options = {
@@ -37,8 +38,8 @@ var Dashboard = React.createClass({
     return {
       loading: false,
       isLoggedIn: {
-        os: true,
-        pro: false
+        os: AuthStore.isLoggedIn(false),
+        pro: AuthStore.isLoggedIn(true)
       }
     };
   },
