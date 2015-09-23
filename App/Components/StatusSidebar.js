@@ -4,7 +4,7 @@ var React = require('react-native');
 var _ = require('underscore');
 var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
-require("moment-duration-format");
+require('moment-duration-format');
 
 var {
   StyleSheet,
@@ -17,8 +17,8 @@ var StatusSidebar = React.createClass({
 
   getInitialState: function() {
     return {
-      statusIcon: "",
-      stateClass: ""
+      statusIcon: '',
+      stateClass: ''
     };
   },
 
@@ -26,20 +26,20 @@ var StatusSidebar = React.createClass({
     var statusIcon, stateClass;
 
     switch(this.props.buildState) {
-      case "passed":
-        statusIcon = "check";
+      case 'passed':
+        statusIcon = 'check';
         stateClass = styles.statePassed;
         break;
-      case "failed":
-        statusIcon = "x";
+      case 'failed':
+        statusIcon = 'x';
         stateClass = styles.stateFailed;
         break;
-      case "errored":
-        statusIcon = "alert";
+      case 'errored':
+        statusIcon = 'alert';
         stateClass = styles.stateErrored;
         break;
       default:
-        statusIcon = "question";
+        statusIcon = 'question';
         stateClass = styles.stateErrored;
     }
 

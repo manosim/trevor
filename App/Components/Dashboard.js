@@ -4,10 +4,14 @@ var React = require('react-native');
 var _ = require('underscore');
 
 var Loading = require('./Loading');
+var AccountsList = require('./AccountsList');
 
 var {
+  AlertIOS,
+  AsyncStorage,
   StyleSheet,
   Text,
+  ListView,
   LinkingIOS,
   View,
   ScrollView,
@@ -18,26 +22,34 @@ var Api = require('../Utils/Api');
 var ReposScreen = require('./ReposScreen');
 
 var options = {
-    client_id: '1977d96493704415daa0',
-    client_secret: '05a3daa3b49f5fc3684b031dcad1862223c2c2fb',
-    scope: [
-        "user:email", "read:org", "repo_deployment",
-        "repo:status", "write:repo_hook"
-    ]
+  client_id: '1977d96493704415daa0',
+  client_secret: '05a3daa3b49f5fc3684b031dcad1862223c2c2fb',
+  scope: [
+    'user:email', 'read:org', 'repo_deployment',
+    'repo:status', 'write:repo_hook'
+  ]
 };
 
 var Dashboard = React.createClass({
   displayName: 'Dashboard',
 
-  getInitialState: function() {
+  getInitialState: function () {
     return {
-      loading: false
+      loading: false,
+      isLoggedIn: {
+        os: true,
+        pro: false
+      }
     };
   },
 
-  _doLogin: function (val) {
+  _doLogin: function (isPro) {
     var self = this;
-    LinkingIOS.addEventListener('url', handleUrl)
+    LinkingIOS.addEventListener('url', handleUrl);
+
+    this.setState({
+      loading: true
+    });
 
     function handleUrl (event) {
       var url = event.url;
@@ -47,12 +59,21 @@ var Dashboard = React.createClass({
 
       // If there is a code, proceed to get token from github
       if (code) {
-        self.requestGithubToken(code);
+        self.requestGithubToken(code, isPro);
       } else if (error) {
-        // Raise Alert - Ooops!
+        this.setState({
+          loading: false
+        });
+        AlertIOS.alert('Trevor', 'Oops! Something went wrong and we couldn\'t log' +
+          'you in. Please try again.');
       }
 
-      LinkingIOS.removeEventListener('url', handleUrl)
+      options.scope = _.without(options.scope, 'repo');
+      LinkingIOS.removeEventListener('url', handleUrl);
+    }
+
+    if (isPro) {
+      options.scope.push('repo');
     }
 
     LinkingIOS.openURL([
@@ -60,15 +81,11 @@ var Dashboard = React.createClass({
       '?client_id=' + options.client_id,
       '&client_secret=' + options.client_secret,
       '&scope=' + options.scope
-    ].join(''))
+    ].join(''));
   },
 
-  requestGithubToken: function (code) {
+  requestGithubToken: function (code, isPro) {
     var self = this;
-
-    this.setState({
-      loading: true
-    });
 
     var data = JSON.stringify({
       client_id: options.client_id,
@@ -78,37 +95,58 @@ var Dashboard = React.createClass({
 
     Api.getGithubToken(data)
       .then(function (res) {
-        self.requestTravisToken(res.access_token);
+        AsyncStorage.setItem('tokenGithub', res.access_token).done();
+        self.requestTravisToken(res.access_token, isPro);
       });
   },
 
-  requestTravisToken: function (githubToken) {
+  requestTravisToken: function (githubToken, isPro) {
     var self = this;
+
+    isPro = isPro;
+
     var data = JSON.stringify({
       github_token: githubToken
     });
 
-    Api.getTravisToken(data)
+    Api.getTravisToken(data, isPro)
       .then(function (res) {
-        // FIXME: Store the token
+        AsyncStorage.setItem('token' + (isPro ? 'Pro' : 'Os'), res.access_token).done();
+        if (isPro) {
+          this.state.isLoggedIn.pro = true;
+        } else {
+          this.state.isLoggedIn.os = true;
+        }
 
-        self.props.navigator.push({
-          title: "Repos",
-          component: ReposScreen,
-          passProps: {isPro: false}
+        self.setState({
+          loading: false
         });
       });
   },
 
   render: function() {
+    if (this.state.loading) {
+      return (
+        <Loading text='Accounts' />
+      );
+    }
+
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.description}>
           Access Travis CI, simply everywhere
         </Text>
-        <TouchableHighlight style={styles.loginButton} onPress={() => this._doLogin('test')}>
+
+        <TouchableHighlight style={styles.loginButton} onPress={() => this._doLogin(false)}>
           <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
         </TouchableHighlight>
+        {this.state.isLoggedIn.os ? <AccountsList isPro={false} />: <View /> }
+
+        <TouchableHighlight style={styles.loginButton} onPress={() => this._doLogin(true)}>
+          <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
+        </TouchableHighlight>
+        {this.state.isLoggedIn.pro ? <AccountsList isPro={false} />: <View /> }
+
       </ScrollView>
     );
   }

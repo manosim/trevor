@@ -4,7 +4,7 @@ var React = require('react-native');
 var _ = require('underscore');
 var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
-require("moment-duration-format");
+require('moment-duration-format');
 
 var StatusSidebar = require('./StatusSidebar');
 var Loading = require('./Loading');
@@ -25,8 +25,8 @@ var BuildsScreen = React.createClass({
       loading: false,
       builds: [],
       buildsSource: new ListView.DataSource({
-          rowHasChanged: (row1, row2) => row1 !== row2,
-        }).cloneWithRows([])
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }).cloneWithRows([])
     };
   },
 
@@ -40,32 +40,33 @@ var BuildsScreen = React.createClass({
         'Accept': 'application/vnd.travis-ci.2+json'
       }
     })
-      .then(function(response) {
-        return response.json()
-      }).then(function(json) {
-        var builds = json.builds;
+    .then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      var builds = json.builds;
 
-        _.map(builds, function (obj) {
-          var commit = _.find(json.commits, function(commit){
-            return obj.commit_id == commit.id;
-          });
-          obj.commit = commit;
+      _.map(builds, function (obj) {
+        var commit = _.find(json.commits, function(commit){
+          return obj.commit_id == commit.id;
         });
-
-        self.setState({
-          loading: false,
-          builds: builds,
-          buildsSource: self.state.buildsSource.cloneWithRows(builds)
-        });
-      })
-      .catch((error) => {
-        console.warn(error);
+        obj.commit = commit;
       });
+
+      self.setState({
+        loading: false,
+        builds: builds,
+        buildsSource: self.state.buildsSource.cloneWithRows(builds)
+      });
+    })
+    .catch((error) => {
+      console.warn(error);
+    });
   },
 
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     var finishedDate = moment(rowData.finished_at).fromNow();
-    var duration = moment.duration(rowData.duration, "seconds").format("[Run for] m [minutes], s [seconds]");
+    var duration = moment.duration(rowData.duration, 'seconds')
+      .format('[Run for] m [minutes], s [seconds]');
 
     return (
       <View style={styles.buildRow}>
@@ -84,7 +85,7 @@ var BuildsScreen = React.createClass({
 
   _onSegmentChange: function (value) {
     switch(value) {
-      case "Builds":
+      case 'Builds':
         var filtered = _.filter(this.state.builds, function(obj) {
           return obj.pull_request == false;
         });
@@ -92,7 +93,7 @@ var BuildsScreen = React.createClass({
           buildsSource: this.state.buildsSource.cloneWithRows(filtered)
         });
         break;
-      case "Pull Requests":
+      case 'Pull Requests':
         var filtered = _.filter(this.state.builds, function (obj) {
           console.log(obj.pull_request);
           return obj.pull_request == true;
@@ -105,7 +106,7 @@ var BuildsScreen = React.createClass({
         this.setState({
           buildsSource: this.state.buildsSource.cloneWithRows(this.state.builds)
         });
-      }
+    }
   },
 
   _renderHeader: function () {
@@ -115,16 +116,18 @@ var BuildsScreen = React.createClass({
         <SegmentedControlIOS
           style={styles.segment}
           values={['All', 'Builds', 'Pull Requests']}
-          tintColor="#FFF"
+          tintColor='#FFF'
           selectedIndex={0}
           onValueChange={this._onSegmentChange} />
       </View>
     );
   },
 
-  _renderSeparator: function (sectionID: number | string, rowID: number | string, adjacentRowHighlighted: boolean) {
+  _renderSeparator: function (
+    sectionID: number | string, rowID: number | string, adjacentRowHighlighted: boolean
+  ) {
     return (
-      <View key={"SEP_" + sectionID + "_" + rowID} style={styles.separator} />
+      <View key={'SEP_' + sectionID + '_' + rowID} style={styles.separator} />
     );
   },
 

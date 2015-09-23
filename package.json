@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint 'App/' 'index.ios.js' 'index.android.js'"
   },
   "repository": {
     "type": "git",
@@ -33,5 +33,9 @@
     "react-native": "=0.11.0",
     "react-native-vector-icons": "=0.6.11",
     "underscore": "=1.8.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "=4.1.3",
+    "eslint": "=1.5.1"
   }
 }

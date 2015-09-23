@@ -4,7 +4,7 @@ var React = require('react-native');
 var _ = require('underscore');
 var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
-require("moment-duration-format");
+require('moment-duration-format');
 
 var StatusSidebar = require('./StatusSidebar');
 var Loading = require('./Loading');
@@ -25,8 +25,8 @@ var ReposScreen = React.createClass({
     return {
       loading: false,
       reposSource: new ListView.DataSource({
-          rowHasChanged: (row1, row2) => row1 !== row2,
-        }).cloneWithRows([])
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }).cloneWithRows([])
     };
   },
 
@@ -42,7 +42,7 @@ var ReposScreen = React.createClass({
       }
     })
       .then(function(response) {
-        return response.json()
+        return response.json();
       }).then(function(json) {
         var repos = _.filter(json.repos, function(obj) {
           return obj.active === true;
@@ -61,7 +61,7 @@ var ReposScreen = React.createClass({
 
   _pressRow: function (details) {
     this.props.navigator.push({
-      title: "Builds",
+      title: 'Builds',
       component: BuildsScreen,
       passProps: {slug: details.slug}
     });
@@ -70,10 +70,14 @@ var ReposScreen = React.createClass({
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     var repoName = rowData.slug.split('/')[1];
     var finishedDate = moment(rowData.last_build_finished_at).fromNow();
-    var duration = moment.duration(rowData.last_build_duration, "seconds").format("[Run for] m [minutes], s [seconds]");
+    var duration = moment.duration(rowData.last_build_duration, 'seconds')
+      .format('[Run for] m [minutes], s [seconds]');
 
     return (
-      <TouchableHighlight activeOpacity={0.85} underlayColor={'white'} onPress={() => this._pressRow(rowData)}>
+      <TouchableHighlight
+        activeOpacity={0.85}
+        underlayColor={'white'}
+        onPress={() => this._pressRow(rowData)}>
         <View style={styles.buildRow} >
           <View style={styles.buildInfo}>
             <Text style={styles.repoName}>{repoName}</Text>
@@ -88,9 +92,11 @@ var ReposScreen = React.createClass({
     );
   },
 
-  _renderSeparator: function (sectionID: number | string, rowID: number | string, adjacentRowHighlighted: boolean) {
+  _renderSeparator: function (
+    sectionID: number | string, rowID: number | string, adjacentRowHighlighted: boolean
+  ) {
     return (
-      <View key={"SEP_" + sectionID + "_" + rowID} style={styles.separator} />
+      <View key={'SEP_' + sectionID + '_' + rowID} style={styles.separator} />
     );
   },
 
