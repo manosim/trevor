@@ -108,9 +108,9 @@ var AccountsList = React.createClass({
 
     if (this.state.loading) {
       return (
-        <View>
+        <View style={styles.loadingWrapper}>
           <Text style={styles.heading}>{heading}</Text>
-          <Loading text="Accounts" />
+          <Loading hideText={true} style={{margin: 30}} />
         </View>
       );
     }

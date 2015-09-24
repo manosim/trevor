@@ -15,12 +15,14 @@ var Reloading = React.createClass({
 
   render: function() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style && this.props.style]}>
         <ActivityIndicatorIOS
           animating={true}
           color="#357389"
           size="large" />
-        <Text style={styles.loadingText}>Loading {this.props.text}</Text>
+        {this.props.hideText ? <View /> : (
+          <Text style={styles.loadingText}>Loading {this.props.text}</Text>
+        )}
       </View>
     );
   }
