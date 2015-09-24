@@ -6,7 +6,9 @@ var AuthStore = {
   tokenGithub: null,
 
   setToken: function (key, value) {
+    console.log(this);
     this[key] = value;
+    console.log(this);
   },
 
   getTravisToken: function (isPro) {

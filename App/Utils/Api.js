@@ -33,7 +33,7 @@ var Api = {
       method: 'post',
       body: data,
       headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
+        'Accept': 'application/vnd.travis-ci.2+json',
         'Content-Type': 'application/json'
       }
     }).then(function (res) {
@@ -45,11 +45,13 @@ var Api = {
 
   getAccounts: function (isPro) {
     var url = this.getApiUrl(isPro) + '/accounts?all=true';
+    var token = AuthStore.getTravisToken(isPro);
+
     return fetch(url, {
       method: 'get',
       headers: {
         'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + AuthStore.getTravisToken(isPro),
+        'Authorization': 'token ' + token,
         'Content-Type': 'application/json'
       }
     }).then(function (res) {

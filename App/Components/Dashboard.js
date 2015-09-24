@@ -104,8 +104,6 @@ var Dashboard = React.createClass({
   requestTravisToken: function (githubToken, isPro) {
     var self = this;
 
-    isPro = isPro;
-
     var data = JSON.stringify({
       github_token: githubToken
     });
@@ -113,6 +111,7 @@ var Dashboard = React.createClass({
     Api.getTravisToken(data, isPro)
       .then(function (res) {
         AsyncStorage.setItem('token' + (isPro ? 'Pro' : 'Os'), res.access_token).done();
+        AuthStore.setToken('token' + (isPro ? 'Pro' : 'Os'), res.access_token);
         if (isPro) {
           this.state.isLoggedIn.pro = true;
         } else {
@@ -138,15 +137,15 @@ var Dashboard = React.createClass({
           Access Travis CI, simply everywhere
         </Text>
 
-        <TouchableHighlight style={styles.loginButton} onPress={() => this._doLogin(false)}>
-          <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
-        </TouchableHighlight>
-        {this.state.isLoggedIn.os ? <AccountsList isPro={false} />: <View /> }
+        {!this.state.isLoggedIn.os ? (
+          <TouchableHighlight style={styles.loginButton} onPress={() => this._doLogin(false)}>
+            <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
+          </TouchableHighlight> ) : <AccountsList isPro={false} />}
 
-        <TouchableHighlight style={styles.loginButton} onPress={() => this._doLogin(true)}>
-          <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
-        </TouchableHighlight>
-        {this.state.isLoggedIn.pro ? <AccountsList isPro={false} />: <View /> }
+        {!this.state.isLoggedIn.pro ? (
+          <TouchableHighlight style={styles.loginButton} onPress={() => this._doLogin(true)}>
+            <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
+          </TouchableHighlight> ) : <AccountsList isPro={false} />}
 
       </ScrollView>
     );

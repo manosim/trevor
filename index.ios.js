@@ -25,13 +25,16 @@ var Trevor = React.createClass({
 
   async _loadInitialState() {
     try {
-      var value = await AsyncStorage.getItem('tokenOs');
-      if (value !== null){
-        AuthStore.setToken('tokenOs', value);
-        console.log('Recovered selection from disk: ' + value);
-      } else {
-        console.log('Initialized with no selection on disk.');
+      var tokenOs = await AsyncStorage.getItem('tokenOs');
+      if (tokenOs !== null) {
+        AuthStore.setToken('tokenOs', tokenOs);
       }
+
+      var tokenPro = await AsyncStorage.getItem('tokenPro');
+      if (tokenPro !== null) {
+        AuthStore.setToken('tokenPro', tokenPro);
+      }
+
       this.setState({
         loaded: true
       });
