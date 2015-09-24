@@ -46,6 +46,7 @@ var ReposScreen = React.createClass({
         var repos = _.filter(res.repos, function(obj) {
           return obj.active === true;
         });
+        repos = _.sortBy(repos, 'last_build_finished_at');
         repos.reverse();
 
         self.setState({
