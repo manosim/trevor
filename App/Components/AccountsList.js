@@ -7,6 +7,7 @@ var Icon = require('react-native-vector-icons/Octicons');
 var Api = require('../Utils/Api');
 var Loading = require('./Loading');
 var Separator = require('../Helpers/Separator');
+var ReposScreen = require('../Components/ReposScreen');
 
 var {
   Image,
@@ -57,30 +58,47 @@ var AccountsList = React.createClass({
     }
   },
 
+  _pressRow: function (account) {
+    this.props.navigator.push({
+      title: 'Repos',
+      component: ReposScreen,
+      passProps: {
+        isPro: this.props.isPro,
+        username: account.login
+      }
+    });
+  },
+
   _renderAccount: function (account) {
     var icon = this.getTypeIcon(account.type);
 
     return (
-      <View key={account.id}>
-        <View style={styles.accountRow}>
-          <View style={styles.avatarWrapper}>
-            {account.avatar_url ?
-              <Image style={styles.avatar} source={{uri: account.avatar_url}} />
-            : <View></View>}
-          </View>
-          <View style={styles.accountInfo}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.login}>{account.login}</Text>
-              <Text style={styles.count}>{account.repos_count} Repos</Text>
+      <TouchableHighlight
+        key={account.id}
+        activeOpacity={0.85}
+        underlayColor={'white'}
+        onPress={() => this._pressRow(account)}>
+        <View>
+          <View style={styles.accountRow}>
+            <View style={styles.avatarWrapper}>
+              {account.avatar_url ?
+                <Image style={styles.avatar} source={{uri: account.avatar_url}} />
+              : <View></View>}
             </View>
-            <Text style={styles.fullName} numberOfLines={1}>{account.name}</Text>
+            <View style={styles.accountInfo}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.login}>{account.login}</Text>
+                <Text style={styles.count}>{account.repos_count} Repos</Text>
+              </View>
+              <Text style={styles.fullName} numberOfLines={1}>{account.name}</Text>
+            </View>
+            <View style={styles.typeWrapper}>
+              <Icon style={styles.typeIcon} name={icon} />
+            </View>
           </View>
-          <View style={styles.typeWrapper}>
-            <Icon style={styles.typeIcon} name={icon} />
-          </View>
+          <Separator />
         </View>
-        <Separator />
-      </View>
+      </TouchableHighlight>
     );
   },
 

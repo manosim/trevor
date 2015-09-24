@@ -140,12 +140,12 @@ var Dashboard = React.createClass({
         {!this.state.isLoggedIn.os ? (
           <TouchableHighlight style={styles.loginButton} onPress={() => this._doLogin(false)}>
             <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
-          </TouchableHighlight> ) : <AccountsList isPro={false} />}
+          </TouchableHighlight> ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
 
         {!this.state.isLoggedIn.pro ? (
           <TouchableHighlight style={styles.loginButton} onPress={() => this._doLogin(true)}>
             <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
-          </TouchableHighlight> ) : <AccountsList isPro={true} />}
+          </TouchableHighlight> ) : <AccountsList navigator={this.props.navigator} isPro={true} />}
 
       </ScrollView>
     );
