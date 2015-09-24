@@ -62,7 +62,7 @@ var Dashboard = React.createClass({
       if (code) {
         self.requestGithubToken(code, isPro);
       } else if (error) {
-        this.setState({
+        self.setState({
           loading: false
         });
         AlertIOS.alert('Trevor', 'Oops! Something went wrong and we couldn\'t log' +
@@ -113,9 +113,9 @@ var Dashboard = React.createClass({
         AsyncStorage.setItem('token' + (isPro ? 'Pro' : 'Os'), res.access_token).done();
         AuthStore.setToken('token' + (isPro ? 'Pro' : 'Os'), res.access_token);
         if (isPro) {
-          this.state.isLoggedIn.pro = true;
+          self.state.isLoggedIn.pro = true;
         } else {
-          this.state.isLoggedIn.os = true;
+          self.state.isLoggedIn.os = true;
         }
 
         self.setState({

@@ -20,6 +20,9 @@ var AuthStore = {
   clear: function () {
     try {
       AsyncStorage.clear();
+      this.tokenOs = null;
+      this.tokenPro = null;
+      this.tokenGithub = null;
     } catch (error) {
       console.log('AsyncStorage error: ' + error.message);
     }

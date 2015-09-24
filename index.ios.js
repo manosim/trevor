@@ -43,19 +43,26 @@ var Trevor = React.createClass({
     }
   },
 
+  logOut: function () {
+    AuthStore.clear();
+  },
+
   render: function() {
     if (this.state.loaded) {
-      return (<NavigatorIOS
-        ref="nav"
-        style={styles.container}
-        barTintColor='#A53230'
-        titleTextColor='#FFFFFF'
-        tintColor='#FFFFFF'
-        initialRoute={{
-          title: 'Dashboard',
-          component: Dashboard,
-        }}
-      />);
+      return (
+        <NavigatorIOS
+          ref="nav"
+          style={styles.container}
+          barTintColor='#A53230'
+          titleTextColor='#FFFFFF'
+          tintColor='#FFFFFF'
+          initialRoute={{
+            title: 'Dashboard',
+            component: Dashboard,
+            rightButtonTitle: 'Log Out',
+            onRightButtonPress: this.logOut
+          }} />
+      );
     } else {
       return (<Loading text='Trevor' />);
     }
