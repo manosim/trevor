@@ -6,6 +6,7 @@ var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
 require('moment-duration-format');
 
+var Api = require('../Utils/Api');
 var StatusSidebar = require('./StatusSidebar');
 var Loading = require('./Loading');
 
@@ -31,36 +32,32 @@ var BuildsScreen = React.createClass({
   },
 
   componentWillMount: function() {
+    this.fetchData();
+  },
+
+  fetchData: function () {
     var self = this;
     this.setState({
       loading: true
     });
-    fetch(`https://api.travis-ci.org/repos/${this.props.slug}/builds`, {
-      headers: {
-        'Accept': 'application/vnd.travis-ci.2+json'
-      }
-    })
-    .then(function(response) {
-      return response.json();
-    }).then(function(json) {
-      var builds = json.builds;
 
-      _.map(builds, function (obj) {
-        var commit = _.find(json.commits, function(commit){
-          return obj.commit_id == commit.id;
+    Api.getBuilds(this.props.slug, this.props.isPro)
+      .then(function (res) {
+        var builds = res.builds;
+
+        _.map(builds, function (obj) {
+          var commit = _.find(res.commits, function(commit){
+            return obj.commit_id == commit.id;
+          });
+          obj.commit = commit;
         });
-        obj.commit = commit;
-      });
 
-      self.setState({
-        loading: false,
-        builds: builds,
-        buildsSource: self.state.buildsSource.cloneWithRows(builds)
+        self.setState({
+          loading: false,
+          builds: builds,
+          buildsSource: self.state.buildsSource.cloneWithRows(builds)
+        });
       });
-    })
-    .catch((error) => {
-      console.warn(error);
-    });
   },
 
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
@@ -95,7 +92,6 @@ var BuildsScreen = React.createClass({
         break;
       case 'Pull Requests':
         var filtered = _.filter(this.state.builds, function (obj) {
-          console.log(obj.pull_request);
           return obj.pull_request == true;
         });
         this.setState({

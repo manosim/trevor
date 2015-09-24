@@ -6,6 +6,7 @@ var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
 require('moment-duration-format');
 
+var Api = require('../Utils/Api');
 var StatusSidebar = require('./StatusSidebar');
 var Loading = require('./Loading');
 var BuildsScreen = require('./BuildsScreen');
@@ -31,20 +32,18 @@ var ReposScreen = React.createClass({
   },
 
   componentWillMount: function() {
+    this.fetchData();
+  },
+
+  fetchData: function () {
     var self = this;
     this.setState({
       loading: true
     });
 
-    fetch('https://api.travis-ci.org/repos/ekonstantinidis', {
-      headers: {
-        'Accept': 'application/vnd.travis-ci.2+json'
-      }
-    })
-      .then(function(response) {
-        return response.json();
-      }).then(function(json) {
-        var repos = _.filter(json.repos, function(obj) {
+    Api.getRepos(this.props.username, this.props.isPro)
+      .then(function (res) {
+        var repos = _.filter(res.repos, function(obj) {
           return obj.active === true;
         });
         repos.reverse();
@@ -53,9 +52,6 @@ var ReposScreen = React.createClass({
           loading: false,
           reposSource: self.state.reposSource.cloneWithRows(repos)
         });
-      })
-      .catch((error) => {
-        console.warn(error);
       });
   },
 
@@ -63,7 +59,10 @@ var ReposScreen = React.createClass({
     this.props.navigator.push({
       title: 'Builds',
       component: BuildsScreen,
-      passProps: {slug: details.slug}
+      passProps: {
+        isPro: this.props.isPro,
+        slug: details.slug
+      }
     });
   },
 
