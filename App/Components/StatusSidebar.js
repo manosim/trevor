@@ -62,8 +62,9 @@ var StatusSidebar = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 0.1,
-    padding: 10,
+    flex: 0.15,
+    paddingVertical: 10,
+    paddingHorizontal: 2,
     justifyContent: 'center',
   },
   statusIcon: {

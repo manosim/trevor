@@ -130,7 +130,7 @@ var styles = StyleSheet.create({
     fontSize: 16
   },
   buildInfo: {
-    flex: 0.9,
+    flex: 0.85,
     padding: 10
   },
   buildFinished: {
