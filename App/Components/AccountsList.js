@@ -47,7 +47,6 @@ var AccountsList = React.createClass({
   },
 
   getTypeIcon: function (type) {
-    console.log(type);
     switch (type) {
       case 'user':
         return 'person';
@@ -62,8 +61,8 @@ var AccountsList = React.createClass({
     var icon = this.getTypeIcon(account.type);
 
     return (
-      <View>
-        <View style={styles.accountRow} key={account.id}>
+      <View key={account.id}>
+        <View style={styles.accountRow}>
           <View style={styles.avatarWrapper}>
             {account.avatar_url ?
               <Image style={styles.avatar} source={{uri: account.avatar_url}} />

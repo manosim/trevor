@@ -45,7 +45,7 @@ var Api = {
 
   getAccounts: function (isPro) {
     var url = this.getApiUrl(isPro) + '/accounts?all=true';
-    var token = AuthStore.getTravisToken(isPro);
+    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
 
     return fetch(url, {
       method: 'get',

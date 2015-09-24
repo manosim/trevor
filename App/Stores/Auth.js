@@ -6,20 +6,7 @@ var AuthStore = {
   tokenGithub: null,
 
   setToken: function (key, value) {
-    console.log(this);
     this[key] = value;
-    console.log(this);
-  },
-
-  getTravisToken: function (isPro) {
-    switch(isPro) {
-      case true:
-        return this.tokenPro;
-      case false:
-        return this.tokenOs;
-      default:
-        return false;
-    }
   },
 
   isLoggedIn: function (isPro) {
