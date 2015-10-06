@@ -61,7 +61,6 @@ var OAuthView = React.createClass({
       .then(function (res) {
         AuthStore.setToken('token' + (self.props.isPro ? 'Pro' : 'Os'), res.access_token);
         self.props.navigator.pop();
-        self.props.refreshAuthState();
       });
   },
 

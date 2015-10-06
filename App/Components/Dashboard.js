@@ -80,8 +80,7 @@ var Dashboard = React.createClass({
       component: OAuthView,
       passProps: {
         isPro: isPro,
-        authUrl: authUrl,
-        refreshAuthState: this.refreshAuthState
+        authUrl: authUrl
       }
     });
   },
