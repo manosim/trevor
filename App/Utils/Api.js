@@ -17,7 +17,8 @@ var Api = {
       body: data,
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
       }
     }).then(function (res) {
       return res.json();

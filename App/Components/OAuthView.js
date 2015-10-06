@@ -24,8 +24,15 @@ var OAuthView = React.createClass({
     authUrl: React.PropTypes.string.isRequired
   },
 
+  componentWillMount: function() {
+    this.setState({
+      authUrl: this.props.authUrl
+    });
+  },
+
   getInitialState: function () {
     return {
+      authUrl: this.props.authUrl,
       loading: false
     };
   },
@@ -45,8 +52,21 @@ var OAuthView = React.createClass({
 
     Api.getGithubToken(data)
       .then(function (res) {
-        AuthStore.setToken('tokenGithub', res.access_token);
-        self.requestTravisToken(res.access_token);
+        if (res.error&& res.error_description) {
+          AlertIOS.alert('Trevor', 'Oops! ',  res.error_description);
+        }
+
+        if (!res.access_token) {
+          console.log('no no no no no no no no no no no');
+          console.log('no no no no no no no no no no no');
+          console.log(res);
+          console.log('no no no no no no no no no no no');
+          console.log('no no no no no no no no no no no');
+        }
+
+        if (res.access_token) {
+          self.requestTravisToken(res.access_token);
+        }
       });
   },
 
@@ -59,8 +79,17 @@ var OAuthView = React.createClass({
 
     Api.getTravisToken(data, this.props.isPro)
       .then(function (res) {
-        AuthStore.setToken('token' + (self.props.isPro ? 'Pro' : 'Os'), res.access_token);
-        self.props.navigator.pop();
+        if (!res.access_token) {
+          console.log('NO NO ONON NO NO ON ON NO NO');
+          console.log('NO NO ONON NO NO ON ON NO NO');
+          console.log(res);
+          console.log('NO NO ONON NO NO ON ON NO NO');
+          console.log('NO NO ONON NO NO ON ON NO NO');
+        }
+        if (res.access_token) {
+          AuthStore.setToken('token' + (self.props.isPro ? 'Pro' : 'Os'), res.access_token);
+          self.props.navigator.pop();
+        }
       });
   },
 
@@ -75,8 +104,8 @@ var OAuthView = React.createClass({
       this.setState({
         loading: false
       });
+
       this.requestGithubToken(code);
-      return;
     }
 
     if (error) {
@@ -97,7 +126,7 @@ var OAuthView = React.createClass({
 
     return (
       <WebView
-        url={this.props.authUrl}
+        url={this.state.authUrl}
         onNavigationStateChange={this.onNavigationStateChange}
         automaticallyAdjustContentInsets={true}
         startInLoadingState={true}

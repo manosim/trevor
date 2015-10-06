@@ -23,7 +23,7 @@ var Dashboard = React.createClass({
   displayName: 'Dashboard',
 
   componentWillMount: function() {
-    AuthStore.eventEmitter.addListener('loggedIn', this.refreshAuthState);
+    AuthStore.eventEmitter.addListener('authStateChanged', this.refreshAuthState);
   },
 
   getInitialState: function () {
@@ -36,10 +36,6 @@ var Dashboard = React.createClass({
   },
 
   refreshAuthState: function () {
-    console.log('>>>!>!>!>!!>!>!>!>!>!>!>');
-    console.log('>>>!>!>!>!!>!>!>!>!>!>!>');
-    console.log('>>>!>!>!>!!>!>!>!>!>!>!>');
-
     this.setState({
       isLoggedIn: {
         os: AuthStore.isLoggedIn(false),

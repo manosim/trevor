@@ -7,7 +7,6 @@ var { AsyncStorage } = React;
 var AuthStore = {
   tokenOs: undefined,
   tokenPro: undefined,
-  tokenGithub: undefined,
   eventEmitter: new EventEmitter(),
 
   setToken: function (key, value) {
@@ -15,7 +14,7 @@ var AuthStore = {
 
     AsyncStorage.setItem(key, value).then(function () {
       self[key] = value;
-      self.eventEmitter.emit('loggedIn');
+      self.eventEmitter.emit('authStateChanged');
     }).done();
   },
 
@@ -27,15 +26,18 @@ var AuthStore = {
     }
   },
 
+  isEitherLoggedIn: function () {
+    return this.tokenOs !== undefined || this.tokenPro !== undefined;
+  },
+
   clear: function () {
-    try {
-      AsyncStorage.clear();
-      this.tokenOs = undefined;
-      this.tokenPro = undefined;
-      this.tokenGithub = undefined;
-    } catch (error) {
-      console.log('AsyncStorage error: ' + error.message);
-    }
+    var self = this;
+
+    AsyncStorage.multiRemove(['tokenOs', 'tokenPro']).then(function () {
+      self.tokenOs = undefined;
+      self.tokenPro = undefined;
+      self.eventEmitter.emit('authStateChanged');
+    }).done();
   }
 };
 

@@ -16,27 +16,38 @@ var AuthStore = require('./App/Stores/Auth');
 var Trevor = React.createClass({
   getInitialState: function() {
     return {
-      loaded: false
+      loaded: false,
+      isEitherLoggedIn: AuthStore.isEitherLoggedIn()
     };
   },
 
-  componentDidMount() {
+  componentDidMount: function() {
+    var self = this;
+
+    AuthStore.eventEmitter.addListener('authStateChanged', function () {
+      self.setState({
+        isEitherLoggedIn: AuthStore.isEitherLoggedIn()
+      });
+
+      console.log('(index.ios.js) Is Logged In:', self.state.isEitherLoggedIn);
+    });
+
     this._loadInitialState();
   },
 
   _loadInitialState() {
     var self = this;
 
-    AsyncStorage.multiGet(['tokenOs', 'tokenPro', 'tokenGithub']).then(function (pairs) {
+    AsyncStorage.multiGet(['tokenOs', 'tokenPro']).then(function (pairs) {
       _.map(pairs, function (pair) {
         var key = pair[0];
         var value = pair[1];
         if (value) {
-          AuthStore[pair[0]] = pair[1];
+          AuthStore[key] = value;
         }
       });
 
-      AuthStore.eventEmitter.emit('loggedIn');
+      AuthStore.eventEmitter.emit('authStateChanged');
 
       self.setState({
         loaded: true
@@ -49,6 +60,22 @@ var Trevor = React.createClass({
   },
 
   render: function() {
+    var initialRoute;
+
+    if (this.state.isEitherLoggedIn) {
+      initialRoute = {
+        title: 'Dashboard',
+        component: Dashboard,
+        rightButtonTitle: 'Log Out',
+        onRightButtonPress: this.logOut
+      };
+    } else {
+      initialRoute = {
+        title: 'Dashboard',
+        component: Dashboard
+      };
+    }
+
     if (this.state.loaded) {
       return (
         <NavigatorIOS
@@ -57,12 +84,7 @@ var Trevor = React.createClass({
           barTintColor='#A53230'
           titleTextColor='#FFFFFF'
           tintColor='#FFFFFF'
-          initialRoute={{
-            title: 'Dashboard',
-            component: Dashboard,
-            rightButtonTitle: 'Log Out',
-            onRightButtonPress: this.logOut
-          }} />
+          initialRoute={initialRoute} />
       );
     } else {
       return (<Loading text='Trevor' />);
