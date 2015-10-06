@@ -1,5 +1,6 @@
 'use strict';
 
+var EventEmitter = require('EventEmitter');
 var React = require('react-native');
 var { AsyncStorage } = React;
 
@@ -7,18 +8,15 @@ var AuthStore = {
   tokenOs: undefined,
   tokenPro: undefined,
   tokenGithub: undefined,
+  eventEmitter: new EventEmitter(),
 
   setToken: function (key, value) {
-    try {
-      AsyncStorage.setItem(key, value);
-      this[key] = value;
-    } catch (error) {
-      console.log('ERROR ERROR ERROR ERROR');
-      console.log('ERROR ERROR ERROR ERROR');
-      console.log('AsyncStorage error: ' + error.message);
-      console.log('ERROR ERROR ERROR ERROR');
-      console.log('ERROR ERROR ERROR ERROR');
-    }
+    var self = this;
+
+    AsyncStorage.setItem(key, value).then(function () {
+      self[key] = value;
+      self.eventEmitter.emit('loggedIn');
+    }).done();
   },
 
   isLoggedIn: function (isPro) {

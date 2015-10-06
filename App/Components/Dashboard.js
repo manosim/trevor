@@ -22,6 +22,10 @@ var OAuthView = require('./OAuthView');
 var Dashboard = React.createClass({
   displayName: 'Dashboard',
 
+  componentWillMount: function() {
+    AuthStore.eventEmitter.addListener('loggedIn', this.refreshAuthState);
+  },
+
   getInitialState: function () {
     return {
       isLoggedIn: {

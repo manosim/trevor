@@ -25,21 +25,24 @@ var Trevor = React.createClass({
 
   async _loadInitialState() {
     try {
-      var tokenOs = await AsyncStorage.getItem('tokenOs');
-      console.log(tokenOs);
-      if (tokenOs !== null) {
-        AuthStore.tokenOs = tokenOs;
-      }
+      var tokenOs = await AsyncStorage.getItem('tokenOs').then(function (token) {
+        console.log(tokenOs);
+        if (token) {
+          AuthStore.tokenOs = token;
+        }
+      }).done();
 
-      var tokenPro = await AsyncStorage.getItem('tokenPro');
-      if (tokenPro !== null) {
-        AuthStore.tokenPro = tokenPro;
-      }
+      var tokenPro = await AsyncStorage.getItem('tokenPro').then(function (token) {
+        if (token) {
+          AuthStore.tokenPro = token;
+        }
+      }).done();
 
-      var tokenGithub = await AsyncStorage.getItem('tokenGithub');
-      if (tokenGithub !== null) {
-        AuthStore.tokenGithub = tokenGithub;
-      }
+      var tokenGithub = await AsyncStorage.getItem('tokenGithub').then(function (token) {
+        if (token) {
+          AuthStore.tokenGithub = token;
+        }
+      }).done();
 
       this.setState({
         loaded: true
