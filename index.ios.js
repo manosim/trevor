@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('underscore');
 var React = require('react-native');
 var {
   AppRegistry,
@@ -20,36 +21,27 @@ var Trevor = React.createClass({
   },
 
   componentDidMount() {
-    this._loadInitialState().done();
+    this._loadInitialState();
   },
 
-  async _loadInitialState() {
-    try {
-      var tokenOs = await AsyncStorage.getItem('tokenOs').then(function (token) {
-        console.log(tokenOs);
-        if (token) {
-          AuthStore.tokenOs = token;
-        }
-      }).done();
+  _loadInitialState() {
+    var self = this;
 
-      var tokenPro = await AsyncStorage.getItem('tokenPro').then(function (token) {
-        if (token) {
-          AuthStore.tokenPro = token;
+    AsyncStorage.multiGet(['tokenOs', 'tokenPro', 'tokenGithub']).then(function (pairs) {
+      _.map(pairs, function (pair) {
+        var key = pair[0];
+        var value = pair[1];
+        if (value) {
+          AuthStore[pair[0]] = pair[1];
         }
-      }).done();
+      });
 
-      var tokenGithub = await AsyncStorage.getItem('tokenGithub').then(function (token) {
-        if (token) {
-          AuthStore.tokenGithub = token;
-        }
-      }).done();
+      AuthStore.eventEmitter.emit('loggedIn');
 
-      this.setState({
+      self.setState({
         loaded: true
       });
-    } catch (error) {
-      console.log('AsyncStorage error: ' + error.message);
-    }
+    }).done();
   },
 
   logOut: function () {
