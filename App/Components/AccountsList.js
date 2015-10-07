@@ -130,7 +130,7 @@ var AccountsList = React.createClass({
             <TouchableHighlight
               style={styles.logoutButton}
               onPress={this.logout}
-              underlayColor={'#357389'}>
+              underlayColor={'#40454F'}>
               <Text style={styles.logoutButtonText}>Log Out</Text>
             </TouchableHighlight>
           </View>
@@ -150,7 +150,7 @@ var styles = StyleSheet.create({
   },
   heading: {
     flexDirection: 'row',
-    backgroundColor: '#40454F',
+    backgroundColor: '#5E8599',
     paddingVertical: 7,
     paddingHorizontal: 10,
     alignItems: 'center'
@@ -168,7 +168,7 @@ var styles = StyleSheet.create({
   },
   logoutButton: {
     borderRadius: 6,
-    borderColor: '#FFFFFF',
+    borderColor: '#40454F',
     borderWidth: 0.5,
     paddingHorizontal: 5,
     paddingVertical: 3,

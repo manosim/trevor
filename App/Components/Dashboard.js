@@ -109,6 +109,8 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   description: {
+    backgroundColor: '#40454F',
+    color: '#FFFFFF',
     fontSize: 20,
     padding: 15,
     textAlign: 'center'
