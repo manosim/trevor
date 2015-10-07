@@ -55,19 +55,13 @@ var Trevor = React.createClass({
     }).done();
   },
 
-  logOut: function () {
-    AuthStore.clear();
-  },
-
   render: function() {
     var initialRoute;
 
     if (this.state.isEitherLoggedIn) {
       initialRoute = {
         title: 'Dashboard',
-        component: Dashboard,
-        rightButtonTitle: 'Log Out',
-        onRightButtonPress: this.logOut
+        component: Dashboard
       };
     } else {
       initialRoute = {

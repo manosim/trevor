@@ -30,12 +30,13 @@ var AuthStore = {
     return this.tokenOs !== undefined || this.tokenPro !== undefined;
   },
 
-  clear: function () {
+  logOut: function (pro) {
     var self = this;
 
-    AsyncStorage.multiRemove(['tokenOs', 'tokenPro']).then(function () {
-      self.tokenOs = undefined;
-      self.tokenPro = undefined;
+    var tokenType = pro ? 'tokenPro' : 'tokenOs';
+
+    AsyncStorage.removeItem(tokenType).then(function () {
+      self[tokenType] = undefined;
       self.eventEmitter.emit('authStateChanged');
     }).done();
   }

@@ -8,6 +8,7 @@ var Api = require('../Utils/Api');
 var Loading = require('./Loading');
 var Separator = require('../Helpers/Separator');
 var ReposScreen = require('../Components/ReposScreen');
+var AuthStore = require('../Stores/Auth');
 
 var {
   Image,
@@ -56,6 +57,10 @@ var AccountsList = React.createClass({
       default:
         return 'x';
     }
+  },
+
+  logout: function () {
+    AuthStore.logOut(this.props.isPro);
   },
 
   _pressRow: function (account) {
@@ -109,7 +114,9 @@ var AccountsList = React.createClass({
     if (this.state.loading) {
       return (
         <View style={styles.loadingWrapper}>
-          <Text style={styles.heading}>{heading}</Text>
+          <View style={styles.heading}>
+            <Text style={styles.headingTitle}>{heading}</Text>
+          </View>
           <Loading hideText={true} style={{margin: 30}} />
         </View>
       );
@@ -117,7 +124,14 @@ var AccountsList = React.createClass({
 
     return (
       <View>
-        <Text style={styles.heading}>{heading}</Text>
+        <View style={styles.heading}>
+          <Text style={styles.headingTitle}>{heading}</Text>
+          <View style={styles.logoutButtonWrapper}>
+            <TouchableHighlight style={styles.logoutButton} onPress={this.logout}>
+              <Text style={styles.logoutButtonText}>Log Out</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
         {_.map(this.state.accounts, function (account) {
           return self._renderAccount(account);
         })}
@@ -132,11 +146,36 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   heading: {
+    flexDirection: 'row',
     backgroundColor: '#40454F',
-    color: '#FFFFFF',
     paddingVertical: 7,
     paddingHorizontal: 10,
-    fontSize: 16
+    alignItems: 'center'
+  },
+  headingTitle: {
+    flex: 0.7,
+    color: '#FFFFFF',
+    fontSize: 16,
+
+  },
+  logoutButtonWrapper: {
+    flex: 0.3,
+    alignItems: 'flex-end'
+
+  },
+  logoutButton: {
+
+  },
+  logoutButtonText: {
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    color: '#FFFFFF',
+    borderColor: '#FFFFFF',
+    borderWidth: 0.5,
+    borderRadius: 6,
+    paddingHorizontal: 5,
+    alignSelf: 'flex-end'
+
   },
   accountRow: {
     flexDirection: 'row',
