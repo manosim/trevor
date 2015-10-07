@@ -127,7 +127,10 @@ var AccountsList = React.createClass({
         <View style={styles.heading}>
           <Text style={styles.headingTitle}>{heading}</Text>
           <View style={styles.logoutButtonWrapper}>
-            <TouchableHighlight style={styles.logoutButton} onPress={this.logout}>
+            <TouchableHighlight
+              style={styles.logoutButton}
+              onPress={this.logout}
+              underlayColor={'#357389'}>
               <Text style={styles.logoutButtonText}>Log Out</Text>
             </TouchableHighlight>
           </View>
@@ -164,18 +167,16 @@ var styles = StyleSheet.create({
 
   },
   logoutButton: {
+    borderRadius: 6,
+    borderColor: '#FFFFFF',
+    borderWidth: 0.5,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
 
   },
   logoutButtonText: {
-    paddingHorizontal: 5,
-    paddingVertical: 3,
     color: '#FFFFFF',
-    borderColor: '#FFFFFF',
-    borderWidth: 0.5,
-    borderRadius: 6,
-    paddingHorizontal: 5,
-    alignSelf: 'flex-end'
-
+    alignSelf: 'flex-end',
   },
   accountRow: {
     flexDirection: 'row',
