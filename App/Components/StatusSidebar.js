@@ -26,6 +26,10 @@ var StatusSidebar = React.createClass({
     var statusIcon, stateClass;
 
     switch(this.props.buildState) {
+      case 'started':
+        statusIcon = 'primitive-dot';
+        stateClass = styles.stateStarted;
+        break;
       case 'passed':
         statusIcon = 'check';
         stateClass = styles.statePassed;
@@ -77,6 +81,9 @@ var styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginTop: 10
+  },
+  stateStarted: {
+    backgroundColor: '#D2C93B'
   },
   statePassed: {
     backgroundColor: '#3FA75F'
