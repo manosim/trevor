@@ -65,7 +65,6 @@ var LatestRepos = React.createClass({
     if (this.state.isLoggedIn.pro) {
       Api.getLatest(true)
         .then(function (res) {
-          console.log(res.repos);
           _.each(res.repos, function(element, index) {
             	_.extend(element, {isPro: true});
             updatedRepos.push(element);
@@ -80,36 +79,30 @@ var LatestRepos = React.createClass({
     }
   },
 
+  filterRepos: function (isPro) {
+    var filtered = this.state.repos;
+
+    if (typeof isPro === 'boolean') {
+      filtered = _.filter(filtered, function(obj) {
+        return obj.isPro == isPro;
+      });
+    }
+
+    this.setState({
+      reposSource: this.state.reposSource.cloneWithRows(filtered),
+    });
+  },
+
   _onSegmentChange: function (value) {
     switch(value) {
       case 'Open Source':
-        var filtered = _.filter(this.state.repos, function(obj) {
-          return obj.isPro == false;
-        });
-
-        this.setState({
-          loading: false,
-          reposSource: this.state.reposSource.cloneWithRows(filtered),
-          showType: 'Pro'
-        });
+        this.filterRepos(false);
         break;
       case 'Travis Pro':
-        var filtered = _.filter(this.state.repos, function(obj) {
-          return obj.isPro == true;
-        });
-
-        this.setState({
-          loading: false,
-          reposSource: this.state.reposSource.cloneWithRows(filtered),
-          showType: 'Pro'
-        });
+        this.filterRepos(true);
         break;
       default:
-        this.setState({
-          loading: false,
-          reposSource: this.state.reposSource.cloneWithRows(this.state.repos),
-          showType: 'All'
-        });
+        this.filterRepos();
     }
   },
 
