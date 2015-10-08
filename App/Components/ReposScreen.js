@@ -9,7 +9,7 @@ require('moment-duration-format');
 var Api = require('../Utils/Api');
 var StatusSidebar = require('./StatusSidebar');
 var Loading = require('./Loading');
-var BuildsScreen = require('./BuildsScreen');
+var RepoItem = require('./RepoItem');
 
 var {
   StyleSheet,
@@ -68,27 +68,11 @@ var ReposScreen = React.createClass({
   },
 
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
-    var repoName = rowData.slug.split('/')[1];
-    var finishedDate = moment(rowData.last_build_finished_at).fromNow();
-    var duration = moment.duration(rowData.last_build_duration, 'seconds')
-      .format('[Run for] m [minutes], s [seconds]');
-
     return (
-      <TouchableHighlight
-        activeOpacity={0.85}
-        underlayColor={'white'}
-        onPress={() => this._pressRow(rowData)}>
-        <View style={styles.buildRow} >
-          <View style={styles.buildInfo}>
-            <Text style={styles.repoName}>{repoName}</Text>
-            <Text style={styles.buildFinished}>Finished {finishedDate}</Text>
-            <Text style={styles.buildDuration}>Run for {duration}</Text>
-          </View>
-          <StatusSidebar
-            buildState={rowData.last_build_state}
-            buildNumber={rowData.last_build_number} />
-        </View>
-      </TouchableHighlight>
+      <RepoItem
+        details={rowData}
+        isPro={this.props.isPro}
+        navigator={this.props.navigator} />
     );
   },
 
@@ -120,25 +104,6 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
-  },
-  buildRow: {
-    flexDirection: 'row',
-    flex: 1,
-    padding: 0
-  },
-  repoName: {
-    fontWeight: 'bold',
-    fontSize: 16
-  },
-  buildInfo: {
-    flex: 0.85,
-    padding: 10
-  },
-  buildFinished: {
-
-  },
-  buildDuration: {
-
   },
   separator: {
     height: 2,
