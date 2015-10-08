@@ -4,15 +4,18 @@ var React = require('react-native');
 var _ = require('underscore');
 
 var Api = require('../Utils/Api');
+var AccountsList = require('../Components/AccountsList');
 var AuthStore = require('../Stores/Auth');
 var Loading = require('./Loading');
 var RepoItem = require('./RepoItem');
 
 var {
   StyleSheet,
-  View,
   ListView,
-  SegmentedControlIOS
+  SegmentedControlIOS,
+  Text,
+  TouchableHighlight,
+  View
 } = React;
 
 var LatestRepos = React.createClass({
@@ -66,7 +69,7 @@ var LatestRepos = React.createClass({
       updatedRepos.push(element);
     });
 
-    _.sortBy(updatedRepos, function(o) { return o.last_build_finished_at; })
+    _.sortBy(updatedRepos, function(o) { return o.last_build_finished_at; });
 
     this.setState({
       loading: false,
@@ -104,6 +107,13 @@ var LatestRepos = React.createClass({
     }
   },
 
+  _pressFooter: function () {
+    this.props.navigator.push({
+      title: 'Accounts',
+      component: AccountsList
+    });
+  },
+
   _renderHeader: function () {
     return (
       <View style={styles.segmentWrapper}>
@@ -112,6 +122,16 @@ var LatestRepos = React.createClass({
           tintColor='#FFF'
           selectedIndex={0}
           onValueChange={this._onSegmentChange} />
+      </View>
+    );
+  },
+
+  _renderFooter: function () {
+    return (
+      <View style={styles.footerWrapper}>
+        <TouchableHighlight style={styles.loginButton} onPress={this._pressFooter}>
+          <Text>Accounts</Text>
+        </TouchableHighlight>
       </View>
     );
   },
@@ -145,6 +165,7 @@ var LatestRepos = React.createClass({
         dataSource={this.state.reposSource}
         renderRow={this._renderBuildRow}
         renderHeader={this._renderHeader}
+        renderFooter={this._renderFooter}
         renderSeparator={this._renderSeparator} />
     );
   }
@@ -162,6 +183,10 @@ var styles = StyleSheet.create({
   separator: {
     height: 2,
     backgroundColor: '#e9e9e9'
+  },
+  footerWrapper: {
+    padding: 10,
+    backgroundColor: '#357389'
   }
 });
 
