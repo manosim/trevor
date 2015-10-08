@@ -28,8 +28,7 @@ var LatestRepos = React.createClass({
       repos: [],
       reposSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
-      }).cloneWithRows([]),
-      showType: 'All'
+      }).cloneWithRows([])
     };
   },
 
@@ -49,34 +48,33 @@ var LatestRepos = React.createClass({
     if (this.state.isLoggedIn.os) {
       Api.getLatest(false)
         .then(function (res) {
-          _.each(res.repos, function(element, index) {
-            	_.extend(element, {isPro: false});
-            updatedRepos.push(element);
-          });
-
-          self.setState({
-            loading: false,
-            repos: updatedRepos,
-            reposSource: self.state.reposSource.cloneWithRows(updatedRepos)
-          });
+          updatedRepos = self.saveRepos(updatedRepos, res.repos, false);
         });
     }
 
     if (this.state.isLoggedIn.pro) {
       Api.getLatest(true)
         .then(function (res) {
-          _.each(res.repos, function(element, index) {
-            	_.extend(element, {isPro: true});
-            updatedRepos.push(element);
-          });
-
-          self.setState({
-            loading: false,
-            repos: updatedRepos,
-            reposSource: self.state.reposSource.cloneWithRows(updatedRepos)
-          });
+          updatedRepos = self.saveRepos(updatedRepos, res.repos, true);
         });
     }
+  },
+
+  saveRepos: function (updatedRepos, repos, isPro) {
+    _.each(repos, function(element, index) {
+      _.extend(element, {isPro: isPro});
+      updatedRepos.push(element);
+    });
+
+    _.sortBy(updatedRepos, function(o) { return o.last_build_finished_at; })
+
+    this.setState({
+      loading: false,
+      repos: updatedRepos,
+      reposSource: this.state.reposSource.cloneWithRows(updatedRepos)
+    });
+
+    return updatedRepos;
   },
 
   filterRepos: function (isPro) {
