@@ -27,6 +27,7 @@ var StatusSidebar = React.createClass({
 
     switch(this.props.buildState) {
       case 'started':
+      case 'created':
         statusIcon = 'primitive-dot';
         stateClass = styles.stateStarted;
         break;
