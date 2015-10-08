@@ -1,21 +1,18 @@
 'use strict';
 
 var React = require('react-native');
-var _ = require('underscore');
 var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
 require('moment-duration-format');
 
-var Api = require('../Utils/Api');
-var StatusSidebar = require('./StatusSidebar');
-var Loading = require('./Loading');
 var BuildsScreen = require('./BuildsScreen');
+var Loading = require('./Loading');
+var StatusSidebar = require('./StatusSidebar');
 
 var {
   StyleSheet,
   Text,
   View,
-  ListView,
   TouchableHighlight
 } = React;
 
