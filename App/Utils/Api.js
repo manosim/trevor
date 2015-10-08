@@ -98,6 +98,25 @@ var Api = {
       .catch((error) => {
         console.warn('Request Failed: ', error);
       });
+  },
+
+  getLatest: function (isPro) {
+    var url = this.getApiUrl(isPro) + `/repos/`;
+    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
+
+    return fetch(url, {
+      headers: {
+        'Accept': 'Accept: application/vnd.travis-ci.2+json',
+        'Authorization': 'token ' + token,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(function(res) {
+        return res.json();
+      })
+      .catch((error) => {
+        console.warn('Request Failed: ', error);
+      });
   }
 };
 

@@ -9,9 +9,10 @@ var {
   StyleSheet,
 } = React;
 
-var Dashboard = require('./App/Components/Dashboard');
-var Loading = require('./App/Components/Loading');
 var AuthStore = require('./App/Stores/Auth');
+var Dashboard = require('./App/Components/Dashboard');
+var LatestRepos = require('./App/Components/LatestRepos.js');
+var Loading = require('./App/Components/Loading');
 
 var Trevor = React.createClass({
   getInitialState: function() {
@@ -56,20 +57,6 @@ var Trevor = React.createClass({
   },
 
   render: function() {
-    var initialRoute;
-
-    if (this.state.isEitherLoggedIn) {
-      initialRoute = {
-        title: 'Dashboard',
-        component: Dashboard
-      };
-    } else {
-      initialRoute = {
-        title: 'Dashboard',
-        component: Dashboard
-      };
-    }
-
     if (this.state.loaded) {
       return (
         <NavigatorIOS
@@ -78,7 +65,10 @@ var Trevor = React.createClass({
           barTintColor='#A53230'
           titleTextColor='#FFFFFF'
           tintColor='#FFFFFF'
-          initialRoute={initialRoute} />
+          initialRoute={{
+            title: 'Latest',
+            component: LatestRepos
+          }} />
       );
     } else {
       return (<Loading text='Trevor' />);

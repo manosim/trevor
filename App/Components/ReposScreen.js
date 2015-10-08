@@ -50,17 +50,6 @@ var ReposScreen = React.createClass({
       });
   },
 
-  _pressRow: function (details) {
-    this.props.navigator.push({
-      title: 'Builds',
-      component: BuildsScreen,
-      passProps: {
-        isPro: this.props.isPro,
-        slug: details.slug
-      }
-    });
-  },
-
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     return (
       <RepoItem
