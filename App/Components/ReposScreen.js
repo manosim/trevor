@@ -3,15 +3,16 @@
 var React = require('react-native');
 var _ = require('underscore');
 
-var Api = require('../Utils/Api');
-var Loading = require('./Loading');
-var RepoItem = require('./RepoItem');
-
 var {
   StyleSheet,
   View,
   ListView
 } = React;
+
+var Api = require('../Utils/Api');
+var EmptyResults = require('../Components/EmptyResults');
+var Loading = require('./Loading');
+var RepoItem = require('./RepoItem');
 
 var ReposScreen = React.createClass({
   displayName: 'ReposScreen',
@@ -19,6 +20,7 @@ var ReposScreen = React.createClass({
   getInitialState: function() {
     return {
       loading: false,
+      emptyResults: false,
       reposSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }).cloneWithRows([])
@@ -45,6 +47,7 @@ var ReposScreen = React.createClass({
 
         self.setState({
           loading: false,
+          emptyResults: _.isEmpty(repos),
           reposSource: self.state.reposSource.cloneWithRows(repos)
         });
       });
@@ -71,6 +74,12 @@ var ReposScreen = React.createClass({
     if (this.state.loading) {
       return (
         <Loading text='Repositories' />
+      );
+    }
+
+    if (this.state.emptyResults) {
+      return (
+        <EmptyResults />
       );
     }
 
