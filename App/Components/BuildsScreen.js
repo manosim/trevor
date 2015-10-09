@@ -2,7 +2,6 @@
 
 var React = require('react-native');
 var _ = require('underscore');
-var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
 require('moment-duration-format');
 

@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react-native');
-var _ = require('underscore');
 
 var {
   StyleSheet,

@@ -1,21 +1,17 @@
 'use strict';
 
 var React = require('react-native');
-var _ = require('underscore');
 
 var {
   AlertIOS,
   StyleSheet,
-  Text,
   WebView,
-  View,
 } = React;
 
 var Api = require('../Utils/Api');
 var AuthStore = require('../Stores/Auth');
 var Constants = require('../Utils/Constants');
 var Loading = require('./Loading');
-var Dashboard = require('./Dashboard');
 
 var OAuthView = React.createClass({
   displayName: 'OAuthView',
@@ -132,13 +128,6 @@ var OAuthView = React.createClass({
         startInLoadingState={true}
         scalesPageToFit={this.state.scalesPageToFit} />
     );
-  }
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
   }
 });
 

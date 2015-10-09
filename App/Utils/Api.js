@@ -1,4 +1,3 @@
-var React = require('react-native');
 var AuthStore = require('../Stores/Auth');
 
 var Api = {
@@ -100,9 +99,9 @@ var Api = {
       });
   },
 
-  getLatest: function (isPro) {
-    var url = this.getApiUrl(isPro) + `/repos/`;
-    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
+  getLatestPro: function () {
+    var url = this.getApiUrl(true) + `/repos/`;
+    var token = AuthStore.tokenPro;
 
     return fetch(url, {
       headers: {

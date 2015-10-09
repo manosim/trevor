@@ -35,7 +35,7 @@ var LatestProRepos = React.createClass({
       loading: true
     });
 
-    Api.getLatest(true)
+    Api.getLatestPro()
       .then(function (res) {
 
         self.setState({

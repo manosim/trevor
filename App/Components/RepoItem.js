@@ -1,12 +1,10 @@
 'use strict';
 
 var React = require('react-native');
-var Icon = require('react-native-vector-icons/Octicons');
 var moment = require('moment');
 require('moment-duration-format');
 
 var BuildsScreen = require('./BuildsScreen');
-var Loading = require('./Loading');
 var StatusSidebar = require('./StatusSidebar');
 
 var {
