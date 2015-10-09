@@ -4,7 +4,6 @@ var React = require('react-native');
 
 var {
   AlertIOS,
-  StyleSheet,
   WebView,
 } = React;
 
