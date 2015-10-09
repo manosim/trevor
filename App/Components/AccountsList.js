@@ -76,6 +76,8 @@ var AccountsList = React.createClass({
 
   _renderAccount: function (account) {
     var icon = this.getTypeIcon(account.type);
+    var imageSource = account.avatar_url ? {uri: account.avatar_url}
+      : require('image!logo-circle-red');
 
     return (
       <TouchableHighlight
@@ -86,9 +88,7 @@ var AccountsList = React.createClass({
         <View>
           <View style={styles.accountRow}>
             <View style={styles.avatarWrapper}>
-              {account.avatar_url ?
-                <Image style={styles.avatar} source={{uri: account.avatar_url}} />
-              : <View></View>}
+              <Image style={styles.avatar} source={imageSource} />
             </View>
             <View style={styles.accountInfo}>
               <View style={{flexDirection: 'row'}}>
