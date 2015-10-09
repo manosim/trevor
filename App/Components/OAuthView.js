@@ -48,15 +48,7 @@ var OAuthView = React.createClass({
     Api.getGithubToken(data)
       .then(function (res) {
         if (res.error&& res.error_description) {
-          AlertIOS.alert('Trevor', 'Oops! ',  res.error_description);
-        }
-
-        if (!res.access_token) {
-          console.log('no no no no no no no no no no no');
-          console.log('no no no no no no no no no no no');
-          console.log(res);
-          console.log('no no no no no no no no no no no');
-          console.log('no no no no no no no no no no no');
+          AlertIOS.alert('Trevor', res.error_description);
         }
 
         if (res.access_token) {
@@ -75,11 +67,7 @@ var OAuthView = React.createClass({
     Api.getTravisToken(data, this.props.isPro)
       .then(function (res) {
         if (!res.access_token) {
-          console.log('NO NO ONON NO NO ON ON NO NO');
-          console.log('NO NO ONON NO NO ON ON NO NO');
-          console.log(res);
-          console.log('NO NO ONON NO NO ON ON NO NO');
-          console.log('NO NO ONON NO NO ON ON NO NO');
+          AlertIOS.alert('Trevor', 'Couldn\'t authenticate you with Travis CI. ');
         }
         if (res.access_token) {
           AuthStore.setToken('token' + (self.props.isPro ? 'Pro' : 'Os'), res.access_token);
