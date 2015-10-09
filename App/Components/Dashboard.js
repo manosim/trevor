@@ -1,11 +1,8 @@
 'use strict';
 
 var React = require('react-native');
-var _ = require('underscore');
 
 var {
-  AlertIOS,
-  AsyncStorage,
   StyleSheet,
   Text,
   View,
@@ -13,10 +10,10 @@ var {
   TouchableHighlight
 } = React;
 
-var Api = require('../Utils/Api');
 var AuthStore = require('../Stores/Auth');
 var AccountsList = require('./AccountsList');
 var Constants = require('../Utils/Constants');
+var Footer = require('../Components/Footer');
 var OAuthView = require('./OAuthView');
 
 var Dashboard = React.createClass({
@@ -83,22 +80,28 @@ var Dashboard = React.createClass({
 
   render: function() {
     return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.description}>
-          Access Travis CI, simply everywhere
-        </Text>
+      <View style={{flex: 1}}>
+        <ScrollView style={styles.container}>
+          <Text style={styles.description}>
+            Access Travis CI, simply everywhere
+          </Text>
 
-        {!this.state.isLoggedIn.os ? (
-          <TouchableHighlight style={styles.loginButton} onPress={this._doLoginOs}>
-            <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
-          </TouchableHighlight> ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
+          {!this.state.isLoggedIn.os ? (
+            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginOs}>
+              <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
+            </TouchableHighlight>
+          ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
 
-        {!this.state.isLoggedIn.pro ? (
-          <TouchableHighlight style={styles.loginButton} onPress={this._doLoginPro}>
-            <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
-          </TouchableHighlight> ) : <AccountsList navigator={this.props.navigator} isPro={true} />}
+          {!this.state.isLoggedIn.pro ? (
+            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginPro}>
+              <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
+            </TouchableHighlight>
+          ) : <AccountsList navigator={this.props.navigator} isPro={true} />}
 
-      </ScrollView>
+        </ScrollView>
+
+        {this.state.isLoggedIn.pro ? <Footer navigator={this.props.navigator} /> : <View /> }
+      </View>
     );
   }
 });

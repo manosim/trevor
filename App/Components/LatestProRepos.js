@@ -49,7 +49,7 @@ var LatestProRepos = React.createClass({
     return (
       <RepoItem
         details={rowData}
-        isPro={rowData.isPro}
+        isPro={true}
         navigator={this.props.navigator} />
     );
   },
