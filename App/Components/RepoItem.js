@@ -30,8 +30,10 @@ var RepoItem = React.createClass({
 
   render: function() {
     var repoName = this.props.details.slug.split('/')[1];
-    var startedDate = moment(this.props.details.last_build_started_at).fromNow();
-    var finishedDate = moment(this.props.details.last_build_finished_at).fromNow();
+    var date = this.props.details.last_build_duration ? 'Finished ' +
+      moment(this.props.details.last_build_finished_at).fromNow() :
+      moment(this.props.details.last_build_started_at).fromNow();
+
     var duration = moment.duration(this.props.details.last_build_duration, 'seconds')
       .format('[Run for] m [minutes], s [seconds]');
 
@@ -44,13 +46,17 @@ var RepoItem = React.createClass({
           <View style={styles.buildInfo}>
             <Text style={styles.repoName}>{repoName}</Text>
 
-            {this.props.details.last_build_duration ? (
-              <Text style={styles.buildFinished}>Finished {finishedDate}</Text>
-            ) : <Text style={styles.buildFinished}>{startedDate}</Text> }
+            {this.props.details.last_build_started_at ? (
+              <Text style={styles.buildDate}>{date}</Text>)
+            : <View />}
 
             {this.props.details.last_build_duration ? (
               <Text style={styles.buildDuration}>Run for {duration}</Text>
-            ) : <Text style={styles.buildDuration}>{this.props.details.last_build_state}</Text> }
+            ) : (
+              <Text style={styles.buildDuration}>
+                {this.props.details.last_build_state}
+              </Text>
+            )}
           </View>
           <StatusSidebar
             buildState={this.props.details.last_build_state}
@@ -79,7 +85,7 @@ var styles = StyleSheet.create({
     flex: 0.85,
     padding: 10
   },
-  buildFinished: {
+  buildDate: {
 
   },
   buildDuration: {
