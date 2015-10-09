@@ -10,8 +10,7 @@ var {
 } = React;
 
 var AuthStore = require('./App/Stores/Auth');
-var Dashboard = require('./App/Components/Dashboard');
-var LatestRepos = require('./App/Components/LatestRepos.js');
+var LatestProRepos = require('./App/Components/LatestProRepos.js');
 var Loading = require('./App/Components/Loading');
 
 var Trevor = React.createClass({
@@ -66,8 +65,8 @@ var Trevor = React.createClass({
           titleTextColor='#FFFFFF'
           tintColor='#FFFFFF'
           initialRoute={{
-            title: 'Latest',
-            component: LatestRepos
+            title: 'Latest Pro Repos',
+            component: LatestProRepos
           }} />
       );
     } else {

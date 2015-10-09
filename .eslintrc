@@ -10,12 +10,12 @@
     "semi": 2,
     "strict": 0,
     "quotes": [1, "single", "avoid-escape"],
-    "indent": [
-      2,
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
-  }
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "no-unused-vars": [2, {"vars": "all", "args": "none"}],
+    "space-before-function-paren": 0,
+    "space-before-keywords": 2,
+  },
+  "plugins": [
+    "react"
+  ]
 }
