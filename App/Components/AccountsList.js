@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react-native');
 var _ = require('underscore');
+var React = require('react-native');
 var Icon = require('react-native-vector-icons/Octicons');
 
 var Api = require('../Utils/Api');

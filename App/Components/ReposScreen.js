@@ -1,7 +1,8 @@
 'use strict';
 
-var React = require('react-native');
 var _ = require('underscore');
+var React = require('react-native');
+var RefreshableListView = require('react-native-refreshable-listview');
 
 var {
   StyleSheet,
@@ -12,6 +13,7 @@ var {
 var Api = require('../Utils/Api');
 var EmptyResults = require('../Components/EmptyResults');
 var Loading = require('./Loading');
+var LoadingPull = require('./LoadingPull');
 var RepoItem = require('./RepoItem');
 
 var ReposScreen = React.createClass({
@@ -28,14 +30,15 @@ var ReposScreen = React.createClass({
   },
 
   componentWillMount: function() {
+    this.setState({
+      loading: true
+    });
+
     this.fetchData();
   },
 
   fetchData: function () {
     var self = this;
-    this.setState({
-      loading: true
-    });
 
     Api.getRepos(this.props.username, this.props.isPro)
       .then(function (res) {
@@ -84,10 +87,13 @@ var ReposScreen = React.createClass({
     }
 
     return (
-      <ListView
+      <RefreshableListView
         dataSource={this.state.reposSource}
         renderRow={this._renderBuildRow}
-        renderSeparator={this._renderSeparator} />
+        renderSeparator={this._renderSeparator}
+        loadData={this.fetchData}
+        refreshingIndictatorComponent={<LoadingPull />}
+        refreshDescription="Refreshing repos" />
     );
   }
 });

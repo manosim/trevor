@@ -20,6 +20,14 @@ var StatusSidebar = React.createClass({
   },
 
   componentWillMount: function() {
+    this.setOptions();
+  },
+
+  componentWillReceiveProps: function() {
+    this.setOptions();
+  },
+
+  setOptions: function () {
     var statusIcon, stateClass;
 
     switch(this.props.buildState) {
