@@ -35,7 +35,7 @@ var Footer = React.createClass({
 var styles = StyleSheet.create({
   container: {
     backgroundColor: '#40454F',
-    height: 42
+    height: 45
   },
   buttonText: {
     fontSize: 16,

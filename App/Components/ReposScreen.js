@@ -15,6 +15,7 @@ var EmptyResults = require('../Components/EmptyResults');
 var Loading = require('./Loading');
 var LoadingPull = require('./LoadingPull');
 var RepoItem = require('./RepoItem');
+var SearchBar = require('./SearchBar');
 
 var ReposScreen = React.createClass({
   displayName: 'ReposScreen',
@@ -22,7 +23,7 @@ var ReposScreen = React.createClass({
   getInitialState: function() {
     return {
       loading: false,
-      emptyResults: false,
+      repos: [],
       reposSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }).cloneWithRows([])
@@ -50,7 +51,7 @@ var ReposScreen = React.createClass({
 
         self.setState({
           loading: false,
-          emptyResults: _.isEmpty(repos),
+          repos: repos,
           reposSource: self.state.reposSource.cloneWithRows(repos)
         });
       });
@@ -73,6 +74,12 @@ var ReposScreen = React.createClass({
     );
   },
 
+  _renderHeader: function () {
+    return (
+      <SearchBar />
+    );
+  },
+
   render: function() {
     if (this.state.loading) {
       return (
@@ -80,20 +87,23 @@ var ReposScreen = React.createClass({
       );
     }
 
-    if (this.state.emptyResults) {
+    if (_.isEmpty(this.state.repos)) {
       return (
         <EmptyResults />
       );
     }
 
     return (
-      <RefreshableListView
-        dataSource={this.state.reposSource}
-        renderRow={this._renderBuildRow}
-        renderSeparator={this._renderSeparator}
-        loadData={this.fetchData}
-        refreshingIndictatorComponent={<LoadingPull />}
-        refreshDescription="Refreshing repos" />
+      <View style={styles.container}>
+        <RefreshableListView
+          dataSource={this.state.reposSource}
+          renderHeaderWrapper={this._renderHeader}
+          renderRow={this._renderBuildRow}
+          renderSeparator={this._renderSeparator}
+          loadData={this.fetchData}
+          refreshingIndictatorComponent={<LoadingPull />}
+          refreshDescription="Refreshing repos" />
+      </View>
     );
   }
 });
