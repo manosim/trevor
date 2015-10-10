@@ -91,9 +91,12 @@ var ReposScreen = React.createClass({
     });
   },
 
-  _renderHeader: function () {
+  _renderHeader: function (refreshingIndicator) {
     return (
-      <SearchBar search={this.searchRepos} clear={this.state.clearSearch} />
+      <View>
+        {refreshingIndicator}
+        <SearchBar search={this.searchRepos} clear={this.state.clearSearch} />
+      </View>
     );
   },
 
