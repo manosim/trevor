@@ -17,8 +17,17 @@ var SearchBar = React.createClass({
     };
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.clear) {
+      this.setState({
+        text: ''
+      });
+    }
+  },
+
   changeText: function (text) {
-    console.log('Text Changed: ', text);
+    this.props.search(text);
+
     this.setState({
       text: text
     });
@@ -29,7 +38,7 @@ var SearchBar = React.createClass({
       <View style={styles.container}>
         <TextInput
           style={styles.inputText}
-          onChangeText={(text) => this.setState({ text: text })}
+          onChangeText={this.changeText}
           value={this.state.text}
           autoCapitalize='none'
           autoCorrect={false}

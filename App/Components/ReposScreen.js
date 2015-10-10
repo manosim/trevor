@@ -22,6 +22,7 @@ var ReposScreen = React.createClass({
 
   getInitialState: function() {
     return {
+      clearSearch: false,
       loading: false,
       repos: [],
       reposSource: new ListView.DataSource({
@@ -32,6 +33,7 @@ var ReposScreen = React.createClass({
 
   componentWillMount: function() {
     this.setState({
+      clearSearch: false,
       loading: true
     });
 
@@ -40,6 +42,10 @@ var ReposScreen = React.createClass({
 
   fetchData: function () {
     var self = this;
+
+    this.setState({
+      clearSearch: true,
+    });
 
     Api.getRepos(this.props.username, this.props.isPro)
       .then(function (res) {
@@ -50,6 +56,7 @@ var ReposScreen = React.createClass({
         repos.reverse();
 
         self.setState({
+          clearSearch: false,
           loading: false,
           repos: repos,
           reposSource: self.state.reposSource.cloneWithRows(repos)
@@ -74,9 +81,19 @@ var ReposScreen = React.createClass({
     );
   },
 
+  searchRepos: function (keyword) {
+    var results = _.filter(this.state.repos, function (obj) {
+      return obj.slug.split('/')[1].indexOf(keyword) > -1;
+    });
+
+    this.setState({
+      reposSource: this.state.reposSource.cloneWithRows(results)
+    });
+  },
+
   _renderHeader: function () {
     return (
-      <SearchBar />
+      <SearchBar search={this.searchRepos} clear={this.state.clearSearch} />
     );
   },
 
