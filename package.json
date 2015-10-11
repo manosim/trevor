@@ -1,50 +1,43 @@
 {
-  "name": "Trevor",
-  "version": "1.7.6",
+  "name": "trevor",
+  "version": "2.0.0",
   "description": "Continuous Integration on the go",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node_modules/react-native/packager/packager.sh",
+    "test": "eslint 'App/' 'index.ios.js' 'index.android.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekonstantinidis/trevor.git"
+  },
+  "keywords": [
+    "trevor",
+    "mobile",
+    "app",
+    "travis",
+    "ci",
+    "continuous",
+    "integration"
+  ],
+  "author": "Emmanouil Konstantinidis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ekonstantinidis/trevor/issues"
+  },
+  "homepage": "http://www.trevorapp.com",
   "dependencies": {
-    "ansi_up": "=1.2.1",
-    "gulp": "=3.9.0",
-    "gulp-concat": "=2.5.2",
-    "gulp-less": "=3.0.3",
-    "gulp-minify-css": "=1.1.6",
-    "gulp-rename": "=1.2.2",
-    "gulp-sass": "=2.0.1"
+    "moment": "=2.10.6",
+    "moment-duration-format": "=1.3.0",
+    "react-native": "=0.11.0",
+    "react-native-refreshable-listview": "=1.3.0",
+    "react-native-vector-icons": "=0.6.11",
+    "underscore": "=1.8.3"
   },
   "devDependencies": {
-    "angular-mocks": "=1.3.16",
-    "bower": "=1.4.1",
-    "gulp-jshint": "=1.11.0",
-    "gulp-plumber": "=1.0.1",
-    "gulp-strip-debug": "=1.0.2",
-    "gulp-uglify": "=1.2.0",
-    "gulp-util": "=3.0.5",
-    "jasmine-core": "=2.3.4",
-    "jshint-stylish": "=2.0.0",
-    "karma": "=0.12.36",
-    "karma-chrome-launcher": "=0.1.12",
-    "karma-coverage": "=0.3.1",
-    "karma-jasmine": "=0.3.5",
-    "karma-ng-html2js-preprocessor": "=0.1.2",
-    "karma-phantomjs-launcher": "=0.2.0",
-    "shelljs": "=0.5.1"
-  },
-  "cordovaPlugins": [
-    "org.apache.cordova.dialogs",
-    "org.apache.cordova.console",
-    "org.apache.cordova.device",
-    "org.apache.cordova.splashscreen",
-    "com.danielcwilson.plugins.googleanalytics",
-    "org.apache.cordova.statusbar",
-    "com.ionic.keyboard",
-    "org.apache.cordova.inappbrowser",
-    "org.pushandplay.cordova.apprate"
-  ],
-  "scripts": {
-    "test": "gulp test && karma start --single-run --browsers PhantomJS"
-  },
-  "cordovaPlatforms": [
-    "android",
-    "ios"
-  ]
+    "babel-eslint": "=4.1.3",
+    "eslint": "=1.5.1",
+    "eslint-plugin-react": "=3.5.1"
+  }
 }
