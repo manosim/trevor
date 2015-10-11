@@ -12,8 +12,7 @@ var Loading = require('./Loading');
 var {
   StyleSheet,
   ScrollView,
-  Text,
-  View
+  Text
 } = React;
 
 var BuildScreen = React.createClass({
