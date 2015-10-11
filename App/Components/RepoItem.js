@@ -49,7 +49,9 @@ var RepoItem = React.createClass({
           <View style={styles.buildInfo}>
             <Text style={styles.repoName}>{repoName}</Text>
 
-            <Text style={styles.buildDate}>{date}</Text>
+            {this.props.details.last_build_started_at ? (
+              <Text style={styles.buildDate}>{date}</Text>
+            ) : <View />}
 
             {this.props.details.last_build_duration ? (
               <Text style={styles.buildDuration}>Run for {duration}</Text>

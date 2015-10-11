@@ -1,13 +1,15 @@
 'use strict';
 
-var React = require('react-native');
 var _ = require('underscore');
+var React = require('react-native');
+var RefreshableListView = require('react-native-refreshable-listview');
 var moment = require('moment');
 require('moment-duration-format');
 
 var Api = require('../Utils/Api');
 var StatusSidebar = require('./StatusSidebar');
 var Loading = require('./Loading');
+var LoadingPull = require('./LoadingPull');
 
 var {
   StyleSheet,
@@ -31,14 +33,15 @@ var BuildsScreen = React.createClass({
   },
 
   componentWillMount: function() {
+    this.setState({
+      loading: true
+    });
+
     this.fetchData();
   },
 
   fetchData: function () {
     var self = this;
-    this.setState({
-      loading: true
-    });
 
     Api.getBuilds(this.props.slug, this.props.isPro)
       .then(function (res) {
@@ -75,7 +78,10 @@ var BuildsScreen = React.createClass({
         <View style={styles.buildInfo}>
           <Text style={styles.buildMessage} numberOfLines={1}>{rowData.commit.message}</Text>
 
-          <Text style={styles.buildFinished}>{date}</Text>
+          {rowData.started_at ? (
+            <Text style={styles.buildDate}>{date}</Text>
+          ) : <View />}
+
 
           {rowData.duration ? (
             <Text style={styles.buildDuration}>Run for {duration}</Text>
@@ -114,16 +120,19 @@ var BuildsScreen = React.createClass({
     }
   },
 
-  _renderHeader: function () {
+  _renderHeader: function (refreshingIndicator) {
     return (
-      <View style={styles.segmentWrapper}>
-        <Text style={styles.repoName}>{this.props.slug}</Text>
-        <SegmentedControlIOS
-          style={styles.segment}
-          values={['All', 'Builds', 'Pull Requests']}
-          tintColor='#FFF'
-          selectedIndex={0}
-          onValueChange={this._onSegmentChange} />
+      <View>
+        {refreshingIndicator}
+        <View style={styles.segmentWrapper}>
+          <Text style={styles.repoName}>{this.props.slug}</Text>
+          <SegmentedControlIOS
+            style={styles.segment}
+            values={['All', 'Builds', 'Pull Requests']}
+            tintColor='#FFF'
+            selectedIndex={0}
+            onValueChange={this._onSegmentChange} />
+        </View>
       </View>
     );
   },
@@ -144,11 +153,13 @@ var BuildsScreen = React.createClass({
     }
 
     return (
-      <ListView
+      <RefreshableListView
         dataSource={this.state.buildsSource}
         renderRow={this._renderBuildRow}
-        renderHeader={this._renderHeader}
-        renderSeparator={this._renderSeparator} />
+        renderHeaderWrapper={this._renderHeader}
+        renderSeparator={this._renderSeparator}
+        loadData={this.fetchData}
+        refreshingIndictatorComponent={<LoadingPull />} />
     );
   }
 });
@@ -181,7 +192,7 @@ var styles = StyleSheet.create({
     flex: 0.85,
     padding: 10
   },
-  buildFinished: {
+  buildDate: {
     flexDirection: 'column',
     flex: 0.8,
   },

@@ -121,8 +121,7 @@ var ReposScreen = React.createClass({
           renderRow={this._renderBuildRow}
           renderSeparator={this._renderSeparator}
           loadData={this.fetchData}
-          refreshingIndictatorComponent={<LoadingPull />}
-          refreshDescription="Refreshing repos" />
+          refreshingIndictatorComponent={<LoadingPull />} />
       </View>
     );
   }
