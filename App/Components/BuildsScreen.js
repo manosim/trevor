@@ -7,6 +7,7 @@ var moment = require('moment');
 require('moment-duration-format');
 
 var Api = require('../Utils/Api');
+var BuildScreen = require('./BuildScreen');
 var StatusSidebar = require('./StatusSidebar');
 var Loading = require('./Loading');
 var LoadingPull = require('./LoadingPull');
@@ -16,7 +17,8 @@ var {
   Text,
   View,
   ListView,
-  SegmentedControlIOS
+  SegmentedControlIOS,
+  TouchableHighlight
 } = React;
 
 var BuildsScreen = React.createClass({
@@ -62,6 +64,17 @@ var BuildsScreen = React.createClass({
       });
   },
 
+  _pressRow: function (details) {
+    this.props.navigator.push({
+      title: 'Build #' + details.number,
+      component: BuildScreen,
+      passProps: {
+        isPro: this.props.isPro,
+        buildId: details.id
+      }
+    });
+  },
+
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
     var date = rowData.duration ? 'Finished ' + moment(rowData.finished_at).fromNow() :
       'Started ' + moment(rowData.started_at).fromNow();
@@ -70,28 +83,33 @@ var BuildsScreen = React.createClass({
       .format('[Run for] m [minutes], s [seconds]');
 
     return (
-      <View style={styles.buildRow}>
-        <StatusSidebar
-          buildState={rowData.state}
-          buildNumber={rowData.number} />
+      <TouchableHighlight
+         activeOpacity={0.85}
+         underlayColor={'white'}
+         onPress={() => this._pressRow(rowData)}>
+         <View style={styles.buildRow}>
+           <StatusSidebar
+             buildState={rowData.state}
+             buildNumber={rowData.number} />
 
-        <View style={styles.buildInfo}>
-          <Text style={styles.buildMessage} numberOfLines={1}>{rowData.commit.message}</Text>
+           <View style={styles.buildInfo}>
+             <Text style={styles.buildMessage} numberOfLines={1}>{rowData.commit.message}</Text>
 
-          {rowData.started_at ? (
-            <Text style={styles.buildDate}>{date}</Text>
-          ) : <View />}
+             {rowData.started_at ? (
+               <Text style={styles.buildDate}>{date}</Text>
+             ) : <View />}
 
 
-          {rowData.duration ? (
-            <Text style={styles.buildDuration}>Run for {duration}</Text>
-          ) : (
-            <Text style={styles.buildDuration}>
-              State: {rowData.state}
-            </Text>
-          )}
-        </View>
-      </View>
+             {rowData.duration ? (
+               <Text style={styles.buildDuration}>Run for {duration}</Text>
+             ) : (
+               <Text style={styles.buildDuration}>
+                 State: {rowData.state}
+               </Text>
+             )}
+           </View>
+         </View>
+      </TouchableHighlight>
     );
   },
 

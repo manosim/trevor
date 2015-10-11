@@ -99,6 +99,26 @@ var Api = {
       });
   },
 
+
+  getBuild: function (id, isPro) {
+    var url = this.getApiUrl(isPro) + `/builds/${id}`;
+    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
+
+    return fetch(url, {
+      headers: {
+        'Accept': 'Accept: application/vnd.travis-ci.2+json',
+        'Authorization': 'token ' + token,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(function(res) {
+        return res.json();
+      })
+      .catch((error) => {
+        console.warn('Request Failed: ', error);
+      });
+  },
+
   getLatestPro: function () {
     var url = this.getApiUrl(true) + `/repos/`;
     var token = AuthStore.tokenPro;
