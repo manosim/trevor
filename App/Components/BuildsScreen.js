@@ -60,7 +60,9 @@ var BuildsScreen = React.createClass({
   },
 
   _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
-    var finishedDate = moment(rowData.finished_at).fromNow();
+    var date = rowData.duration ? 'Finished ' + moment(rowData.finished_at).fromNow() :
+      'Started ' + moment(rowData.started_at).fromNow();
+
     var duration = moment.duration(rowData.duration, 'seconds')
       .format('[Run for] m [minutes], s [seconds]');
 
@@ -72,8 +74,16 @@ var BuildsScreen = React.createClass({
 
         <View style={styles.buildInfo}>
           <Text style={styles.buildMessage} numberOfLines={1}>{rowData.commit.message}</Text>
-          <Text style={styles.buildDuration}>Run for {duration}</Text>
-          <Text style={styles.buildFinished}>Finished {finishedDate}</Text>
+
+          <Text style={styles.buildFinished}>{date}</Text>
+
+          {rowData.duration ? (
+            <Text style={styles.buildDuration}>Run for {duration}</Text>
+          ) : (
+            <Text style={styles.buildDuration}>
+              State: {rowData.state}
+            </Text>
+          )}
         </View>
       </View>
     );
