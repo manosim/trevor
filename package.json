@@ -1,11 +1,13 @@
 {
-  "name": "trevor",
+  "name": "Trevor",
   "version": "2.0.0",
   "description": "Continuous Integration on the go",
   "private": true,
   "main": "index.js",
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
+    "run-android": "react-native run-android",
+    "xcode": "open ~/Projects/Trevor/ios/Trevor.xcodeproj",
     "test": "eslint 'App/' 'index.ios.js' 'index.android.js'"
   },
   "repository": {
@@ -30,7 +32,7 @@
   "dependencies": {
     "moment": "=2.10.6",
     "moment-duration-format": "=1.3.0",
-    "react-native": "=0.11.0",
+    "react-native": "=0.12.0",
     "react-native-refreshable-listview": "=1.3.0",
     "react-native-vector-icons": "=0.6.11",
     "underscore": "=1.8.3"
