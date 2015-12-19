@@ -11,28 +11,26 @@ var plumber = require('gulp-plumber');
 var path = require('path');
 var stripDebug = require('gulp-strip-debug');
 var uglify = require('gulp-uglify');
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
 
 
 gulp.task('concat', function() {
   return gulp.src([
-      './www/js/app.js',
-      './www/js/controllers.js',
-      './www/js/controllers/*.js',
-      './www/js/services.js',
-      './www/js/services/*.js',
-      './www/js/filters.js',
-      './www/js/filters/*.js',
-      './node_modules/ansi_up/ansi_up.js',
-    ])
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('./www/js/dist/'));
+    './www/js/app.js',
+    './www/js/controllers.js',
+    './www/js/controllers/*.js',
+    './www/js/services.js',
+    './www/js/services/*.js',
+    './www/js/filters.js',
+    './www/js/filters/*.js',
+    './node_modules/ansi_up/ansi_up.js',
+  ])
+  .pipe(concat('main.js'))
+  .pipe(gulp.dest('./www/js/dist/'));
 });
 
 
 gulp.task('remove-logs', ['concat'], function () {
-    return gulp.src('./www/js/dist/main.js')
+  return gulp.src('./www/js/dist/main.js')
     .pipe(stripDebug())
     .pipe(gulp.dest('./www/js/dist/'));
 });
@@ -55,14 +53,6 @@ gulp.task('less', function () {
 });
 
 
-gulp.task('jshint', function() {
-  return gulp.src(['./www/js/**/*.js', '!./www/js/dist/*.js'])
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(jshint.reporter('fail'));
-});
-
-
 gulp.task('watch', function() {
   gulp.watch('./www/less/**.less', ['less']);
   gulp.watch('./www/js/**/*.js', ['concat']);
@@ -73,11 +63,10 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
-
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
     .pipe(sass())
+    .on('error', sass.logError)
     .pipe(gulp.dest('./www/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
@@ -87,14 +76,12 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
     .on('log', function(data) {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
     });
 });
-
 
 gulp.task('git-check', function(done) {
   if (!sh.which('git')) {
@@ -109,6 +96,6 @@ gulp.task('git-check', function(done) {
   done();
 });
 
+gulp.task('default', ['sass']);
 gulp.task('build', ['less', 'concat']);
 gulp.task('release', ['less', 'concat', 'remove-logs', 'uglify']);
-gulp.task('test', ['jshint']);
