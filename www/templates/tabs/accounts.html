@@ -1,0 +1,82 @@
+<ion-view view-title="Accounts">
+
+    <ion-nav-buttons side="left">
+        <a ui-sref="tab.about"><button class="button button-icon ion-ios-information-outline"></button></a>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-logout" ng-if="accounts.os || accounts.pro" ng-click="logOut()"><span class="octicon octicon-sign-out"></span></button>
+    </ion-nav-buttons>
+
+    <ion-content class="accounts">
+
+        <ion-refresher
+            pulling-text="Pull to refresh"
+            on-refresh="fetchData()"
+            spinner="ripple">
+        </ion-refresher>
+
+        <div class="welcome-banner">
+            <img src="images/welcome-banner.png" class="logo">
+        </div>
+
+        <div class="row no-entries padding" ng-if="accounts.length < 1">
+            <div class="col col-100 padding">
+                <i class="icon ion-sad"></i>
+                <div class="message">Oops! It seems that there are no accounts. Weird huh?</div>
+            </div>
+        </div>
+
+
+        <div class="list">
+
+            <div class="item item-divider">Travis CI for Open Source</div>
+            <a class="item item-avatar" ui-sref="tab.repos({ loginid: account.login, ispro: false })" ng-repeat="account in accounts.os">
+
+                <img ng-src="{{account.avatar_url}}" ng-if="account.avatar_url" />
+                <img ng-src="images/trevor-logo.png" ng-if="!account.avatar_url" />
+
+                <div class="name">{{ account.login }}</div>
+
+                <div class="info">{{ account.name }}</div>
+
+                <div class="status">
+                    <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
+                    <div class="repos-count">{{ account.repos_count }}</div>
+                </div>
+
+            </a>
+            <div class="item item-button" ng-if="!accounts.os">
+                <button class="button button-block button-stable icon-left ion-social-github" ng-click="login(false)">
+                    Login with Github
+                </button>
+            </div>
+
+            <div class="item item-divider">Travis Pro</div>
+            <a class="item item-avatar" ui-sref="tab.repos({ loginid: account.login, ispro: true })" ng-class="{true: 'not-subscribed'}[shouldDisable(account.subscribed, account.education)]" ng-repeat="account in accounts.pro">
+
+                <img ng-src="{{account.avatar_url}}" ng-if="account.avatar_url" />
+                <img ng-src="images/trevor-logo.png" ng-if="!account.avatar_url" />
+
+                <div class="name">{{ account.login }} <span class="octicon octicon-mortar-board" ng-if="account.education"></span></div>
+
+                <div class="info" ng-if="!pro || account.subscribed || account.education">{{ account.name }}</div>
+                <div class="info" ng-if="pro && !account.subscribed && !account.education">Not Subscribed</div>
+
+                <div class="status">
+                    <span class="octicon" ng-class="{'user': 'octicon-person', 'organization': 'octicon-organization'}[account.type]"></span>
+                    <div class="repos-count">{{ account.repos_count }}</div>
+                </div>
+
+            </a>
+            <div class="item item-button" ng-if="!accounts.pro">
+                <button class="button button-block button-stable icon-left ion-social-github" ng-click="login(true)">
+                    Login with Github
+                </button>
+            </div>
+
+        </div>
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,62 @@
+<ion-view view-title="Build">
+    <ion-content class="build">
+
+        <ion-refresher
+            pulling-text="Pull to refresh"
+            on-refresh="fetch()"
+            spinner="ripple">
+        </ion-refresher>
+
+        <div class="list">
+
+            <div class="item item-divider">Build Details</div>
+            <div class="item build">
+                <div class="commit-message">{{ commit.message }}</div>
+
+                <div class="status bg-status-{{build.state}}">
+                    <i class="icon" ng-class="{ 'created': 'ion-ios-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios-circle-filled' }[build.state]"></i>
+                    <span class="octicon" ng-class="{true: 'octicon-git-pull-request', false: 'octicon-repo-push'}[build.pull_request]"></span>
+                </div>
+
+                <span class="build-number text-status-{{build.state}}"><span class="octicon octicon-tools"></span> {{ build.number }}</span>
+
+                <span class="build-status" ng-if="!build.duration"><span class="octicon octicon-hourglass"></span> {{ build.state }}</span>
+
+                <span ng-if="build.duration" class="build-duration"><i class="icon ion-clock"></i> Run for {{build.duration | convertSeconds }}</span>
+
+                <div ng-if="!build.finished_at && build.started_at" class="build-started" ><i class="icon ion-calendar"></i> {{ build.started_at | timeAgo }}</div>
+
+                <div ng-if="build.finished_at" class="build-finished"><i class="icon ion-calendar"></i> Finished on {{ build.finished_at | timeAgo }}</div>
+
+            </div>
+
+            <div class="item item-divider">Commit Info</div>
+            <div class="item commit">
+
+                <div class="branch"><span class="octicon octicon-git-branch"></span> {{ commit.branch }}</div>
+
+                <div class="pull-request" ng-if="build.pull_request"><span class="octicon octicon-git-pull-request"></span> {{ build.pull_request_number }}: {{ build.pull_request_title }}</div>
+
+                <div class="committer"><span class="octicon octicon-person"></span> {{ commit.committer_name }}</div>
+
+                <div class="compare" ng-if="!isPro || isPro == 'false'">
+                    <button class="button button-block button-dark icon-left ion-social-github" ng-click="openCompare()">Compare Commit</button>
+                </div>
+
+            </div>
+
+            <div class="item item-divider">Jobs</div>
+
+            <a class="item item-icon-right job" ui-sref="tab.log({ jobid: job.id, ispro: isPro })" ng-repeat="job in jobs">
+                <div class="status bg-status-{{job.state}}">
+                    <i class="icon" ng-class="{ 'created': 'ion-ios-circle-filled', 'passed': 'ion-checkmark-circled', 'started': 'ion-ios-circle-filled', 'failed': 'ion-close-circled', 'errored': 'ion-alert-circled', 'canceled': 'ion-alert-circled', 'received': 'ion-ios-circle-filled' }[job.state]"></i>
+                </div>
+
+                <div class="build">Job #{{ job.number }}</div>
+                <i class="icon ion-ios-arrow-forward"></i>
+            </a>
+
+        </div>
+
+    </ion-content>
+</ion-view>
