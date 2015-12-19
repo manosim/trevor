@@ -1,6 +1,6 @@
 {
   "name": "Trevor",
-  "version": "1.7.6",
+  "version": "2.0.0",
   "description": "Continuous Integration on the go",
   "dependencies": {
     "ansi_up": "=1.1.3",
@@ -29,17 +29,21 @@
     "karma-phantomjs-launcher": "=0.2.1",
     "shelljs": "=0.5.3"
   },
-  "cordovaPlugins": [
-    "org.apache.cordova.dialogs",
-    "org.apache.cordova.console",
-    "org.apache.cordova.device",
-    "org.apache.cordova.splashscreen",
-    "com.danielcwilson.plugins.googleanalytics",
-    "org.apache.cordova.statusbar",
-    "com.ionic.keyboard",
-    "org.apache.cordova.inappbrowser",
-    "org.pushandplay.cordova.apprate"
+  "keywords": [
+    "trevor",
+    "mobile",
+    "app",
+    "travis",
+    "ci",
+    "continuous",
+    "integration"
   ],
+  "author": "Emmanouil Konstantinidis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ekonstantinidis/trevor/issues"
+  },
+  "homepage": "http://www.trevorapp.com",
   "scripts": {
     "setup": "gulp install && npm install && gulp sass",
     "build": "gulp build",

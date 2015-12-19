@@ -1,9 +1,11 @@
-Trevor [![Build Status](https://magnum.travis-ci.com/ekonstantinidis/trevor.svg?token=9QR4ewbqbkEmHps6q5sq&branch=master)](https://magnum.travis-ci.com/ekonstantinidis/trevor)
-=====================
-A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
+# Trevor [![travis][travis-image]][travis-url]
+[travis-image]: https://travis-ci.org/ekonstantinidis/trevor.svg?branch=master
+[travis-url]: https://travis-ci.org/ekonstantinidis/trevor
 
-![Trevor App](www/images/press.png)
+> Work In Progress - Version 2 based on React Native.
 
+### Download
+You can download Trevor (Version 1 - based on Ionic Framework) from the [App Store](http://itunes.apple.com/app/id962155187) and [Google Play Store](http://play.google.com/store/apps/details?id=com.iamemmanouil.trevor).
 
 ## Install Packages
 The `setup` script will handle the installation of ionic and all the other dependencies.

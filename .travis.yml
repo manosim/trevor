@@ -1,14 +1,10 @@
 language: node_js
 
 node_js:
-  - 0.10
+  - '4.1.1'
 
-before_script:
-  - npm install -g gulp
-  - npm install -g karma-cli
-  - gulp install
+install:
   - npm install
-  - gulp release
 
 script:
   - npm test
