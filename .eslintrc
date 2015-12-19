@@ -2,6 +2,7 @@
   "globals": {
       "angular": true,
       "analytics": true,
+      "ansi_up": true,
       "AppRate": true,
       "cordova": true,
       "StatusBar": true

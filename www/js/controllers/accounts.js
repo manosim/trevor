@@ -90,10 +90,9 @@ app.controller('AccountsCtrl', function($rootScope, $scope, $window, $http, Requ
     var authWindow = $window.open(authUrl, '_blank', 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=Close,clearcache=yes');
 
     authWindow.addEventListener('loadstart', function(e) {
-      var url = (typeof e.url !== 'undefined' ? e.url : e.originalEvent.url),
-        raw_code = /code=([^&]*)/.exec(e.url) || null,
-        code = (raw_code && raw_code.length > 1) ? raw_code[1] : null,
-        error = /\?error=(.+)$/.exec(e.url);
+      var raw_code = /code=([^&]*)/.exec(e.url) || null;
+      var code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
+      var error = /\?error=(.+)$/.exec(e.url);
 
       if (code || error) {
         // Close the browser if code found or error
