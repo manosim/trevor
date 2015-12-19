@@ -1,12 +1,15 @@
 {
   "globals": {
       "angular": true,
-      "analytics": false
+      "analytics": true,
+      "AppRate": true,
+      "cordova": true,
+      "StatusBar": true
   },
   "rules": {
     "no-undef": 2,
     "no-unreachable": 2,
-    "no-unused-vars": 2,
+    "no-unused-vars": [2, {"vars": "all", "args": "none"}],
     "no-undef-init": 2,
     "no-multiple-empty-lines": [2, {"max": 2}],
     "indent": [2, 2],
