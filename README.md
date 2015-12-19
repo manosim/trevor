@@ -6,23 +6,22 @@ A hybrid app based on Ionic Framework, AngularJS and Apache Cordova.
 
 
 ## Install Packages
-*NPM* will install all the project dependecies. Then *gulp* will install **ionic** through bower.
+The `setup` script will handle the installation of ionic and all the other dependencies.
 
-    npm install
-    gulp install
+    npm run setup
 
 
 ## Running the app on the browser
 
     ionic serve
-    gulp watch
+    npm run watch
 
 
 ## Releasing the app
 
     ionic platform add ios
     ionic platform add android
-    gulp release
+    npm run release
     ionic build ios
     ionic build android
 

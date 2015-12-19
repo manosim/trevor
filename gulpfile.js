@@ -109,5 +109,6 @@ gulp.task('git-check', function(done) {
   done();
 });
 
+gulp.task('build', ['less', 'concat']);
 gulp.task('release', ['less', 'concat', 'remove-logs', 'uglify']);
 gulp.task('test', ['jshint']);
