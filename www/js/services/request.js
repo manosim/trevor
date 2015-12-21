@@ -23,7 +23,6 @@ services.factory('RequestService', function (AccountsService, AlertService, $q, 
 
       var headers = {
         'Accept': 'application/vnd.travis-ci.2+json',
-        'User-Agent': 'Trevor/1.7.6',
         'Host': host,
         // 'Content-Type': 'application/json',
         // 'Content-Length': 37
