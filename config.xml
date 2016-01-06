@@ -21,6 +21,11 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
 
+    <!-- Allow requests to the API servers -->
+    <access origin="https://github.com/*" />
+    <access origin="https://api.travis-ci.org/*" />
+    <access origin="https://api.travis-ci.com/*" />
+
     <!-- iOS App Icons & Splash Screens -->
     <platform name="ios">
         <!-- iPhone / iPod Touch  -->
