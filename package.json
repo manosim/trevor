@@ -4,7 +4,7 @@
   "description": "Continuous Integration on the go",
   "main": "www/src/app.js",
   "scripts": {
-    "setup": "gulp install && npm install && gulp sass",
+    "setup": "npm install && gulp install && gulp sass",
     "build": "gulp build",
     "watch": "gulp watch",
     "release": "gulp release",
@@ -62,17 +62,12 @@
   ],
   "cordovaPlugins": [
     "cordova-plugin-dialogs",
-    "https://github.com/pushandplay/cordova-plugin-apprate.git",
     "cordova-plugin-console",
     "cordova-plugin-device",
     "ionic-plugin-keyboard",
     "cordova-plugin-statusbar",
     "cordova-plugin-splashscreen",
     "cordova-plugin-google-analytics",
-    {
-      "locator": "https://github.com/pushandplay/cordova-plugin-apprate.git",
-      "id": "org.pushandplay.cordova.apprate"
-    },
     "cordova-plugin-inappbrowser"
   ]
 }

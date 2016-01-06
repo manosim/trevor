@@ -5,7 +5,6 @@ ionic plugin rm ionic-plugin-keyboard
 ionic plugin rm cordova-plugin-statusbar
 ionic plugin rm cordova-plugin-splashscreen
 ionic plugin rm cordova-plugin-google-analytics
-ionic plugin rm org.pushandplay.cordova.apprate
 ionic plugin rm cordova-plugin-dialogs
 ionic plugin rm cordova-plugin-inappbrowser
 
@@ -16,6 +15,5 @@ ionic plugin add ionic-plugin-keyboard
 ionic plugin add cordova-plugin-statusbar
 ionic plugin add cordova-plugin-splashscreen
 ionic plugin add cordova-plugin-google-analytics
-ionic plugin add https://github.com/pushandplay/cordova-plugin-apprate.git
 ionic plugin add cordova-plugin-dialogs
 ionic plugin add cordova-plugin-inappbrowser
