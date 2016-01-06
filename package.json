@@ -68,6 +68,7 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-splashscreen",
     "cordova-plugin-google-analytics",
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-whitelist"
   ]
 }
