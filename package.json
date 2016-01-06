@@ -4,7 +4,7 @@
   "description": "Continuous Integration on the go",
   "main": "www/src/app.js",
   "scripts": {
-    "setup": "gulp install && npm install && gulp sass",
+    "setup": "npm install && gulp install && gulp sass",
     "build": "gulp build",
     "watch": "gulp watch",
     "release": "gulp release",
@@ -48,7 +48,7 @@
     "gulp-uglify": "=1.5.1",
     "gulp-util": "=3.0.7",
     "jasmine-core": "=2.4.1",
-    "karma": "=0.13.15",
+    "karma": "=0.13.19",
     "karma-chrome-launcher": "=0.2.2",
     "karma-coverage": "=0.5.3",
     "karma-jasmine": "=0.3.6",
@@ -62,17 +62,12 @@
   ],
   "cordovaPlugins": [
     "cordova-plugin-dialogs",
-    "https://github.com/pushandplay/cordova-plugin-apprate.git",
     "cordova-plugin-console",
     "cordova-plugin-device",
     "ionic-plugin-keyboard",
     "cordova-plugin-statusbar",
     "cordova-plugin-splashscreen",
     "cordova-plugin-google-analytics",
-    {
-      "locator": "https://github.com/pushandplay/cordova-plugin-apprate.git",
-      "id": "org.pushandplay.cordova.apprate"
-    },
     "cordova-plugin-inappbrowser"
   ]
 }
