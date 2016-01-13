@@ -213,7 +213,7 @@ export default class AccountsList extends React.Component {
           <View style={styles.logoutButtonWrapper}>
             <TouchableHighlight
               style={styles.logoutButton}
-              onPress={this.logout}
+              onPress={this.logout.bind(this)}
               underlayColor={'#40454F'}>
               <Text style={styles.logoutButtonText}>Log Out</Text>
             </TouchableHighlight>

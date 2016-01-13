@@ -108,13 +108,13 @@ export default class Dashboard extends React.Component {
           <Text style={styles.description}>Access Travis CI, simply everywhere</Text>
 
           {!this.state.isLoggedIn.os ? (
-            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginOs}>
+            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginOs.bind(this)}>
               <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
             </TouchableHighlight>
           ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
 
           {!this.state.isLoggedIn.pro ? (
-            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginPro}>
+            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginPro.bind(this)}>
               <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
             </TouchableHighlight>
           ) : <AccountsList navigator={this.props.navigator} isPro={true} />}

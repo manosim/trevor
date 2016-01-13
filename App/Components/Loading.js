@@ -20,7 +20,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class Reloading extends React.Component {
+export default class Loading extends React.Component {
   render() {
     return (
       <View style={[styles.container, this.props.style && this.props.style]}>
