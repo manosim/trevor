@@ -212,8 +212,8 @@ export default class BuildsScreen extends React.Component {
       <RefreshableListView
         style={styles.container}
         dataSource={this.state.buildsSource}
-        renderRow={this._renderBuildRow}
-        renderHeaderWrapper={this._renderHeader}
+        renderRow={this._renderBuildRow.bind(this)}
+        renderHeaderWrapper={this._renderHeader.bind(this)}
         renderSeparator={this._renderSeparator}
         loadData={this.fetchData}
         refreshingIndictatorComponent={<LoadingPull />} />

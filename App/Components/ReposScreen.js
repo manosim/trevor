@@ -124,8 +124,8 @@ export default class ReposScreen extends React.Component {
       <View style={styles.container}>
         <RefreshableListView
           dataSource={this.state.reposSource}
-          renderHeaderWrapper={this._renderHeader}
-          renderRow={this._renderBuildRow}
+          renderHeaderWrapper={this._renderHeader.bind(this)}
+          renderRow={this._renderBuildRow.bind(this)}
           renderSeparator={this._renderSeparator}
           loadData={this.fetchData}
           refreshingIndictatorComponent={<LoadingPull />} />

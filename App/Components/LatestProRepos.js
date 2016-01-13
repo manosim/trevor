@@ -83,9 +83,7 @@ export default class LatestProRepos extends React.Component {
       <ListView
         contentContainerStyle={styles.container}
         dataSource={this.state.reposSource}
-        renderRow={this._renderBuildRow}
-        renderHeader={this._renderHeader}
-        renderFooter={this._renderFooter}
+        renderRow={this._renderBuildRow.bind(this)}
         renderSeparator={this._renderSeparator} />
     );
   }
