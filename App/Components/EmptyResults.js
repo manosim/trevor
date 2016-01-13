@@ -7,21 +7,6 @@ var {
   View
 } = React;
 
-var EmptyResults = React.createClass({
-  displayName: 'EmptyResults',
-
-  render: function() {
-    return (
-      <View style={styles.container}>
-        <Image
-          style={styles.icon}
-          source={require('image!logo-circle-red')} />
-        <Text style={styles.text}>Wow! Nothing to see here!</Text>
-      </View>
-    );
-  }
-});
-
 var styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -42,4 +27,15 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = EmptyResults;
+export default class EmptyResults extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Image
+          style={styles.icon}
+          source={require('image!logo-circle-red')} />
+        <Text style={styles.text}>Wow! Nothing to see here!</Text>
+      </View>
+    );
+  }
+};

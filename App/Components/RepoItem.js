@@ -1,10 +1,8 @@
-'use strict';
-
-var React = require('react-native');
+import React from 'react-native';
 var moment = require('moment');
 require('moment-duration-format');
 
-var BuildsScreen = require('./BuildsScreen');
+import BuildsScreen from './BuildsScreen';
 import StatusSidebar from './StatusSidebar';
 
 var {
@@ -14,10 +12,35 @@ var {
   TouchableHighlight
 } = React;
 
-var RepoItem = React.createClass({
-  displayName: 'RepoItem',
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  },
+  buildRow: {
+    flexDirection: 'row',
+    flex: 1,
+    padding: 0
+  },
+  repoName: {
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  buildInfo: {
+    flex: 0.85,
+    padding: 10
+  },
+  buildDate: {
 
-  _pressRow: function (details) {
+  },
+  buildDuration: {
+
+  }
+});
+
+export default class RepoItem extends React.Component {
+
+  _pressRow(details) {
     this.props.navigator.push({
       title: 'Builds',
       component: BuildsScreen,
@@ -26,9 +49,9 @@ var RepoItem = React.createClass({
         slug: details.slug
       }
     });
-  },
+  }
 
-  render: function() {
+  render() {
     var repoName = this.props.details.slug.split('/')[1];
     var date = this.props.details.last_build_duration ? 'Finished ' +
       moment(this.props.details.last_build_finished_at).fromNow() :
@@ -66,32 +89,4 @@ var RepoItem = React.createClass({
       </TouchableHighlight>
     );
   }
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-  buildRow: {
-    flexDirection: 'row',
-    flex: 1,
-    padding: 0
-  },
-  repoName: {
-    fontWeight: 'bold',
-    fontSize: 16
-  },
-  buildInfo: {
-    flex: 0.85,
-    padding: 10
-  },
-  buildDate: {
-
-  },
-  buildDuration: {
-
-  }
-});
-
-module.exports = RepoItem;
+};

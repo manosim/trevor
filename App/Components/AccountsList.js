@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Octicons';
 import Api from '../Utils/Api';
 import Loading from '../Components/Loading';
 import Separator from '../Helpers/Separator';
-var ReposScreen = require('../Components/ReposScreen');
+import ReposScreen from '../Components/ReposScreen';
 var AuthStore = require('../Stores/Auth');
 
 var {

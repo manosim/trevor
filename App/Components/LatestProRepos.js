@@ -2,7 +2,7 @@ import React from 'react-native';
 
 import Api from '../Utils/Api';
 import Loading from './Loading';
-var RepoItem = require('./RepoItem');
+import RepoItem from './RepoItem';
 
 var {
   StyleSheet,

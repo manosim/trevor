@@ -19,7 +19,7 @@ var styles = StyleSheet.create({
   }
 });
 
-var LatestProRepos = require('../Components/LatestProRepos');
+import LatestProRepos from '../Components/LatestProRepos';
 
 export default class Footer extends React.Component {
   pressButton() {
