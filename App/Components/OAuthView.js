@@ -1,6 +1,4 @@
-'use strict';
-
-var React = require('react-native');
+import React from 'react-native';
 
 var {
   AlertIOS,
@@ -12,27 +10,23 @@ var AuthStore = require('../Stores/Auth');
 var Constants = require('../Utils/Constants');
 var Loading = require('./Loading');
 
-var OAuthView = React.createClass({
-  displayName: 'OAuthView',
+export default class OAuthView extends React.Component {
+  constructor(props) {
+    super(props);
 
-  propTypes: {
-    authUrl: React.PropTypes.string.isRequired
-  },
-
-  componentWillMount: function() {
-    this.setState({
-      authUrl: this.props.authUrl
-    });
-  },
-
-  getInitialState: function () {
-    return {
+    this.state = {
       authUrl: this.props.authUrl,
       loading: false
     };
-  },
+  }
 
-  requestGithubToken: function (code) {
+  componentWillMount() {
+    this.setState({
+      authUrl: this.props.authUrl
+    });
+  }
+
+  requestGithubToken(code) {
     var self = this;
 
     this.setState({
@@ -55,9 +49,9 @@ var OAuthView = React.createClass({
           self.requestTravisToken(res.access_token);
         }
       });
-  },
+  }
 
-  requestTravisToken: function (githubToken) {
+  requestTravisToken(githubToken) {
     var self = this;
 
     var data = JSON.stringify({
@@ -74,9 +68,9 @@ var OAuthView = React.createClass({
           self.props.navigator.pop();
         }
       });
-  },
+  }
 
-  onNavigationStateChange: function (args) {
+  onNavigationStateChange(args) {
     var url = args.url;
     var raw_code = /code=([^&]*)/.exec(url) || null;
     var code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
@@ -98,9 +92,9 @@ var OAuthView = React.createClass({
       AlertIOS.alert('Trevor', 'Oops! Something went wrong and we couldn\'t log' +
         'you in. Please try again.');
     }
-  },
+  }
 
-  render: function() {
+  render() {
     if (this.state.loading || !this.props.authUrl) {
       return (
         <Loading text='Auth' />
@@ -116,6 +110,10 @@ var OAuthView = React.createClass({
         scalesPageToFit={this.state.scalesPageToFit} />
     );
   }
-});
+};
 
 module.exports = OAuthView;
+
+OAuthView.propTypes = {
+  authUrl: React.PropTypes.string.isRequired
+};

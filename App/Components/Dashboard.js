@@ -9,10 +9,10 @@ var {
 } = React;
 
 var AuthStore = require('../Stores/Auth');
-var AccountsList = require('./AccountsList');
+import AccountsList from './AccountsList';
 var Constants = require('../Utils/Constants');
-var Footer = require('../Components/Footer');
-var OAuthView = require('./OAuthView');
+import Footer from './Footer';
+import OAuthView from './OAuthView';
 
 var styles = StyleSheet.create({
   container: {
@@ -105,9 +105,7 @@ export default class Dashboard extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
-          <Text style={styles.description}>
-            Access Travis CI, simply everywhere
-          </Text>
+          <Text style={styles.description}>Access Travis CI, simply everywhere</Text>
 
           {!this.state.isLoggedIn.os ? (
             <TouchableHighlight style={styles.loginButton} onPress={this._doLoginOs}>

@@ -9,7 +9,7 @@ var {
 } = React;
 
 var AuthStore = require('./App/Stores/Auth');
-var Dashboard = require('./App/Components/Dashboard');
+import Dashboard from './App/Components/Dashboard';
 var Loading = require('./App/Components/Loading');
 
 var styles = StyleSheet.create({
