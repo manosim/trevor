@@ -5,7 +5,7 @@ var moment = require('moment');
 require('moment-duration-format');
 
 var BuildsScreen = require('./BuildsScreen');
-var StatusSidebar = require('./StatusSidebar');
+import StatusSidebar from './StatusSidebar';
 
 var {
   StyleSheet,
@@ -39,6 +39,7 @@ var RepoItem = React.createClass({
 
     return (
       <TouchableHighlight
+        style={styles.container}
         activeOpacity={0.85}
         underlayColor={'white'}
         onPress={() => this._pressRow(this.props.details)}>
@@ -90,10 +91,6 @@ var styles = StyleSheet.create({
   },
   buildDuration: {
 
-  },
-  separator: {
-    height: 2,
-    backgroundColor: '#e9e9e9'
   }
 });
 

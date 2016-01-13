@@ -10,7 +10,7 @@ var {
 
 var AuthStore = require('./App/Stores/Auth');
 import Dashboard from './App/Components/Dashboard';
-var Loading = require('./App/Components/Loading');
+import Loading from './App/Components/Loading';
 
 var styles = StyleSheet.create({
   container: {

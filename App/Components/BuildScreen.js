@@ -1,13 +1,7 @@
-'use strict';
-
-// var _ = require('underscore');
-var React = require('react-native');
-// var moment = require('moment');
-// require('moment-duration-format');
+import React from 'react-native';
 
 var Api = require('../Utils/Api');
-var Loading = require('./Loading');
-// var LoadingPull = require('./LoadingPull');
+import Loading from './Loading';
 
 var {
   StyleSheet,
@@ -15,27 +9,33 @@ var {
   Text
 } = React;
 
-var BuildScreen = React.createClass({
-  displayName: 'BuildScreen',
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  }
+});
 
-  getInitialState: function() {
-    return {
+export default class BuildScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       loading: false,
       build: {},
       commit: {},
       jobs: []
     };
-  },
+  }
 
-  componentWillMount: function() {
+  componentWillMount() {
     this.setState({
       loading: true
     });
 
     this.fetchData();
-  },
+  }
 
-  fetchData: function () {
+  fetchData() {
     var self = this;
 
     Api.getBuild(this.props.buildId, this.props.isPro)
@@ -47,9 +47,9 @@ var BuildScreen = React.createClass({
           jobs: res.jobs
         });
       });
-  },
+  }
 
-  render: function() {
+  render() {
     if (this.state.loading) {
       return (
         <Loading text='Build' />
@@ -65,13 +65,4 @@ var BuildScreen = React.createClass({
       </ScrollView>
     );
   }
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  }
-});
-
-module.exports = BuildScreen;
+};

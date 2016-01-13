@@ -12,10 +12,10 @@ var {
 
 var Api = require('../Utils/Api');
 var EmptyResults = require('../Components/EmptyResults');
-var Loading = require('./Loading');
+import Loading from './Loading';
 var LoadingPull = require('./LoadingPull');
 var RepoItem = require('./RepoItem');
-var SearchBar = require('./SearchBar');
+import SearchBar from './SearchBar';
 
 var ReposScreen = React.createClass({
   displayName: 'ReposScreen',

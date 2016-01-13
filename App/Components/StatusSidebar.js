@@ -1,7 +1,5 @@
-'use strict';
-
-var React = require('react-native');
-var Icon = require('react-native-vector-icons/Octicons');
+import React from 'react-native';
+import Icon from 'react-native-vector-icons/Octicons';
 
 var {
   StyleSheet,
@@ -9,25 +7,57 @@ var {
   View,
 } = React;
 
-var StatusSidebar = React.createClass({
-  displayName: 'StatusSidebar',
+var styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    flex: 0.15,
+    paddingVertical: 10,
+    paddingHorizontal: 2,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  statusIcon: {
+    fontSize: 24,
+    color: 'white'
+  },
+  buildNumber: {
+    fontWeight: 'bold',
+    color: 'white',
+    marginTop: 10
+  },
+  stateStarted: { //eslint-disable-line react-native/no-unused-styles
+    backgroundColor: '#D2C93B'
+  },
+  statePassed: { //eslint-disable-line react-native/no-unused-styles
+    backgroundColor: '#3FA75F'
+  },
+  stateFailed: { //eslint-disable-line react-native/no-unused-styles
+    backgroundColor: '#DB423C'
+  },
+  stateErrored: { //eslint-disable-line react-native/no-unused-styles
+    backgroundColor: '#A1A0A0'
+  }
+});
 
-  getInitialState: function() {
-    return {
+export default class StatusSidebar extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       statusIcon: '',
       stateClass: ''
     };
-  },
+  }
 
-  componentWillMount: function() {
+  componentWillMount() {
     this.setOptions();
-  },
+  }
 
-  componentWillReceiveProps: function() {
+  componentWillReceiveProps() {
     this.setOptions();
-  },
+  }
 
-  setOptions: function () {
+  setOptions() {
     var statusIcon, stateClass;
 
     switch(this.props.buildState) {
@@ -57,9 +87,9 @@ var StatusSidebar = React.createClass({
       statusIcon: statusIcon,
       stateClass: stateClass
     });
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <View style={[styles.container, this.state.stateClass]}>
         <Icon style={styles.statusIcon} name={this.state.statusIcon} />
@@ -67,39 +97,4 @@ var StatusSidebar = React.createClass({
       </View>
     );
   }
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    flex: 0.15,
-    paddingVertical: 10,
-    paddingHorizontal: 2,
-    justifyContent: 'center',
-  },
-  statusIcon: {
-    fontSize: 24,
-    color: 'white',
-    justifyContent: 'center',
-  },
-  buildNumber: {
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-    marginTop: 10
-  },
-  stateStarted: {
-    backgroundColor: '#D2C93B'
-  },
-  statePassed: {
-    backgroundColor: '#3FA75F'
-  },
-  stateFailed: {
-    backgroundColor: '#DB423C'
-  },
-  stateErrored: {
-    backgroundColor: '#A1A0A0'
-  }
-});
-
-module.exports = StatusSidebar;
+};

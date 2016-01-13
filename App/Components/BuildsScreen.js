@@ -7,9 +7,9 @@ var moment = require('moment');
 require('moment-duration-format');
 
 var Api = require('../Utils/Api');
-var BuildScreen = require('./BuildScreen');
-var StatusSidebar = require('./StatusSidebar');
-var Loading = require('./Loading');
+import BuildScreen from './BuildScreen';
+import StatusSidebar from './StatusSidebar';
+import Loading from './Loading';
 var LoadingPull = require('./LoadingPull');
 
 var {
@@ -172,6 +172,7 @@ var BuildsScreen = React.createClass({
 
     return (
       <RefreshableListView
+        style={styles.container}
         dataSource={this.state.buildsSource}
         renderRow={this._renderBuildRow}
         renderHeaderWrapper={this._renderHeader}

@@ -3,7 +3,7 @@ import React from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
 
 var Api = require('../Utils/Api');
-var Loading = require('./Loading');
+import Loading from '../Components/Loading';
 var Separator = require('../Helpers/Separator');
 var ReposScreen = require('../Components/ReposScreen');
 var AuthStore = require('../Stores/Auth');
@@ -74,14 +74,14 @@ var styles = StyleSheet.create({
     paddingVertical: 10
   },
   typeWrapper: {
-    flexDirection: 'column',
     flex: 0.1,
     backgroundColor: '#357389',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   typeIcon: {
     fontSize: 20,
     color: 'white',
-    justifyContent: 'center',
     marginTop: 16
   },
   login: {

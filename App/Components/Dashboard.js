@@ -10,7 +10,7 @@ var {
 
 var AuthStore = require('../Stores/Auth');
 import AccountsList from './AccountsList';
-var Constants = require('../Utils/Constants');
+import Constants from '../Utils/Constants';
 import Footer from './Footer';
 import OAuthView from './OAuthView';
 
