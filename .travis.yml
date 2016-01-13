@@ -1,10 +1,16 @@
 language: node_js
 
+sudo: false
+
 node_js:
-  - '4.1.1'
+  - '4.2.0'
 
 install:
   - npm install
 
 script:
   - npm test
+
+notifications:
+  slack:
+    secure: ACMbnqaOOhln4r3lUXU4qZI8k4BQTOXkwhVwNS3jiQM1amJHCccYI0JPLbKPmG3zies88pVPxVeDcwrIbWrgfMUEzfTKtWbzOqSt51HZ/4OCjY7il9+Syk3Rg6p6OapeUMDZC+mAIyNE/bCJwoOuck2P5/0vw80pKZ8GtuXpp64XQow6WfrXnh/2h/ca50rNk1lT51MREYfGoMmuFu4Mp4N+sUoMcNef0B5us+nJ5K9ngHHMcSxg/iMOoIDOav3tZlVIFvEi7soMNR6qjtCFwJy9G0MfMq5CkaIwLu4GoVKWgDZ7yoDw1YsSw/T2/YEo4xxPtA/WfLdKD/Uj+NapQT7qTy3AYyJteeqBNNFjli4uhIlVnHrVdU2Yr3GJlUj9/mz7B/mXRRN8KEI6i3duSvycjTwvKrtE9euZEajzDVOIyH3KgIdJbA0ftjf2zUIbExzJyp4Oxg+lrNcgNDTunRxdOeclfB+R2W/X+TWd1bX8G9LVqbF8l4r8NWuPxXsh58e+ViJ21ohYv0SiaIS2WkUGie/SpFWDZ+Ve05R83a3Bd4C1oRnY45HTJ2jEFU8e5gbndQfSIGrF78LamX9mdDfhAOPs2vsY8RW79CnYfxSgWQ6RgXeRrc1LPMrifrT8jdqvm2OgN3oZo9SkaFKJqgZIM3J6s4buNlVufQ+FM1o=
