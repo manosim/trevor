@@ -52,7 +52,7 @@ export default class Dashboard extends React.Component {
   }
 
   componentWillMount() {
-    AuthStore.eventEmitter.addListener('authStateChanged', this.refreshAuthState);
+    AuthStore.eventEmitter.addListener('authStateChanged', this.refreshAuthState.bind(this));
   }
 
   refreshAuthState() {

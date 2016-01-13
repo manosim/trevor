@@ -104,15 +104,13 @@ export default class OAuthView extends React.Component {
     return (
       <WebView
         url={this.state.authUrl}
-        onNavigationStateChange={this.onNavigationStateChange}
+        onNavigationStateChange={this.onNavigationStateChange.bind(this)}
         automaticallyAdjustContentInsets={true}
         startInLoadingState={true}
         scalesPageToFit={this.state.scalesPageToFit} />
     );
   }
 };
-
-module.exports = OAuthView;
 
 OAuthView.propTypes = {
   authUrl: React.PropTypes.string.isRequired
