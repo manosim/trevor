@@ -1,10 +1,9 @@
 {
-  "ecmaFeatures": {
-    "blockBindings": true,
-    "forOf": true,
-    "jsx": true
-  },
   "parser": "babel-eslint",
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
+  },
   "rules": {
     "max-len": [1, 100, 2],
     "semi": 2,
@@ -14,8 +13,10 @@
     "no-unused-vars": [2, {"vars": "all", "args": "none"}],
     "space-before-function-paren": 0,
     "space-before-keywords": 2,
+    "react-native/no-unused-styles": 2
   },
   "plugins": [
-    "react"
+    "react",
+    "react-native"
   ]
 }

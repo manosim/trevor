@@ -1,7 +1,6 @@
-'use strict';
+import _ from 'underscore';
+import React from 'react-native';
 
-var _ = require('underscore');
-var React = require('react-native');
 var {
   AppRegistry,
   AsyncStorage,
@@ -13,15 +12,23 @@ var AuthStore = require('./App/Stores/Auth');
 var Dashboard = require('./App/Components/Dashboard');
 var Loading = require('./App/Components/Loading');
 
-var Trevor = React.createClass({
-  getInitialState: function() {
-    return {
+var styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
+
+class Trevor extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       loaded: false,
       isEitherLoggedIn: AuthStore.isEitherLoggedIn()
     };
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     var self = this;
 
     AuthStore.eventEmitter.addListener('authStateChanged', function () {
@@ -33,7 +40,7 @@ var Trevor = React.createClass({
     });
 
     this._loadInitialState();
-  },
+  }
 
   _loadInitialState() {
     var self = this;
@@ -53,9 +60,9 @@ var Trevor = React.createClass({
         loaded: true
       });
     }).done();
-  },
+  }
 
-  render: function() {
+  render() {
     if (this.state.loaded) {
       return (
         <NavigatorIOS
@@ -73,14 +80,6 @@ var Trevor = React.createClass({
       return (<Loading text='Trevor' />);
     }
   }
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
+};
 
 AppRegistry.registerComponent('Trevor', () => Trevor);
-
-module.exports = Trevor;
