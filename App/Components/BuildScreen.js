@@ -1,6 +1,6 @@
 import React from 'react-native';
 
-var Api = require('../Utils/Api');
+import Api from '../Utils/Api';
 import Loading from './Loading';
 
 var {

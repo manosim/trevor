@@ -1,7 +1,5 @@
-'use strict';
-
-var _ = require('underscore');
-var React = require('react-native');
+import _ from 'underscore';
+import React from 'react-native';
 var RefreshableListView = require('react-native-refreshable-listview');
 
 var {
@@ -10,10 +8,10 @@ var {
   ListView
 } = React;
 
-var Api = require('../Utils/Api');
+import Api from '../Utils/Api';
 var EmptyResults = require('../Components/EmptyResults');
 import Loading from './Loading';
-var LoadingPull = require('./LoadingPull');
+import LoadingPull from './LoadingPull';
 var RepoItem = require('./RepoItem');
 import SearchBar from './SearchBar';
 

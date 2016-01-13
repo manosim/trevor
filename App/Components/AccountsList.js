@@ -2,9 +2,9 @@ import _ from 'underscore';
 import React from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
 
-var Api = require('../Utils/Api');
+import Api from '../Utils/Api';
 import Loading from '../Components/Loading';
-var Separator = require('../Helpers/Separator');
+import Separator from '../Helpers/Separator';
 var ReposScreen = require('../Components/ReposScreen');
 var AuthStore = require('../Stores/Auth');
 

@@ -1,4 +1,4 @@
-import React from 'react-native';
+var React = require('react-native');
 
 var {
   StyleSheet,

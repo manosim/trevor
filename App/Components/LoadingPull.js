@@ -1,26 +1,10 @@
-'use strict';
-
-var React = require('react-native');
+import React from 'react-native';
 
 var {
   ActivityIndicatorIOS,
   StyleSheet,
   View
 } = React;
-
-var LoadingPull = React.createClass({
-  displayName: 'LoadingPull',
-
-  render: function() {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicatorIOS
-          animating={true}
-          color="#357389" />
-      </View>
-    );
-  }
-});
 
 var styles = StyleSheet.create({
   container: {
@@ -31,4 +15,15 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = LoadingPull;
+export default class LoadingPull extends React.Component {
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicatorIOS
+          animating={true}
+          color="#357389" />
+      </View>
+    );
+  }
+};

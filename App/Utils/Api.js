@@ -1,7 +1,7 @@
 var AuthStore = require('../Stores/Auth');
 
-var Api = {
-  getApiUrl: function (isPro) {
+export default {
+  getApiUrl(isPro) {
     if (isPro) {
       return 'https://api.travis-ci.com';
     } else {
@@ -9,7 +9,7 @@ var Api = {
     }
   },
 
-  getGithubToken: function (data) {
+  getGithubToken(data) {
     var url = 'https://github.com/login/oauth/access_token';
     return fetch(url, {
       method: 'post',
@@ -26,7 +26,7 @@ var Api = {
     });
   },
 
-  getTravisToken: function (data, isPro) {
+  getTravisToken(data, isPro) {
     var url = this.getApiUrl(isPro) + '/auth/github';
 
     return fetch(url, {
@@ -43,7 +43,7 @@ var Api = {
     });
   },
 
-  getAccounts: function (isPro) {
+  getAccounts(isPro) {
     var url = this.getApiUrl(isPro) + '/accounts?all=true';
     var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
 
@@ -61,7 +61,7 @@ var Api = {
     });
   },
 
-  getRepos: function (username, isPro) {
+  getRepos(username, isPro) {
     var url = this.getApiUrl(isPro) + `/repos/${username}`;
     var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
 
@@ -80,7 +80,7 @@ var Api = {
       });
   },
 
-  getBuilds: function (slug, isPro) {
+  getBuilds(slug, isPro) {
     var url = this.getApiUrl(isPro) + `/repos/${slug}/builds`;
     var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
 
@@ -99,8 +99,7 @@ var Api = {
       });
   },
 
-
-  getBuild: function (id, isPro) {
+  getBuild(id, isPro) {
     var url = this.getApiUrl(isPro) + `/builds/${id}`;
     var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
 
@@ -119,7 +118,7 @@ var Api = {
       });
   },
 
-  getLatestPro: function () {
+  getLatestPro() {
     var url = this.getApiUrl(true) + `/repos/`;
     var token = AuthStore.tokenPro;
 
@@ -138,5 +137,3 @@ var Api = {
       });
   }
 };
-
-module.exports = Api;

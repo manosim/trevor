@@ -5,10 +5,10 @@ var {
   WebView,
 } = React;
 
-var Api = require('../Utils/Api');
+import Api from '../Utils/Api';
 var AuthStore = require('../Stores/Auth');
-var Constants = require('../Utils/Constants');
-var Loading = require('./Loading');
+import Constants from '../Utils/Constants';
+import Loading from './Loading';
 
 export default class OAuthView extends React.Component {
   constructor(props) {

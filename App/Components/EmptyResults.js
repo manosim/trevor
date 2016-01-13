@@ -1,6 +1,4 @@
-'use strict';
-
-var React = require('react-native');
+import React from 'react-native';
 
 var {
   Image,

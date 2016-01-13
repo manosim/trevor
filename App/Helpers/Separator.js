@@ -1,21 +1,9 @@
-'use strict';
-
-var React = require('react-native');
+import React from 'react-native';
 
 var {
   StyleSheet,
   View,
 } = React;
-
-var Separator = React.createClass({
-  displayName: 'Separator',
-
-  render: function() {
-    return (
-      <View style={styles.container} />
-    );
-  }
-});
 
 var styles = StyleSheet.create({
   container: {
@@ -25,4 +13,10 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = Separator;
+export default class Separator extends React.Component {
+  render() {
+    return (
+      <View style={styles.container} />
+    );
+  }
+};
