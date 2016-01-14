@@ -1,36 +1,10 @@
-'use strict';
-
-var React = require('react-native');
+import React from 'react-native';
 
 var {
   StyleSheet,
   Text,
   TouchableHighlight,
 } = React;
-
-var LatestProRepos = require('../Components/LatestProRepos');
-
-var Footer = React.createClass({
-  displayName: 'Footer',
-
-  pressButton: function () {
-    this.props.navigator.push({
-      title: 'Latest Builds',
-      component: LatestProRepos
-    });
-  },
-
-  render: function() {
-    return (
-      <TouchableHighlight
-        style={styles.container}
-        underlayColor='#A53230'
-        onPress={this.pressButton}>
-          <Text style={styles.buttonText}>Latest Builds for Travis Pro</Text>
-      </TouchableHighlight>
-    );
-  }
-});
 
 var styles = StyleSheet.create({
   container: {
@@ -45,4 +19,24 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = Footer;
+import LatestProRepos from '../Components/LatestProRepos';
+
+export default class Footer extends React.Component {
+  pressButton() {
+    this.props.navigator.push({
+      title: 'Latest Builds',
+      component: LatestProRepos
+    });
+  }
+
+  render() {
+    return (
+      <TouchableHighlight
+        style={styles.container}
+        underlayColor='#A53230'
+        onPress={this.pressButton.bind(this)}>
+          <Text style={styles.buttonText}>Latest Builds for Travis Pro</Text>
+      </TouchableHighlight>
+    );
+  }
+};

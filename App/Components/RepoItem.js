@@ -1,11 +1,9 @@
-'use strict';
-
-var React = require('react-native');
+import React from 'react-native';
 var moment = require('moment');
 require('moment-duration-format');
 
-var BuildsScreen = require('./BuildsScreen');
-var StatusSidebar = require('./StatusSidebar');
+import BuildsScreen from './BuildsScreen';
+import StatusSidebar from './StatusSidebar';
 
 var {
   StyleSheet,
@@ -14,10 +12,35 @@ var {
   TouchableHighlight
 } = React;
 
-var RepoItem = React.createClass({
-  displayName: 'RepoItem',
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  },
+  buildRow: {
+    flexDirection: 'row',
+    flex: 1,
+    padding: 0
+  },
+  repoName: {
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  buildInfo: {
+    flex: 0.85,
+    padding: 10
+  },
+  buildDate: {
 
-  _pressRow: function (details) {
+  },
+  buildDuration: {
+
+  }
+});
+
+export default class RepoItem extends React.Component {
+
+  _pressRow(details) {
     this.props.navigator.push({
       title: 'Builds',
       component: BuildsScreen,
@@ -26,9 +49,9 @@ var RepoItem = React.createClass({
         slug: details.slug
       }
     });
-  },
+  }
 
-  render: function() {
+  render() {
     var repoName = this.props.details.slug.split('/')[1];
     var date = this.props.details.last_build_duration ? 'Finished ' +
       moment(this.props.details.last_build_finished_at).fromNow() :
@@ -39,6 +62,7 @@ var RepoItem = React.createClass({
 
     return (
       <TouchableHighlight
+        style={styles.container}
         activeOpacity={0.85}
         underlayColor={'white'}
         onPress={() => this._pressRow(this.props.details)}>
@@ -65,36 +89,4 @@ var RepoItem = React.createClass({
       </TouchableHighlight>
     );
   }
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-  buildRow: {
-    flexDirection: 'row',
-    flex: 1,
-    padding: 0
-  },
-  repoName: {
-    fontWeight: 'bold',
-    fontSize: 16
-  },
-  buildInfo: {
-    flex: 0.85,
-    padding: 10
-  },
-  buildDate: {
-
-  },
-  buildDuration: {
-
-  },
-  separator: {
-    height: 2,
-    backgroundColor: '#e9e9e9'
-  }
-});
-
-module.exports = RepoItem;
+};

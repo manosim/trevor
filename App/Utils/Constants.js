@@ -1,4 +1,4 @@
-var Constants = {
+export default {
   oAuthOptions: {
     client_id: '1977d96493704415daa0',
     client_secret: '05a3daa3b49f5fc3684b031dcad1862223c2c2fb',
@@ -8,5 +8,3 @@ var Constants = {
     ]
   },
 };
-
-module.exports = Constants;

@@ -1,6 +1,4 @@
-'use strict';
-
-var React = require('react-native');
+import React from 'react-native';
 
 var {
   ActivityIndicatorIOS,
@@ -8,24 +6,6 @@ var {
   Text,
   View,
 } = React;
-
-var Reloading = React.createClass({
-  displayName: 'Reloading',
-
-  render: function() {
-    return (
-      <View style={[styles.container, this.props.style && this.props.style]}>
-        <ActivityIndicatorIOS
-          animating={true}
-          color="#357389"
-          size="large" />
-        {this.props.hideText ? <View /> : (
-          <Text style={styles.loadingText}>Loading {this.props.text}</Text>
-        )}
-      </View>
-    );
-  }
-});
 
 var styles = StyleSheet.create({
   container: {
@@ -40,4 +20,18 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = Reloading;
+export default class Loading extends React.Component {
+  render() {
+    return (
+      <View style={[styles.container, this.props.style && this.props.style]}>
+        <ActivityIndicatorIOS
+          animating={true}
+          color="#357389"
+          size="large" />
+        {this.props.hideText ? <View /> : (
+          <Text style={styles.loadingText}>Loading {this.props.text}</Text>
+        )}
+      </View>
+    );
+  }
+};

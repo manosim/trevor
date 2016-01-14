@@ -1,10 +1,8 @@
-'use strict';
+import React from 'react-native';
 
-var React = require('react-native');
-
-var Api = require('../Utils/Api');
-var Loading = require('./Loading');
-var RepoItem = require('./RepoItem');
+import Api from '../Utils/Api';
+import Loading from './Loading';
+import RepoItem from './RepoItem';
 
 var {
   StyleSheet,
@@ -12,23 +10,35 @@ var {
   View
 } = React;
 
-var LatestProRepos = React.createClass({
-  displayName: 'LatestProRepos',
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF'
+  },
+  separator: {
+    height: 2,
+    backgroundColor: '#e9e9e9'
+  }
+});
 
-  getInitialState: function() {
-    return {
+export default class LatestProRepos extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
       loading: false,
       reposSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }).cloneWithRows([])
     };
-  },
+  }
 
-  componentWillMount: function() {
+  componentWillMount() {
     this.fetchData();
-  },
+  }
 
-  fetchData: function () {
+  fetchData() {
     var self = this;
 
     this.setState({
@@ -43,26 +53,26 @@ var LatestProRepos = React.createClass({
           reposSource: self.state.reposSource.cloneWithRows(res.repos)
         });
       });
-  },
+  }
 
-  _renderBuildRow: function (rowData: string, sectionID: number, rowID: number) {
+  _renderBuildRow(rowData: string, sectionID: number, rowID: number) {
     return (
       <RepoItem
         details={rowData}
         isPro={true}
         navigator={this.props.navigator} />
     );
-  },
+  }
 
-  _renderSeparator: function (
+  _renderSeparator(
     sectionID: number | string, rowID: number | string, adjacentRowHighlighted: boolean
   ) {
     return (
       <View key={'SEP_' + sectionID + '_' + rowID} style={styles.separator} />
     );
-  },
+  }
 
-  render: function() {
+  render() {
     if (this.state.loading) {
       return (
         <Loading text='Latest' />
@@ -71,32 +81,10 @@ var LatestProRepos = React.createClass({
 
     return (
       <ListView
+        contentContainerStyle={styles.container}
         dataSource={this.state.reposSource}
-        renderRow={this._renderBuildRow}
-        renderHeader={this._renderHeader}
-        renderFooter={this._renderFooter}
+        renderRow={this._renderBuildRow.bind(this)}
         renderSeparator={this._renderSeparator} />
     );
   }
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF'
-  },
-  segmentWrapper: {
-    padding: 10,
-    backgroundColor: '#357389'
-  },
-  separator: {
-    height: 2,
-    backgroundColor: '#e9e9e9'
-  },
-  footerWrapper: {
-    padding: 10,
-    backgroundColor: '#357389'
-  }
-});
-
-module.exports = LatestProRepos;
+};

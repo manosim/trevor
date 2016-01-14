@@ -1,7 +1,5 @@
-'use strict';
-
+import React from 'react-native';
 var EventEmitter = require('EventEmitter');
-var React = require('react-native');
 var { AsyncStorage } = React;
 
 var AuthStore = {

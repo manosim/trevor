@@ -1,6 +1,4 @@
-'use strict';
-
-var React = require('react-native');
+import React from 'react-native';
 
 var {
   Image,
@@ -8,21 +6,6 @@ var {
   Text,
   View
 } = React;
-
-var EmptyResults = React.createClass({
-  displayName: 'EmptyResults',
-
-  render: function() {
-    return (
-      <View style={styles.container}>
-        <Image
-          style={styles.icon}
-          source={require('image!logo-circle-red')} />
-        <Text style={styles.text}>Wow! Nothing to see here!</Text>
-      </View>
-    );
-  }
-});
 
 var styles = StyleSheet.create({
   container: {
@@ -44,4 +27,15 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = EmptyResults;
+export default class EmptyResults extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Image
+          style={styles.icon}
+          source={require('image!logo-circle-red')} />
+        <Text style={styles.text}>Wow! Nothing to see here!</Text>
+      </View>
+    );
+  }
+};
