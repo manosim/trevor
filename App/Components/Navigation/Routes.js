@@ -42,11 +42,12 @@ export default {
     };
   },
 
-  Builds() {
+  Builds(repoName, props) {
     return {
       id: 'builds-view',
-      title: 'Builds',
+      title: 'Builds - ' + repoName,
       component: BuildsScreen,
+      passProps: props
     };
   },
 

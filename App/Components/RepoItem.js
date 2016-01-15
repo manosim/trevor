@@ -2,7 +2,7 @@ import React from 'react-native';
 var moment = require('moment');
 require('moment-duration-format');
 
-import BuildsScreen from './Routes/BuildsScreen';
+import Routes from './Navigation/Routes';
 import StatusSidebar from './StatusSidebar';
 
 var {
@@ -41,18 +41,18 @@ var styles = StyleSheet.create({
 export default class RepoItem extends React.Component {
 
   _pressRow(details) {
-    this.props.navigator.push({
-      title: 'Builds',
-      component: BuildsScreen,
-      passProps: {
-        isPro: this.props.isPro,
-        slug: details.slug
-      }
+    const repoName = this.props.details.slug.split('/')[1];
+    const route = Routes.Builds(repoName, {
+      isPro: this.props.isPro,
+      slug: details.slug
     });
+
+    this.props.navigator.push(route);
   }
 
   render() {
-    var repoName = this.props.details.slug.split('/')[1];
+    const repoName = this.props.details.slug.split('/')[1];
+
     var date = this.props.details.last_build_duration ? 'Finished ' +
       moment(this.props.details.last_build_finished_at).fromNow() :
       'Started ' + moment(this.props.details.last_build_started_at).fromNow();

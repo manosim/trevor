@@ -1,5 +1,7 @@
 import React from 'react-native';
 
+import Constants from '../Utils/Constants';
+
 var {
   StyleSheet,
   TextInput,
@@ -9,7 +11,7 @@ var {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#40454F',
+    backgroundColor: Constants.THEME_DARK_BLUE,
     paddingVertical: 15,
     paddingHorizontal: 10,
     justifyContent: 'center',

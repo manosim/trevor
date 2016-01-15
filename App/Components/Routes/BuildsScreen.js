@@ -9,6 +9,7 @@ import Routes from '../Navigation/Routes';
 import StatusSidebar from '../StatusSidebar';
 import Loading from '../Loading';
 import LoadingPull from '../LoadingPull';
+import Constants from '../../Utils/Constants';
 
 var {
   StyleSheet,
@@ -24,15 +25,9 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
-  repoName: {
-    fontSize: 16,
-    color: 'white',
-    marginBottom: 8,
-    textAlign: 'center'
-  },
   segmentWrapper: {
     padding: 10,
-    backgroundColor: '#357389'
+    backgroundColor: Constants.THEME_DARK_BLUE
   },
   buildRow: {
     flexDirection: 'row',
@@ -179,7 +174,6 @@ export default class BuildsScreen extends React.Component {
       <View>
         {refreshingIndicator}
         <View style={styles.segmentWrapper}>
-          <Text style={styles.repoName}>{this.props.slug}</Text>
           <SegmentedControlIOS
             style={styles.segment}
             values={['All', 'Builds', 'Pull Requests']}

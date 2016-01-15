@@ -20,9 +20,10 @@ var styles = StyleSheet.create({
 
 export default class NavigationButton extends React.Component {
   _goComposer() {
-    const composeRoute = Routes.Compose;
-    composeRoute.passProps = {};
-    this.props.navigator.push(Routes.Compose);
+    const route = Routes.example({
+
+    });
+    this.props.navigator.push(route);
   }
 
   render() {
