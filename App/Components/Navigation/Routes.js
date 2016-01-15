@@ -1,8 +1,9 @@
 import Dashboard from '../Routes/Dashboard';
+import BuildScreen from '../Routes/BuildScreen';
 import BuildsScreen from '../Routes/BuildsScreen';
-import ReposScreen from '../Routes/ReposScreen';
-import OAuthView from '../Routes/OAuthView';
 import LatestProRepos from '../Routes/LatestProRepos';
+import OAuthView from '../Routes/OAuthView';
+import ReposScreen from '../Routes/ReposScreen';
 
 export default {
 
@@ -32,6 +33,15 @@ export default {
     };
   },
 
+  Repos(props) {
+    return {
+      id: 'repos-view',
+      title: 'Repositories',
+      component: ReposScreen,
+      passProps: props
+    };
+  },
+
   Builds() {
     return {
       id: 'builds-view',
@@ -40,13 +50,13 @@ export default {
     };
   },
 
-  Repos(props) {
+  Build(id, props) {
     return {
-      id: 'repos-view',
-      title: 'Repositories',
-      component: ReposScreen,
+      id: 'build-view',
+      title: 'Build #' + id,
+      component: BuildScreen,
       passProps: props
     };
-  }
+  },
 
 };

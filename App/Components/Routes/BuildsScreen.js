@@ -5,7 +5,7 @@ var moment = require('moment');
 require('moment-duration-format');
 
 import Api from '../../Utils/Api';
-import BuildScreen from '../BuildScreen';
+import Routes from '../Navigation/Routes';
 import StatusSidebar from '../StatusSidebar';
 import Loading from '../Loading';
 import LoadingPull from '../LoadingPull';
@@ -103,14 +103,12 @@ export default class BuildsScreen extends React.Component {
   }
 
   _pressRow(details) {
-    this.props.navigator.push({
-      title: 'Build #' + details.number,
-      component: BuildScreen,
-      passProps: {
-        isPro: this.props.isPro,
-        buildId: details.id
-      }
+    const route = Routes.Build(details.id, {
+      isPro: this.props.isPro,
+      buildId: details.id
     });
+
+    this.props.navigator.push(route);
   }
 
   _renderBuildRow(rowData: string, sectionID: number, rowID: number) {

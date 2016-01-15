@@ -1,7 +1,7 @@
 import React from 'react-native';
 
-import Api from '../Utils/Api';
-import Loading from './Loading';
+import Api from '../../Utils/Api';
+import Loading from '../Loading';
 
 var {
   StyleSheet,
