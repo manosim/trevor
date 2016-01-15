@@ -1,13 +1,14 @@
 import React from 'react-native';
-var EventEmitter = require('EventEmitter');
+import EventEmitter from 'EventEmitter';
+
 var { AsyncStorage } = React;
 
-var AuthStore = {
+export default {
   tokenOs: undefined,
   tokenPro: undefined,
   eventEmitter: new EventEmitter(),
 
-  setToken: function (key, value) {
+  setToken(key, value) {
     var self = this;
 
     AsyncStorage.setItem(key, value).then(function () {
@@ -16,7 +17,7 @@ var AuthStore = {
     }).done();
   },
 
-  isLoggedIn: function (isPro) {
+  isLoggedIn(isPro) {
     if (isPro) {
       return this.tokenPro !== undefined;
     } else {
@@ -24,11 +25,11 @@ var AuthStore = {
     }
   },
 
-  isEitherLoggedIn: function () {
+  isEitherLoggedIn() {
     return this.tokenOs !== undefined || this.tokenPro !== undefined;
   },
 
-  logOut: function (pro) {
+  logOut(pro) {
     var self = this;
 
     var tokenType = pro ? 'tokenPro' : 'tokenOs';
@@ -39,5 +40,3 @@ var AuthStore = {
     }).done();
   }
 };
-
-module.exports = AuthStore;

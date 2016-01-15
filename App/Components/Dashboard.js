@@ -8,7 +8,7 @@ var {
   TouchableHighlight
 } = React;
 
-var AuthStore = require('../Stores/Auth');
+import AuthStore from '../Stores/Auth';
 import AccountsList from './AccountsList';
 import Constants from '../Utils/Constants';
 import Footer from './Footer';

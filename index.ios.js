@@ -8,7 +8,7 @@ var {
   StyleSheet,
 } = React;
 
-var AuthStore = require('./App/Stores/Auth');
+import AuthStore from './App/Stores/Auth';
 import Dashboard from './App/Components/Dashboard';
 import Loading from './App/Components/Loading';
 
@@ -35,8 +35,6 @@ class Trevor extends React.Component {
       self.setState({
         isEitherLoggedIn: AuthStore.isEitherLoggedIn()
       });
-
-      console.log('(index.ios.js) Is Logged In:', self.state.isEitherLoggedIn);
     });
 
     this._loadInitialState();

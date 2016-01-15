@@ -1,4 +1,4 @@
-var AuthStore = require('../Stores/Auth');
+import AuthStore from '../Stores/Auth';
 
 export default {
   getApiUrl(isPro) {
@@ -28,7 +28,6 @@ export default {
 
   getTravisToken(data, isPro) {
     var url = this.getApiUrl(isPro) + '/auth/github';
-
     return fetch(url, {
       method: 'post',
       body: data,

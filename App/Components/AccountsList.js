@@ -6,7 +6,7 @@ import Api from '../Utils/Api';
 import Loading from '../Components/Loading';
 import Separator from '../Helpers/Separator';
 import ReposScreen from '../Components/ReposScreen';
-var AuthStore = require('../Stores/Auth');
+import AuthStore from '../Stores/Auth';
 
 var {
   Image,
