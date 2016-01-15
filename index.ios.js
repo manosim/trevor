@@ -8,7 +8,7 @@ var {
   StyleSheet,
 } = React;
 
-var AuthStore = require('./App/Stores/Auth');
+import AuthStore from './App/Stores/Auth';
 import Dashboard from './App/Components/Dashboard';
 import Loading from './App/Components/Loading';
 
