@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Octicons';
 import Api from '../Utils/Api';
 import Loading from '../Components/Loading';
 import Separator from '../Helpers/Separator';
-import ReposScreen from '../Components/ReposScreen';
+import Routes from './Navigation/Routes';
 import AuthStore from '../Stores/Auth';
 
 var {
@@ -148,14 +148,12 @@ export default class AccountsList extends React.Component {
   }
 
   _pressRow(account) {
-    this.props.navigator.push({
-      title: 'Repos',
-      component: ReposScreen,
-      passProps: {
-        isPro: this.props.isPro,
-        username: account.login
-      }
+    const route = Routes.Repos({
+      isPro: this.props.isPro,
+      username: account.login
     });
+
+    this.props.navigator.push(route);
   }
 
   _renderAccount(account) {

@@ -8,12 +8,12 @@ var {
   ListView
 } = React;
 
-import Api from '../Utils/Api';
-import EmptyResults from '../Components/EmptyResults';
-import Loading from './Loading';
-import LoadingPull from './LoadingPull';
-import RepoItem from './RepoItem';
-import SearchBar from './SearchBar';
+import Api from '../../Utils/Api';
+import EmptyResults from '../EmptyResults';
+import Loading from '../Loading';
+import LoadingPull from '../LoadingPull';
+import RepoItem from '../RepoItem';
+import SearchBar from '../SearchBar';
 
 var styles = StyleSheet.create({
   container: {
@@ -102,7 +102,7 @@ export default class ReposScreen extends React.Component {
     return (
       <View>
         {refreshingIndicator}
-        <SearchBar search={this.searchRepos} clear={this.state.clearSearch} />
+        <SearchBar search={this.searchRepos.bind(this)} clear={this.state.clearSearch} />
       </View>
     );
   }

@@ -4,17 +4,26 @@ import React from 'react-native';
 var {
   AppRegistry,
   AsyncStorage,
-  NavigatorIOS,
+  Navigator,
   StyleSheet,
+  View
 } = React;
 
 import AuthStore from './App/Stores/Auth';
-import Dashboard from './App/Components/Dashboard';
 import Loading from './App/Components/Loading';
+import RouteMapper from './App/Components/Navigation/RouteMapper';
+import Routes from './App/Components/Navigation/Routes';
+import SceneContainer from './App/Components/Navigation/SceneContainer';
+import Constants from './App/Utils/Constants';
 
 var styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1
+  },
+  navbar: {
+    backgroundColor: Constants.THEME_COLOR,
+    flexDirection:'row',
+    justifyContent: 'center',
   }
 });
 
@@ -60,19 +69,37 @@ class Trevor extends React.Component {
     }).done();
   }
 
+  renderScene(route, navigator) {
+    return (
+      <SceneContainer
+        title={route.title}
+        route={route}
+        navigator={navigator}
+        onBack={() => {
+          if (route.index > 0) {
+            navigator.pop();
+          }
+        }}
+        {...this.props}
+      />
+    );
+  }
+
   render() {
+    const dashboardRoute = Routes.Dashboard();
+
     if (this.state.loaded) {
       return (
-        <NavigatorIOS
-          ref="nav"
-          style={styles.container}
-          barTintColor='#A53230'
-          titleTextColor='#FFFFFF'
-          tintColor='#FFFFFF'
-          initialRoute={{
-            title: 'Dashboard',
-            component: Dashboard
-          }} />
+        <View style={styles.appContainer}>
+          <Navigator
+            initialRoute={dashboardRoute}
+            renderScene={this.renderScene}
+            navigationBar={
+              <Navigator.NavigationBar
+                style={styles.navbar}
+                routeMapper={RouteMapper} />
+            } />
+        </View>
       );
     } else {
       return (<Loading text='Trevor' />);

@@ -8,11 +8,10 @@ var {
   TouchableHighlight
 } = React;
 
-import AuthStore from '../Stores/Auth';
-import AccountsList from './AccountsList';
-import Constants from '../Utils/Constants';
-import Footer from './Footer';
-import OAuthView from './OAuthView';
+import AuthStore from '../../Stores/Auth';
+import Routes from '../Navigation/Routes';
+import AccountsList from '../AccountsList';
+import Constants from '../../Utils/Constants';
 
 var styles = StyleSheet.create({
   container: {
@@ -35,7 +34,16 @@ var styles = StyleSheet.create({
     padding: 10,
     color: 'white',
     textAlign: 'center'
-
+  },
+  footerButton: {
+    backgroundColor: '#40454F',
+    height: 45
+  },
+  footerButtonText: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    paddingVertical: 12,
+    alignSelf: 'center'
   }
 });
 
@@ -90,15 +98,17 @@ export default class Dashboard extends React.Component {
 
   doLogin(isPro) {
     var authUrl = this.getAuthUrl(isPro);
-
-    this.props.navigator.push({
-      title: 'Authentication',
-      component: OAuthView,
-      passProps: {
-        isPro: isPro,
-        authUrl: authUrl
-      }
+    const route = Routes.OAuth({
+      isPro: isPro,
+      authUrl: authUrl
     });
+
+    this.props.navigator.push(route);
+  }
+
+  goToLatestPro() {
+    const route = Routes.LatestPro();
+    this.props.navigator.push(route);
   }
 
   render() {
@@ -121,7 +131,14 @@ export default class Dashboard extends React.Component {
 
         </ScrollView>
 
-        {this.state.isLoggedIn.pro ? <Footer navigator={this.props.navigator} /> : <View /> }
+        {this.state.isLoggedIn.pro ? (
+          <TouchableHighlight
+            style={styles.footerButton}
+            underlayColor='#A53230'
+            onPress={this.goToLatestPro.bind(this)}>
+              <Text style={styles.footerButtonText}>Latest Builds for Travis Pro</Text>
+          </TouchableHighlight>
+        ) : <View /> }
       </View>
     );
   }
