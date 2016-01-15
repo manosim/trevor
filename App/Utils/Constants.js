@@ -7,4 +7,9 @@ export default {
       'repo:status', 'write:repo_hook'
     ]
   },
+
+  THEME_COLOR: '#A53230',
+  NAVBAR_HEIGHT: 70,
+  NAVBAR_BUTTON_ICON_SIZE: 25,
+
 };

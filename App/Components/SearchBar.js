@@ -59,7 +59,7 @@ export default class SearchBar extends React.Component {
       <View style={styles.container}>
         <TextInput
           style={styles.inputText}
-          onChangeText={this.changeText}
+          onChangeText={this.changeText.bind(this)}
           value={this.state.text}
           autoCapitalize='none'
           autoCorrect={false}

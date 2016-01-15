@@ -102,7 +102,7 @@ export default class ReposScreen extends React.Component {
     return (
       <View>
         {refreshingIndicator}
-        <SearchBar search={this.searchRepos} clear={this.state.clearSearch} />
+        <SearchBar search={this.searchRepos.bind(this)} clear={this.state.clearSearch} />
       </View>
     );
   }

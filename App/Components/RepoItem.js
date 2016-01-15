@@ -2,7 +2,7 @@ import React from 'react-native';
 var moment = require('moment');
 require('moment-duration-format');
 
-import BuildsScreen from './BuildsScreen';
+import BuildsScreen from './Routes/BuildsScreen';
 import StatusSidebar from './StatusSidebar';
 
 var {

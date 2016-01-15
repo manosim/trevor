@@ -8,11 +8,11 @@ var {
   TouchableHighlight
 } = React;
 
-import AuthStore from '../Stores/Auth';
-import AccountsList from './AccountsList';
-import Constants from '../Utils/Constants';
-import Footer from './Footer';
-import OAuthView from './OAuthView';
+import AuthStore from '../../Stores/Auth';
+import AccountsList from '../AccountsList';
+import Constants from '../../Utils/Constants';
+import Footer from './../Footer';
+import OAuthView from './../OAuthView';
 
 var styles = StyleSheet.create({
   container: {

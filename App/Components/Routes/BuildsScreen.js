@@ -4,11 +4,11 @@ import RefreshableListView from 'react-native-refreshable-listview';
 var moment = require('moment');
 require('moment-duration-format');
 
-import Api from '../Utils/Api';
-import BuildScreen from './BuildScreen';
-import StatusSidebar from './StatusSidebar';
-import Loading from './Loading';
-import LoadingPull from './LoadingPull';
+import Api from '../../Utils/Api';
+import BuildScreen from '../BuildScreen';
+import StatusSidebar from '../StatusSidebar';
+import Loading from '../Loading';
+import LoadingPull from '../LoadingPull';
 
 var {
   StyleSheet,
@@ -187,7 +187,7 @@ export default class BuildsScreen extends React.Component {
             values={['All', 'Builds', 'Pull Requests']}
             tintColor='#FFF'
             selectedIndex={0}
-            onValueChange={this._onSegmentChange} />
+            onValueChange={this._onSegmentChange.bind(this)} />
         </View>
       </View>
     );
