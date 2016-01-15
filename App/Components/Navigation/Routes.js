@@ -2,6 +2,7 @@ import Dashboard from '../Routes/Dashboard';
 import BuildsScreen from '../Routes/BuildsScreen';
 import ReposScreen from '../Routes/ReposScreen';
 import OAuthView from '../Routes/OAuthView';
+import LatestProRepos from '../Routes/LatestProRepos';
 
 export default {
 
@@ -18,6 +19,15 @@ export default {
       id: 'oauth-view',
       title: 'Authentication',
       component: OAuthView,
+      passProps: props
+    };
+  },
+
+  LatestPro(props) {
+    return {
+      id: 'latest-pro-view',
+      title: 'Latest Builds',
+      component: LatestProRepos,
       passProps: props
     };
   },
