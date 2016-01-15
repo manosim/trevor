@@ -86,11 +86,13 @@ class Trevor extends React.Component {
   }
 
   render() {
+    const dashboardRoute = Routes.Dashboard();
+
     if (this.state.loaded) {
       return (
         <View style={styles.appContainer}>
           <Navigator
-            initialRoute={Routes.Dashboard}
+            initialRoute={dashboardRoute}
             renderScene={this.renderScene}
             navigationBar={
               <Navigator.NavigationBar
