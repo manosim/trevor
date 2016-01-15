@@ -3,12 +3,10 @@ import EventEmitter from 'EventEmitter';
 
 var { AsyncStorage } = React;
 
-export default class AuthStore {
-  constructor() {
-    this.tokenOs = undefined;
-    this.tokenPro = undefined;
-    this.eventEmitter = new EventEmitter();
-  }
+export default {
+  tokenOs: undefined,
+  tokenPro: undefined,
+  eventEmitter: new EventEmitter(),
 
   setToken(key, value) {
     var self = this;
@@ -17,7 +15,7 @@ export default class AuthStore {
       self[key] = value;
       self.eventEmitter.emit('authStateChanged');
     }).done();
-  }
+  },
 
   isLoggedIn(isPro) {
     if (isPro) {
@@ -25,11 +23,11 @@ export default class AuthStore {
     } else {
       return this.tokenOs !== undefined;
     }
-  }
+  },
 
   isEitherLoggedIn() {
     return this.tokenOs !== undefined || this.tokenPro !== undefined;
-  }
+  },
 
   logOut(pro) {
     var self = this;

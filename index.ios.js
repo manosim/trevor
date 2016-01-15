@@ -35,8 +35,6 @@ class Trevor extends React.Component {
       self.setState({
         isEitherLoggedIn: AuthStore.isEitherLoggedIn()
       });
-
-      console.log('(index.ios.js) Is Logged In:', self.state.isEitherLoggedIn);
     });
 
     this._loadInitialState();

@@ -6,7 +6,7 @@ var {
 } = React;
 
 import Api from '../Utils/Api';
-var AuthStore = require('../Stores/Auth');
+import AuthStore from '../Stores/Auth';
 import Constants from '../Utils/Constants';
 import Loading from './Loading';
 
@@ -60,12 +60,11 @@ export default class OAuthView extends React.Component {
 
     Api.getTravisToken(data, this.props.isPro)
       .then(function (res) {
-        if (!res.access_token) {
-          AlertIOS.alert('Trevor', 'Couldn\'t authenticate you with Travis CI. ');
-        }
-        if (res.access_token) {
+        if (res && res.access_token) {
           AuthStore.setToken('token' + (self.props.isPro ? 'Pro' : 'Os'), res.access_token);
           self.props.navigator.pop();
+        } else {
+          AlertIOS.alert('Trevor', 'Couldn\'t authenticate you with Travis CI. ');
         }
       });
   }
