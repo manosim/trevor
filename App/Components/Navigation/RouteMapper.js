@@ -1,8 +1,8 @@
 import React from 'react-native'; // eslint-disable-line no-unused-vars
 
-import NavigationTitle from './navbar-title';
-import NavigationButton from './navbar-button';
-import NavigationBackButton from './navbar-back-button';
+import NavigationTitle from './NavbarTitle';
+import NavigationButton from './NavbarButton';
+import NavigationBackButton from './NavbarBackButton';
 
 
 export default {
