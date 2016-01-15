@@ -9,10 +9,10 @@ var {
 } = React;
 
 import AuthStore from '../../Stores/Auth';
+import Routes from '../Navigation/Routes';
 import AccountsList from '../AccountsList';
 import Constants from '../../Utils/Constants';
 import Footer from './../Footer';
-import OAuthView from './../OAuthView';
 
 var styles = StyleSheet.create({
   container: {
@@ -90,15 +90,12 @@ export default class Dashboard extends React.Component {
 
   doLogin(isPro) {
     var authUrl = this.getAuthUrl(isPro);
-
-    this.props.navigator.push({
-      title: 'Authentication',
-      component: OAuthView,
-      passProps: {
-        isPro: isPro,
-        authUrl: authUrl
-      }
+    const route = Routes.OAuth({
+      isPro: isPro,
+      authUrl: authUrl
     });
+
+    this.props.navigator.push(route);
   }
 
   render() {

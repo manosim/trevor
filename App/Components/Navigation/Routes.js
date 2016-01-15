@@ -1,6 +1,7 @@
 import Dashboard from '../Routes/Dashboard';
 import BuildsScreen from '../Routes/BuildsScreen';
 import ReposScreen from '../Routes/ReposScreen';
+import OAuthView from '../Routes/OAuthView';
 
 export default {
 
@@ -9,6 +10,15 @@ export default {
       id: 'dashboard-view',
       title: 'Dashboard',
       component: Dashboard,
+    };
+  },
+
+  OAuth(props) {
+    return {
+      id: 'oauth-view',
+      title: 'Authentication',
+      component: OAuthView,
+      passProps: props
     };
   },
 
