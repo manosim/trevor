@@ -26,12 +26,14 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   },
   loginButton: {
+    height: 40,
+    justifyContent: 'center',
     backgroundColor: '#357389',
     margin: 10,
   },
   loginButtonText: {
     fontSize: 16,
-    padding: 10,
+    paddingHorizontal: 10,
     color: 'white',
     textAlign: 'center'
   },
@@ -118,13 +120,19 @@ export default class Dashboard extends React.Component {
           <Text style={styles.description}>Access Travis CI, simply everywhere</Text>
 
           {!this.state.isLoggedIn.os ? (
-            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginOs.bind(this)}>
+            <TouchableHighlight
+              style={styles.loginButton}
+              underlayColor={Constants.THEME_DARK_BLUE}
+              onPress={this._doLoginOs.bind(this)}>
               <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
             </TouchableHighlight>
           ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
 
           {!this.state.isLoggedIn.pro ? (
-            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginPro.bind(this)}>
+            <TouchableHighlight
+              style={styles.loginButton}
+              underlayColor={Constants.THEME_DARK_BLUE}
+              onPress={this._doLoginPro.bind(this)}>
               <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
             </TouchableHighlight>
           ) : <AccountsList navigator={this.props.navigator} isPro={true} />}
