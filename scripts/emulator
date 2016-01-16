@@ -1,0 +1,25 @@
+#!/bin/bash
+
+function run-android {
+  echo ""
+  echo "Starting Emulator - Android"
+  echo ""
+  emulator -avd Nexus_4
+}
+
+
+function run-ios {
+  echo ""
+  echo "Starting Emulator - iOS"
+  echo ""
+  echo "Coming Soon"
+}
+
+
+if [ "$1" == "android" ]; then
+  run-android
+elif [ "$1" == "ios" ]; then
+  run-ios
+else
+  echo "No arguments passed."
+fi
