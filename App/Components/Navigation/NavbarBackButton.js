@@ -10,14 +10,14 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 5,
-    paddingHorizontal: 10
+    flex: 1,
+    justifyContent: 'center',
   },
   toolbarButton: {
-    width: 80,
+    paddingHorizontal: 10,
   },
   icon: {
-    fontSize: Constants.NAVBAR_BUTTON_ICON_SIZE + 10,
+    fontSize: Constants.NAVBAR_BUTTON_ICON_SIZE,
     color: '#FFF'
   }
 });
