@@ -12,6 +12,5 @@ export default {
   THEME_BLUE: '#357389',
   THEME_DARK_BLUE: '#40454F',
 
-  NAVBAR_HEIGHT: 70,
   NAVBAR_BUTTON_ICON_SIZE: 35,
 };

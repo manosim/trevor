@@ -1,24 +1,26 @@
 import React from 'react-native';
-import Settings from '../../Utils/Constants';
 
 var {
+  Platform,
   StyleSheet,
   View
 } = React;
 
 var styles = StyleSheet.create({
-  scene: {
-    flex: 1,
-    marginTop: Settings.NAVBAR_HEIGHT - 6
+  container: {
+    flex: 1
   }
 });
 
 export default class SceneContainer extends React.Component {
   render() {
-    var Component = this.props.route.component;
+    const Component = this.props.route.component;
+    const platformStyle = {
+      marginTop: (Platform.OS === 'ios' ? 64 : 56)
+    };
 
     return (
-      <View style={styles.scene}>
+      <View style={[styles.container, platformStyle]}>
         <Component
           navigator={this.props.navigator}
           currentRoute={this.props.route}
