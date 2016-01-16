@@ -9,7 +9,8 @@ export default {
   },
 
   THEME_COLOR: '#A53230',
+  THEME_DARK_BLUE: '#40454F',
+
   NAVBAR_HEIGHT: 70,
   NAVBAR_BUTTON_ICON_SIZE: 25,
-
 };
