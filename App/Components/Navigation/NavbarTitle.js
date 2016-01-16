@@ -8,11 +8,10 @@ var {
 
 var styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
-    marginTop: 10
   },
   title: {
-    flex: 1,
     fontSize: 18,
     textAlign: 'center',
     color: '#FFF'
