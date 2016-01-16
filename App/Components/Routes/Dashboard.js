@@ -18,17 +18,20 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
+  descriptionWrapper: {
+    backgroundColor: Constants.THEME_DARK_BLUE,
+    paddingHorizontal: 20,
+    paddingVertical: 15
+  },
   description: {
-    backgroundColor: '#40454F',
     color: '#FFFFFF',
     fontSize: 20,
-    padding: 15,
     textAlign: 'center'
   },
   loginButton: {
     height: 40,
     justifyContent: 'center',
-    backgroundColor: '#357389',
+    backgroundColor: Constants.THEME_BLUE,
     margin: 10,
   },
   loginButtonText: {
@@ -38,7 +41,7 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   },
   footerButton: {
-    backgroundColor: '#40454F',
+    backgroundColor: Constants.THEME_DARK_BLUE,
     height: 45
   },
   footerButtonText: {
@@ -117,7 +120,11 @@ export default class Dashboard extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
-          <Text style={styles.description}>Access Travis CI, simply everywhere</Text>
+          <View style={styles.descriptionWrapper}>
+            <Text style={styles.description}>
+              Access Travis CI, simply everywhere
+            </Text>
+          </View>
 
           {!this.state.isLoggedIn.os ? (
             <TouchableHighlight
