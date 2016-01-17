@@ -9,8 +9,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    flex: 0.15,
+    width: 50,
     paddingVertical: 10,
     paddingHorizontal: 2,
     justifyContent: 'center',
@@ -23,7 +22,7 @@ var styles = StyleSheet.create({
   buildNumber: {
     fontWeight: 'bold',
     color: 'white',
-    marginTop: 10
+    marginTop: 8
   },
   stateStarted: { //eslint-disable-line react-native/no-unused-styles
     backgroundColor: '#D2C93B'
@@ -93,7 +92,7 @@ export default class StatusSidebar extends React.Component {
     return (
       <View style={[styles.container, this.state.stateClass]}>
         <Icon style={styles.statusIcon} name={this.state.statusIcon} />
-        <Text style={styles.buildNumber}>{this.props.buildNumber}</Text>
+        <Text style={styles.buildNumber} numberOfLines={1}>{this.props.buildNumber}</Text>
       </View>
     );
   }
