@@ -57,7 +57,7 @@ var styles = StyleSheet.create({
     height: 60
   },
   avatarWrapper: {
-    flex: 0.2,
+    width: 55,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -67,18 +67,18 @@ var styles = StyleSheet.create({
     borderRadius: 18,
   },
   accountInfo: {
-    flex: 0.7,
+    flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 5
   },
   typeWrapper: {
-    flex: 0.1,
+    width: 32,
     backgroundColor: '#357389',
     justifyContent: 'center',
     alignItems: 'center'
   },
   typeIcon: {
-    fontSize: 20,
+    fontSize: 17,
     color: 'white'
   },
   login: {
