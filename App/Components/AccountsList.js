@@ -159,7 +159,7 @@ export default class AccountsList extends React.Component {
   _renderAccount(account) {
     var icon = this.getTypeIcon(account.type);
     var imageSource = account.avatar_url ? {uri: account.avatar_url}
-      : require('image!logo-circle-red');
+      : require('../../images/logo-circle-red.png');
 
     return (
       <TouchableHighlight
