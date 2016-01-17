@@ -7,7 +7,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flex: 1,
     height: 2,
     backgroundColor: '#e9e9e9'
   }
