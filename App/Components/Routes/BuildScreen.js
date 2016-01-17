@@ -2,6 +2,7 @@ import React from 'react-native';
 
 import Api from '../../Utils/Api';
 import Loading from '../Loading';
+import Divider from '../../Helpers/Divider';
 
 var {
   StyleSheet,
@@ -13,6 +14,12 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
+  },
+  buildDetailsWrapper: {
+    width: 32,
+    backgroundColor: '#357389',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
@@ -40,6 +47,7 @@ export default class BuildScreen extends React.Component {
 
     Api.getBuild(this.props.buildId, this.props.isPro)
       .then(function (res) {
+        console.log(res);
         self.setState({
           loading: false,
           build: res.build,
@@ -58,8 +66,15 @@ export default class BuildScreen extends React.Component {
 
     return (
       <ScrollView style={styles.container}>
-        <Text>{this.state.build.number}</Text>
+        <Divider text='Build Details'></Divider>
+        <View styles={styles.buildDetailsWrapper}>
+          <Text>{this.state.build.number}</Text>
+        </View>
+
+        <Divider text='Commit Info'></Divider>
         <Text>{this.state.build.duration}</Text>
+
+        <Divider text='Jobs'></Divider>
         <Text>{this.state.build.finished_at}</Text>
         <Text>{this.state.commit.message}</Text>
       </ScrollView>
