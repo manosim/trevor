@@ -32,22 +32,21 @@ var styles = StyleSheet.create({
   buildRow: {
     flexDirection: 'row',
     flex: 1,
-    padding: 0,
-    marginBottom: 1
+    height: 70
   },
   buildMessage: {
-    marginBottom: 2
+    fontWeight: 'bold'
   },
   buildInfo: {
-    flex: 0.85,
-    padding: 10
+    flex: 1,
+    paddingHorizontal: 10,
+    justifyContent: 'center',
   },
   buildDate: {
-    flexDirection: 'column',
-    flex: 0.8,
+
   },
   buildDuration: {
-    marginBottom: 2
+
   },
   separator: {
     height: 2,
@@ -129,7 +128,6 @@ export default class BuildsScreen extends React.Component {
              {rowData.started_at ? (
                <Text style={styles.buildDate}>{date}</Text>
              ) : <View />}
-
 
              {rowData.duration ? (
                <Text style={styles.buildDuration}>Run for {duration}</Text>
