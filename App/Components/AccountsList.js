@@ -71,7 +71,8 @@ var styles = StyleSheet.create({
   accountInfo: {
     flexDirection: 'column',
     flex: 0.7,
-    paddingVertical: 10
+    paddingVertical: 10,
+    paddingHorizontal: 5
   },
   typeWrapper: {
     flex: 0.1,
@@ -167,8 +168,8 @@ export default class AccountsList extends React.Component {
         activeOpacity={0.85}
         underlayColor={'white'}
         onPress={() => this._pressRow(account)}>
-        <View>
-          <View style={styles.accountRow}>
+        <View style={styles.accountRow}>
+          <View style={{flex: 1, flexDirection: 'row'}}>
             <View style={styles.avatarWrapper}>
               <Image style={styles.avatar} source={imageSource} />
             </View>
