@@ -41,7 +41,7 @@ export default class OAuthView extends React.Component {
 
     Api.getGithubToken(data)
       .then(function (res) {
-        if (res.error&& res.error_description) {
+        if (res.error && res.error_description) {
           AlertIOS.alert('Trevor', res.error_description);
         }
 

@@ -42,13 +42,13 @@ var styles = StyleSheet.create({
   },
   footerButton: {
     backgroundColor: Constants.THEME_DARK_BLUE,
-    height: 45
+    height: 45,
+    justifyContent: 'center'
   },
   footerButtonText: {
     fontSize: 16,
     color: '#FFFFFF',
-    paddingVertical: 12,
-    alignSelf: 'center'
+    textAlign: 'center'
   }
 });
 
