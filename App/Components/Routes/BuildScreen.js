@@ -1,5 +1,7 @@
 import React from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
+import moment from 'moment';
+require('moment-duration-format');
 
 import Api from '../../Utils/Api';
 import Loading from '../Loading';
@@ -20,7 +22,7 @@ var styles = StyleSheet.create({
   buildDetailsWrapper: {
     flexDirection: 'row',
     flex: 1,
-    height: 70,
+    height: 105,
     justifyContent: 'center',
   },
   buildDetails: {
@@ -29,7 +31,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
   },
   statusSidebar: {
-    width: 50,
+    width: 40,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -78,7 +80,7 @@ export default class BuildScreen extends React.Component {
 
     Api.getBuild(this.props.buildId, this.props.isPro)
       .then(function (res) {
-        console.log(res.build);
+        console.log(res);
         self.setState({
           loading: false,
           build: res.build,
@@ -126,6 +128,12 @@ export default class BuildScreen extends React.Component {
       );
     }
 
+    const date = this.state.build.duration ? 'Finished ' + moment(this.state.build.finished_at).fromNow() :
+      'Started ' + moment(this.state.build.started_at).fromNow();
+
+    const duration = moment.duration(this.state.build.duration, 'seconds')
+      .format('[Run for] m [minutes], s [seconds]');
+
     const buildStatus = this.getStatus();
     const statusSidebar = (
       <View style={[styles.statusSidebar, buildStatus.stateClass]}>
@@ -143,15 +151,16 @@ export default class BuildScreen extends React.Component {
           <View style={styles.buildDetails}>
             <Text style={styles.commitMessage} numberOfLines={2}>{this.state.commit.message}</Text>
             <Text>Build Number {this.state.build.number}</Text>
+            <Text>{date}</Text>
+            <Text>Run for {duration}</Text>
           </View>
         </View>
 
         <Divider text='Commit Info'></Divider>
+        <Text>Commit Author: {this.state.commit.author_name}</Text>
         <Text>Build Duration {this.state.build.duration}</Text>
 
         <Divider text='Jobs'></Divider>
-        <Text>Finished at {this.state.build.finished_at}</Text>
-        <Text>Commit Message {this.state.commit.message}</Text>
       </ScrollView>
     );
   }
