@@ -16,6 +16,7 @@ var {
   Text,
   View,
   ListView,
+  Platform,
   SegmentedControlIOS,
   TouchableHighlight
 } = React;
@@ -168,17 +169,21 @@ export default class BuildsScreen extends React.Component {
   }
 
   _renderHeader(refreshingIndicator) {
+    const segmentedControl = Platform.OS === 'ios' ? (
+      <View style={styles.segmentWrapper}>
+        <SegmentedControlIOS
+          style={styles.segment}
+          values={['All', 'Builds', 'Pull Requests']}
+          tintColor='#FFF'
+          selectedIndex={0}
+          onValueChange={this._onSegmentChange.bind(this)} />
+      </View>
+    ) : <View />;
+
     return (
       <View>
         {refreshingIndicator}
-        <View style={styles.segmentWrapper}>
-          <SegmentedControlIOS
-            style={styles.segment}
-            values={['All', 'Builds', 'Pull Requests']}
-            tintColor='#FFF'
-            selectedIndex={0}
-            onValueChange={this._onSegmentChange.bind(this)} />
-        </View>
+        {segmentedControl}
       </View>
     );
   }
