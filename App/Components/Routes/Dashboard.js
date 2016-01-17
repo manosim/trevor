@@ -18,32 +18,37 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
+  descriptionWrapper: {
+    backgroundColor: Constants.THEME_DARK_BLUE,
+    paddingHorizontal: 20,
+    paddingVertical: 15
+  },
   description: {
-    backgroundColor: '#40454F',
     color: '#FFFFFF',
     fontSize: 20,
-    padding: 15,
     textAlign: 'center'
   },
   loginButton: {
-    backgroundColor: '#357389',
+    height: 40,
+    justifyContent: 'center',
+    backgroundColor: Constants.THEME_BLUE,
     margin: 10,
   },
   loginButtonText: {
     fontSize: 16,
-    padding: 10,
+    paddingHorizontal: 10,
     color: 'white',
     textAlign: 'center'
   },
   footerButton: {
-    backgroundColor: '#40454F',
-    height: 45
+    backgroundColor: Constants.THEME_DARK_BLUE,
+    height: 45,
+    justifyContent: 'center'
   },
   footerButtonText: {
     fontSize: 16,
     color: '#FFFFFF',
-    paddingVertical: 12,
-    alignSelf: 'center'
+    textAlign: 'center'
   }
 });
 
@@ -115,16 +120,26 @@ export default class Dashboard extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
-          <Text style={styles.description}>Access Travis CI, simply everywhere</Text>
+          <View style={styles.descriptionWrapper}>
+            <Text style={styles.description}>
+              Access Travis CI, simply everywhere
+            </Text>
+          </View>
 
           {!this.state.isLoggedIn.os ? (
-            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginOs.bind(this)}>
+            <TouchableHighlight
+              style={styles.loginButton}
+              underlayColor={Constants.THEME_DARK_BLUE}
+              onPress={this._doLoginOs.bind(this)}>
               <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
             </TouchableHighlight>
           ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
 
           {!this.state.isLoggedIn.pro ? (
-            <TouchableHighlight style={styles.loginButton} onPress={this._doLoginPro.bind(this)}>
+            <TouchableHighlight
+              style={styles.loginButton}
+              underlayColor={Constants.THEME_DARK_BLUE}
+              onPress={this._doLoginPro.bind(this)}>
               <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
             </TouchableHighlight>
           ) : <AccountsList navigator={this.props.navigator} isPro={true} />}

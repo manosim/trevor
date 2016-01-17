@@ -1,5 +1,5 @@
 import React from 'react-native';
-import Icon from 'react-native-vector-icons/Octicons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Constants from '../../Utils/Constants';
 
 var {
@@ -10,14 +10,14 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 5,
-    paddingHorizontal: 10
+    flex: 1,
+    justifyContent: 'center',
   },
   toolbarButton: {
-    width: 80,
+    paddingHorizontal: 10,
   },
   icon: {
-    fontSize: Constants.NAVBAR_BUTTON_ICON_SIZE + 10,
+    fontSize: Constants.NAVBAR_BUTTON_ICON_SIZE,
     color: '#FFF'
   }
 });
@@ -34,7 +34,7 @@ export default class NavigationButton extends React.Component {
           style={styles.toolbarButton}
           underlayColor={Constants.THEME_COLOR}
           onPress={this._goBack.bind(this)}>
-          <Icon name="chevron-left" style={styles.icon} />
+          <Icon name="angle-left" style={styles.icon} />
         </TouchableHighlight>
       </View>
     );

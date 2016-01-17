@@ -10,12 +10,16 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 8,
-    paddingHorizontal: 10
+    flex: 1,
+    justifyContent: 'center',
   },
   toolbarButton: {
-    width: 30,
+    paddingHorizontal: 10,
   },
+  icon: {
+    fontSize: Constants.NAVBAR_BUTTON_ICON_SIZE,
+    color: '#FFF'
+  }
 });
 
 export default class NavigationButton extends React.Component {
@@ -27,6 +31,7 @@ export default class NavigationButton extends React.Component {
   }
 
   render() {
+    // FIXME
     return <View />;
 
     if (this.props.route.id === 'compose-view') {
@@ -39,7 +44,7 @@ export default class NavigationButton extends React.Component {
           style={styles.toolbarButton}
           underlayColor={Constants.LIGHT_GRAY}
           onPress={this._goComposer.bind(this)}>
-          <Icon name="pencil-square-o" size={Constants.NAVBAR_BUTTON_ICON_SIZE} />
+          <Icon name="pencil-square-o" style={styles.icon} />
         </TouchableHighlight>
       </View>
     );
