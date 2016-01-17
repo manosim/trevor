@@ -17,6 +17,9 @@ var styles = StyleSheet.create({
 
 export default class LoadingPull extends React.Component {
 
+  // FIXME:
+  // Support Both Platforms
+
   render() {
     return (
       <View style={styles.container}>
