@@ -54,38 +54,34 @@ var styles = StyleSheet.create({
   accountRow: {
     flexDirection: 'row',
     flex: 1,
+    height: 60
   },
   avatarWrapper: {
-    flexDirection: 'column',
-    flex: 0.2,
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    width: 55,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   avatar: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    justifyContent: 'center',
-    marginTop: 10
   },
   accountInfo: {
-    flexDirection: 'column',
-    flex: 0.7,
-    paddingVertical: 10
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 5
   },
   typeWrapper: {
-    flex: 0.1,
+    width: 32,
     backgroundColor: '#357389',
     justifyContent: 'center',
     alignItems: 'center'
   },
   typeIcon: {
-    fontSize: 20,
-    color: 'white',
-    marginTop: 16
+    fontSize: 17,
+    color: 'white'
   },
   login: {
-    flexDirection: 'column',
     flex: 0.6,
     fontWeight: 'bold',
     fontSize: 16
@@ -94,10 +90,9 @@ var styles = StyleSheet.create({
 
   },
   count: {
-    flexDirection: 'column',
     flex: 0.4,
     color: '#919191',
-    paddingRight: 15,
+    marginRight: 8,
     textAlign: 'right'
   }
 });
@@ -169,18 +164,20 @@ export default class AccountsList extends React.Component {
         onPress={() => this._pressRow(account)}>
         <View>
           <View style={styles.accountRow}>
-            <View style={styles.avatarWrapper}>
-              <Image style={styles.avatar} source={imageSource} />
-            </View>
-            <View style={styles.accountInfo}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.login}>{account.login}</Text>
-                <Text style={styles.count}>{account.repos_count} Repos</Text>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <View style={styles.avatarWrapper}>
+                <Image style={styles.avatar} source={imageSource} />
               </View>
-              <Text style={styles.fullName} numberOfLines={1}>{account.name}</Text>
-            </View>
-            <View style={styles.typeWrapper}>
-              <Icon style={styles.typeIcon} name={icon} />
+              <View style={styles.accountInfo}>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.login} numberOfLines={1}>{account.login}</Text>
+                  <Text style={styles.count} numberOfLines={1}>{account.repos_count} Repos</Text>
+                </View>
+                <Text style={styles.fullName} numberOfLines={1}>{account.name || ' '}</Text>
+              </View>
+              <View style={styles.typeWrapper}>
+                <Icon style={styles.typeIcon} name={icon} />
+              </View>
             </View>
           </View>
           <Separator />

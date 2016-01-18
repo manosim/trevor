@@ -1,7 +1,11 @@
 import React from 'react-native';
 
+import Constants from '../Utils/Constants';
+
 var {
   ActivityIndicatorIOS,
+  Platform,
+  ProgressBarAndroid,
   StyleSheet,
   Text,
   View,
@@ -22,12 +26,20 @@ var styles = StyleSheet.create({
 
 export default class Loading extends React.Component {
   render() {
+    const loading = Platform.OS === 'ios' ? (
+      <ActivityIndicatorIOS
+        animating={true}
+        color={Constants.THEME_DARK_BLUE}
+        size="large" />
+    ) : (
+      <ProgressBarAndroid
+        styleAttr="Inverse"
+        color={Constants.THEME_DARK_BLUE} />
+    );
+
     return (
       <View style={[styles.container, this.props.style && this.props.style]}>
-        <ActivityIndicatorIOS
-          animating={true}
-          color="#357389"
-          size="large" />
+        {loading}
         {this.props.hideText ? <View /> : (
           <Text style={styles.loadingText}>Loading {this.props.text}</Text>
         )}

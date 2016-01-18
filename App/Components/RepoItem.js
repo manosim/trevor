@@ -20,7 +20,7 @@ var styles = StyleSheet.create({
   buildRow: {
     flexDirection: 'row',
     flex: 1,
-    padding: 0
+    height: 70
   },
   repoName: {
     fontWeight: 'bold',
@@ -28,7 +28,8 @@ var styles = StyleSheet.create({
   },
   buildInfo: {
     flex: 0.85,
-    padding: 10
+    justifyContent: 'center',
+    paddingHorizontal: 10
   },
   buildDate: {
 
@@ -66,7 +67,7 @@ export default class RepoItem extends React.Component {
         activeOpacity={0.85}
         underlayColor={'white'}
         onPress={() => this._pressRow(this.props.details)}>
-        <View style={styles.buildRow} >
+        <View style={styles.buildRow}>
           <StatusSidebar
             buildState={this.props.details.last_build_state}
             buildNumber={this.props.details.last_build_number} />
