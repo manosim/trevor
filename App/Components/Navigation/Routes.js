@@ -1,6 +1,7 @@
 import Dashboard from '../Routes/Dashboard';
 import BuildScreen from '../Routes/BuildScreen';
 import BuildsScreen from '../Routes/BuildsScreen';
+import JobDetails from '../Routes/JobDetails';
 import LatestProRepos from '../Routes/LatestProRepos';
 import OAuthView from '../Routes/OAuthView';
 import ReposScreen from '../Routes/ReposScreen';
@@ -60,4 +61,12 @@ export default {
     };
   },
 
+  Job(props) {
+    return {
+      id: 'job-view',
+      title: 'Job Details',
+      component: JobDetails,
+      passProps: props
+    };
+  },
 };

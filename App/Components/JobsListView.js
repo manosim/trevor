@@ -1,6 +1,7 @@
 import React from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Routes from '../Components/Navigation/Routes';
 import Separator from '../Helpers/Separator';
 import StatusSidebar from '../Components/StatusSidebar';
 
@@ -51,16 +52,15 @@ export default class JobsListView extends React.Component {
   }
 
   _pressRow(job) {
-    // const route = Routes.Job(details.id, {
-    //   isPro: this.props.isPro,
-    //   buildId: details.id
-    // });
-    //
-    // this.props.navigator.push(route);
+    const route = Routes.Job({
+      isPro: this.props.isPro,
+      jobId: job.id
+    });
+
+    this.props.navigator.push(route);
   }
 
   _renderRow(rowData, sectionID, rowID, highlightRow) {
-    console.log(rowData);
     return (
       <TouchableHighlight
          activeOpacity={0.85}

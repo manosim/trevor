@@ -144,7 +144,10 @@ export default class BuildScreen extends React.Component {
         </View>
 
         <Divider text='Jobs'></Divider>
-        <JobsListView jobs={this.state.jobs}/>
+        <JobsListView
+          jobs={this.state.jobs}
+          isPro={this.props.isPro}
+          navigator={this.props.navigator} />
       </ScrollView>
     );
   }
