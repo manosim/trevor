@@ -11,7 +11,8 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    marginVertical: 2
+    paddingVertical: 2,
+    justifyContent: 'center'
   },
   icon: {
     fontSize: 16,
@@ -19,8 +20,9 @@ var styles = StyleSheet.create({
     width: 25
   },
   text: {
-    fontSize: 16
-
+    flex: 1,
+    fontSize: 16,
+    lineHeight: 17
   }
 });
 

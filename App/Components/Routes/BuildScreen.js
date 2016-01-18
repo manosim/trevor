@@ -35,6 +35,9 @@ var styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'center'
   },
+  buildDetailsText: {
+    fontSize: 16,
+  },
   commitMessage: {
     fontWeight: 'bold'
   },
@@ -114,9 +117,11 @@ export default class BuildScreen extends React.Component {
         <View style={styles.buildDetailsWrapper}>
           <StatusSidebar buildState={this.state.build.state} buildNumber={this.state.build.number} />
           <View style={styles.buildDetails}>
-            <Text style={styles.commitMessage} numberOfLines={2}>{this.state.commit.message}</Text>
-            <Text>{date}</Text>
-            <Text>Run for {duration}</Text>
+            <Text style={[styles.commitMessage, styles.buildDetailsText]} numberOfLines={2}>
+              {this.state.commit.message}
+            </Text>
+            <Text style={styles.buildDetailsText}>{date}</Text>
+            <Text style={styles.buildDetailsText}>Run for {duration}</Text>
           </View>
         </View>
 
