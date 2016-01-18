@@ -40,7 +40,7 @@ export default class JobDetails extends React.Component {
 
     console.log(this.props.jobId, this.props.isPro);
 
-    Api.getJobDetails(this.props.jobId, this.props.isPro)
+    Api.getLog(this.props.jobId, this.props.isPro)
       .then(function (res) {
         console.log(res);
         self.setState({

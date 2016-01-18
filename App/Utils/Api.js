@@ -117,7 +117,7 @@ export default {
       });
   },
 
-  getJobDetails(jobId, isPro) {
+  getLog(jobId, isPro) {
     var url = this.getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`;
     var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
 
@@ -129,11 +129,17 @@ export default {
       }
     })
       .then(function(res) {
+        console.log(res.status);
+        console.log(res.headers.get('location'));
         return res.json();
       })
       .catch((error) => {
         console.warn('Request Failed: ', error);
       });
+  },
+
+  getLogFromS3(logId) {
+
   },
 
   getLatestPro() {
