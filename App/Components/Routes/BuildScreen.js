@@ -6,8 +6,13 @@ require('moment-duration-format');
 import Api from '../../Utils/Api';
 import Loading from '../Loading';
 import Divider from '../../Helpers/Divider';
+import StatusSidebar from '../StatusSidebar';
+import DetailRow from '../../Helpers/DetailRow';
 
 var {
+  LinkingIOS,
+  IntentAndroid,
+  Platform,
   StyleSheet,
   ScrollView,
   Text,
@@ -22,37 +27,25 @@ var styles = StyleSheet.create({
   buildDetailsWrapper: {
     flexDirection: 'row',
     flex: 1,
-    height: 105,
+    height: 95,
     justifyContent: 'center',
   },
   buildDetails: {
     flex: 1,
     paddingHorizontal: 10,
-    justifyContent: 'center',
-  },
-  statusSidebar: {
-    width: 40,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'center'
   },
   commitMessage: {
     fontWeight: 'bold'
   },
-  buildStatusIcon: {
-    fontSize: 24,
-    color: 'white'
+  commitInfo: {
+    padding: 15
   },
-  stateStarted: { //eslint-disable-line react-native/no-unused-styles
-    backgroundColor: '#D2C93B'
+  githubButtonWrapper: {
+    marginTop: 10
   },
-  statePassed: { //eslint-disable-line react-native/no-unused-styles
-    backgroundColor: '#3FA75F'
-  },
-  stateFailed: { //eslint-disable-line react-native/no-unused-styles
-    backgroundColor: '#DB423C'
-  },
-  stateErrored: { //eslint-disable-line react-native/no-unused-styles
-    backgroundColor: '#A1A0A0'
+  githubButton: {
+    backgroundColor: '#2d2d2d',
   }
 });
 
@@ -90,35 +83,13 @@ export default class BuildScreen extends React.Component {
       });
   }
 
-  getStatus() {
-    var statusIcon, stateClass;
-    switch(this.state.build.state) {
-      case 'started':
-      case 'created':
-        statusIcon = 'primitive-dot';
-        stateClass = styles.stateStarted;
-        break;
-      case 'passed':
-        statusIcon = 'check';
-        stateClass = styles.statePassed;
-        break;
-      case 'failed':
-        statusIcon = 'x';
-        stateClass = styles.stateFailed;
-        break;
-      case 'errored':
-        statusIcon = 'alert';
-        stateClass = styles.stateErrored;
-        break;
-      default:
-        statusIcon = 'question';
-        stateClass = styles.stateErrored;
+  openGitHub() {
+    const url = this.state.commit.compare_url;
+    if (Platform.OS === 'ios'){
+      LinkingIOS.openURL(url);
+    } else {
+      IntentAndroid.openURL(url);
     }
-
-    return {
-      statusIcon: statusIcon,
-      stateClass: stateClass
-    };
   }
 
   render() {
@@ -134,31 +105,38 @@ export default class BuildScreen extends React.Component {
     const duration = moment.duration(this.state.build.duration, 'seconds')
       .format('[Run for] m [minutes], s [seconds]');
 
-    const buildStatus = this.getStatus();
-    const statusSidebar = (
-      <View style={[styles.statusSidebar, buildStatus.stateClass]}>
-        <Icon
-          style={styles.buildStatusIcon}
-          name={buildStatus.statusIcon} />
-      </View>
-    );
+    const prText = this.state.build.pull_request ? this.state.build.pull_request_number + ': '
+      + this.state.build.pull_request_title : null;
 
     return (
       <ScrollView style={styles.container}>
         <Divider text='Build Details'></Divider>
         <View style={styles.buildDetailsWrapper}>
-          {statusSidebar}
+          <StatusSidebar buildState={this.state.build.state} buildNumber={this.state.build.number} />
           <View style={styles.buildDetails}>
             <Text style={styles.commitMessage} numberOfLines={2}>{this.state.commit.message}</Text>
-            <Text>Build Number {this.state.build.number}</Text>
             <Text>{date}</Text>
             <Text>Run for {duration}</Text>
           </View>
         </View>
 
         <Divider text='Commit Info'></Divider>
-        <Text>Commit Author: {this.state.commit.author_name}</Text>
-        <Text>Build Duration {this.state.build.duration}</Text>
+        <View style={styles.commitInfo}>
+          <DetailRow icon='person' text={this.state.commit.author_name} />
+          {prText ? ( <DetailRow icon='git-pull-request' text={prText} /> ) : null}
+          <DetailRow icon='git-branch' text={this.state.commit.branch} />
+
+          {this.props.isPro ? null : (
+            <View style={styles.githubButtonWrapper}>
+              <Icon.Button
+                style={styles.githubButton}
+                onPress={this.openGitHub.bind(this)}
+                name='mark-github'>
+                  Compare commit on GitHub
+              </Icon.Button>
+            </View>
+          )}
+        </View>
 
         <Divider text='Jobs'></Divider>
       </ScrollView>
