@@ -11,18 +11,19 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    paddingVertical: 2,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginVertical: 2
   },
   icon: {
     fontSize: 16,
+    alignSelf: 'center',
     textAlign: 'center',
     width: 25
   },
   text: {
+    alignSelf: 'center',
     flex: 1,
-    fontSize: 16,
-    lineHeight: 17
+    fontSize: 16
   }
 });
 
@@ -31,7 +32,7 @@ export default class DetailRow extends React.Component {
     return (
       <View style={styles.container}>
         <Icon style={styles.icon} name={this.props.icon} />
-        <Text style={styles.text}>{this.props.text}</Text>
+        <Text style={styles.text} numberOfLines={1}>{this.props.text}</Text>
       </View>
     );
   }
