@@ -92,7 +92,9 @@ export default class StatusSidebar extends React.Component {
     return (
       <View style={[styles.container, this.state.stateClass]}>
         <Icon style={styles.statusIcon} name={this.state.statusIcon} />
-        <Text style={styles.buildNumber} numberOfLines={1}>{this.props.buildNumber}</Text>
+        {this.props.buildNumber ? (
+          <Text style={styles.buildNumber} numberOfLines={1}>{this.props.buildNumber}</Text>
+        ) : <View />}
       </View>
     );
   }

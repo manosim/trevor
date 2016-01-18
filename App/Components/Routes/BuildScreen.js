@@ -4,10 +4,11 @@ import moment from 'moment';
 require('moment-duration-format');
 
 import Api from '../../Utils/Api';
-import Loading from '../Loading';
-import Divider from '../../Helpers/Divider';
-import StatusSidebar from '../StatusSidebar';
 import DetailRow from '../../Helpers/DetailRow';
+import Divider from '../../Helpers/Divider';
+import Loading from '../Loading';
+import JobsListView from '../JobsListView';
+import StatusSidebar from '../StatusSidebar';
 
 var {
   LinkingIOS,
@@ -76,7 +77,6 @@ export default class BuildScreen extends React.Component {
 
     Api.getBuild(this.props.buildId, this.props.isPro)
       .then(function (res) {
-        console.log(res);
         self.setState({
           loading: false,
           build: res.build,
@@ -144,6 +144,7 @@ export default class BuildScreen extends React.Component {
         </View>
 
         <Divider text='Jobs'></Divider>
+        <JobsListView jobs={this.state.jobs}/>
       </ScrollView>
     );
   }
