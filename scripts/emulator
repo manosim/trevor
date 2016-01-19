@@ -3,8 +3,14 @@
 function run-android {
   echo ""
   echo "Starting Emulator - Android"
-  echo ""
-  emulator -avd Nexus_4
+  echo "$"
+  if [ -z "$1" ]; then
+    echo "No emulator name passed. Using default: Nexus_4."
+    emulator -avd Nexus_4
+  else
+    echo "Running Android Emulator with name $1"
+    emulator -avd $1
+  fi
 }
 
 
@@ -12,12 +18,12 @@ function run-ios {
   echo ""
   echo "Starting Emulator - iOS"
   echo ""
-  echo "Coming Soon"
+  open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 }
 
 
 if [ "$1" == "android" ]; then
-  run-android
+  run-android $2
 elif [ "$1" == "ios" ]; then
   run-ios
 else
