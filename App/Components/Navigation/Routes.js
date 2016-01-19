@@ -1,8 +1,8 @@
 import Dashboard from '../Routes/Dashboard';
 import BuildScreen from '../Routes/BuildScreen';
 import BuildsScreen from '../Routes/BuildsScreen';
-import JobDetails from '../Routes/JobDetails';
 import LatestProRepos from '../Routes/LatestProRepos';
+import LogView from '../Routes/LogView';
 import OAuthView from '../Routes/OAuthView';
 import ReposScreen from '../Routes/ReposScreen';
 
@@ -61,11 +61,11 @@ export default {
     };
   },
 
-  Job(props) {
+  Log(props) {
     return {
-      id: 'job-view',
-      title: 'Job Details',
-      component: JobDetails,
+      id: 'log-view',
+      title: 'Log Details',
+      component: LogView,
       passProps: props
     };
   },
