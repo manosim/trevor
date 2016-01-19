@@ -5,8 +5,8 @@ import Loading from '../Loading';
 
 var {
   StyleSheet,
-  Text,
-  View
+  View,
+  WebView
 } = React;
 
 var styles = StyleSheet.create({
@@ -23,7 +23,7 @@ export default class JobDetails extends React.Component {
 
     this.state = {
       loading: false,
-      details: {}
+      log: null
     };
   }
 
@@ -38,14 +38,12 @@ export default class JobDetails extends React.Component {
       loading: true
     });
 
-    console.log(this.props.jobId, this.props.isPro);
-
     Api.getLog(this.props.jobId, this.props.isPro)
       .then(function (res) {
         console.log(res);
         self.setState({
           loading: false,
-          details: res
+          log: res
         });
       });
   }
@@ -59,11 +57,10 @@ export default class JobDetails extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
-        <Text>
-          asd
-        </Text>
-      </View>
+      <WebView
+        style={styles.container}
+        html={this.state.log}
+        javaScriptEnabled={true} />
     );
   }
 };

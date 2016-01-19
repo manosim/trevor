@@ -118,8 +118,9 @@ export default {
   },
 
   getLog(jobId, isPro) {
-    var url = this.getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`;
-    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
+    const self = this;
+    const url = this.getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`;
+    const token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
 
     return fetch(url, {
       headers: {
@@ -129,8 +130,10 @@ export default {
       }
     })
       .then(function(res) {
-        console.log(res.status);
-        console.log(res.headers.get('location'));
+        if (res.status == 204) {
+          const logUrl = res.headers.get('location');
+          return self.getLogFromS3(logUrl);
+        }
         return res.json();
       })
       .catch((error) => {
@@ -138,8 +141,14 @@ export default {
       });
   },
 
-  getLogFromS3(logId) {
-
+  getLogFromS3(url) {
+    return fetch(url)
+      .then(function(res) {
+        return res.text();
+      })
+      .catch((error) => {
+        console.warn('Request Failed: ', error);
+      });
   },
 
   getLatestPro() {
