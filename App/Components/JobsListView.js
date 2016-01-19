@@ -54,7 +54,7 @@ export default class JobsListView extends React.Component {
   _pressRow(job) {
     const route = Routes.Log({
       isPro: this.props.isPro,
-      jobId: job.id
+      logId: job.id
     });
 
     this.props.navigator.push(route);
