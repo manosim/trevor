@@ -117,6 +117,40 @@ export default {
       });
   },
 
+  getLog(jobId, isPro) {
+    const self = this;
+    const url = this.getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`;
+    const token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
+
+    return fetch(url, {
+      headers: {
+        'Accept': 'Accept: application/vnd.travis-ci.2+json',
+        'Authorization': 'token ' + token,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(function(res) {
+        if (res.status == 204) {
+          const logUrl = res.headers.get('location');
+          return self.getLogFromS3(logUrl);
+        }
+        return res.json();
+      })
+      .catch((error) => {
+        console.warn('Request Failed: ', error);
+      });
+  },
+
+  getLogFromS3(url) {
+    return fetch(url)
+      .then(function(res) {
+        return res.text();
+      })
+      .catch((error) => {
+        console.warn('Request Failed: ', error);
+      });
+  },
+
   getLatestPro() {
     var url = this.getApiUrl(true) + `/repos/`;
     var token = AuthStore.tokenPro;

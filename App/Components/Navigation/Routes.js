@@ -2,6 +2,7 @@ import Dashboard from '../Routes/Dashboard';
 import BuildScreen from '../Routes/BuildScreen';
 import BuildsScreen from '../Routes/BuildsScreen';
 import LatestProRepos from '../Routes/LatestProRepos';
+import LogView from '../Routes/LogView';
 import OAuthView from '../Routes/OAuthView';
 import ReposScreen from '../Routes/ReposScreen';
 
@@ -60,4 +61,12 @@ export default {
     };
   },
 
+  Log(props) {
+    return {
+      id: 'log-view',
+      title: 'Log Details',
+      component: LogView,
+      passProps: props
+    };
+  },
 };
