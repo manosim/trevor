@@ -5,10 +5,10 @@ import Api from '../../Utils/Api';
 import EmptyResults from '../EmptyResults';
 import Loading from '../Loading';
 import RepoItem from '../RepoItem';
+import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
 
 var {
   ListView,
-  RefreshControl,
   ScrollView,
   StyleSheet,
   View
@@ -109,14 +109,9 @@ export default class LatestProRepos extends React.Component {
       <ScrollView
         style={styles.container}
         refreshControl={
-          <RefreshControl
-              refreshing={this.state.loading}
-              onRefresh={this.fetchData.bind(this)}
-              tintColor="#ff0000"
-              title="Loading..."
-              colors={['#ff0000', '#00ff00', '#0000ff']}
-              progressBackgroundColor="#ffff00"
-            />
+          <CustomRefreshControl
+            refreshing={this.state.loading}
+            onRefresh={this.fetchData.bind(this)} />
         }>
         <ListView
           contentContainerStyle={styles.listViewContainer}
