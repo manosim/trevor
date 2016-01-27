@@ -109,7 +109,7 @@ export default class JobDetails extends React.Component {
         if (res.isArchived) {
           return self.fetchArchivedLog(res.url);
         } else {
-          self.setHtml.bind(self)(res);
+          self.setHtml.bind(self)(res.log.body);
           self.setState({
             loading: false,
           });

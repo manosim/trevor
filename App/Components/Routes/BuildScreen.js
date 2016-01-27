@@ -128,6 +128,8 @@ export default class BuildScreen extends React.Component {
     const prText = this.state.build.pull_request ? this.state.build.pull_request_number + ': '
       + this.state.build.pull_request_title : null;
 
+    const durationText = this.state.build.duration ? 'Run for ' + duration : ' ';
+
     return (
       <ScrollView
         style={styles.container}
@@ -145,7 +147,7 @@ export default class BuildScreen extends React.Component {
               {this.state.commit.message}
             </Text>
             <Text style={styles.buildDetailsText}>{date}</Text>
-            <Text style={styles.buildDetailsText}>Run for {duration}</Text>
+            <Text style={styles.buildDetailsText}>{durationText}</Text>
           </View>
         </View>
 
