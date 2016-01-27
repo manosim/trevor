@@ -1,15 +1,14 @@
 import _ from 'underscore';
 import React from 'react-native';
-import RefreshableListView from 'react-native-refreshable-listview';
 var moment = require('moment');
 require('moment-duration-format');
 
 import Api from '../../Utils/Api';
+import Constants from '../../Utils/Constants';
+import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
 import Routes from '../Navigation/Routes';
 import StatusSidebar from '../StatusSidebar';
 import Loading from '../Loading';
-import LoadingPull from '../LoadingPull';
-import Constants from '../../Utils/Constants';
 
 var {
   StyleSheet,
@@ -17,6 +16,7 @@ var {
   View,
   ListView,
   Platform,
+  ScrollView,
   SegmentedControlIOS,
   TouchableHighlight
 } = React;
@@ -68,20 +68,26 @@ export default class BuildsScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({
-      loading: true
-    });
-
     this.fetchData();
   }
 
-  fetchData() {
+  fetchData(refresh) {
     var self = this;
+
+    if (refresh) {
+      this.setState({
+        refreshing: true
+      });
+    } else {
+      this.setState({
+        loading: true
+      });
+    }
+
 
     Api.getBuilds(this.props.slug, this.props.isPro)
       .then(function (res) {
         var builds = res.builds;
-
         _.map(builds, function (obj) {
           var commit = _.find(res.commits, function(commit){
             return obj.commit_id == commit.id;
@@ -89,11 +95,19 @@ export default class BuildsScreen extends React.Component {
           obj.commit = commit;
         });
 
-        self.setState({
-          loading: false,
-          builds: builds,
-          buildsSource: self.state.buildsSource.cloneWithRows(builds)
-        });
+        if (refresh) {
+          self.setState({
+            refreshing: false,
+            builds: builds,
+            buildsSource: self.state.buildsSource.cloneWithRows(builds)
+          });
+        } else {
+          self.setState({
+            loading: false,
+            builds: builds,
+            buildsSource: self.state.buildsSource.cloneWithRows(builds)
+          });
+        }
       });
   }
 
@@ -204,14 +218,20 @@ export default class BuildsScreen extends React.Component {
     }
 
     return (
-      <RefreshableListView
+      <ScrollView
         style={styles.container}
-        dataSource={this.state.buildsSource}
-        renderRow={this._renderBuildRow.bind(this)}
-        renderHeaderWrapper={this._renderHeader.bind(this)}
-        renderSeparator={this._renderSeparator}
-        loadData={this.fetchData}
-        refreshingIndictatorComponent={<LoadingPull />} />
+        refreshControl={
+          <CustomRefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.fetchData.bind(this, refresh = true)} />
+        }>
+        <ListView
+          contentContainerStyle={styles.listViewContainer}
+          dataSource={this.state.buildsSource}
+          renderHeader={this._renderHeader.bind(this)}
+          renderRow={this._renderBuildRow.bind(this)}
+          renderSeparator={this._renderSeparator} />
+      </ScrollView>
     );
   }
 };

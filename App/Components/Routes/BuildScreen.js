@@ -3,13 +3,6 @@ import Icon from 'react-native-vector-icons/Octicons';
 import moment from 'moment';
 require('moment-duration-format');
 
-import Api from '../../Utils/Api';
-import DetailRow from '../../Helpers/DetailRow';
-import Divider from '../../Helpers/Divider';
-import Loading from '../Loading';
-import JobsListView from '../JobsListView';
-import StatusSidebar from '../StatusSidebar';
-
 var {
   LinkingIOS,
   IntentAndroid,
@@ -19,6 +12,14 @@ var {
   Text,
   View
 } = React;
+
+import Api from '../../Utils/Api';
+import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
+import DetailRow from '../../Helpers/DetailRow';
+import Divider from '../../Helpers/Divider';
+import Loading from '../Loading';
+import JobsListView from '../JobsListView';
+import StatusSidebar from '../StatusSidebar';
 
 var styles = StyleSheet.create({
   container: {
@@ -58,6 +59,7 @@ export default class BuildScreen extends React.Component {
     super(props);
     this.state = {
       loading: false,
+      refreshing: false,
       build: {},
       commit: {},
       jobs: []
@@ -65,24 +67,40 @@ export default class BuildScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({
-      loading: true
-    });
-
-    this.fetchData();
+    this.fetchData(refresh = false);
   }
 
-  fetchData() {
+  fetchData(refresh) {
+    if (refresh) {
+      this.setState({
+        refreshing: true
+      });
+    } else {
+      this.setState({
+        loading: true
+      });
+    }
+
     var self = this;
 
     Api.getBuild(this.props.buildId, this.props.isPro)
       .then(function (res) {
-        self.setState({
-          loading: false,
-          build: res.build,
-          commit: res.commit,
-          jobs: res.jobs
-        });
+        console.log(res);
+        if (refresh) {
+          self.setState({
+            refreshing: false,
+            build: res.build,
+            commit: res.commit,
+            jobs: res.jobs
+          });
+        } else {
+          self.setState({
+            loading: false,
+            build: res.build,
+            commit: res.commit,
+            jobs: res.jobs
+          });
+        }
       });
   }
 
@@ -112,7 +130,14 @@ export default class BuildScreen extends React.Component {
       + this.state.build.pull_request_title : null;
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <CustomRefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.fetchData.bind(this, refresh = true)} />
+        }>
+
         <Divider text='Build Details'></Divider>
         <View style={styles.buildDetailsWrapper}>
           <StatusSidebar buildState={this.state.build.state} buildNumber={this.state.build.number} />
