@@ -144,7 +144,6 @@ export default {
   },
 
   getLogFromS3(url) {
-    console.log(url);
     return fetch(url)
       .then(function(res) {
         return res.text();
