@@ -7,8 +7,10 @@ import Loading from '../Loading';
 import RepoItem from '../RepoItem';
 
 var {
-  StyleSheet,
   ListView,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
   View
 } = React;
 
@@ -19,6 +21,7 @@ var styles = StyleSheet.create({
   },
   listViewContainer: {
     flex: 1,
+
   },
   separator: {
     height: 2,
@@ -77,6 +80,18 @@ export default class LatestProRepos extends React.Component {
     );
   }
 
+  _renderRefreshControl() {
+    return (
+      <RefreshControl
+        refreshing={this.state.loading}
+        onRefresh={this.fetchData.bind(this)}
+        tintColor="#ff0000"
+        title="Loading..."
+        colors={['#ff0000', '#00ff00', '#0000ff']}
+        progressBackgroundColor="#ffff00" />
+    );
+  }
+
   render() {
     if (this.state.loading) {
       return (
@@ -91,13 +106,24 @@ export default class LatestProRepos extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl
+              refreshing={this.state.loading}
+              onRefresh={this.fetchData.bind(this)}
+              tintColor="#ff0000"
+              title="Loading..."
+              colors={['#ff0000', '#00ff00', '#0000ff']}
+              progressBackgroundColor="#ffff00"
+            />
+        }>
         <ListView
           contentContainerStyle={styles.listViewContainer}
           dataSource={this.state.reposSource}
           renderRow={this._renderRow.bind(this)}
           renderSeparator={this._renderSeparator} />
-      </View>
+      </ScrollView>
     );
   }
 };
