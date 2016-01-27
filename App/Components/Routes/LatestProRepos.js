@@ -1,6 +1,8 @@
+import _ from 'underscore';
 import React from 'react-native';
 
 import Api from '../../Utils/Api';
+import EmptyResults from '../EmptyResults';
 import Loading from '../Loading';
 import RepoItem from '../RepoItem';
 
@@ -15,6 +17,9 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF'
   },
+  listViewContainer: {
+    flex: 1,
+  },
   separator: {
     height: 2,
     backgroundColor: '#e9e9e9'
@@ -26,11 +31,11 @@ export default class LatestProRepos extends React.Component {
   constructor(props) {
     super(props);
 
+    const ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
       loading: false,
-      reposSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }).cloneWithRows([])
+      repos: [],
+      reposSource: ds.cloneWithRows([])
     };
   }
 
@@ -39,7 +44,7 @@ export default class LatestProRepos extends React.Component {
   }
 
   fetchData() {
-    var self = this;
+    const self = this;
 
     this.setState({
       loading: true
@@ -47,15 +52,15 @@ export default class LatestProRepos extends React.Component {
 
     Api.getLatestPro()
       .then(function (res) {
-
         self.setState({
           loading: false,
+          repos: res.repos,
           reposSource: self.state.reposSource.cloneWithRows(res.repos)
         });
       });
   }
 
-  _renderBuildRow(rowData: string, sectionID: number, rowID: number) {
+  _renderRow(rowData: string, sectionID: number, rowID: number) {
     return (
       <RepoItem
         details={rowData}
@@ -79,12 +84,20 @@ export default class LatestProRepos extends React.Component {
       );
     }
 
+    if (_.isEmpty(this.state.repos)) {
+      return (
+        <EmptyResults />
+      );
+    }
+
     return (
-      <ListView
-        contentContainerStyle={styles.container}
-        dataSource={this.state.reposSource}
-        renderRow={this._renderBuildRow.bind(this)}
-        renderSeparator={this._renderSeparator} />
+      <View style={styles.container}>
+        <ListView
+          contentContainerStyle={styles.listViewContainer}
+          dataSource={this.state.reposSource}
+          renderRow={this._renderRow.bind(this)}
+          renderSeparator={this._renderSeparator} />
+      </View>
     );
   }
 };
