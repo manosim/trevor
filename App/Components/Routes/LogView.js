@@ -7,6 +7,9 @@ import Loading from '../Loading';
 import Constants from '../../Utils/Constants';
 
 var {
+  IntentAndroid,
+  LinkingIOS,
+  Platform,
   StyleSheet,
   TouchableHighlight,
   Text,
@@ -95,7 +98,7 @@ export default class JobDetails extends React.Component {
   }
 
   fetchData() {
-    var self = this;
+    const self = this;
 
     this.setState({
       loading: true
@@ -103,11 +106,37 @@ export default class JobDetails extends React.Component {
 
     Api.getLog(this.props.logId, this.props.isPro)
       .then(function (res) {
+        if (res.isArchived) {
+          return self.fetchArchivedLog(res.url);
+        } else {
+          self.setHtml.bind(self)(res);
+          self.setState({
+            loading: false,
+          });
+        }
+      });
+  }
+
+  fetchArchivedLog(url) {
+    const self = this;
+
+    Api.getLogFromS3(url)
+      .then(function (res) {
         self.setHtml.bind(self)(res);
         self.setState({
+          log_url: url,
           loading: false,
         });
       });
+  }
+
+  openInBrowser() {
+    const url = this.state.log_url;
+    if (Platform.OS === 'ios'){
+      LinkingIOS.openURL(url);
+    } else {
+      IntentAndroid.openURL(url);
+    }
   }
 
   render() {
@@ -122,17 +151,24 @@ export default class JobDetails extends React.Component {
         <View style={styles.toolbar}>
 
           <View style={styles.toolbarLeft}>
-            <TouchableHighlight style={styles.toolbarButton}>
+            <TouchableHighlight
+              style={styles.toolbarButton}
+              underlayColor={Constants.THEME_DARK_BLUE}
+              onPress={this.openInBrowser.bind(this)}>
               <Text style={styles.toolbarButtonText}>Open in Browser</Text>
             </TouchableHighlight>
           </View>
 
           <View style={styles.toolbarRight}>
-            <TouchableHighlight style={[styles.toolbarButton, styles.toolbarButtonRight]}>
+            <TouchableHighlight
+              style={[styles.toolbarButton, styles.toolbarButtonRight]}
+              underlayColor={Constants.THEME_DARK_BLUE}>
               <Icon style={styles.toolbarButtonIcon} name='chevron-up' />
             </TouchableHighlight>
 
-            <TouchableHighlight style={[styles.toolbarButton, styles.toolbarButtonRight]}>
+            <TouchableHighlight
+              style={[styles.toolbarButton, styles.toolbarButtonRight]}
+              underlayColor={Constants.THEME_DARK_BLUE}>
               <Icon style={styles.toolbarButtonIcon} name='chevron-down' />
             </TouchableHighlight>
           </View>
