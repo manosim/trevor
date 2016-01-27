@@ -7,25 +7,10 @@ var {
 } = React;
 
 export default class CustomRefreshControl extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      refreshing: props.refreshing
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      refreshing: nextProps.refreshing
-    });
-  }
-
   render() {
     return (
       <RefreshControl
-        refreshing={this.state.refreshing}
+        refreshing={this.props.refreshing}
         onRefresh={this.props.onRefresh}
         tintColor={Constants.THEME_DARK_BLUE}
         title="Loading..."

@@ -37,29 +37,38 @@ export default class LatestProRepos extends React.Component {
     const ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
       loading: false,
-      repos: [],
+      refreshing: false,
       reposSource: ds.cloneWithRows([])
     };
   }
 
   componentWillMount() {
-    this.fetchData();
+    this.fetchData(refresh = false);
   }
 
-  fetchData() {
+  fetchData(refresh) {
     const self = this;
 
-    this.setState({
-      loading: true
-    });
+    if (refresh) {
+      this.setState({ refreshing: true });
+    } else {
+      this.setState({ loading: true });
+    }
 
     Api.getLatestPro()
       .then(function (res) {
-        self.setState({
-          loading: false,
-          repos: res.repos,
-          reposSource: self.state.reposSource.cloneWithRows(res.repos)
-        });
+        const updateSource = self.state.reposSource.cloneWithRows(res.repos);
+        if (refresh) {
+          self.setState({
+            refreshing: false,
+            reposSource: updateSource
+          });
+        } else {
+          self.setState({
+            loading: false,
+            reposSource: updateSource
+          });
+        }
       });
   }
 
@@ -80,18 +89,6 @@ export default class LatestProRepos extends React.Component {
     );
   }
 
-  _renderRefreshControl() {
-    return (
-      <RefreshControl
-        refreshing={this.state.loading}
-        onRefresh={this.fetchData.bind(this)}
-        tintColor="#ff0000"
-        title="Loading..."
-        colors={['#ff0000', '#00ff00', '#0000ff']}
-        progressBackgroundColor="#ffff00" />
-    );
-  }
-
   render() {
     if (this.state.loading) {
       return (
@@ -99,7 +96,7 @@ export default class LatestProRepos extends React.Component {
       );
     }
 
-    if (_.isEmpty(this.state.repos)) {
+    if (_.isEmpty(this.state.reposSource)) {
       return (
         <EmptyResults />
       );
@@ -110,8 +107,8 @@ export default class LatestProRepos extends React.Component {
         style={styles.container}
         refreshControl={
           <CustomRefreshControl
-            refreshing={this.state.loading}
-            onRefresh={this.fetchData.bind(this)} />
+            refreshing={this.state.refreshing}
+            onRefresh={this.fetchData.bind(this, refresh = true)} />
         }>
         <ListView
           contentContainerStyle={styles.listViewContainer}
