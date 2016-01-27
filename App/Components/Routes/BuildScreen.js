@@ -85,7 +85,6 @@ export default class BuildScreen extends React.Component {
 
     Api.getBuild(this.props.buildId, this.props.isPro)
       .then(function (res) {
-        console.log(res);
         if (refresh) {
           self.setState({
             refreshing: false,
