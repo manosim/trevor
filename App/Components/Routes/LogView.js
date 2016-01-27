@@ -124,6 +124,7 @@ export default class JobDetails extends React.Component {
       .then(function (res) {
         self.setHtml.bind(self)(res);
         self.setState({
+          isArchived: true,
           log_url: url,
           loading: false,
         });
