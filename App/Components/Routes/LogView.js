@@ -161,17 +161,13 @@ export default class JobDetails extends React.Component {
           </View>
 
           <View style={styles.toolbarRight}>
-            <TouchableHighlight
-              style={[styles.toolbarButton, styles.toolbarButtonRight]}
-              underlayColor={Constants.THEME_DARK_BLUE}>
-              <Icon style={styles.toolbarButtonIcon} name='chevron-up' />
-            </TouchableHighlight>
-
-            <TouchableHighlight
-              style={[styles.toolbarButton, styles.toolbarButtonRight]}
-              underlayColor={Constants.THEME_DARK_BLUE}>
-              <Icon style={styles.toolbarButtonIcon} name='chevron-down' />
-            </TouchableHighlight>
+            {this.state.isArchived ? <View /> : (
+              <TouchableHighlight
+                style={[styles.toolbarButton, styles.toolbarButtonRight]}
+                underlayColor={Constants.THEME_DARK_BLUE}
+                onPress={this.fetchData.bind(this)}>
+                <Icon style={styles.toolbarButtonIcon} name='sync' />
+              </TouchableHighlight> )}
           </View>
 
         </View>
