@@ -5,6 +5,7 @@ import LatestProRepos from '../Routes/LatestProRepos';
 import LogView from '../Routes/LogView';
 import OAuthView from '../Routes/OAuthView';
 import ReposScreen from '../Routes/ReposScreen';
+import SearchPublic from '../Routes/SearchPublic';
 
 export default {
 
@@ -21,6 +22,15 @@ export default {
       id: 'oauth-view',
       title: 'Authentication',
       component: OAuthView,
+      passProps: props
+    };
+  },
+
+  SearchPublic(props) {
+    return {
+      id: 'search-public-view',
+      title: 'Travis for Open Source',
+      component: SearchPublic,
       passProps: props
     };
   },

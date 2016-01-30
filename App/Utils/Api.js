@@ -79,6 +79,24 @@ export default {
       });
   },
 
+  searchPublicRepos(keywords) {
+    var url = this.getApiUrl(false) + `/repos?orderBy=name&active=true`;
+    url = keywords ? url + `/&search=${keywords}` : url;
+
+    return fetch(url, {
+      headers: {
+        'Accept': 'Accept: application/vnd.travis-ci.2+json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(function(res) {
+        return res.json();
+      })
+      .catch((error) => {
+        console.warn('Request Failed: ', error);
+      });
+  },
+
   getBuilds(slug, isPro) {
     var url = this.getApiUrl(isPro) + `/repos/${slug}/builds`;
     var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;

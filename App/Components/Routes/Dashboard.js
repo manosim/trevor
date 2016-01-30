@@ -2,14 +2,14 @@ import React from 'react-native';
 
 var {
   StyleSheet,
-  Text,
   View,
-  ScrollView,
-  TouchableHighlight
+  ScrollView
 } = React;
 
 import AuthStore from '../../Stores/Auth';
+import BarButton from '../../Helpers/BarButton';
 import Routes from '../Navigation/Routes';
+import LoginButton from '../../Helpers/LoginButton';
 import AccountsList from '../AccountsList';
 import Constants from '../../Utils/Constants';
 
@@ -17,38 +17,6 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
-  },
-  descriptionWrapper: {
-    backgroundColor: Constants.THEME_DARK_BLUE,
-    paddingHorizontal: 20,
-    paddingVertical: 15
-  },
-  description: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    textAlign: 'center'
-  },
-  loginButton: {
-    height: 40,
-    justifyContent: 'center',
-    backgroundColor: Constants.THEME_BLUE,
-    margin: 10,
-  },
-  loginButtonText: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    color: 'white',
-    textAlign: 'center'
-  },
-  footerButton: {
-    backgroundColor: Constants.THEME_DARK_BLUE,
-    height: 45,
-    justifyContent: 'center'
-  },
-  footerButtonText: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    textAlign: 'center'
   }
 });
 
@@ -111,6 +79,11 @@ export default class Dashboard extends React.Component {
     this.props.navigator.push(route);
   }
 
+  goToSearch() {
+    const route = Routes.SearchPublic();
+    this.props.navigator.push(route);
+  }
+
   goToLatestPro() {
     const route = Routes.LatestPro();
     this.props.navigator.push(route);
@@ -119,40 +92,25 @@ export default class Dashboard extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <ScrollView style={styles.container}>
-          <View style={styles.descriptionWrapper}>
-            <Text style={styles.description}>
-              Access Travis CI, simply everywhere
-            </Text>
-          </View>
+        <BarButton
+          icon='search'
+          text='Search Travis for Open Source'
+          onPress={this.goToSearch.bind(this)} />
 
+        <ScrollView style={styles.container}>
           {!this.state.isLoggedIn.os ? (
-            <TouchableHighlight
-              style={styles.loginButton}
-              underlayColor={Constants.THEME_DARK_BLUE}
-              onPress={this._doLoginOs.bind(this)}>
-              <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
-            </TouchableHighlight>
+            <LoginButton text='Login to Travis for Open Source' onPress={this._doLoginOs.bind(this)} />
           ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
 
           {!this.state.isLoggedIn.pro ? (
-            <TouchableHighlight
-              style={styles.loginButton}
-              underlayColor={Constants.THEME_DARK_BLUE}
-              onPress={this._doLoginPro.bind(this)}>
-              <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
-            </TouchableHighlight>
+            <LoginButton text='Login to Travis Pro' onPress={this._doLoginPro.bind(this)} />
           ) : <AccountsList navigator={this.props.navigator} isPro={true} />}
-
         </ScrollView>
 
         {this.state.isLoggedIn.pro ? (
-          <TouchableHighlight
-            style={styles.footerButton}
-            underlayColor='#A53230'
-            onPress={this.goToLatestPro.bind(this)}>
-              <Text style={styles.footerButtonText}>Latest Builds for Travis Pro</Text>
-          </TouchableHighlight>
+          <BarButton
+            text='Latest Builds for Travis Pro'
+            onPress={this.goToLatestPro.bind(this)} />
         ) : <View /> }
       </View>
     );
