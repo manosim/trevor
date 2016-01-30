@@ -14,6 +14,7 @@ var {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: Constants.THEME_DARK_BLUE,
     padding: (Platform.OS === 'ios' ? 15 : 10),
     justifyContent: 'center',
@@ -30,11 +31,18 @@ var styles = StyleSheet.create({
     paddingHorizontal: 5
   },
   submitButton: {
-    width: 50,
-    borderColor: '#FFFFFF',
+    width: 80,
+    height: (Platform.OS === 'ios' ? 30 : 35),
+    marginLeft: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Constants.THEME_COLOR,
     borderWidth: 0.5,
     borderRadius: 5,
     paddingHorizontal: 5
+  },
+  buttonText: {
+    color: '#FFF'
   }
 });
 
@@ -87,7 +95,7 @@ export default class SearchBar extends React.Component {
             style={styles.submitButton}
             underlayColor='#A53230'
             onPress={this.doSearch.bind(this)}>
-            <Text>Search</Text>
+            <Text style={styles.buttonText}>Search</Text>
           </TouchableHighlight>
         ) : <View /> }
       </View>

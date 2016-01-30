@@ -79,8 +79,9 @@ export default {
       });
   },
 
-  searchPublicRepos(keywords='') {
-    var url = this.getApiUrl(false) + `/repos?orderBy=name&active=true&search=${keywords}`;
+  searchPublicRepos(keywords) {
+    var url = this.getApiUrl(false) + `/repos?orderBy=name&active=true`;
+    url = keywords ? url + `/&search=${keywords}` : url;
 
     return fetch(url, {
       headers: {

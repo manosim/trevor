@@ -10,7 +10,6 @@ var {
 
 import Api from '../../Utils/Api';
 import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
-import EmptyResults from '../EmptyResults';
 import Loading from '../Loading';
 import RepoItem from '../RepoItem';
 import SearchBar from '../SearchBar';
