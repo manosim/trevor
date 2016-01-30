@@ -1,5 +1,4 @@
 import React from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 var {
   StyleSheet,
@@ -10,6 +9,7 @@ var {
 } = React;
 
 import AuthStore from '../../Stores/Auth';
+import BarButton from '../../Helpers/BarButton';
 import Routes from '../Navigation/Routes';
 import AccountsList from '../AccountsList';
 import Constants from '../../Utils/Constants';
@@ -29,23 +29,6 @@ var styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     color: 'white',
-    textAlign: 'center'
-  },
-  barButton: {
-    flexDirection: 'row',
-    backgroundColor: Constants.THEME_DARK_BLUE,
-    height: 45,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  barButtonIcon: {
-    fontSize: 16,
-    marginRight: 10,
-    color: '#FFF'
-  },
-  barButtonText: {
-    fontSize: 16,
-    color: '#FFFFFF',
     textAlign: 'center'
   }
 });
@@ -122,16 +105,12 @@ export default class Dashboard extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <ScrollView style={styles.container}>
-          <TouchableHighlight
-            underlayColor='#A53230'
-            onPress={this.goToSearch.bind(this)}>
-              <View style={styles.barButton}>
-                <Icon style={styles.barButtonIcon} name="search" />
-                <Text style={styles.barButtonText}>Search Travis for Open Source</Text>
-              </View>
-          </TouchableHighlight>
+        <BarButton
+          icon='search'
+          text='Search Travis for Open Source'
+          onPress={this.goToSearch.bind(this)} />
 
+        <ScrollView style={styles.container}>
           {!this.state.isLoggedIn.os ? (
             <TouchableHighlight
               style={styles.loginButton}
@@ -149,16 +128,12 @@ export default class Dashboard extends React.Component {
               <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
             </TouchableHighlight>
           ) : <AccountsList navigator={this.props.navigator} isPro={true} />}
-
         </ScrollView>
 
         {this.state.isLoggedIn.pro ? (
-          <TouchableHighlight
-            style={styles.barButton}
-            underlayColor='#A53230'
-            onPress={this.goToLatestPro.bind(this)}>
-              <Text style={styles.barButtonText}>Latest Builds for Travis Pro</Text>
-          </TouchableHighlight>
+          <BarButton
+            text='Latest Builds for Travis Pro'
+            onPress={this.goToLatestPro.bind(this)} />
         ) : <View /> }
       </View>
     );
