@@ -32,14 +32,13 @@ var styles = StyleSheet.create({
   },
   submitButton: {
     width: 80,
-    height: (Platform.OS === 'ios' ? 30 : 35),
+    paddingVertical: 6,
     marginLeft: 15,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Constants.THEME_COLOR,
     borderWidth: 0.5,
     borderRadius: 5,
-    paddingHorizontal: 5
   },
   buttonText: {
     color: '#FFF'

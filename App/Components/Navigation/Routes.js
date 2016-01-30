@@ -29,7 +29,7 @@ export default {
   SearchPublic(props) {
     return {
       id: 'search-public-view',
-      title: 'Search Travis for Open Source',
+      title: 'Travis for Open Source',
       component: SearchPublic,
       passProps: props
     };

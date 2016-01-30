@@ -120,7 +120,7 @@ export default class ReposScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Loading text='Repositories' />
+        <Loading text='Results' />
       );
     }
 

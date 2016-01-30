@@ -1,4 +1,5 @@
 import React from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 var {
   StyleSheet,
@@ -31,11 +32,18 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   },
   barButton: {
+    flexDirection: 'row',
     backgroundColor: Constants.THEME_DARK_BLUE,
     height: 45,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  footerButtonText: {
+  barButtonIcon: {
+    fontSize: 16,
+    marginRight: 10,
+    color: '#FFF'
+  },
+  barButtonText: {
     fontSize: 16,
     color: '#FFFFFF',
     textAlign: 'center'
@@ -116,10 +124,12 @@ export default class Dashboard extends React.Component {
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
           <TouchableHighlight
-            style={styles.barButton}
             underlayColor='#A53230'
             onPress={this.goToSearch.bind(this)}>
-              <Text style={styles.footerButtonText}>Search Travis for Open Source</Text>
+              <View style={styles.barButton}>
+                <Icon style={styles.barButtonIcon} name="search" />
+                <Text style={styles.barButtonText}>Search Travis for Open Source</Text>
+              </View>
           </TouchableHighlight>
 
           {!this.state.isLoggedIn.os ? (
@@ -147,7 +157,7 @@ export default class Dashboard extends React.Component {
             style={styles.barButton}
             underlayColor='#A53230'
             onPress={this.goToLatestPro.bind(this)}>
-              <Text style={styles.footerButtonText}>Latest Builds for Travis Pro</Text>
+              <Text style={styles.barButtonText}>Latest Builds for Travis Pro</Text>
           </TouchableHighlight>
         ) : <View /> }
       </View>
