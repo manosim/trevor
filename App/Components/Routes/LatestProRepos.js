@@ -1,12 +1,16 @@
+import _ from 'underscore';
 import React from 'react-native';
 
 import Api from '../../Utils/Api';
+import EmptyResults from '../EmptyResults';
 import Loading from '../Loading';
 import RepoItem from '../RepoItem';
+import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
 
 var {
-  StyleSheet,
   ListView,
+  ScrollView,
+  StyleSheet,
   View
 } = React;
 
@@ -14,6 +18,10 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF'
+  },
+  listViewContainer: {
+    flex: 1,
+
   },
   separator: {
     height: 2,
@@ -26,36 +34,45 @@ export default class LatestProRepos extends React.Component {
   constructor(props) {
     super(props);
 
+    const ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
       loading: false,
-      reposSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }).cloneWithRows([])
+      refreshing: false,
+      reposSource: ds.cloneWithRows([])
     };
   }
 
   componentWillMount() {
-    this.fetchData();
+    this.fetchData(refresh = false);
   }
 
-  fetchData() {
-    var self = this;
+  fetchData(refresh) {
+    const self = this;
 
-    this.setState({
-      loading: true
-    });
+    if (refresh) {
+      this.setState({ refreshing: true });
+    } else {
+      this.setState({ loading: true });
+    }
 
     Api.getLatestPro()
       .then(function (res) {
-
-        self.setState({
-          loading: false,
-          reposSource: self.state.reposSource.cloneWithRows(res.repos)
-        });
+        const updateSource = self.state.reposSource.cloneWithRows(res.repos);
+        if (refresh) {
+          self.setState({
+            refreshing: false,
+            reposSource: updateSource
+          });
+        } else {
+          self.setState({
+            loading: false,
+            reposSource: updateSource
+          });
+        }
       });
   }
 
-  _renderBuildRow(rowData: string, sectionID: number, rowID: number) {
+  _renderRow(rowData: string, sectionID: number, rowID: number) {
     return (
       <RepoItem
         details={rowData}
@@ -79,12 +96,26 @@ export default class LatestProRepos extends React.Component {
       );
     }
 
+    if (_.isEmpty(this.state.reposSource)) {
+      return (
+        <EmptyResults />
+      );
+    }
+
     return (
-      <ListView
-        contentContainerStyle={styles.container}
-        dataSource={this.state.reposSource}
-        renderRow={this._renderBuildRow.bind(this)}
-        renderSeparator={this._renderSeparator} />
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <CustomRefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.fetchData.bind(this, refresh = true)} />
+        }>
+        <ListView
+          contentContainerStyle={styles.listViewContainer}
+          dataSource={this.state.reposSource}
+          renderRow={this._renderRow.bind(this)}
+          renderSeparator={this._renderSeparator} />
+      </ScrollView>
     );
   }
 };

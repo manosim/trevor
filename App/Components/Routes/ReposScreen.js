@@ -1,17 +1,17 @@
 import _ from 'underscore';
 import React from 'react-native';
-var RefreshableListView = require('react-native-refreshable-listview');
 
 var {
+  ListView,
+  ScrollView,
   StyleSheet,
-  View,
-  ListView
+  View
 } = React;
 
 import Api from '../../Utils/Api';
+import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
 import EmptyResults from '../EmptyResults';
 import Loading from '../Loading';
-import LoadingPull from '../LoadingPull';
 import RepoItem from '../RepoItem';
 import SearchBar from '../SearchBar';
 
@@ -34,6 +34,7 @@ export default class ReposScreen extends React.Component {
     this.state = {
       clearSearch: false,
       loading: false,
+      refreshing: false,
       repos: [],
       reposSource: ds.cloneWithRows([])
     };
@@ -45,13 +46,21 @@ export default class ReposScreen extends React.Component {
       loading: true
     });
 
-    this.fetchData();
+    this.fetchData(refresh = false);
   }
 
-  fetchData() {
-    this.setState({
-      clearSearch: true,
-    });
+  fetchData(refresh) {
+    if (refresh) {
+      this.setState({
+        clearSearch: true,
+        refreshing: true
+      });
+    } else {
+      this.setState({
+        clearSearch: true,
+        loading: true
+      });
+    }
 
     const self = this;
     Api.getRepos(this.props.username, this.props.isPro)
@@ -62,12 +71,19 @@ export default class ReposScreen extends React.Component {
         repos = _.sortBy(repos, 'last_build_finished_at');
         repos.reverse();
 
-        self.setState({
-          clearSearch: false,
-          loading: false,
-          repos: repos,
-          reposSource: self.state.reposSource.cloneWithRows(repos)
-        });
+        if (refresh) {
+          self.setState({
+            refreshing: false,
+            repos: repos,
+            reposSource: self.state.reposSource.cloneWithRows(repos)
+          });
+        } else {
+          self.setState({
+            loading: false,
+            repos: repos,
+            reposSource: self.state.reposSource.cloneWithRows(repos)
+          });
+        }
       });
   }
 
@@ -121,15 +137,20 @@ export default class ReposScreen extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
-        <RefreshableListView
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <CustomRefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.fetchData.bind(this, refresh = true)} />
+        }>
+        <ListView
+          contentContainerStyle={styles.listViewContainer}
           dataSource={this.state.reposSource}
-          renderHeaderWrapper={this._renderHeader.bind(this)}
+          renderHeader={this._renderHeader.bind(this)}
           renderRow={this._renderBuildRow.bind(this)}
-          renderSeparator={this._renderSeparator}
-          loadData={this.fetchData}
-          refreshingIndictatorComponent={<LoadingPull />} />
-      </View>
+          renderSeparator={this._renderSeparator} />
+      </ScrollView>
     );
   }
 };

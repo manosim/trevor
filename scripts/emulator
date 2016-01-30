@@ -5,8 +5,8 @@ function run-android {
   echo "Starting Emulator - Android"
   echo "$"
   if [ -z "$1" ]; then
-    echo "No emulator name passed. Using default: Nexus_4."
-    emulator -avd Nexus_4
+    echo "No emulator name passed. Using default: Android_6.0."
+    emulator -avd Android_6.0
   else
     echo "Running Android Emulator with name $1"
     emulator -avd $1

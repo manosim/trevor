@@ -51,6 +51,12 @@ export default class JobsListView extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      jobs: this.state.jobsSource.cloneWithRows(nextProps.jobs)
+    });
+  }
+
   _pressRow(job) {
     const route = Routes.Log({
       isPro: this.props.isPro,

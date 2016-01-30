@@ -1,16 +1,59 @@
 import React from 'react-native';
 import AnsiUp from 'ansi_up';
+import Icon from 'react-native-vector-icons/Octicons';
 
 import Api from '../../Utils/Api';
 import Loading from '../Loading';
+import Constants from '../../Utils/Constants';
 
 var {
+  IntentAndroid,
+  LinkingIOS,
+  Platform,
   StyleSheet,
-  WebView
+  TouchableHighlight,
+  Text,
+  WebView,
+  View
 } = React;
 
 var styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  toolbar: {
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: Constants.THEME_DARK_BLUE,
+    paddingHorizontal: 10,
+    alignItems: 'center'
+  },
+  toolbarLeft: {
+    flex: 0.5
+  },
+  toolbarRight: {
+    flex: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  toolbarButton: {
+    paddingVertical: 10,
+    alignItems: 'center'
+  },
+  toolbarButtonRight: {
+    paddingHorizontal: 10,
+    marginHorizontal: 2
+  },
+  toolbarButtonText: {
+    color: '#FFF',
+    fontSize: 18
+  },
+  toolbarButtonIcon: {
+    color: '#FFF',
+    fontSize: 22
+
+  },
+  webView: {
     flex: 1,
     backgroundColor: '#343434'
   }
@@ -55,7 +98,7 @@ export default class JobDetails extends React.Component {
   }
 
   fetchData() {
-    var self = this;
+    const self = this;
 
     this.setState({
       loading: true
@@ -63,11 +106,38 @@ export default class JobDetails extends React.Component {
 
     Api.getLog(this.props.logId, this.props.isPro)
       .then(function (res) {
+        if (res.isArchived) {
+          return self.fetchArchivedLog(res.url);
+        } else {
+          self.setHtml.bind(self)(res.log.body);
+          self.setState({
+            loading: false,
+          });
+        }
+      });
+  }
+
+  fetchArchivedLog(url) {
+    const self = this;
+
+    Api.getLogFromS3(url)
+      .then(function (res) {
         self.setHtml.bind(self)(res);
         self.setState({
+          isArchived: true,
+          log_url: url,
           loading: false,
         });
       });
+  }
+
+  openInBrowser() {
+    const url = this.state.log_url;
+    if (Platform.OS === 'ios'){
+      LinkingIOS.openURL(url);
+    } else {
+      IntentAndroid.openURL(url);
+    }
   }
 
   render() {
@@ -78,10 +148,34 @@ export default class JobDetails extends React.Component {
     }
 
     return (
-      <WebView
-        style={styles.container}
-        html={this.state.html}
-        javaScriptEnabled={true} />
+      <View style={styles.container}>
+        <View style={styles.toolbar}>
+
+          <View style={styles.toolbarLeft}>
+            <TouchableHighlight
+              style={styles.toolbarButton}
+              underlayColor={Constants.THEME_DARK_BLUE}
+              onPress={this.openInBrowser.bind(this)}>
+              <Text style={styles.toolbarButtonText}>Open in Browser</Text>
+            </TouchableHighlight>
+          </View>
+
+          <View style={styles.toolbarRight}>
+            {this.state.isArchived ? <View /> : (
+              <TouchableHighlight
+                style={[styles.toolbarButton, styles.toolbarButtonRight]}
+                underlayColor={Constants.THEME_DARK_BLUE}
+                onPress={this.fetchData.bind(this)}>
+                <Icon style={styles.toolbarButtonIcon} name='sync' />
+              </TouchableHighlight> )}
+          </View>
+
+        </View>
+        <WebView
+          style={styles.webView}
+          html={this.state.html}
+          javaScriptEnabled={true} />
+      </View>
     );
   }
 };

@@ -118,7 +118,6 @@ export default {
   },
 
   getLog(jobId, isPro) {
-    const self = this;
     const url = this.getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`;
     const token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
 
@@ -132,7 +131,10 @@ export default {
       .then(function(res) {
         if (res.status == 204) {
           const logUrl = res.headers.get('location');
-          return self.getLogFromS3(logUrl);
+          return {
+            url: logUrl,
+            isArchived: true
+          };
         }
         return res.json();
       })
