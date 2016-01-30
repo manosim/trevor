@@ -18,16 +18,6 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
-  descriptionWrapper: {
-    backgroundColor: Constants.THEME_DARK_BLUE,
-    paddingHorizontal: 20,
-    paddingVertical: 15
-  },
-  description: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    textAlign: 'center'
-  },
   loginButton: {
     height: 40,
     justifyContent: 'center',
@@ -40,7 +30,7 @@ var styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center'
   },
-  footerButton: {
+  barButton: {
     backgroundColor: Constants.THEME_DARK_BLUE,
     height: 45,
     justifyContent: 'center'
@@ -111,6 +101,11 @@ export default class Dashboard extends React.Component {
     this.props.navigator.push(route);
   }
 
+  goToSearch() {
+    const route = Routes.SearchPublic();
+    this.props.navigator.push(route);
+  }
+
   goToLatestPro() {
     const route = Routes.LatestPro();
     this.props.navigator.push(route);
@@ -120,11 +115,12 @@ export default class Dashboard extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
-          <View style={styles.descriptionWrapper}>
-            <Text style={styles.description}>
-              Access Travis CI, simply everywhere
-            </Text>
-          </View>
+          <TouchableHighlight
+            style={styles.barButton}
+            underlayColor='#A53230'
+            onPress={this.goToSearch.bind(this)}>
+              <Text style={styles.footerButtonText}>Search Travis for Open Source</Text>
+          </TouchableHighlight>
 
           {!this.state.isLoggedIn.os ? (
             <TouchableHighlight
@@ -148,7 +144,7 @@ export default class Dashboard extends React.Component {
 
         {this.state.isLoggedIn.pro ? (
           <TouchableHighlight
-            style={styles.footerButton}
+            style={styles.barButton}
             underlayColor='#A53230'
             onPress={this.goToLatestPro.bind(this)}>
               <Text style={styles.footerButtonText}>Latest Builds for Travis Pro</Text>
