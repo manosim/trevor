@@ -2,15 +2,14 @@ import React from 'react-native';
 
 var {
   StyleSheet,
-  Text,
   View,
-  ScrollView,
-  TouchableHighlight
+  ScrollView
 } = React;
 
 import AuthStore from '../../Stores/Auth';
 import BarButton from '../../Helpers/BarButton';
 import Routes from '../Navigation/Routes';
+import LoginButton from '../../Helpers/LoginButton';
 import AccountsList from '../AccountsList';
 import Constants from '../../Utils/Constants';
 
@@ -18,18 +17,6 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
-  },
-  loginButton: {
-    height: 40,
-    justifyContent: 'center',
-    backgroundColor: Constants.THEME_BLUE,
-    margin: 10,
-  },
-  loginButtonText: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    color: 'white',
-    textAlign: 'center'
   }
 });
 
@@ -112,21 +99,11 @@ export default class Dashboard extends React.Component {
 
         <ScrollView style={styles.container}>
           {!this.state.isLoggedIn.os ? (
-            <TouchableHighlight
-              style={styles.loginButton}
-              underlayColor={Constants.THEME_DARK_BLUE}
-              onPress={this._doLoginOs.bind(this)}>
-              <Text style={styles.loginButtonText}>Login to Travis for Open Source</Text>
-            </TouchableHighlight>
+            <LoginButton text='Login to Travis for Open Source' onPress={this._doLoginOs.bind(this)} />
           ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
 
           {!this.state.isLoggedIn.pro ? (
-            <TouchableHighlight
-              style={styles.loginButton}
-              underlayColor={Constants.THEME_DARK_BLUE}
-              onPress={this._doLoginPro.bind(this)}>
-              <Text style={styles.loginButtonText}>Login to Travis Pro</Text>
-            </TouchableHighlight>
+            <LoginButton text='Login to Travis Pro' onPress={this._doLoginPro.bind(this)} />
           ) : <AccountsList navigator={this.props.navigator} isPro={true} />}
         </ScrollView>
 
