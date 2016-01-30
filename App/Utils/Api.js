@@ -79,7 +79,7 @@ export default {
       });
   },
 
-  searchPublicRepos(keywords) {
+  searchPublicRepos(keywords='') {
     var url = this.getApiUrl(false) + `/repos?orderBy=name&active=true&search=${keywords}`;
 
     return fetch(url, {

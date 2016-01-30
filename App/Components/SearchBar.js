@@ -5,7 +5,9 @@ import Constants from '../Utils/Constants';
 var {
   Platform,
   StyleSheet,
+  Text,
   TextInput,
+  TouchableHighlight,
   View
 } = React;
 
@@ -18,9 +20,17 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   inputText: {
+    flex: 1,
     height: (Platform.OS === 'ios' ? 30 : 35),
     fontSize: 14,
     color: '#FFFFFF',
+    borderColor: '#FFFFFF',
+    borderWidth: 0.5,
+    borderRadius: 5,
+    paddingHorizontal: 5
+  },
+  submitButton: {
+    width: 50,
     borderColor: '#FFFFFF',
     borderWidth: 0.5,
     borderRadius: 5,
@@ -46,11 +56,17 @@ export default class SearchBar extends React.Component {
   }
 
   changeText(text) {
-    this.props.search(text);
+    if (!this.props.hasSubmit) {
+      this.props.search(text);
+    }
 
     this.setState({
       text: text
     });
+  }
+
+  doSearch() {
+    this.props.search(this.state.text);
   }
 
   render() {
@@ -66,6 +82,14 @@ export default class SearchBar extends React.Component {
           placeholderTextColor='#b0b0b0'
           clearButtonMode='always'
           returnKeyType='search' />
+        {this.props.hasSubmit ? (
+          <TouchableHighlight
+            style={styles.submitButton}
+            underlayColor='#A53230'
+            onPress={this.doSearch.bind(this)}>
+            <Text>Search</Text>
+          </TouchableHighlight>
+        ) : <View /> }
       </View>
     );
   }

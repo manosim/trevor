@@ -102,7 +102,10 @@ export default class ReposScreen extends React.Component {
     );
   }
 
-  searchRepos() {
+  searchRepos(keywords) {
+    this.setState({
+      keywords: keywords
+    });
     this.fetchData(refresh = false);
   }
 
@@ -110,7 +113,7 @@ export default class ReposScreen extends React.Component {
     return (
       <View>
         {refreshingIndicator}
-        <SearchBar search={this.searchRepos.bind(this)} clear={this.state.clearSearch} />
+        <SearchBar hasSubmit search={this.searchRepos.bind(this)} clear={this.state.clearSearch} />
       </View>
     );
   }
