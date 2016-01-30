@@ -1,25 +1,35 @@
 import React from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Constants from '../Utils/Constants';
 
 var {
   StyleSheet,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  View
 } = React;
 
 var styles = StyleSheet.create({
-  loginButton: {
-    height: 40,
-    justifyContent: 'center',
-    backgroundColor: Constants.THEME_BLUE,
+  buttonWrapper: {
+    flexDirection: 'row',
+    paddingVertical: 10,
     margin: 10,
+    backgroundColor: Constants.THEME_BLUE,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5
   },
   loginButtonText: {
     fontSize: 16,
     paddingHorizontal: 10,
     color: 'white',
     textAlign: 'center'
+  },
+  buttonIcon: {
+    fontSize: 16,
+    marginRight: 5,
+    color: '#FFF'
   }
 });
 
@@ -27,10 +37,12 @@ export default class LoginButton extends React.Component {
   render() {
     return (
       <TouchableHighlight
-        style={styles.loginButton}
         underlayColor={Constants.THEME_DARK_BLUE}
         onPress={this.props.onPress}>
-        <Text style={styles.loginButtonText}>{this.props.text}</Text>
+        <View style={styles.buttonWrapper}>
+          <Icon style={styles.buttonIcon} name='github' />
+          <Text style={styles.loginButtonText}>{this.props.text}</Text>
+        </View>
       </TouchableHighlight>
     );
   }

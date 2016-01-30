@@ -12,7 +12,7 @@ var {
 
 
 var styles = StyleSheet.create({
-  barButton: {
+  buttonWrapper: {
     flexDirection: 'row',
     backgroundColor: Constants.THEME_DARK_BLUE,
     height: 45,
@@ -37,7 +37,7 @@ export default class BarButton extends React.Component {
       <TouchableHighlight
         underlayColor='#A53230'
         onPress={this.props.onPress}>
-        <View style={styles.barButton}>
+        <View style={styles.buttonWrapper}>
           {this.props.icon ? (
             <Icon style={styles.barButtonIcon} name={this.props.icon} />
           ) : <View />}
