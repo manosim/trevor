@@ -1,7 +1,5 @@
 package com.trevor;
 
-import com.oblador.vectoricons.VectorIconsPackage;
-
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -36,7 +34,7 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-        new MainReactPackage(),
-        new VectorIconsPackage());
+        new MainReactPackage()
+      );
     }
 }
