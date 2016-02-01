@@ -1,13 +1,30 @@
 package com.trevor;
 
+import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.trevor.CustomInterceptor;
+// import com.trevor.CustomHttpProvider;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends ReactActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+
+      OkHttpClient client = new OkHttpClient();
+      client.networkInterceptors().add(new CustomInterceptor());
+      // httpBuilder.addNetworkInterceptor(new CustomInterceptor());
+      // addNetworkInterceptor
+
+    };
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -37,4 +54,5 @@ public class MainActivity extends ReactActivity {
         new MainReactPackage()
       );
     }
+
 }
