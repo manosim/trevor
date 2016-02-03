@@ -36,7 +36,6 @@ export default {
         'Content-Type': 'application/json'
       }
     }).then(function (res) {
-      console.log(res);
       return res.json();
     }).catch(function(error) {
       console.warn('Request Failed: ', error);
