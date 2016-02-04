@@ -36,3 +36,5 @@ npm-debug.log
 android/app/app.iml
 
 android/Trevor.iml
+
+android/app/trevor-release-key.keystore

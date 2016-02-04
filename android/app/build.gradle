@@ -88,6 +88,14 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+      release {
+          storeFile file("../app/trevor-release-key.keystore")
+          storePassword "*********"
+          keyAlias "alias_name"
+          keyPassword "*********"
+      }
+    }
     splits {
         abi {
             enable enableSeparateBuildPerCPUArchitecture
@@ -100,6 +108,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
