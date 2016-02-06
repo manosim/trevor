@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function release-android {
+  echo ""
+  echo "Release - Android"
+  echo ""
+
+  cd android
+  ./gradlew assembleRelease
+  cd ..
+}
+
+
+function release-ios {
+  echo ""
+  echo "Release - iOS"
+  echo ""
+
+  echo "User Xcode to generate the release."
+}
+
+
+if [ "$1" == "android" ]; then
+  release-android
+elif [ "$1" == "ios" ]; then
+  release-ios
+else
+  echo "Releasing for both platforms."
+  release-ios
+  release-android
+fi

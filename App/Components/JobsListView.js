@@ -35,7 +35,6 @@ var styles = StyleSheet.create({
   },
   iconCaret: {
     fontSize: 24,
-    fontWeight: 'bold',
     color: '#757575'
   }
 });
