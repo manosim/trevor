@@ -43,7 +43,7 @@ export default class LatestProRepos extends React.Component {
   }
 
   componentWillMount() {
-    this.fetchData(refresh = false);
+    this.fetchData(false);
   }
 
   fetchData(refresh) {
@@ -92,7 +92,7 @@ export default class LatestProRepos extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Loading text='Latest' />
+        <Loading text="Latest" />
       );
     }
 
@@ -108,7 +108,7 @@ export default class LatestProRepos extends React.Component {
         refreshControl={
           <CustomRefreshControl
             refreshing={this.state.refreshing}
-            onRefresh={this.fetchData.bind(this, refresh = true)} />
+            onRefresh={this.fetchData.bind(this, true)} />
         }>
         <ListView
           contentContainerStyle={styles.listViewContainer}

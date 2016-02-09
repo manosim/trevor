@@ -70,7 +70,7 @@ export default class BuildScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.fetchData(refresh = false);
+    this.fetchData(false);
   }
 
   fetchData(refresh) {
@@ -118,7 +118,7 @@ export default class BuildScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Loading text='Build' />
+        <Loading text="Build" />
       );
     }
 
@@ -139,10 +139,10 @@ export default class BuildScreen extends React.Component {
         refreshControl={
           <CustomRefreshControl
             refreshing={this.state.refreshing}
-            onRefresh={this.fetchData.bind(this, refresh = true)} />
+            onRefresh={this.fetchData.bind(this, true)} />
         }>
 
-        <Divider text='Build Details'></Divider>
+        <Divider text="Build Details"></Divider>
         <View style={styles.buildDetailsWrapper}>
           <StatusSidebar buildState={this.state.build.state} buildNumber={this.state.build.number} />
           <View style={styles.buildDetails}>
@@ -154,25 +154,25 @@ export default class BuildScreen extends React.Component {
           </View>
         </View>
 
-        <Divider text='Commit Info'></Divider>
+        <Divider text="Commit Info"></Divider>
         <View style={styles.commitInfo}>
-          <DetailRow icon='person' text={this.state.commit.author_name} />
-          {prText ? ( <DetailRow icon='git-pull-request' text={prText} /> ) : null}
-          <DetailRow icon='git-branch' text={this.state.commit.branch} />
+          <DetailRow icon="person" text={this.state.commit.author_name} />
+          {prText ? ( <DetailRow icon="git-pull-request" text={prText} /> ) : null}
+          <DetailRow icon="git-branch" text={this.state.commit.branch} />
 
           {this.props.isPro ? null : (
             <View style={styles.githubButtonWrapper}>
               <Icon.Button
                 style={styles.githubButton}
                 onPress={this.openGitHub.bind(this)}
-                name='mark-github'>
+                name="mark-github">
                   Compare commit on GitHub
               </Icon.Button>
             </View>
           )}
         </View>
 
-        <Divider text='Jobs'></Divider>
+        <Divider text="Jobs"></Divider>
         <JobsListView
           jobs={this.state.jobs}
           isPro={this.props.isPro}

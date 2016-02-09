@@ -101,7 +101,7 @@ export default class Trevor extends React.Component {
         </View>
       );
     } else {
-      return (<Loading text='Trevor' />);
+      return (<Loading text="Trevor" />);
     }
   }
 };

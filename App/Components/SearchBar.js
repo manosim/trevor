@@ -83,16 +83,16 @@ export default class SearchBar extends React.Component {
           style={styles.inputText}
           onChangeText={this.changeText.bind(this)}
           value={this.state.text}
-          autoCapitalize='none'
+          autoCapitalize="none"
           autoCorrect={false}
-          placeholder='Enter Search Keywords...'
-          placeholderTextColor='#b0b0b0'
-          clearButtonMode='always'
-          returnKeyType='search' />
+          placeholder="Enter Search Keywords..."
+          placeholderTextColor="#b0b0b0"
+          clearButtonMode="always"
+          returnKeyType="search" />
         {this.props.hasSubmit ? (
           <TouchableHighlight
             style={styles.submitButton}
-            underlayColor='#A53230'
+            underlayColor="#A53230"
             onPress={this.doSearch.bind(this)}>
             <Text style={styles.buttonText}>Search</Text>
           </TouchableHighlight>

@@ -45,7 +45,7 @@ export default class ReposScreen extends React.Component {
       loading: true
     });
 
-    this.fetchData(refresh = false);
+    this.fetchData(false);
   }
 
   fetchData(refresh) {
@@ -105,7 +105,7 @@ export default class ReposScreen extends React.Component {
     this.setState({
       keywords: keywords
     });
-    this.fetchData(refresh = false);
+    this.fetchData(false);
   }
 
   _renderHeader(refreshingIndicator) {
@@ -120,7 +120,7 @@ export default class ReposScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Loading text='Results' />
+        <Loading text="Results" />
       );
     }
 
@@ -130,7 +130,7 @@ export default class ReposScreen extends React.Component {
         refreshControl={
           <CustomRefreshControl
             refreshing={this.state.refreshing}
-            onRefresh={this.fetchData.bind(this, refresh = true)} />
+            onRefresh={this.fetchData.bind(this, true)} />
         }>
         <ListView
           contentContainerStyle={styles.listViewContainer}

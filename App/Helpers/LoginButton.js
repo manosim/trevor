@@ -40,7 +40,7 @@ export default class LoginButton extends React.Component {
         underlayColor={Constants.THEME_DARK_BLUE}
         onPress={this.props.onPress}>
         <View style={styles.buttonWrapper}>
-          <Icon style={styles.buttonIcon} name='github' />
+          <Icon style={styles.buttonIcon} name="github" />
           <Text style={styles.loginButtonText}>{this.props.text}</Text>
         </View>
       </TouchableHighlight>
