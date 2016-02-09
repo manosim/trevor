@@ -4,6 +4,7 @@ import moment from 'moment';
 require('moment-duration-format');
 
 var {
+  ListView,
   LinkingIOS,
   IntentAndroid,
   Platform,
@@ -57,12 +58,14 @@ var styles = StyleSheet.create({
 export default class BuildScreen extends React.Component {
   constructor(props) {
     super(props);
+    var jobsSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1.state !== row2.state});
+
     this.state = {
       loading: false,
       refreshing: false,
       build: {},
       commit: {},
-      jobs: []
+      jobs: jobsSource.cloneWithRows([])
     };
   }
 
@@ -90,14 +93,14 @@ export default class BuildScreen extends React.Component {
             refreshing: false,
             build: res.build,
             commit: res.commit,
-            jobs: res.jobs
+            jobs: self.state.jobs.cloneWithRows(res.jobs)
           });
         } else {
           self.setState({
             loading: false,
             build: res.build,
             commit: res.commit,
-            jobs: res.jobs
+            jobs: self.state.jobs.cloneWithRows(res.jobs)
           });
         }
       });
