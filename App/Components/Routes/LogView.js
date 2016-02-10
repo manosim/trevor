@@ -9,13 +9,15 @@ import Constants from '../../Utils/Constants';
 var {
   IntentAndroid,
   LinkingIOS,
+  NativeModules,
   Platform,
   StyleSheet,
   TouchableHighlight,
   Text,
-  WebView,
   View
 } = React;
+
+const CustomWebView = NativeModules.NativeModules;
 
 var styles = StyleSheet.create({
   container: {
@@ -135,11 +137,15 @@ export default class JobDetails extends React.Component {
     const url = this.state.log_url;
     if (!url) { return; }
 
-    if (Platform.OS === 'ios'){
+    if (Platform.OS === 'ios') {
       LinkingIOS.openURL(url);
     } else {
       IntentAndroid.openURL(url);
     }
+  }
+
+  scrollBottom() {
+    this.refs.logView.scrollBottom();
   }
 
   render() {
@@ -170,10 +176,17 @@ export default class JobDetails extends React.Component {
                 onPress={this.fetchData.bind(this)}>
                 <Icon style={styles.toolbarButtonIcon} name="sync" />
               </TouchableHighlight> )}
+            <TouchableHighlight
+              style={[styles.toolbarButton, styles.toolbarButtonRight]}
+              underlayColor={Constants.THEME_DARK_BLUE}
+              onPress={this.scrollBottom.bind(this)}>
+              <Icon style={styles.toolbarButtonIcon} name="chevron-down" />
+            </TouchableHighlight>
           </View>
 
         </View>
-        <WebView
+        <CustomWebView
+          ref="logView"
           style={styles.webView}
           html={this.state.html}
           javaScriptEnabled={true} />

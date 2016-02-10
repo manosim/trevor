@@ -85,7 +85,12 @@ export default class Trevor extends React.Component {
   }
 
   render() {
-    const dashboardRoute = Routes.Dashboard();
+    // const dashboardRoute = Routes.Dashboard();
+    const dashboardRoute = Routes.Build(108368200, {
+      isPro: false,
+      buildId: 108368200
+    });
+
 
     if (this.state.loaded) {
       return (
