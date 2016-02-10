@@ -188,7 +188,7 @@ export default class BuildsScreen extends React.Component {
         <SegmentedControlIOS
           style={styles.segment}
           values={['All', 'Builds', 'Pull Requests']}
-          tintColor='#FFF'
+          tintColor="#FFF"
           selectedIndex={0}
           onValueChange={this._onSegmentChange.bind(this)} />
       </View>
@@ -213,7 +213,7 @@ export default class BuildsScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Loading text='Builds' />
+        <Loading text="Builds" />
       );
     }
 
@@ -223,7 +223,7 @@ export default class BuildsScreen extends React.Component {
         refreshControl={
           <CustomRefreshControl
             refreshing={this.state.refreshing}
-            onRefresh={this.fetchData.bind(this, refresh = true)} />
+            onRefresh={this.fetchData.bind(this, true)} />
         }>
         <ListView
           contentContainerStyle={styles.listViewContainer}

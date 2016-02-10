@@ -35,7 +35,7 @@ export default class BarButton extends React.Component {
   render() {
     return (
       <TouchableHighlight
-        underlayColor='#A53230'
+        underlayColor="#A53230"
         onPress={this.props.onPress}>
         <View style={styles.buttonWrapper}>
           {this.props.icon ? (

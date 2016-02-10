@@ -133,6 +133,8 @@ export default class JobDetails extends React.Component {
 
   openInBrowser() {
     const url = this.state.log_url;
+    if (!url) { return; }
+
     if (Platform.OS === 'ios'){
       LinkingIOS.openURL(url);
     } else {
@@ -143,7 +145,7 @@ export default class JobDetails extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Loading text='Log' />
+        <Loading text="Log" />
       );
     }
 
@@ -166,7 +168,7 @@ export default class JobDetails extends React.Component {
                 style={[styles.toolbarButton, styles.toolbarButtonRight]}
                 underlayColor={Constants.THEME_DARK_BLUE}
                 onPress={this.fetchData.bind(this)}>
-                <Icon style={styles.toolbarButtonIcon} name='sync' />
+                <Icon style={styles.toolbarButtonIcon} name="sync" />
               </TouchableHighlight> )}
           </View>
 

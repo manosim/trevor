@@ -93,23 +93,23 @@ export default class Dashboard extends React.Component {
     return (
       <View style={{flex: 1}}>
         <BarButton
-          icon='search'
-          text='Search Travis for Open Source'
+          icon="search"
+          text="Search Travis for Open Source"
           onPress={this.goToSearch.bind(this)} />
 
         <ScrollView style={styles.container}>
           {!this.state.isLoggedIn.os ? (
-            <LoginButton text='Login to Travis for Open Source' onPress={this._doLoginOs.bind(this)} />
+            <LoginButton text="Login to Travis for Open Source" onPress={this._doLoginOs.bind(this)} />
           ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
 
           {!this.state.isLoggedIn.pro ? (
-            <LoginButton text='Login to Travis Pro' onPress={this._doLoginPro.bind(this)} />
+            <LoginButton text="Login to Travis Pro" onPress={this._doLoginPro.bind(this)} />
           ) : <AccountsList navigator={this.props.navigator} isPro={true} />}
         </ScrollView>
 
         {this.state.isLoggedIn.pro ? (
           <BarButton
-            text='Latest Builds for Travis Pro'
+            text="Latest Builds for Travis Pro"
             onPress={this.goToLatestPro.bind(this)} />
         ) : <View /> }
       </View>

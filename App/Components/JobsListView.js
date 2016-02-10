@@ -40,22 +40,6 @@ var styles = StyleSheet.create({
 });
 
 export default class JobsListView extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      jobsSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }).cloneWithRows(this.props.jobs)
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      jobs: this.state.jobsSource.cloneWithRows(nextProps.jobs)
-    });
-  }
-
   _pressRow(job) {
     const route = Routes.Log({
       isPro: this.props.isPro,
@@ -74,7 +58,7 @@ export default class JobsListView extends React.Component {
          <View style={styles.jobRow}>
           <StatusSidebar buildState={rowData.state} />
           <View style={styles.jobDetails}>
-            <Text style={styles.jobText}>Job #{rowData.number}</Text>
+            <Text style={styles.jobText}>Job #{rowData.number} {rowData.state}</Text>
           </View>
           <View style={styles.caret}>
             <Icon style={styles.iconCaret} name="angle-right" />
@@ -93,7 +77,7 @@ export default class JobsListView extends React.Component {
   render() {
     return (
       <ListView
-        dataSource={this.state.jobsSource}
+        dataSource={this.props.jobs}
         renderRow={this._renderRow.bind(this)}
         renderSeparator={this._renderSeparator} />
     );

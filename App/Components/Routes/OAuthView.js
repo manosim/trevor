@@ -96,7 +96,7 @@ export default class OAuthView extends React.Component {
   render() {
     if (this.state.loading || !this.props.authUrl) {
       return (
-        <Loading text='Auth' />
+        <Loading text="Auth" />
       );
     }
 
