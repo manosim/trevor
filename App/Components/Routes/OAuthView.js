@@ -102,7 +102,7 @@ export default class OAuthView extends React.Component {
 
     return (
       <WebView
-        url={this.state.authUrl}
+        source={{uri: this.state.authUrl}}
         onNavigationStateChange={this.onNavigationStateChange.bind(this)}
         automaticallyAdjustContentInsets={true}
         startInLoadingState={true}

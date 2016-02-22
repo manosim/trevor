@@ -188,7 +188,7 @@ export default class JobDetails extends React.Component {
         <CustomWebView
           ref="logView"
           style={styles.webView}
-          html={this.state.html}
+          source={{html: this.state.html}}
           javaScriptEnabled={true} />
       </View>
     );
