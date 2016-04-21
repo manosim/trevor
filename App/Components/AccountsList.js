@@ -3,6 +3,7 @@ import React from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
 
 import Api from '../Utils/Api';
+import Constants from '../Utils/Constants';
 import Loading from '../Components/Loading';
 import Separator from '../Helpers/Separator';
 import Routes from './Navigation/Routes';
@@ -23,21 +24,15 @@ var styles = StyleSheet.create({
   },
   heading: {
     flexDirection: 'row',
-    backgroundColor: '#5E8599',
+    justifyContent: 'space-between',
+    backgroundColor: Constants.THEME_LIGHT_EXTRA_BLUE,
     paddingVertical: 7,
     paddingHorizontal: 10,
     alignItems: 'center'
   },
   headingTitle: {
-    flex: 0.7,
     color: '#FFFFFF',
     fontSize: 16,
-
-  },
-  logoutButtonWrapper: {
-    flex: 0.3,
-    alignItems: 'flex-end'
-
   },
   logoutButton: {
     borderRadius: 6,
@@ -73,7 +68,7 @@ var styles = StyleSheet.create({
   },
   typeWrapper: {
     width: 32,
-    backgroundColor: '#357389',
+    backgroundColor: Constants.THEME_LIGHT_BLUE,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -82,7 +77,6 @@ var styles = StyleSheet.create({
     color: 'white'
   },
   login: {
-    flex: 0.6,
     fontWeight: 'bold',
     fontSize: 16
   },
@@ -90,7 +84,6 @@ var styles = StyleSheet.create({
 
   },
   count: {
-    flex: 0.4,
     color: '#919191',
     marginRight: 8,
     textAlign: 'right'
@@ -169,7 +162,7 @@ export default class AccountsList extends React.Component {
                 <Image style={styles.avatar} source={imageSource} />
               </View>
               <View style={styles.accountInfo}>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                   <Text style={styles.login} numberOfLines={1}>{account.login}</Text>
                   <Text style={styles.count} numberOfLines={1}>{account.repos_count} Repos</Text>
                 </View>
@@ -205,14 +198,12 @@ export default class AccountsList extends React.Component {
       <View style={styles.container}>
         <View style={styles.heading}>
           <Text style={styles.headingTitle}>{heading}</Text>
-          <View style={styles.logoutButtonWrapper}>
-            <TouchableHighlight
-              style={styles.logoutButton}
-              onPress={this.logout.bind(this)}
-              underlayColor={'#40454F'}>
-              <Text style={styles.logoutButtonText}>Log Out</Text>
-            </TouchableHighlight>
-          </View>
+          <TouchableHighlight
+            style={styles.logoutButton}
+            onPress={this.logout.bind(this)}
+            underlayColor={'#40454F'}>
+            <Text style={styles.logoutButtonText}>Log Out</Text>
+          </TouchableHighlight>
         </View>
         {_.map(this.state.accounts, function (account) {
           return self._renderAccount(account);
