@@ -2,9 +2,9 @@ import React from 'react-native';
 import AnsiUp from 'ansi_up';
 import Icon from 'react-native-vector-icons/Octicons';
 
-import Api from '../../Utils/Api';
-import Loading from '../Loading';
-import Constants from '../../Utils/Constants';
+import Api from '../Utils/Api';
+import Loading from '../Components/Loading';
+import Constants from '../Utils/Constants';
 
 var {
   Linking,

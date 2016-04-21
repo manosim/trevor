@@ -2,7 +2,7 @@ import React from 'react-native';
 var moment = require('moment');
 require('moment-duration-format');
 
-import Routes from './Navigation/Routes';
+import Routes from '../Navigation/Routes';
 import StatusSidebar from './StatusSidebar';
 
 var {

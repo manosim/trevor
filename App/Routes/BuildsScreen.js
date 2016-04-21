@@ -3,12 +3,12 @@ import React from 'react-native';
 var moment = require('moment');
 require('moment-duration-format');
 
-import Api from '../../Utils/Api';
-import Constants from '../../Utils/Constants';
-import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
+import Api from '../Utils/Api';
+import Constants from '../Utils/Constants';
+import CustomRefreshControl from '../Helpers/CustomRefreshControl';
+import Loading from '../Components/Loading';
 import Routes from '../Navigation/Routes';
-import StatusSidebar from '../StatusSidebar';
-import Loading from '../Loading';
+import StatusSidebar from '../Components/StatusSidebar';
 
 var {
   StyleSheet,

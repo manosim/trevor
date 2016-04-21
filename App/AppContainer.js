@@ -8,12 +8,12 @@ var {
   View
 } = React;
 
-import AuthStore from '../Stores/Auth';
-import Loading from './Loading';
+import AuthStore from './Stores/Auth';
+import Constants from './Utils/Constants';
+import Loading from './Components/Loading';
 import RouteMapper from './Navigation/RouteMapper';
 import Routes from './Navigation/Routes';
 import SceneContainer from './Navigation/SceneContainer';
-import Constants from '../Utils/Constants';
 
 var styles = StyleSheet.create({
   appContainer: {

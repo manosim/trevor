@@ -8,12 +8,11 @@ var {
   View
 } = React;
 
-import Api from '../../Utils/Api';
-import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
-import EmptyResults from '../EmptyResults';
-import Loading from '../Loading';
-import RepoItem from '../RepoItem';
-import SearchBar from '../SearchBar';
+import Api from '../Utils/Api';
+import CustomRefreshControl from '../Helpers/CustomRefreshControl';
+import Loading from '../Components/Loading';
+import RepoItem from '../Components/RepoItem';
+import SearchBar from '../Components/SearchBar';
 
 var styles = StyleSheet.create({
   container: {
@@ -52,18 +51,16 @@ export default class ReposScreen extends React.Component {
   fetchData(refresh) {
     if (refresh) {
       this.setState({
-        clearSearch: true,
         refreshing: true
       });
     } else {
       this.setState({
-        clearSearch: true,
         loading: true
       });
     }
 
     const self = this;
-    Api.getRepos(this.props.username, this.props.isPro)
+    Api.searchPublicRepos(this.state.keywords)
       .then(function (res) {
         var repos = _.filter(res.repos, function(obj) {
           return obj.active === true;
@@ -104,21 +101,18 @@ export default class ReposScreen extends React.Component {
     );
   }
 
-  searchRepos(keyword) {
-    var results = _.filter(this.state.repos, function (obj) {
-      return obj.slug.split('/')[1].indexOf(keyword) > -1;
-    });
-
+  searchRepos(keywords) {
     this.setState({
-      reposSource: this.state.reposSource.cloneWithRows(results)
+      keywords: keywords
     });
+    this.fetchData(false);
   }
 
   _renderHeader(refreshingIndicator) {
     return (
       <View>
         {refreshingIndicator}
-        <SearchBar search={this.searchRepos.bind(this)} clear={this.state.clearSearch} />
+        <SearchBar hasSubmit search={this.searchRepos.bind(this)} clear={this.state.clearSearch} />
       </View>
     );
   }
@@ -126,13 +120,7 @@ export default class ReposScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Loading text="Repositories" />
-      );
-    }
-
-    if (_.isEmpty(this.state.repos)) {
-      return (
-        <EmptyResults />
+        <Loading text="Results" />
       );
     }
 
