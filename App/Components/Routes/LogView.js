@@ -7,9 +7,7 @@ import Loading from '../Loading';
 import Constants from '../../Utils/Constants';
 
 var {
-  IntentAndroid,
-  LinkingIOS,
-  Platform,
+  Linking,
   StyleSheet,
   TouchableHighlight,
   Text,
@@ -134,12 +132,7 @@ export default class JobDetails extends React.Component {
   openInBrowser() {
     const url = this.state.log_url;
     if (!url) { return; }
-
-    if (Platform.OS === 'ios') {
-      LinkingIOS.openURL(url);
-    } else {
-      IntentAndroid.openURL(url);
-    }
+    Linking.openURL(url);
   }
 
   render() {
