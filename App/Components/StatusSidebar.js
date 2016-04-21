@@ -1,6 +1,8 @@
 import React from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
 
+import Constants from '../Utils/Constants';
+
 var {
   StyleSheet,
   Text,
@@ -12,7 +14,7 @@ var styles = StyleSheet.create({
     width: 50,
     paddingVertical: 10,
     paddingHorizontal: 2,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center'
   },
   statusIcon: {
@@ -25,16 +27,16 @@ var styles = StyleSheet.create({
     marginTop: 8
   },
   stateStarted: { //eslint-disable-line react-native/no-unused-styles
-    backgroundColor: '#D2C93B'
+    backgroundColor: Constants.statusStarted
   },
   statePassed: { //eslint-disable-line react-native/no-unused-styles
-    backgroundColor: '#3FA75F'
+    backgroundColor: Constants.statusPassed
   },
   stateFailed: { //eslint-disable-line react-native/no-unused-styles
-    backgroundColor: '#DB423C'
+    backgroundColor: Constants.statusFailed
   },
   stateErrored: { //eslint-disable-line react-native/no-unused-styles
-    backgroundColor: '#A1A0A0'
+    backgroundColor: Constants.statusErrored
   }
 });
 
