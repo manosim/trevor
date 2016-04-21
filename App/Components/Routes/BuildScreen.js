@@ -108,7 +108,7 @@ export default class BuildScreen extends React.Component {
 
   openGitHub() {
     const url = this.state.commit.compare_url;
-    if (Platform.OS === 'ios'){
+    if (Platform.OS === 'ios') {
       LinkingIOS.openURL(url);
     } else {
       IntentAndroid.openURL(url);

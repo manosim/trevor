@@ -80,7 +80,7 @@ export default {
   },
 
   searchPublicRepos(keywords) {
-    var url = this.getApiUrl(false) + `/repos?orderBy=name&active=true`;
+    var url = this.getApiUrl(false) + '/repos?orderBy=name&active=true';
     url = keywords ? url + `/&search=${keywords}` : url;
 
     return fetch(url, {
@@ -147,7 +147,7 @@ export default {
       }
     })
       .then(function(res) {
-        if (res.status == 204) {
+        if (res.status === 204) {
           const logUrl = res.headers.get('location');
           return {
             url: logUrl,
@@ -172,7 +172,7 @@ export default {
   },
 
   getLatestPro() {
-    var url = this.getApiUrl(true) + `/repos/`;
+    var url = this.getApiUrl(true) + '/repos/';
     var token = AuthStore.tokenPro;
 
     return fetch(url, {

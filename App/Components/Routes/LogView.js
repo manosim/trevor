@@ -135,7 +135,7 @@ export default class JobDetails extends React.Component {
     const url = this.state.log_url;
     if (!url) { return; }
 
-    if (Platform.OS === 'ios'){
+    if (Platform.OS === 'ios') {
       LinkingIOS.openURL(url);
     } else {
       IntentAndroid.openURL(url);

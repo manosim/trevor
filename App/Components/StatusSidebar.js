@@ -59,7 +59,7 @@ export default class StatusSidebar extends React.Component {
   setOptions() {
     var statusIcon, stateClass;
 
-    switch(this.props.buildState) {
+    switch (this.props.buildState) {
       case 'started':
       case 'created':
         statusIcon = 'primitive-dot';
