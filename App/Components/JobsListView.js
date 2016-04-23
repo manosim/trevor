@@ -1,9 +1,9 @@
 import React from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import Routes from '../Components/Navigation/Routes';
+import Routes from '../Navigation/Routes';
 import Separator from '../Helpers/Separator';
-import StatusSidebar from '../Components/StatusSidebar';
+import StatusSidebar from './StatusSidebar';
 
 var {
   ListView,

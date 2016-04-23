@@ -1,11 +1,11 @@
 import _ from 'underscore';
 import React from 'react-native';
 
-import Api from '../../Utils/Api';
-import EmptyResults from '../EmptyResults';
-import Loading from '../Loading';
-import RepoItem from '../RepoItem';
-import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
+import Api from '../Utils/Api';
+import EmptyResults from '../Components/EmptyResults';
+import Loading from '../Components/Loading';
+import RepoItem from '../Components/RepoItem';
+import CustomRefreshControl from '../Helpers/CustomRefreshControl';
 
 var {
   ListView,

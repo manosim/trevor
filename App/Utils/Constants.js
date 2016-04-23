@@ -11,6 +11,13 @@ export default {
   THEME_COLOR: '#A53230',
   THEME_BLUE: '#357389',
   THEME_DARK_BLUE: '#40454F',
+  THEME_LIGHT_BLUE: '#357389',
+  THEME_LIGHT_EXTRA_BLUE: '#5E8599',
+
+  statusStarted: '#D2C93B',
+  statusPassed: '#3FA75F',
+  statusFailed: '#DB423C',
+  statusErrored: '#A1A0A0',
 
   NAVBAR_BUTTON_ICON_SIZE: 35,
 };

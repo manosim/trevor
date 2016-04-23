@@ -2,14 +2,12 @@ import React from 'react-native';
 import AnsiUp from 'ansi_up';
 import Icon from 'react-native-vector-icons/Octicons';
 
-import Api from '../../Utils/Api';
-import Loading from '../Loading';
-import Constants from '../../Utils/Constants';
+import Api from '../Utils/Api';
+import Loading from '../Components/Loading';
+import Constants from '../Utils/Constants';
 
 var {
-  IntentAndroid,
-  LinkingIOS,
-  Platform,
+  Linking,
   StyleSheet,
   TouchableHighlight,
   Text,
@@ -134,12 +132,7 @@ export default class JobDetails extends React.Component {
   openInBrowser() {
     const url = this.state.log_url;
     if (!url) { return; }
-
-    if (Platform.OS === 'ios'){
-      LinkingIOS.openURL(url);
-    } else {
-      IntentAndroid.openURL(url);
-    }
+    Linking.openURL(url);
   }
 
   render() {

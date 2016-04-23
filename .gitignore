@@ -33,8 +33,13 @@ local.properties
 node_modules/
 npm-debug.log
 
+# BUCK
+buck-out/
+\.buckd/
+android/app/libs
+android/keystores/debug.keystore
+
 # Android
-#
 android/app/app.iml
 android/Trevor.iml
 android/app/trevor-release-key.keystore

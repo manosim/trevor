@@ -6,12 +6,12 @@ var {
   ScrollView
 } = React;
 
-import AuthStore from '../../Stores/Auth';
-import BarButton from '../../Helpers/BarButton';
+import AuthStore from '../Stores/Auth';
+import BarButton from '../Helpers/BarButton';
 import Routes from '../Navigation/Routes';
-import LoginButton from '../../Helpers/LoginButton';
-import AccountsList from '../AccountsList';
-import Constants from '../../Utils/Constants';
+import LoginButton from '../Helpers/LoginButton';
+import AccountsList from '../Components/AccountsList';
+import Constants from '../Utils/Constants';
 
 var styles = StyleSheet.create({
   container: {

@@ -3,12 +3,12 @@ import React from 'react-native';
 var moment = require('moment');
 require('moment-duration-format');
 
-import Api from '../../Utils/Api';
-import Constants from '../../Utils/Constants';
-import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
+import Api from '../Utils/Api';
+import Constants from '../Utils/Constants';
+import CustomRefreshControl from '../Helpers/CustomRefreshControl';
+import Loading from '../Components/Loading';
 import Routes from '../Navigation/Routes';
-import StatusSidebar from '../StatusSidebar';
-import Loading from '../Loading';
+import StatusSidebar from '../Components/StatusSidebar';
 
 var {
   StyleSheet,
@@ -89,8 +89,8 @@ export default class BuildsScreen extends React.Component {
       .then(function (res) {
         var builds = res.builds;
         _.map(builds, function (obj) {
-          var commit = _.find(res.commits, function(commit){
-            return obj.commit_id == commit.id;
+          var commit = _.find(res.commits, function(value) {
+            return obj.commit_id === value.id;
           });
           obj.commit = commit;
         });
@@ -158,10 +158,10 @@ export default class BuildsScreen extends React.Component {
   }
 
   _onSegmentChange(value) {
-    switch(value) {
+    switch (value) {
       case 'Builds':
         var filtered = _.filter(this.state.builds, function(obj) {
-          return obj.pull_request == false;
+          return obj.pull_request === false;
         });
         this.setState({
           buildsSource: this.state.buildsSource.cloneWithRows(filtered)
@@ -169,7 +169,7 @@ export default class BuildsScreen extends React.Component {
         break;
       case 'Pull Requests':
         var filtered = _.filter(this.state.builds, function (obj) {
-          return obj.pull_request == true;
+          return obj.pull_request === true;
         });
         this.setState({
           buildsSource: this.state.buildsSource.cloneWithRows(filtered)

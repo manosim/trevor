@@ -1,6 +1,6 @@
 import React from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Constants from '../../Utils/Constants';
+import Constants from '../Utils/Constants';
 
 var {
   StyleSheet,

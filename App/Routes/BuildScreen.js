@@ -5,22 +5,20 @@ require('moment-duration-format');
 
 var {
   ListView,
-  LinkingIOS,
-  IntentAndroid,
-  Platform,
+  Linking,
   StyleSheet,
   ScrollView,
   Text,
   View
 } = React;
 
-import Api from '../../Utils/Api';
-import CustomRefreshControl from '../../Helpers/CustomRefreshControl';
-import DetailRow from '../../Helpers/DetailRow';
-import Divider from '../../Helpers/Divider';
-import Loading from '../Loading';
-import JobsListView from '../JobsListView';
-import StatusSidebar from '../StatusSidebar';
+import Api from '../Utils/Api';
+import CustomRefreshControl from '../Helpers/CustomRefreshControl';
+import DetailRow from '../Helpers/DetailRow';
+import Divider from '../Helpers/Divider';
+import Loading from '../Components/Loading';
+import JobsListView from '../Components/JobsListView';
+import StatusSidebar from '../Components/StatusSidebar';
 
 var styles = StyleSheet.create({
   container: {
@@ -108,11 +106,7 @@ export default class BuildScreen extends React.Component {
 
   openGitHub() {
     const url = this.state.commit.compare_url;
-    if (Platform.OS === 'ios'){
-      LinkingIOS.openURL(url);
-    } else {
-      IntentAndroid.openURL(url);
-    }
+    Linking.openURL(url);
   }
 
   render() {
