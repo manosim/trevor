@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import Icon from 'react-native-vector-icons/Octicons';
 
 import Api from '../Utils/Api';
@@ -9,13 +9,13 @@ import Separator from '../Helpers/Separator';
 import Routes from '../Navigation/Routes';
 import AuthStore from '../Stores/Auth';
 
-var {
+import {
   Image,
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
-} = React;
+  TouchableHighlight,
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -90,7 +90,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class AccountsList extends React.Component {
+export default class AccountsList extends Component {
   constructor(props) {
     super(props);
 
@@ -211,4 +211,4 @@ export default class AccountsList extends React.Component {
       </View>
     );
   }
-};
+}

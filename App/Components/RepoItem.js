@@ -1,16 +1,16 @@
-import React from 'react-native';
-var moment = require('moment');
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+const moment = require('moment');
 require('moment-duration-format');
 
 import Routes from '../Navigation/Routes';
 import StatusSidebar from './StatusSidebar';
 
-var {
+import {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
-} = React;
+  TouchableHighlight,
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -39,7 +39,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class RepoItem extends React.Component {
+export default class RepoItem extends Component {
 
   _pressRow(details) {
     const repoName = this.props.details.slug.split('/')[1];
@@ -90,4 +90,4 @@ export default class RepoItem extends React.Component {
       </TouchableHighlight>
     );
   }
-};
+}

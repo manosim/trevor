@@ -1,15 +1,15 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 
 import Constants from '../Utils/Constants';
 
-var {
+import {
   Platform,
   StyleSheet,
   Text,
   TextInput,
   TouchableHighlight,
-  View
-} = React;
+  View,
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -100,4 +100,4 @@ export default class SearchBar extends React.Component {
       </View>
     );
   }
-};
+}

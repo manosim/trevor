@@ -1,15 +1,15 @@
-import React from 'react-native';
+import React, { Component } from 'react';  // eslint-disable-line no-unused-vars
 
 import Constants from '../Utils/Constants';
 
-var {
+import {
   ActivityIndicatorIOS,
   Platform,
   ProgressBarAndroid,
   StyleSheet,
   Text,
   View,
-} = React;
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -24,7 +24,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class Loading extends React.Component {
+export default class Loading extends Component {
   render() {
     const loading = Platform.OS === 'ios' ? (
       <ActivityIndicatorIOS
@@ -46,4 +46,4 @@ export default class Loading extends React.Component {
       </View>
     );
   }
-};
+}
