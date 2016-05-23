@@ -1,12 +1,12 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 
 import Constants from '../Utils/Constants';
 
-var {
+import {
   StyleSheet,
   Text,
   View
-} = React;
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -21,7 +21,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class Divider extends React.Component {
+export default class Divider extends Component {
   render() {
     return (
       <View style={styles.container}>

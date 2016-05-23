@@ -1,14 +1,14 @@
-import React from 'react-native';
+import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Constants from '../Utils/Constants';
 
-var {
+import {
   StyleSheet,
   Text,
   TouchableHighlight,
   View
-} = React;
+} from 'react-native';
 
 
 var styles = StyleSheet.create({
@@ -31,7 +31,13 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class BarButton extends React.Component {
+export default class BarButton extends Component {
+  static propTypes = {
+    icon: PropTypes.string,
+    text: PropTypes.string.isRequired,
+    onPress: PropTypes.func.isRequired
+  };
+
   render() {
     return (
       <TouchableHighlight
@@ -46,10 +52,4 @@ export default class BarButton extends React.Component {
       </TouchableHighlight>
     );
   }
-};
-
-BarButton.propTypes = {
-  icon: React.PropTypes.string,
-  text: React.PropTypes.string.isRequired,
-  onPress: React.PropTypes.func.isRequired
 };

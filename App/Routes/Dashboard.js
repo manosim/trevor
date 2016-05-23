@@ -1,10 +1,10 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 
-var {
+import {
   StyleSheet,
   View,
   ScrollView
-} = React;
+} from 'react-native';
 
 import AuthStore from '../Stores/Auth';
 import BarButton from '../Helpers/BarButton';
@@ -20,7 +20,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class Dashboard extends React.Component {
+export default class Dashboard extends Component {
   constructor(props) {
     super(props);
 

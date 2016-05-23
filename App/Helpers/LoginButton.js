@@ -1,14 +1,14 @@
-import React from 'react-native';
+import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Constants from '../Utils/Constants';
 
-var {
+import {
   StyleSheet,
   Text,
   TouchableHighlight,
   View
-} = React;
+} from 'react-native';
 
 var styles = StyleSheet.create({
   buttonWrapper: {
@@ -33,7 +33,12 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class LoginButton extends React.Component {
+export default class LoginButton extends Component {
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    onPress: PropTypes.func.isRequired
+  }
+
   render() {
     return (
       <TouchableHighlight
@@ -46,9 +51,4 @@ export default class LoginButton extends React.Component {
       </TouchableHighlight>
     );
   }
-};
-
-LoginButton.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  onPress: React.PropTypes.func.isRequired
 };
