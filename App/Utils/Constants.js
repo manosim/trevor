@@ -1,4 +1,6 @@
 export default {
+  STORAGE_KEY: 'trevor',
+
   oAuthOptions: {
     client_id: 'a6adc03baaa25c30292c',
     client_secret: '49c6d6012de3988db2364b49e161f8fe3052e920',
