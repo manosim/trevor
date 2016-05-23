@@ -1,4 +1,3 @@
-import React from 'react-native';
 import EventEmitter from 'EventEmitter';
 
 import { AsyncStorage } from 'react-native';
