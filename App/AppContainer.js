@@ -12,7 +12,7 @@ import {
 import AuthStore from './Stores/Auth';
 import Constants from './Utils/Constants';
 import Loading from './Components/Loading';
-import Menu from './Helpers/Menu';
+import SideMenu from './Components/SideMenu/SideMenu';
 import RouteMapper from './Navigation/RouteMapper';
 import Routes from './Navigation/Routes';
 import SceneContainer from './Navigation/SceneContainer';
@@ -91,7 +91,7 @@ export default class Trevor extends Component {
     if (this.state.loaded) {
       return (
         <Drawer
-          content={<Menu />}
+          content={<SideMenu />}
           openDrawerOffset={120}
           tapToClose={true}>
           <View style={styles.appContainer}>
