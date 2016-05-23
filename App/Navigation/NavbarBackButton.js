@@ -23,6 +23,10 @@ var styles = StyleSheet.create({
 });
 
 export default class NavigationButton extends Component {
+  static contextTypes = {
+    drawer: React.PropTypes.object
+  }
+
   _goBack() {
     this.props.navigator.pop();
   }
@@ -33,9 +37,18 @@ export default class NavigationButton extends Component {
         <TouchableHighlight
           style={styles.toolbarButton}
           underlayColor={Constants.THEME_COLOR}
+          onPress={this.context.drawer.toggle}>
+          <Icon name="bars" style={styles.icon} />
+        </TouchableHighlight>
+
+        {/*
+        <TouchableHighlight
+          style={styles.toolbarButton}
+          underlayColor={Constants.THEME_COLOR}
           onPress={this._goBack.bind(this)}>
           <Icon name="angle-left" style={styles.icon} />
         </TouchableHighlight>
+        */}
       </View>
     );
   }

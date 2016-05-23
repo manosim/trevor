@@ -19,5 +19,5 @@ export default {
   statusFailed: '#DB423C',
   statusErrored: '#A1A0A0',
 
-  NAVBAR_BUTTON_ICON_SIZE: 35,
+  NAVBAR_BUTTON_ICON_SIZE: 26,
 };

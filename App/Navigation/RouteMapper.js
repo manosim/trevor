@@ -8,11 +8,6 @@ import NavigationBackButton from './NavbarBackButton';
 export default {
 
   LeftButton(route, navigator, index, navState) {
-    if (index === 0) {
-      return null;
-    }
-
-    // var previousRoute = navState.routeStack[index - 1];
     return (
       <NavigationBackButton navigator={navigator} direction="left" />
     );
