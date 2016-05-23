@@ -11,7 +11,8 @@ import {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   toolbarButton: {
     paddingHorizontal: 10,
@@ -31,24 +32,33 @@ export default class NavigationButton extends Component {
     this.props.navigator.pop();
   }
 
+  _renderBackButton() {
+    if (this.props.index === 0) {
+      return null;
+    }
+
+    return (
+      <TouchableHighlight
+        style={styles.toolbarButton}
+        underlayColor={Constants.THEME_COLOR}
+        onPress={this._goBack.bind(this)}>
+        <Icon name="chevron-left" style={styles.icon} />
+      </TouchableHighlight>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
+
+        {this._renderBackButton()}
+
         <TouchableHighlight
           style={styles.toolbarButton}
           underlayColor={Constants.THEME_COLOR}
           onPress={this.context.drawer.toggle}>
           <Icon name="three-bars" style={styles.icon} />
         </TouchableHighlight>
-
-        {/*
-        <TouchableHighlight
-          style={styles.toolbarButton}
-          underlayColor={Constants.THEME_COLOR}
-          onPress={this._goBack.bind(this)}>
-          <Icon name="angle-left" style={styles.icon} />
-        </TouchableHighlight>
-        */}
       </View>
     );
   }

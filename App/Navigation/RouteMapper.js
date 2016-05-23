@@ -9,7 +9,7 @@ export default {
 
   LeftButton(route, navigator, index, navState) {
     return (
-      <NavigationBackButton navigator={navigator} direction="left" />
+      <NavigationBackButton navigator={navigator} index={index} direction="left" />
     );
   },
 
