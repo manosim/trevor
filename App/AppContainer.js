@@ -91,8 +91,9 @@ export default class Trevor extends Component {
     if (this.state.loaded) {
       return (
         <Drawer
+          content={<Menu />}
           openDrawerOffset={120}
-          content={<Menu />}>
+          tapToClose={true}>
           <View style={styles.appContainer}>
             <Navigator
               initialRoute={dashboardRoute}
