@@ -1,11 +1,11 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import Icon from 'react-native-vector-icons/Octicons';
 
-var {
+import {
   StyleSheet,
   Text,
   View,
-} = React;
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -27,7 +27,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class DetailRow extends React.Component {
+export default class DetailRow extends Component {
   render() {
     return (
       <View style={styles.container}>

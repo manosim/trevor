@@ -1,11 +1,11 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 
-var {
+import {
   Image,
   StyleSheet,
   Text,
-  View
-} = React;
+  View,
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -27,7 +27,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class EmptyResults extends React.Component {
+export default class EmptyResults extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -38,4 +38,4 @@ export default class EmptyResults extends React.Component {
       </View>
     );
   }
-};
+}

@@ -1,11 +1,11 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import Routes from './Routes';
 
-var {
+import {
   View,
-} = React;
+} from 'react-native';
 
-export default class NavigationButton extends React.Component {
+export default class NavigationButton extends Component {
   _goTo() {
     const route = Routes.example({});
     this.props.navigator.push(route);

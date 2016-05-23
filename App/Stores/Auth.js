@@ -1,7 +1,6 @@
-import React from 'react-native';
 import EventEmitter from 'EventEmitter';
 
-var { AsyncStorage } = React;
+import { AsyncStorage } from 'react-native';
 
 export default {
   tokenOs: undefined,

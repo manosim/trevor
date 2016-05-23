@@ -1,10 +1,10 @@
-import React from 'react-native';
+import React from 'react';
 
-var {
+import {
   Platform,
   StyleSheet,
   View
-} = React;
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {

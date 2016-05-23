@@ -1,12 +1,12 @@
 import _ from 'underscore';
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 
-var {
+import {
   ListView,
   ScrollView,
   StyleSheet,
   View
-} = React;
+} from 'react-native';
 
 import Api from '../Utils/Api';
 import CustomRefreshControl from '../Helpers/CustomRefreshControl';
@@ -26,7 +26,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class ReposScreen extends React.Component {
+export default class ReposScreen extends Component {
   constructor(props) {
     super(props);
 

@@ -1,17 +1,17 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Routes from '../Navigation/Routes';
 import Separator from '../Helpers/Separator';
 import StatusSidebar from './StatusSidebar';
 
-var {
+import {
   ListView,
   StyleSheet,
   Text,
   TouchableHighlight,
   View,
-} = React;
+} from 'react-native';
 
 var styles = StyleSheet.create({
   jobRow: {
@@ -39,7 +39,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class JobsListView extends React.Component {
+export default class JobsListView extends Component {
   _pressRow(job) {
     const route = Routes.Log({
       isPro: this.props.isPro,
@@ -82,4 +82,4 @@ export default class JobsListView extends React.Component {
         renderSeparator={this._renderSeparator} />
     );
   }
-};
+}

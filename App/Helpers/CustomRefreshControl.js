@@ -1,12 +1,12 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 
 import Constants from '../Utils/Constants';
 
-var {
+import {
   RefreshControl,
-} = React;
+} from 'react-native';
 
-export default class CustomRefreshControl extends React.Component {
+export default class CustomRefreshControl extends Component {
   render() {
     return (
       <RefreshControl

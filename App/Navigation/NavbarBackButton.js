@@ -1,12 +1,12 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Constants from '../Utils/Constants';
 
-var {
+import {
   StyleSheet,
   TouchableHighlight,
   View,
-} = React;
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -22,7 +22,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class NavigationButton extends React.Component {
+export default class NavigationButton extends Component {
   _goBack() {
     this.props.navigator.pop();
   }

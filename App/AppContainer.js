@@ -1,12 +1,12 @@
 import _ from 'underscore';
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 
-var {
+import {
   AsyncStorage,
   Navigator,
   StyleSheet,
-  View
-} = React;
+  View,
+} from 'react-native';
 
 import AuthStore from './Stores/Auth';
 import Constants from './Utils/Constants';
@@ -26,7 +26,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class Trevor extends React.Component {
+export default class Trevor extends Component {
   constructor(props) {
     super(props);
 
@@ -104,4 +104,4 @@ export default class Trevor extends React.Component {
       return (<Loading text="Trevor" />);
     }
   }
-};
+}
