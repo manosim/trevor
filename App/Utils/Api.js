@@ -9,39 +9,6 @@ export default {
     }
   },
 
-  getGithubToken(data) {
-    var url = 'https://github.com/login/oauth/access_token';
-    return fetch(url, {
-      method: 'post',
-      body: data,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache'
-      }
-    }).then(function (res) {
-      return res.json();
-    }).catch(function(error) {
-      console.warn('Request Failed: ', error);
-    });
-  },
-
-  getTravisToken(data, isPro) {
-    var url = this.getApiUrl(isPro) + '/auth/github';
-    return fetch(url, {
-      method: 'post',
-      body: data,
-      headers: {
-        'Accept': 'application/vnd.travis-ci.2+json',
-        'Content-Type': 'application/json'
-      }
-    }).then(function (res) {
-      return res.json();
-    }).catch(function(error) {
-      console.warn('Request Failed: ', error);
-    });
-  },
-
   getAccounts(isPro) {
     var url = this.getApiUrl(isPro) + '/accounts?all=true';
     var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;

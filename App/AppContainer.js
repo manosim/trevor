@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import { Provider } from 'react-redux';
 import Drawer from 'react-native-drawer';
 
 import {
@@ -10,12 +11,16 @@ import {
 } from 'react-native';
 
 import AuthStore from './Stores/Auth';
+import configureStore from './Store/configureStore';
 import Constants from './Utils/Constants';
 import Loading from './Components/Loading';
 import SideMenu from './Components/SideMenu/SideMenu';
 import RouteMapper from './Navigation/RouteMapper';
 import Routes from './Navigation/Routes';
 import SceneContainer from './Navigation/SceneContainer';
+
+// Store
+const store = configureStore();
 
 var styles = StyleSheet.create({
   appContainer: {
@@ -90,21 +95,20 @@ export default class Trevor extends Component {
 
     if (this.state.loaded) {
       return (
-        <Drawer
-          content={<SideMenu />}
-          openDrawerOffset={120}
-          tapToClose={true}>
-          <View style={styles.appContainer}>
-            <Navigator
-              initialRoute={dashboardRoute}
-              renderScene={this.renderScene}
-              navigationBar={
-                <Navigator.NavigationBar
-                  style={styles.navbar}
-                  routeMapper={RouteMapper} />
-              } />
-          </View>
-        </Drawer>
+        <Provider store={store}>
+          <Drawer content={<SideMenu />} openDrawerOffset={120} tapToClose={true}>
+            <View style={styles.appContainer}>
+              <Navigator
+                initialRoute={dashboardRoute}
+                renderScene={this.renderScene}
+                navigationBar={
+                  <Navigator.NavigationBar
+                    style={styles.navbar}
+                    routeMapper={RouteMapper} />
+                } />
+            </View>
+          </Drawer>
+        </Provider>
       );
     } else {
       return (<Loading text="Trevor" />);

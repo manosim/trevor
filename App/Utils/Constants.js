@@ -8,6 +8,9 @@ export default {
     ]
   },
 
+  API_OS: 'https://api.travis-ci.org',
+  API_PRO: 'https://api.travis-ci.com',
+
   THEME_COLOR: '#A53230',
   THEME_BLUE: '#357389',
   THEME_DARK_BLUE: '#40454F',
