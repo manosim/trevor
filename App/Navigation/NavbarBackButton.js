@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Octicons';
 import Constants from '../Utils/Constants';
 
 import {
@@ -11,7 +11,8 @@ import {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   toolbarButton: {
     paddingHorizontal: 10,
@@ -23,18 +24,40 @@ var styles = StyleSheet.create({
 });
 
 export default class NavigationButton extends Component {
+  static contextTypes = {
+    drawer: React.PropTypes.object
+  }
+
   _goBack() {
     this.props.navigator.pop();
+  }
+
+  _renderBackButton() {
+    if (this.props.index === 0) {
+      return null;
+    }
+
+    return (
+      <TouchableHighlight
+        style={styles.toolbarButton}
+        underlayColor={Constants.THEME_COLOR}
+        onPress={this._goBack.bind(this)}>
+        <Icon name="chevron-left" style={styles.icon} />
+      </TouchableHighlight>
+    );
   }
 
   render() {
     return (
       <View style={styles.container}>
+
+        {this._renderBackButton()}
+
         <TouchableHighlight
           style={styles.toolbarButton}
           underlayColor={Constants.THEME_COLOR}
-          onPress={this._goBack.bind(this)}>
-          <Icon name="angle-left" style={styles.icon} />
+          onPress={this.context.drawer.toggle}>
+          <Icon name="three-bars" style={styles.icon} />
         </TouchableHighlight>
       </View>
     );

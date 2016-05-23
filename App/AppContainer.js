@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import Drawer from 'react-native-drawer';
 
 import {
   AsyncStorage,
@@ -11,6 +12,7 @@ import {
 import AuthStore from './Stores/Auth';
 import Constants from './Utils/Constants';
 import Loading from './Components/Loading';
+import SideMenu from './Components/SideMenu/SideMenu';
 import RouteMapper from './Navigation/RouteMapper';
 import Routes from './Navigation/Routes';
 import SceneContainer from './Navigation/SceneContainer';
@@ -79,8 +81,7 @@ export default class Trevor extends Component {
             navigator.pop();
           }
         }}
-        {...this.props}
-      />
+        {...this.props} />
     );
   }
 
@@ -89,16 +90,21 @@ export default class Trevor extends Component {
 
     if (this.state.loaded) {
       return (
-        <View style={styles.appContainer}>
-          <Navigator
-            initialRoute={dashboardRoute}
-            renderScene={this.renderScene}
-            navigationBar={
-              <Navigator.NavigationBar
-                style={styles.navbar}
-                routeMapper={RouteMapper} />
-            } />
-        </View>
+        <Drawer
+          content={<SideMenu />}
+          openDrawerOffset={120}
+          tapToClose={true}>
+          <View style={styles.appContainer}>
+            <Navigator
+              initialRoute={dashboardRoute}
+              renderScene={this.renderScene}
+              navigationBar={
+                <Navigator.NavigationBar
+                  style={styles.navbar}
+                  routeMapper={RouteMapper} />
+              } />
+          </View>
+        </Drawer>
       );
     } else {
       return (<Loading text="Trevor" />);
