@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 var moment = require('moment');
 require('moment-duration-format');
 
@@ -10,7 +10,7 @@ import Loading from '../Components/Loading';
 import Routes from '../Navigation/Routes';
 import StatusSidebar from '../Components/StatusSidebar';
 
-var {
+import {
   StyleSheet,
   Text,
   View,
@@ -19,7 +19,7 @@ var {
   ScrollView,
   SegmentedControlIOS,
   TouchableHighlight
-} = React;
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -55,7 +55,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class BuildsScreen extends React.Component {
+export default class BuildsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {

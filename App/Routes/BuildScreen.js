@@ -1,16 +1,16 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import Icon from 'react-native-vector-icons/Octicons';
 import moment from 'moment';
 require('moment-duration-format');
 
-var {
+import {
   ListView,
   Linking,
   StyleSheet,
   ScrollView,
   Text,
   View
-} = React;
+} from 'react-native';
 
 import Api from '../Utils/Api';
 import CustomRefreshControl from '../Helpers/CustomRefreshControl';
@@ -53,7 +53,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class BuildScreen extends React.Component {
+export default class BuildScreen extends Component {
   constructor(props) {
     super(props);
     var jobsSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1.state !== row2.state});

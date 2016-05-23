@@ -1,16 +1,16 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 
-var {
+import {
   AlertIOS,
   WebView,
-} = React;
+} from 'react-native';
 
 import Api from '../Utils/Api';
 import AuthStore from '../Stores/Auth';
 import Constants from '../Utils/Constants';
 import Loading from '../Components/Loading';
 
-export default class OAuthView extends React.Component {
+export default class OAuthView extends Component {
   constructor(props) {
     super(props);
 

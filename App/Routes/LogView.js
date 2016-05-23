@@ -1,4 +1,4 @@
-import React from 'react-native';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import AnsiUp from 'ansi_up';
 import Icon from 'react-native-vector-icons/Octicons';
 
@@ -6,14 +6,14 @@ import Api from '../Utils/Api';
 import Loading from '../Components/Loading';
 import Constants from '../Utils/Constants';
 
-var {
+import {
   Linking,
   StyleSheet,
   TouchableHighlight,
   Text,
   WebView,
   View
-} = React;
+} from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
@@ -57,7 +57,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class JobDetails extends React.Component {
+export default class JobDetails extends Component {
 
   constructor(props) {
     super(props);
