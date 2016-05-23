@@ -30,7 +30,7 @@ export default class SideMenu extends Component {
         <View style={styles.main}>
           <Divider theme="red" text="Navigation" />
           <SideMenuButton icon="heart" text="Favourites" />
-          <SideMenuButton icon="cog" text="Settings" />
+          <SideMenuButton icon="gear" text="Settings" />
 
           <Divider theme="red" text="Travis for Open Source" />
           <SideMenuButton icon="key" text="Authenticate" />

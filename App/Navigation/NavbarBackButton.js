@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Octicons';
 import Constants from '../Utils/Constants';
 
 import {
@@ -38,7 +38,7 @@ export default class NavigationButton extends Component {
           style={styles.toolbarButton}
           underlayColor={Constants.THEME_COLOR}
           onPress={this.context.drawer.toggle}>
-          <Icon name="bars" style={styles.icon} />
+          <Icon name="three-bars" style={styles.icon} />
         </TouchableHighlight>
 
         {/*
