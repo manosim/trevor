@@ -5,10 +5,9 @@ import Icon from 'react-native-vector-icons/Octicons';
 
 import { fetchAccounts } from '../Actions';
 import Constants from '../Utils/Constants';
-// import Loading from '../Components/Loading';
+import Loading from '../Components/Loading';
 import Separator from '../Helpers/Separator';
 import Routes from '../Navigation/Routes';
-// import AuthStore from '../Stores/Auth';
 
 import {
   Image,
@@ -157,18 +156,21 @@ class AccountsList extends Component {
 
   render() {
     var self = this;
-    var heading = this.props.isPro ? 'Travis Pro' : 'Travis for Open Source';
+    const accounts = this.props.isPro ? this.props.accounts.pro : this.props.accounts.os;
+    const heading = this.props.isPro ? 'Travis Pro' : 'Travis for Open Source';
 
-    // if (this.props.accounts.isFetching) {
-    //   return (
-    //     <View style={styles.loadingWrapper}>
-    //       <View style={styles.heading}>
-    //         <Text style={styles.headingTitle}>{heading}</Text>
-    //       </View>
-    //       <Loading hideText={true} style={{margin: 30}} />
-    //     </View>
-    //   );
-    // }
+    console.log('accounts');
+
+    if (this.props.accounts.isFetching) {
+      return (
+        <View style={styles.loadingWrapper}>
+          <View style={styles.heading}>
+            <Text style={styles.headingTitle}>{heading}</Text>
+          </View>
+          <Loading hideText={true} style={{margin: 30}} />
+        </View>
+      );
+    }
 
     return (
       <View style={styles.container}>
@@ -181,7 +183,7 @@ class AccountsList extends Component {
             <Text style={styles.logoutButtonText}>Log Out</Text>
           </TouchableHighlight>
         </View>
-        {_.map(this.props.accounts, function (account) {
+        {_.map(accounts, function (account) {
           return self._renderAccount(account);
         })}
       </View>
@@ -192,8 +194,7 @@ class AccountsList extends Component {
 
 function mapStateToProps(state) {
   return {
-    accounts: [],
-    auth: state.auth,
+    accounts: state.accounts
   };
 };
 
