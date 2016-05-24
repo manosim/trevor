@@ -55,32 +55,6 @@ class ReposScreen extends Component {
     }
   }
 
-  fetchData(refresh) {
-    // const self = this;
-    // Api.getRepos(this.props.username, this.props.isPro)
-    //   .then(function (res) {
-    //     var repos = _.filter(res.repos, function(obj) {
-    //       return obj.active === true;
-    //     });
-    //     repos = _.sortBy(repos, 'last_build_finished_at');
-    //     repos.reverse();
-    //
-    //     if (refresh) {
-    //       self.setState({
-    //         refreshing: false,
-    //         repos: repos,
-    //         reposSource: self.state.reposSource.cloneWithRows(repos)
-    //       });
-    //     } else {
-    //       self.setState({
-    //         loading: false,
-    //         repos: repos,
-    //         reposSource: self.state.reposSource.cloneWithRows(repos)
-    //       });
-    //     }
-    //   });
-  }
-
   _renderBuildRow(rowData: string, sectionID: number, rowID: number) {
     return (
       <RepoItem
@@ -123,6 +97,8 @@ class ReposScreen extends Component {
         <Loading text="Repositories" />
       );
     }
+
+    // FIXME: Implement isReFetching
 
     if (_.isEmpty(this.props.repos.response)) {
       return (
