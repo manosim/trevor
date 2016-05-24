@@ -4,8 +4,7 @@ import Drawer from 'react-native-drawer';
 
 import {
   Navigator,
-  StyleSheet,
-  View,
+  StyleSheet
 } from 'react-native';
 
 import configureStore from './Store/configureStore';

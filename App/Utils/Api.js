@@ -12,43 +12,6 @@ export default {
     }
   },
 
-  getAccounts(isPro) {
-    var url = this.getApiUrl(isPro) + '/accounts?all=true';
-    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
-
-    return fetch(url, {
-      method: 'get',
-      headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json'
-      }
-    }).then(function (res) {
-      return res.json();
-    }).catch(function(error) {
-      console.warn('Request Failed: ', error);
-    });
-  },
-
-  getRepos(username, isPro) {
-    var url = this.getApiUrl(isPro) + `/repos/${username}`;
-    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
-
-    return fetch(url, {
-      headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(function(res) {
-        return res.json();
-      })
-      .catch((error) => {
-        console.warn('Request Failed: ', error);
-      });
-  },
-
   searchPublicRepos(keywords) {
     var url = this.getApiUrl(false) + '/repos?orderBy=name&active=true';
     url = keywords ? url + `/&search=${keywords}` : url;

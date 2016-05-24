@@ -159,8 +159,6 @@ class AccountsList extends Component {
     const accounts = this.props.isPro ? this.props.accounts.pro : this.props.accounts.os;
     const heading = this.props.isPro ? 'Travis Pro' : 'Travis for Open Source';
 
-    console.log('accounts');
-
     if (this.props.accounts.isFetching) {
       return (
         <View style={styles.loadingWrapper}>

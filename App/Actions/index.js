@@ -99,3 +99,34 @@ export function fetchAccounts(isPro) {
     }
   };
 };
+
+
+// Repositories
+
+export const FETCH_REPOS_REQUEST = 'FETCH_REPOS_REQUEST';
+export const FETCH_REPOS_SUCCESS = 'FETCH_REPOS_SUCCESS';
+export const FETCH_REPOS_FAILURE = 'FETCH_REPOS_FAILURE';
+export function fetchRepos(isPro, username) {
+  return {
+    [CALL_API]: {
+      endpoint: getApiUrl(isPro) + `/repos/${username}`,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/vnd.travis-ci.2+json',
+        'Content-Type': 'application/json'
+      },
+      types: [{
+        type: FETCH_REPOS_REQUEST,
+        meta: { isPro }
+      }, {
+        type: FETCH_REPOS_SUCCESS,
+        payload: (action, state, res) => getJSON(res),
+        meta: { isPro }
+      }, {
+        type: FETCH_REPOS_FAILURE,
+        payload: (action, state, res) => getJSON(res),
+        meta: { isPro }
+      }]
+    }
+  };
+};
