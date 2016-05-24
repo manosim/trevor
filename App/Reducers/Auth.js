@@ -1,6 +1,7 @@
 import * as actions from '../Actions';
 
 const initialState = {
+  loaded: false,
   isFetching: false,
   token: {
     os: null,
@@ -11,6 +12,12 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case actions.RESTORE_AUTH:
+      console.log(action.state);
+      return {
+        ...action.state.auth,
+        loaded: true
+      };
     case actions.FETCH_GITHUB_TOKEN_REQUEST:
       return {
         ...state,

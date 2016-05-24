@@ -1,4 +1,7 @@
-import AuthStore from '../Stores/Auth';
+// import AuthStore from '../Stores/Auth';
+const AuthStore = {
+
+};
 
 export default {
   getApiUrl(isPro) {

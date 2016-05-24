@@ -71,12 +71,10 @@ class OAuthView extends Component {
   }
 };
 
-
 function mapStateToProps(state) {
   return {
     auth: state.auth
   };
 };
-
 
 export default connect(mapStateToProps, { fetchGithubToken, fetchTravisToken })(OAuthView);

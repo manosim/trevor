@@ -7,7 +7,7 @@ import Constants from '../Utils/Constants';
 import Loading from '../Components/Loading';
 import Separator from '../Helpers/Separator';
 import Routes from '../Navigation/Routes';
-import AuthStore from '../Stores/Auth';
+// import AuthStore from '../Stores/Auth';
 
 import {
   Image,
@@ -132,7 +132,7 @@ export default class AccountsList extends Component {
   }
 
   logout() {
-    AuthStore.logOut(this.props.isPro);
+    // AuthStore.logOut(this.props.isPro);
   }
 
   _pressRow(account) {
