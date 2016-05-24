@@ -1,10 +1,11 @@
 import _ from 'underscore';
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Octicons';
 
-import Api from '../Utils/Api';
+import { fetchAccounts } from '../Actions';
 import Constants from '../Utils/Constants';
-import Loading from '../Components/Loading';
+// import Loading from '../Components/Loading';
 import Separator from '../Helpers/Separator';
 import Routes from '../Navigation/Routes';
 // import AuthStore from '../Stores/Auth';
@@ -90,34 +91,9 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class AccountsList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-      accounts: []
-    };
-  }
-
+class AccountsList extends Component {
   componentWillMount() {
-    this.loadAccounts(this.props.isPro);
-  }
-
-  loadAccounts(isPro) {
-    var self = this;
-
-    this.setState({
-      loading: true
-    });
-
-    Api.getAccounts(isPro)
-      .then(function (res) {
-        self.setState({
-          loading: false,
-          accounts: res.accounts
-        });
-      });
+    this.props.fetchAccounts(this.props.isPro);
   }
 
   getTypeIcon(type) {
@@ -183,16 +159,16 @@ export default class AccountsList extends Component {
     var self = this;
     var heading = this.props.isPro ? 'Travis Pro' : 'Travis for Open Source';
 
-    if (this.state.loading) {
-      return (
-        <View style={styles.loadingWrapper}>
-          <View style={styles.heading}>
-            <Text style={styles.headingTitle}>{heading}</Text>
-          </View>
-          <Loading hideText={true} style={{margin: 30}} />
-        </View>
-      );
-    }
+    // if (this.props.accounts.isFetching) {
+    //   return (
+    //     <View style={styles.loadingWrapper}>
+    //       <View style={styles.heading}>
+    //         <Text style={styles.headingTitle}>{heading}</Text>
+    //       </View>
+    //       <Loading hideText={true} style={{margin: 30}} />
+    //     </View>
+    //   );
+    // }
 
     return (
       <View style={styles.container}>
@@ -205,10 +181,20 @@ export default class AccountsList extends Component {
             <Text style={styles.logoutButtonText}>Log Out</Text>
           </TouchableHighlight>
         </View>
-        {_.map(this.state.accounts, function (account) {
+        {_.map(this.props.accounts, function (account) {
           return self._renderAccount(account);
         })}
       </View>
     );
   }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    accounts: [],
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps, { fetchAccounts })(AccountsList);

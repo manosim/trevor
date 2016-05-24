@@ -13,7 +13,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case actions.RESTORE_AUTH:
-      console.log(action.state);
       return {
         ...action.state.auth,
         loaded: true

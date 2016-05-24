@@ -61,7 +61,38 @@ export function fetchTravisToken(isPro, token) {
         payload: (action, state, res) => getJSON(res),
         meta: { isPro }
       }, {
-        type: FETCH_GITHUB_TOKEN_FAILURE,
+        type: FETCH_TRAVIS_TOKEN_FAILURE,
+        payload: (action, state, res) => getJSON(res),
+        meta: { isPro }
+      }]
+    }
+  };
+};
+
+
+// Accounts
+
+export const FETCH_ACCOUNTS_REQUEST = 'FETCH_ACCOUNTS_REQUEST';
+export const FETCH_ACCOUNTS_SUCCESS = 'FETCH_ACCOUNTS_SUCCESS';
+export const FETCH_ACCOUNTS_FAILURE = 'FETCH_ACCOUNTS_FAILURE';
+export function fetchAccounts(isPro) {
+  return {
+    [CALL_API]: {
+      endpoint: getApiUrl(isPro) + '/accounts?all=true',
+      method: 'GET',
+      headers: {
+        'Accept': 'application/vnd.travis-ci.2+json',
+        'Content-Type': 'application/json'
+      },
+      types: [{
+        type: FETCH_ACCOUNTS_REQUEST,
+        meta: { isPro }
+      }, {
+        type: FETCH_ACCOUNTS_SUCCESS,
+        payload: (action, state, res) => getJSON(res),
+        meta: { isPro }
+      }, {
+        type: FETCH_ACCOUNTS_FAILURE,
         payload: (action, state, res) => getJSON(res),
         meta: { isPro }
       }]

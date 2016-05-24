@@ -6,11 +6,16 @@ import filter from 'redux-storage-decorator-filter';
 
 import { FETCH_TRAVIS_TOKEN_SUCCESS, restoreAuth } from '../Actions';
 import Constants from '../Utils/Constants';
+import requestsMiddleware from '../Middleware/Requests';
 import rootReducer from '../Reducers';
 
 const engine = filter(createEngine(Constants.STORAGE_KEY), ['auth']);
 const storeMiddleware = storage.createMiddleware(engine, [], [FETCH_TRAVIS_TOKEN_SUCCESS]);
-const middlewares = [apiMiddleware, storeMiddleware];
+const middlewares = [
+  requestsMiddleware, // Should be passed before 'apiMiddleware'
+  apiMiddleware,
+  storeMiddleware
+];
 
 if (process.env.NODE_ENV === 'development') {
   const createLogger = require('redux-logger');
@@ -19,11 +24,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default function configureStore(initialState) {
-  let store = createStore(
-    rootReducer,
-    initialState,
-    applyMiddleware(...middlewares)
-  );
+  const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
+
+  const store = createStoreWithMiddleware(rootReducer, initialState);
 
   const load = storage.createLoader(engine);
   load(store)

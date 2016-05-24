@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
   ScrollView,
   StyleSheet,
-  Text,
   View
 } from 'react-native';
 
@@ -80,11 +79,6 @@ class Dashboard extends Component {
           onPress={this.goToSearch.bind(this)} />
 
         <ScrollView style={styles.container}>
-          {!this.props.auth.token.os ? <Text>NOT LOGGED IN</Text> : <Text>YES LOGGED IN</Text>}
-
-          <Text>{'this.props.auth.token.os', this.props.auth.token.os}</Text>
-          <Text>{'this.props.auth.token.pro', this.props.auth.token.pro}</Text>
-
           {!this.props.auth.token.os ? (
             <LoginButton text="Login to Travis for Open Source" onPress={this._doLoginOs.bind(this)} />
           ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
