@@ -1,4 +1,3 @@
-// import AuthStore from '../Stores/Auth';
 const AuthStore = {
 
 };
@@ -24,42 +23,6 @@ export default {
     })
       .then(function(res) {
         return res.json();
-      })
-      .catch((error) => {
-        console.warn('Request Failed: ', error);
-      });
-  },
-
-  getLog(jobId, isPro) {
-    const url = this.getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`;
-    const token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
-
-    return fetch(url, {
-      headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(function(res) {
-        if (res.status === 204) {
-          const logUrl = res.headers.get('location');
-          return {
-            url: logUrl,
-            isArchived: true
-          };
-        }
-        return res.json();
-      })
-      .catch((error) => {
-        console.warn('Request Failed: ', error);
-      });
-  },
-
-  getLogFromS3(url) {
-    return fetch(url)
-      .then(function(res) {
-        return res.text();
       })
       .catch((error) => {
         console.warn('Request Failed: ', error);

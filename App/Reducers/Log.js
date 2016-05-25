@@ -26,9 +26,7 @@ export default function reducer(state = initialState, action) {
         };
       }
 
-      console.log('NOT ARCHIVED. YEYEY YEYEYEYEY EY EYEYE');
-      console.log(action.payload);
-      console.log('NOT ARCHIVED. YEYEY YEYEYEYEY EY EYEYE');
+      console.log('NOT ARCHIVED.');
 
       return {
         ...state,
