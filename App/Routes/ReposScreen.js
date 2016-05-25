@@ -50,6 +50,7 @@ class ReposScreen extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.repos.response !== this.props.repos.response) {
       this.setState({
+        repos: nextProps.repos.response,
         reposSource: this.state.reposSource.cloneWithRows(nextProps.repos.response)
       });
     }

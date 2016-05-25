@@ -139,3 +139,43 @@ export function fetchRepos(isPro, username, isReFetching = false) {
     }
   };
 };
+
+
+// Builds
+
+export const FETCH_BUILDS_REQUEST = 'FETCH_BUILDS_REQUEST';
+export const FETCH_BUILDS_SUCCESS = 'FETCH_BUILDS_SUCCESS';
+export const FETCH_BUILDS_FAILURE = 'FETCH_BUILDS_FAILURE';
+export function fetchBuilds(isPro, slug, isReFetching = false) {
+  return {
+    [CALL_API]: {
+      endpoint: getApiUrl(isPro) + `/repos/${slug}/builds`,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/vnd.travis-ci.2+json',
+        'Content-Type': 'application/json'
+      },
+      types: [{
+        type: FETCH_BUILDS_REQUEST,
+        meta: {
+          isPro,
+          isReFetching
+        }
+      }, {
+        type: FETCH_BUILDS_SUCCESS,
+        payload: (action, state, res) => getJSON(res),
+        meta: {
+          isPro,
+          isReFetching
+        }
+      }, {
+        type: FETCH_BUILDS_FAILURE,
+        payload: (action, state, res) => getJSON(res),
+        meta: {
+          isPro,
+          isReFetching
+        }
+      }]
+    }
+  };
+};
