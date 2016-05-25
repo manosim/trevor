@@ -202,3 +202,46 @@ export function fetchBuild(isPro, id, isReFetching = false) {
     }
   };
 };
+
+
+// Log
+
+export const FETCH_LOG_REQUEST = 'FETCH_LOG_REQUEST';
+export const FETCH_LOG_SUCCESS = 'FETCH_LOG_SUCCESS';
+export const FETCH_LOG_FAILURE = 'FETCH_LOG_FAILURE';
+export function fetchLog(isPro, jobId, isReFetching = false) {
+  return {
+    [CALL_API]: {
+      endpoint: getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      types: [{
+        type: FETCH_LOG_REQUEST,
+        meta: { isPro }
+      }, {
+        type: FETCH_LOG_SUCCESS,
+        payload: (action, state, res) => {
+          console.log(res);
+          console.log(res.status);
+          console.log(res.headers.get('location'));
+          if (res.status === 204) {
+            return {
+              location: res.headers.get('location')
+            };
+          }
+          return getJSON(res);
+        },
+        meta: { isPro }
+      }, {
+        type: FETCH_LOG_FAILURE,
+        payload: (action, state, res) => {
+          console.log(res);
+          return getJSON(res);
+        },
+        meta: { isPro }
+      }]
+    }
+  };
+};

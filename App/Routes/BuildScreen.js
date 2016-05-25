@@ -112,9 +112,7 @@ class BuildScreen extends Component {
 
         <Divider text="Build Details"></Divider>
         <View style={styles.buildDetailsWrapper}>
-          <StatusSidebar
-            buildState={this.props.build.response.build.state}
-            buildNumber={this.props.build.response.build.number} />
+          <StatusSidebar buildState={buildDetails.state} buildNumber={buildDetails.number} />
           <View style={styles.buildDetails}>
             <Text style={[styles.commitMessage, styles.buildDetailsText]} numberOfLines={2}>
               {this.props.build.response.commit.message}

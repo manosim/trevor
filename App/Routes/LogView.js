@@ -1,13 +1,14 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
-import AnsiUp from 'ansi_up';
-import Icon from 'react-native-vector-icons/Octicons';
+import { connect } from 'react-redux';
+// import AnsiUp from 'ansi_up';
+// import Icon from 'react-native-vector-icons/Octicons';
 
-import Api from '../Utils/Api';
+import { fetchLog } from '../Actions';
 import Loading from '../Components/Loading';
 import Constants from '../Utils/Constants';
 
 import {
-  Linking,
+  // Linking,
   StyleSheet,
   TouchableHighlight,
   Text,
@@ -38,114 +39,102 @@ var styles = StyleSheet.create({
     paddingVertical: 10,
     alignItems: 'center'
   },
-  toolbarButtonRight: {
-    paddingHorizontal: 10,
-    marginHorizontal: 2
-  },
+  // toolbarButtonRight: {
+  //   paddingHorizontal: 10,
+  //   marginHorizontal: 2
+  // },
   toolbarButtonText: {
     color: '#FFF',
     fontSize: 18
   },
-  toolbarButtonIcon: {
-    color: '#FFF',
-    fontSize: 22
-
-  },
+  // toolbarButtonIcon: {
+  //   color: '#FFF',
+  //   fontSize: 22
+  //
+  // },
   webView: {
     flex: 1,
     backgroundColor: '#343434'
   }
 });
 
-export default class JobDetails extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-      html: ''
-    };
-  }
-
+class LogView extends Component {
   componentWillMount() {
-    this.fetchData();
+    this.props.fetchLog(this.props.isPro, this.props.logId);
   }
 
-  setHtml(log) {
-    const html = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <style>
-          body {
-            word-wrap: break-word;
-            background-color: #343434;
-            color: #FFF;
-          }
-        </style>
-      </head>
-      <body>
-        <pre>${AnsiUp.ansi_to_html(log)}</pre>
-      </body>
-    </html>`;
-
-    this.setState({
-      html: html
-    });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.log.isArchived !== this.props.log.isArchived) {
+      console.log('IS ARCHIVED.');
+      this.props.fetchArchivedLog(nextProps.log.location);
+    }
   }
 
   fetchData() {
-    const self = this;
-
-    this.setState({
-      loading: true
-    });
-
-    Api.getLog(this.props.logId, this.props.isPro)
-      .then(function (res) {
-        if (res.isArchived) {
-          return self.fetchArchivedLog(res.url);
-        } else {
-          self.setHtml.bind(self)(res.log.body);
-          self.setState({
-            loading: false,
-          });
-        }
-      });
+    // Api.getLog(this.props.logId, this.props.isPro)
+    //   .then(function (res) {
+    //     if (res.isArchived) {
+    //       return self.fetchArchivedLog(res.url);
+    //     } else {
+    //       self.setHtml.bind(self)(res.log.body);
+    //       self.setState({
+    //         loading: false,
+    //       });
+    //     }
+    //   });
   }
 
   fetchArchivedLog(url) {
-    const self = this;
-
-    Api.getLogFromS3(url)
-      .then(function (res) {
-        self.setHtml.bind(self)(res);
-        self.setState({
-          isArchived: true,
-          log_url: url,
-          loading: false,
-        });
-      });
+    // Api.getLogFromS3(url)
+    //   .then(function (res) {
+    //     self.setHtml.bind(self)(res);
+    //     self.setState({
+    //       isArchived: true,
+    //       log_url: url,
+    //       loading: false,
+    //     });
+    //   });
   }
 
+  // setHtml(log) {
+  //   const html = `
+  //   <!DOCTYPE html>
+  //   <html>
+  //     <head>
+  //       <style>
+  //         body {
+  //           word-wrap: break-word;
+  //           background-color: #343434;
+  //           color: #FFF;
+  //         }
+  //       </style>
+  //     </head>
+  //     <body>
+  //       <pre>${AnsiUp.ansi_to_html(log)}</pre>
+  //     </body>
+  //   </html>`;
+  //
+  //   this.setState({
+  //     html: html
+  //   });
+  // }
+
   openInBrowser() {
-    const url = this.state.log_url;
-    if (!url) { return; }
-    Linking.openURL(url);
+    // FIXME!
+    // const url = this.state.log_url;
+    // if (!url) { return; }
+    // Linking.openURL(url);
   }
 
   render() {
-    if (this.state.loading) {
-      return (
-        <Loading text="Log" />
-      );
+
+    if (this.props.log.isFetching) {
+      return <Loading text="Log" />;
     }
 
     return (
       <View style={styles.container}>
         <View style={styles.toolbar}>
-
           <View style={styles.toolbarLeft}>
             <TouchableHighlight
               style={styles.toolbarButton}
@@ -156,21 +145,30 @@ export default class JobDetails extends Component {
           </View>
 
           <View style={styles.toolbarRight}>
-            {this.state.isArchived ? <View /> : (
+            {/*this.state.isArchived ? <View /> : (
               <TouchableHighlight
                 style={[styles.toolbarButton, styles.toolbarButtonRight]}
                 underlayColor={Constants.THEME_DARK_BLUE}
                 onPress={this.fetchData.bind(this)}>
                 <Icon style={styles.toolbarButtonIcon} name="sync" />
-              </TouchableHighlight> )}
+              </TouchableHighlight> )*/}
           </View>
-
         </View>
+
         <WebView
           style={styles.webView}
-          source={{html: this.state.html}}
+          source={{html: this.props.log.response || ''}}
           javaScriptEnabled={true} />
       </View>
     );
   }
 };
+
+
+function mapStateToProps(state) {
+  return {
+    log: state.log
+  };
+};
+
+export default connect(mapStateToProps, { fetchLog })(LogView);
