@@ -76,30 +76,6 @@ class BuildScreen extends Component {
     }
   }
 
-  fetchData(refresh) {
-
-    // var self = this;
-    //
-    // Api.getBuild(this.props.buildId, this.props.isPro)
-    //   .then(function (res) {
-    //     if (refresh) {
-    //       self.setState({
-    //         refreshing: false,
-    //         build: res.build,
-    //         commit: res.commit,
-    //         jobs: self.state.jobs.cloneWithRows(res.jobs)
-    //       });
-    //     } else {
-    //       self.setState({
-    //         loading: false,
-    //         build: res.build,
-    //         commit: res.commit,
-    //         jobs: self.state.jobs.cloneWithRows(res.jobs)
-    //       });
-    //     }
-    //   });
-  }
-
   openGitHub() {
     const url = this.props.build.commit.compare_url;
     Linking.openURL(url);
