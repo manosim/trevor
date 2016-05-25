@@ -106,7 +106,7 @@ class BuildScreen extends Component {
   }
 
   render() {
-    if (this.props.isFetching) {
+    if (this.props.isFetching || !this.props.build.response.build) {
       return <Loading text="Build" />;
     }
 

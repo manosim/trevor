@@ -77,6 +77,7 @@ export default class JobsListView extends Component {
   render() {
     return (
       <ListView
+        enableEmptySections={true}
         dataSource={this.props.jobs}
         renderRow={this._renderRow.bind(this)}
         renderSeparator={this._renderSeparator} />

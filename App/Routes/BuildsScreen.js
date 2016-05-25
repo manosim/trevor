@@ -190,6 +190,7 @@ class BuildsScreen extends Component {
         }>
         <ListView
           contentContainerStyle={styles.listViewContainer}
+          enableEmptySections={true}
           dataSource={this.state.buildsSource}
           renderHeader={this._renderHeader.bind(this)}
           renderRow={this._renderBuildRow.bind(this)}
