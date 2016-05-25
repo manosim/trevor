@@ -1,9 +1,9 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import { connect } from 'react-redux';
-// import AnsiUp from 'ansi_up';
-// import Icon from 'react-native-vector-icons/Octicons';
+import AnsiUp from 'ansi_up';
+import Icon from 'react-native-vector-icons/Octicons';
 
-import { fetchLog } from '../Actions';
+import { fetchLog, fetchLogArchived } from '../Actions';
 import Loading from '../Components/Loading';
 import Constants from '../Utils/Constants';
 
@@ -39,19 +39,19 @@ var styles = StyleSheet.create({
     paddingVertical: 10,
     alignItems: 'center'
   },
-  // toolbarButtonRight: {
-  //   paddingHorizontal: 10,
-  //   marginHorizontal: 2
-  // },
+  toolbarButtonRight: {
+    paddingHorizontal: 10,
+    marginHorizontal: 2
+  },
   toolbarButtonText: {
     color: '#FFF',
     fontSize: 18
   },
-  // toolbarButtonIcon: {
-  //   color: '#FFF',
-  //   fontSize: 22
-  //
-  // },
+  toolbarButtonIcon: {
+    color: '#FFF',
+    fontSize: 22
+
+  },
   webView: {
     flex: 1,
     backgroundColor: '#343434'
@@ -64,60 +64,30 @@ class LogView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.log.isArchived !== this.props.log.isArchived) {
+    if (nextProps.log.isArchived !== this.props.log.isArchived && nextProps.log.location) {
       console.log('IS ARCHIVED.');
-      this.props.fetchArchivedLog(nextProps.log.location);
+      this.props.fetchLogArchived(nextProps.log.location);
     }
   }
 
-  fetchData() {
-    // Api.getLog(this.props.logId, this.props.isPro)
-    //   .then(function (res) {
-    //     if (res.isArchived) {
-    //       return self.fetchArchivedLog(res.url);
-    //     } else {
-    //       self.setHtml.bind(self)(res.log.body);
-    //       self.setState({
-    //         loading: false,
-    //       });
-    //     }
-    //   });
+  setHtml(log) {
+    return `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body {
+              word-wrap: break-word;
+              background-color: #343434;
+              color: #FFF;
+            }
+          </style>
+        </head>
+        <body>
+          <pre>${AnsiUp.ansi_to_html(log)}</pre>
+        </body>
+      </html>`;
   }
-
-  fetchArchivedLog(url) {
-    // Api.getLogFromS3(url)
-    //   .then(function (res) {
-    //     self.setHtml.bind(self)(res);
-    //     self.setState({
-    //       isArchived: true,
-    //       log_url: url,
-    //       loading: false,
-    //     });
-    //   });
-  }
-
-  // setHtml(log) {
-  //   const html = `
-  //   <!DOCTYPE html>
-  //   <html>
-  //     <head>
-  //       <style>
-  //         body {
-  //           word-wrap: break-word;
-  //           background-color: #343434;
-  //           color: #FFF;
-  //         }
-  //       </style>
-  //     </head>
-  //     <body>
-  //       <pre>${AnsiUp.ansi_to_html(log)}</pre>
-  //     </body>
-  //   </html>`;
-  //
-  //   this.setState({
-  //     html: html
-  //   });
-  // }
 
   openInBrowser() {
     // FIXME!
@@ -132,6 +102,8 @@ class LogView extends Component {
       return <Loading text="Log" />;
     }
 
+    const log = this.setHtml(this.props.log.response);
+
     return (
       <View style={styles.container}>
         <View style={styles.toolbar}>
@@ -145,19 +117,19 @@ class LogView extends Component {
           </View>
 
           <View style={styles.toolbarRight}>
-            {/*this.state.isArchived ? <View /> : (
+            {this.props.log.isArchived ? <View /> : (
               <TouchableHighlight
                 style={[styles.toolbarButton, styles.toolbarButtonRight]}
                 underlayColor={Constants.THEME_DARK_BLUE}
-                onPress={this.fetchData.bind(this)}>
+                onPress={() => this.props.fetchLog(this.props.isPro, this.props.logId)}>
                 <Icon style={styles.toolbarButtonIcon} name="sync" />
-              </TouchableHighlight> )*/}
+              </TouchableHighlight> )}
           </View>
         </View>
 
         <WebView
           style={styles.webView}
-          source={{html: this.props.log.response || ''}}
+          source={{html: log || ''}}
           javaScriptEnabled={true} />
       </View>
     );
@@ -171,4 +143,4 @@ function mapStateToProps(state) {
   };
 };
 
-export default connect(mapStateToProps, { fetchLog })(LogView);
+export default connect(mapStateToProps, { fetchLog, fetchLogArchived })(LogView);

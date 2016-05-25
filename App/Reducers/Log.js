@@ -21,11 +21,14 @@ export default function reducer(state = initialState, action) {
       if (action.payload.location) {
         return {
           ...state,
-          isFetching: false,
           isArchived: true,
           location: action.payload.location
         };
       }
+
+      console.log('NOT ARCHIVED. YEYEY YEYEYEYEY EY EYEYE');
+      console.log(action.payload);
+      console.log('NOT ARCHIVED. YEYEY YEYEYEYEY EY EYEYE');
 
       return {
         ...state,
@@ -37,6 +40,22 @@ export default function reducer(state = initialState, action) {
         ...state,
         response: null,
         isFetching: false
+      };
+    case actions.FETCH_LOG_ARCHIVED_REQUEST:
+      return {
+        ...state
+      };
+    case actions.FETCH_LOG_ARCHIVED_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        response: action.payload
+      };
+    case actions.FETCH_LOG_ARCHIVED_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        response: null
       };
     default:
       return state;

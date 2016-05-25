@@ -214,34 +214,43 @@ export function fetchLog(isPro, jobId, isReFetching = false) {
     [CALL_API]: {
       endpoint: getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`,
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      types: [{
-        type: FETCH_LOG_REQUEST,
-        meta: { isPro }
-      }, {
-        type: FETCH_LOG_SUCCESS,
-        payload: (action, state, res) => {
-          console.log(res);
-          console.log(res.status);
-          console.log(res.headers.get('location'));
-          if (res.status === 204) {
-            return {
-              location: res.headers.get('location')
-            };
-          }
-          return getJSON(res);
+      types: [
+        FETCH_LOG_REQUEST,
+        {
+          type: FETCH_LOG_SUCCESS,
+          payload: (action, state, res) => {
+            if (res.status === 204) {
+              return {
+                location: res.headers.get('location')
+              };
+            }
+            return res.text();
+          },
+          meta: { isPro }
         },
-        meta: { isPro }
-      }, {
-        type: FETCH_LOG_FAILURE,
-        payload: (action, state, res) => {
-          console.log(res);
-          return getJSON(res);
+        FETCH_LOG_FAILURE
+      ]
+    }
+  };
+};
+
+
+export const FETCH_LOG_ARCHIVED_REQUEST = 'FETCH_LOG_ARCHIVED_REQUEST';
+export const FETCH_LOG_ARCHIVED_SUCCESS = 'FETCH_LOG_ARCHIVED_SUCCESS';
+export const FETCH_LOG_ARCHIVED_FAILURE = 'FETCH_LOG_ARCHIVED_FAILURE';
+export function fetchLogArchived(url) {
+  return {
+    [CALL_API]: {
+      endpoint: url,
+      method: 'GET',
+      types: [
+        FETCH_LOG_ARCHIVED_REQUEST,
+        {
+          type: FETCH_LOG_ARCHIVED_SUCCESS,
+          payload: (action, state, res) => res.text()
         },
-        meta: { isPro }
-      }]
+        FETCH_LOG_ARCHIVED_FAILURE
+      ]
     }
   };
 };
