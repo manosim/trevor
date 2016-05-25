@@ -1,4 +1,5 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Octicons';
 import moment from 'moment';
 require('moment-duration-format');
@@ -12,7 +13,7 @@ import {
   View
 } from 'react-native';
 
-import Api from '../Utils/Api';
+import { fetchBuild } from '../Actions';
 import CustomRefreshControl from '../Helpers/CustomRefreshControl';
 import DetailRow from '../Helpers/DetailRow';
 import Divider from '../Helpers/Divider';
@@ -53,95 +54,94 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class BuildScreen extends Component {
+class BuildScreen extends Component {
   constructor(props) {
     super(props);
     var jobsSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1.state !== row2.state});
 
     this.state = {
-      loading: false,
-      refreshing: false,
-      build: {},
-      commit: {},
-      jobs: jobsSource.cloneWithRows([])
+      jobsSource: jobsSource.cloneWithRows([])
     };
   }
 
   componentWillMount() {
-    this.fetchData(false);
+    this.props.fetchBuild(this.props.isPro, this.props.buildId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.build.response !== this.props.build.response) {
+      this.setState({
+        jobsSource: this.state.jobsSource.cloneWithRows(nextProps.build.response.jobs)
+      });
+    }
   }
 
   fetchData(refresh) {
-    if (refresh) {
-      this.setState({
-        refreshing: true
-      });
-    } else {
-      this.setState({
-        loading: true
-      });
-    }
 
-    var self = this;
-
-    Api.getBuild(this.props.buildId, this.props.isPro)
-      .then(function (res) {
-        if (refresh) {
-          self.setState({
-            refreshing: false,
-            build: res.build,
-            commit: res.commit,
-            jobs: self.state.jobs.cloneWithRows(res.jobs)
-          });
-        } else {
-          self.setState({
-            loading: false,
-            build: res.build,
-            commit: res.commit,
-            jobs: self.state.jobs.cloneWithRows(res.jobs)
-          });
-        }
-      });
+    // var self = this;
+    //
+    // Api.getBuild(this.props.buildId, this.props.isPro)
+    //   .then(function (res) {
+    //     if (refresh) {
+    //       self.setState({
+    //         refreshing: false,
+    //         build: res.build,
+    //         commit: res.commit,
+    //         jobs: self.state.jobs.cloneWithRows(res.jobs)
+    //       });
+    //     } else {
+    //       self.setState({
+    //         loading: false,
+    //         build: res.build,
+    //         commit: res.commit,
+    //         jobs: self.state.jobs.cloneWithRows(res.jobs)
+    //       });
+    //     }
+    //   });
   }
 
   openGitHub() {
-    const url = this.state.commit.compare_url;
+    const url = this.props.build.commit.compare_url;
     Linking.openURL(url);
   }
 
   render() {
-    if (this.state.loading) {
-      return (
-        <Loading text="Build" />
-      );
+    if (this.props.isFetching) {
+      return <Loading text="Build" />;
     }
 
-    const date = this.state.build.duration ? 'Finished ' + moment(this.state.build.finished_at).fromNow() :
-      'Started ' + moment(this.state.build.started_at).fromNow();
+    const buildDetails = this.props.build.response.build;
 
-    const duration = moment.duration(this.state.build.duration, 'seconds')
+    const date = buildDetails.duration ?
+      'Finished ' + moment(buildDetails.finished_at).fromNow() :
+      'Started ' + moment(buildDetails.started_at).fromNow();
+
+    const duration = moment.duration(buildDetails.duration, 'seconds')
       .format('[Run for] m [minutes], s [seconds]');
 
-    const prText = this.state.build.pull_request ? this.state.build.pull_request_number + ': '
-      + this.state.build.pull_request_title : null;
+    const prText = buildDetails.pull_request ?
+      buildDetails.pull_request_number + ': ' +
+      buildDetails.pull_request_title : null;
 
-    const durationText = this.state.build.duration ? 'Run for ' + duration : ' ';
+    const durationText = buildDetails.duration ? 'Run for ' + duration : ' ';
 
     return (
       <ScrollView
         style={styles.container}
         refreshControl={
           <CustomRefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this.fetchData.bind(this, true)} />
+            refreshing={this.props.build.isReFetching}
+            onRefresh={() => this.props.fetchBuild(this.props.isPro, this.props.buildId, true)} />
         }>
 
         <Divider text="Build Details"></Divider>
         <View style={styles.buildDetailsWrapper}>
-          <StatusSidebar buildState={this.state.build.state} buildNumber={this.state.build.number} />
+          <StatusSidebar
+            buildState={this.props.build.response.build.state}
+            buildNumber={this.props.build.response.build.number} />
           <View style={styles.buildDetails}>
             <Text style={[styles.commitMessage, styles.buildDetailsText]} numberOfLines={2}>
-              {this.state.commit.message}
+              {this.props.build.response.commit.message}
             </Text>
             <Text style={styles.buildDetailsText}>{date}</Text>
             <Text style={styles.buildDetailsText}>{durationText}</Text>
@@ -150,9 +150,9 @@ export default class BuildScreen extends Component {
 
         <Divider text="Commit Info"></Divider>
         <View style={styles.commitInfo}>
-          <DetailRow icon="person" text={this.state.commit.author_name} />
+          <DetailRow icon="person" text={this.props.build.response.commit.author_name} />
           {prText ? ( <DetailRow icon="git-pull-request" text={prText} /> ) : null}
-          <DetailRow icon="git-branch" text={this.state.commit.branch} />
+          <DetailRow icon="git-branch" text={this.props.build.response.commit.branch} />
 
           {this.props.isPro ? null : (
             <View style={styles.githubButtonWrapper}>
@@ -168,10 +168,18 @@ export default class BuildScreen extends Component {
 
         <Divider text="Jobs"></Divider>
         <JobsListView
-          jobs={this.state.jobs}
+          jobs={this.state.jobsSource}
           isPro={this.props.isPro}
           navigator={this.props.navigator} />
       </ScrollView>
     );
   }
 };
+
+function mapStateToProps(state) {
+  return {
+    build: state.build,
+  };
+};
+
+export default connect(mapStateToProps, { fetchBuild })(BuildScreen);

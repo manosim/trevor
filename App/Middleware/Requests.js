@@ -17,7 +17,6 @@ export default store => next => action => {
     case FETCH_BUILDS_REQUEST:
       const type = action[CALL_API].types[0].meta.isPro ? 'pro' : 'os';
       const token = 'token ' + store.getState().auth.token[type];
-      console.log('TOKEN: ', token);
       action[CALL_API].headers['Authorization'] = token;
       break;
   }

@@ -30,25 +30,6 @@ export default {
       });
   },
 
-  getBuild(id, isPro) {
-    var url = this.getApiUrl(isPro) + `/builds/${id}`;
-    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
-
-    return fetch(url, {
-      headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(function(res) {
-        return res.json();
-      })
-      .catch((error) => {
-        console.warn('Request Failed: ', error);
-      });
-  },
-
   getLog(jobId, isPro) {
     const url = this.getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`;
     const token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;

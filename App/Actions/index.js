@@ -6,6 +6,7 @@ const getApiUrl = (isPro) => {
   return isPro ? Constants.API_PRO : Constants.API_OS;
 };
 
+
 // Auth
 
 export const RESTORE_AUTH = 'RESTORE_AUTH';
@@ -157,24 +158,46 @@ export function fetchBuilds(isPro, slug, isReFetching = false) {
       },
       types: [{
         type: FETCH_BUILDS_REQUEST,
-        meta: {
-          isPro,
-          isReFetching
-        }
+        meta: { isPro, isReFetching }
       }, {
         type: FETCH_BUILDS_SUCCESS,
         payload: (action, state, res) => getJSON(res),
-        meta: {
-          isPro,
-          isReFetching
-        }
+        meta: { isPro, isReFetching }
       }, {
         type: FETCH_BUILDS_FAILURE,
         payload: (action, state, res) => getJSON(res),
-        meta: {
-          isPro,
-          isReFetching
-        }
+        meta: { isPro, isReFetching }
+      }]
+    }
+  };
+};
+
+
+// Build
+
+export const FETCH_BUILD_REQUEST = 'FETCH_BUILD_REQUEST';
+export const FETCH_BUILD_SUCCESS = 'FETCH_BUILD_SUCCESS';
+export const FETCH_BUILD_FAILURE = 'FETCH_BUILD_FAILURE';
+export function fetchBuild(isPro, id, isReFetching = false) {
+  return {
+    [CALL_API]: {
+      endpoint: getApiUrl(isPro) + `/builds/${id}`,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/vnd.travis-ci.2+json',
+        'Content-Type': 'application/json'
+      },
+      types: [{
+        type: FETCH_BUILD_REQUEST,
+        meta: { isPro, isReFetching }
+      }, {
+        type: FETCH_BUILD_SUCCESS,
+        payload: (action, state, res) => getJSON(res),
+        meta: { isPro, isReFetching }
+      }, {
+        type: FETCH_BUILD_FAILURE,
+        payload: (action, state, res) => getJSON(res),
+        meta: { isPro, isReFetching }
       }]
     }
   };

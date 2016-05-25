@@ -15,17 +15,10 @@ export default function reducer(state = initialState, action) {
 
       return newState;
     case actions.FETCH_BUILDS_SUCCESS:
-      console.log(action.payload.builds);
-      console.log(action.payload.commits);
-
       const builds = _.map(action.payload.builds, function (obj) {
         obj.commit = _.find(action.payload.commits, (value) => obj.commit_id === value.id);;
         return obj;
       });
-
-      console.log('------');
-      console.log(builds);
-      console.log('------');
 
       var newState = action.meta.isReFetching ?
         { ...state, response: builds, isReFetching: false } : { ...state, response: builds, isFetching: false };
