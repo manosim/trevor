@@ -106,7 +106,7 @@ export function fetchAccounts(isPro) {
 export const FETCH_REPOS_REQUEST = 'FETCH_REPOS_REQUEST';
 export const FETCH_REPOS_SUCCESS = 'FETCH_REPOS_SUCCESS';
 export const FETCH_REPOS_FAILURE = 'FETCH_REPOS_FAILURE';
-export function fetchRepos(isPro, username) {
+export function fetchRepos(isPro, username, isReFetching = false) {
   return {
     [CALL_API]: {
       endpoint: getApiUrl(isPro) + `/repos/${username}`,
@@ -117,15 +117,24 @@ export function fetchRepos(isPro, username) {
       },
       types: [{
         type: FETCH_REPOS_REQUEST,
-        meta: { isPro }
+        meta: {
+          isPro,
+          isReFetching
+        }
       }, {
         type: FETCH_REPOS_SUCCESS,
         payload: (action, state, res) => getJSON(res),
-        meta: { isPro }
+        meta: {
+          isPro,
+          isReFetching
+        }
       }, {
         type: FETCH_REPOS_FAILURE,
         payload: (action, state, res) => getJSON(res),
-        meta: { isPro }
+        meta: {
+          isPro,
+          isReFetching
+        }
       }]
     }
   };

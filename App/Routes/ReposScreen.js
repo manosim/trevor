@@ -93,17 +93,11 @@ class ReposScreen extends Component {
 
   render() {
     if (this.props.repos.isFetching) {
-      return (
-        <Loading text="Repositories" />
-      );
+      return <Loading text="Repositories" />;
     }
 
-    // FIXME: Implement isReFetching
-
-    if (_.isEmpty(this.props.repos.response)) {
-      return (
-        <EmptyResults />
-      );
+    if (!this.props.repos.response.length) {
+      return <EmptyResults />;
     }
 
     return (
@@ -111,8 +105,8 @@ class ReposScreen extends Component {
         style={styles.container}
         refreshControl={
           <CustomRefreshControl
-            refreshing={this.props.isFetching}
-            onRefresh={() => this.props.fetchRepos(this.props.isPro, this.props.username)} />
+            refreshing={this.props.repos.isReFetching}
+            onRefresh={() => this.props.fetchRepos(this.props.isPro, this.props.username, true)} />
         }>
         <ListView
           contentContainerStyle={styles.listViewContainer}
