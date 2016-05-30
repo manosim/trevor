@@ -1,14 +1,15 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import { connect } from 'react-redux';
 
 import {
+  ScrollView,
   StyleSheet,
-  View,
-  ScrollView
+  View
 } from 'react-native';
 
-import AuthStore from '../Stores/Auth';
 import BarButton from '../Helpers/BarButton';
 import Routes from '../Navigation/Routes';
+import Loading from '../Components/Loading';
 import LoginButton from '../Helpers/LoginButton';
 import AccountsList from '../Components/AccountsList';
 import Constants from '../Utils/Constants';
@@ -20,31 +21,7 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLoggedIn: {
-        os: AuthStore.isLoggedIn(false),
-        pro: AuthStore.isLoggedIn(true)
-      }
-    };
-  }
-
-  componentWillMount() {
-    AuthStore.eventEmitter.addListener('authStateChanged', this.refreshAuthState.bind(this));
-  }
-
-  refreshAuthState() {
-    this.setState({
-      isLoggedIn: {
-        os: AuthStore.isLoggedIn(false),
-        pro: AuthStore.isLoggedIn(true)
-      }
-    });
-  }
-
+class Dashboard extends Component {
   getAuthUrl(isPro) {
     var scopes = Constants.oAuthOptions.scopes;
     if (isPro) {
@@ -90,6 +67,10 @@ export default class Dashboard extends Component {
   }
 
   render() {
+    if (!this.props.auth.loaded) {
+      return <Loading text="Trevor" />;
+    }
+
     return (
       <View style={{flex: 1}}>
         <BarButton
@@ -98,21 +79,29 @@ export default class Dashboard extends Component {
           onPress={this.goToSearch.bind(this)} />
 
         <ScrollView style={styles.container}>
-          {!this.state.isLoggedIn.os ? (
+          {!this.props.auth.token.os ? (
             <LoginButton text="Login to Travis for Open Source" onPress={this._doLoginOs.bind(this)} />
           ) : <AccountsList navigator={this.props.navigator} isPro={false} />}
 
-          {!this.state.isLoggedIn.pro ? (
+          {!this.props.auth.token.pro ? (
             <LoginButton text="Login to Travis Pro" onPress={this._doLoginPro.bind(this)} />
           ) : <AccountsList navigator={this.props.navigator} isPro={true} />}
         </ScrollView>
 
-        {this.state.isLoggedIn.pro ? (
+        {this.props.isLoggedInPro ? (
           <BarButton
             text="Latest Builds for Travis Pro"
             onPress={this.goToLatestPro.bind(this)} />
-        ) : <View /> }
+        ) : <View />}
       </View>
     );
   }
 };
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps, null)(Dashboard);

@@ -1,4 +1,6 @@
-import AuthStore from '../Stores/Auth';
+const AuthStore = {
+
+};
 
 export default {
   getApiUrl(isPro) {
@@ -7,76 +9,6 @@ export default {
     } else {
       return 'https://api.travis-ci.org';
     }
-  },
-
-  getGithubToken(data) {
-    var url = 'https://github.com/login/oauth/access_token';
-    return fetch(url, {
-      method: 'post',
-      body: data,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache'
-      }
-    }).then(function (res) {
-      return res.json();
-    }).catch(function(error) {
-      console.warn('Request Failed: ', error);
-    });
-  },
-
-  getTravisToken(data, isPro) {
-    var url = this.getApiUrl(isPro) + '/auth/github';
-    return fetch(url, {
-      method: 'post',
-      body: data,
-      headers: {
-        'Accept': 'application/vnd.travis-ci.2+json',
-        'Content-Type': 'application/json'
-      }
-    }).then(function (res) {
-      return res.json();
-    }).catch(function(error) {
-      console.warn('Request Failed: ', error);
-    });
-  },
-
-  getAccounts(isPro) {
-    var url = this.getApiUrl(isPro) + '/accounts?all=true';
-    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
-
-    return fetch(url, {
-      method: 'get',
-      headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json'
-      }
-    }).then(function (res) {
-      return res.json();
-    }).catch(function(error) {
-      console.warn('Request Failed: ', error);
-    });
-  },
-
-  getRepos(username, isPro) {
-    var url = this.getApiUrl(isPro) + `/repos/${username}`;
-    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
-
-    return fetch(url, {
-      headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(function(res) {
-        return res.json();
-      })
-      .catch((error) => {
-        console.warn('Request Failed: ', error);
-      });
   },
 
   searchPublicRepos(keywords) {
@@ -91,80 +23,6 @@ export default {
     })
       .then(function(res) {
         return res.json();
-      })
-      .catch((error) => {
-        console.warn('Request Failed: ', error);
-      });
-  },
-
-  getBuilds(slug, isPro) {
-    var url = this.getApiUrl(isPro) + `/repos/${slug}/builds`;
-    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
-
-    return fetch(url, {
-      headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(function(res) {
-        return res.json();
-      })
-      .catch((error) => {
-        console.warn('Request Failed: ', error);
-      });
-  },
-
-  getBuild(id, isPro) {
-    var url = this.getApiUrl(isPro) + `/builds/${id}`;
-    var token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
-
-    return fetch(url, {
-      headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(function(res) {
-        return res.json();
-      })
-      .catch((error) => {
-        console.warn('Request Failed: ', error);
-      });
-  },
-
-  getLog(jobId, isPro) {
-    const url = this.getApiUrl(isPro) + `/jobs/${jobId}/log?cors_hax=true`;
-    const token = isPro ? AuthStore.tokenPro : AuthStore.tokenOs;
-
-    return fetch(url, {
-      headers: {
-        'Accept': 'Accept: application/vnd.travis-ci.2+json',
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(function(res) {
-        if (res.status === 204) {
-          const logUrl = res.headers.get('location');
-          return {
-            url: logUrl,
-            isArchived: true
-          };
-        }
-        return res.json();
-      })
-      .catch((error) => {
-        console.warn('Request Failed: ', error);
-      });
-  },
-
-  getLogFromS3(url) {
-    return fetch(url)
-      .then(function(res) {
-        return res.text();
       })
       .catch((error) => {
         console.warn('Request Failed: ', error);

@@ -1,72 +1,42 @@
-import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import { connect } from 'react-redux';
 
 import {
   AlertIOS,
   WebView,
 } from 'react-native';
 
-import Api from '../Utils/Api';
-import AuthStore from '../Stores/Auth';
+import { fetchGithubToken, fetchTravisToken } from '../Actions';
 import Constants from '../Utils/Constants';
 import Loading from '../Components/Loading';
 
-export default class OAuthView extends Component {
-  constructor(props) {
-    super(props);
+class OAuthView extends Component {
+  static propTypes = {
+    authUrl: PropTypes.string.isRequired
+  };
 
-    this.state = {
-      authUrl: this.props.authUrl,
-      loading: false
-    };
-  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.token.github !== this.props.auth.token.github) {
+      this.requestTravisToken(nextProps.auth.token.github);
+    }
 
-  componentWillMount() {
-    this.setState({
-      authUrl: this.props.authUrl
-    });
+    if (nextProps.auth.token[this.props.isPro ? 'pro' : 'os']) {
+      this.props.navigator.pop();
+    }
   }
 
   requestGithubToken(code) {
-    var self = this;
-
-    this.setState({
-      loading: true
-    });
-
-    var data = JSON.stringify({
+    var data = {
       client_id: Constants.oAuthOptions.client_id,
       client_secret: Constants.oAuthOptions.client_secret,
       code: code
-    });
+    };
 
-    Api.getGithubToken(data)
-      .then(function (res) {
-        if (res.error && res.error_description) {
-          AlertIOS.alert('Trevor', res.error_description);
-        }
-
-        if (res.access_token) {
-          self.requestTravisToken(res.access_token);
-        }
-      });
+    this.props.fetchGithubToken(data);
   }
 
   requestTravisToken(githubToken) {
-    var self = this;
-
-    var data = JSON.stringify({
-      github_token: githubToken
-    });
-
-    Api.getTravisToken(data, this.props.isPro)
-      .then(function (res) {
-        if (res && res.access_token) {
-          AuthStore.setToken('token' + (self.props.isPro ? 'Pro' : 'Os'), res.access_token);
-          self.props.navigator.pop();
-        } else {
-          AlertIOS.alert('Trevor', 'Couldn\'t authenticate you with Travis CI. ');
-        }
-      });
+    this.props.fetchTravisToken(this.props.isPro, githubToken);
   }
 
   onNavigationStateChange(args) {
@@ -77,40 +47,34 @@ export default class OAuthView extends Component {
 
     // If there is a code, proceed to get token from github
     if (code) {
-      this.setState({
-        loading: false
-      });
-
       this.requestGithubToken(code);
     }
 
     if (error) {
-      this.setState({
-        loading: false
-      });
       AlertIOS.alert('Trevor', 'Oops! Something went wrong and we couldn\'t log' +
         'you in. Please try again.');
     }
   }
 
   render() {
-    if (this.state.loading || !this.props.authUrl) {
-      return (
-        <Loading text="Auth" />
-      );
+    if (this.props.auth.isFetching || this.props.auth.token.github) {
+      return <Loading text="Auth" />;
     }
 
     return (
       <WebView
-        source={{uri: this.state.authUrl}}
+        source={{uri: this.props.authUrl}}
         onNavigationStateChange={this.onNavigationStateChange.bind(this)}
         automaticallyAdjustContentInsets={true}
-        startInLoadingState={true}
-        scalesPageToFit={this.state.scalesPageToFit} />
+        startInLoadingState={true} />
     );
   }
 };
 
-OAuthView.propTypes = {
-  authUrl: React.PropTypes.string.isRequired
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
 };
+
+export default connect(mapStateToProps, { fetchGithubToken, fetchTravisToken })(OAuthView);

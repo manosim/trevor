@@ -1,9 +1,10 @@
 import _ from 'underscore';
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import { connect } from 'react-redux';
 var moment = require('moment');
 require('moment-duration-format');
 
-import Api from '../Utils/Api';
+import { fetchBuilds } from '../Actions';
 import Constants from '../Utils/Constants';
 import CustomRefreshControl from '../Helpers/CustomRefreshControl';
 import Loading from '../Components/Loading';
@@ -55,11 +56,10 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class BuildsScreen extends Component {
+class BuildsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
       builds: [],
       buildsSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -68,47 +68,16 @@ export default class BuildsScreen extends Component {
   }
 
   componentWillMount() {
-    this.fetchData();
+    this.props.fetchBuilds(this.props.isPro, this.props.slug);
   }
 
-  fetchData(refresh) {
-    var self = this;
-
-    if (refresh) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.builds.response !== this.props.builds.response) {
       this.setState({
-        refreshing: true
-      });
-    } else {
-      this.setState({
-        loading: true
+        builds: nextProps.builds.response,
+        buildsSource: this.state.buildsSource.cloneWithRows(nextProps.builds.response)
       });
     }
-
-
-    Api.getBuilds(this.props.slug, this.props.isPro)
-      .then(function (res) {
-        var builds = res.builds;
-        _.map(builds, function (obj) {
-          var commit = _.find(res.commits, function(value) {
-            return obj.commit_id === value.id;
-          });
-          obj.commit = commit;
-        });
-
-        if (refresh) {
-          self.setState({
-            refreshing: false,
-            builds: builds,
-            buildsSource: self.state.buildsSource.cloneWithRows(builds)
-          });
-        } else {
-          self.setState({
-            loading: false,
-            builds: builds,
-            buildsSource: self.state.buildsSource.cloneWithRows(builds)
-          });
-        }
-      });
   }
 
   _pressRow(details) {
@@ -121,10 +90,10 @@ export default class BuildsScreen extends Component {
   }
 
   _renderBuildRow(rowData: string, sectionID: number, rowID: number) {
-    var date = rowData.duration ? 'Finished ' + moment(rowData.finished_at).fromNow() :
+    const date = rowData.duration ? 'Finished ' + moment(rowData.finished_at).fromNow() :
       'Started ' + moment(rowData.started_at).fromNow();
 
-    var duration = moment.duration(rowData.duration, 'seconds')
+    const duration = moment.duration(rowData.duration, 'seconds')
       .format('[Run for] m [minutes], s [seconds]');
 
     return (
@@ -160,17 +129,13 @@ export default class BuildsScreen extends Component {
   _onSegmentChange(value) {
     switch (value) {
       case 'Builds':
-        var filtered = _.filter(this.state.builds, function(obj) {
-          return obj.pull_request === false;
-        });
+        var filtered = _.filter(this.state.builds, (obj) => obj.pull_request === false);
         this.setState({
           buildsSource: this.state.buildsSource.cloneWithRows(filtered)
         });
         break;
       case 'Pull Requests':
-        var filtered = _.filter(this.state.builds, function (obj) {
-          return obj.pull_request === true;
-        });
+        var filtered = _.filter(this.state.builds, (obj) => obj.pull_request === true);
         this.setState({
           buildsSource: this.state.buildsSource.cloneWithRows(filtered)
         });
@@ -211,10 +176,8 @@ export default class BuildsScreen extends Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return (
-        <Loading text="Builds" />
-      );
+    if (this.props.builds.isFetching) {
+      return <Loading text="Builds" />;
     }
 
     return (
@@ -222,11 +185,12 @@ export default class BuildsScreen extends Component {
         style={styles.container}
         refreshControl={
           <CustomRefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this.fetchData.bind(this, true)} />
+            refreshing={this.props.builds.isReFetching}
+            onRefresh={() => this.props.fetchBuilds(this.props.isPro, this.props.slug, true)} />
         }>
         <ListView
           contentContainerStyle={styles.listViewContainer}
+          enableEmptySections={true}
           dataSource={this.state.buildsSource}
           renderHeader={this._renderHeader.bind(this)}
           renderRow={this._renderBuildRow.bind(this)}
@@ -235,3 +199,11 @@ export default class BuildsScreen extends Component {
     );
   }
 };
+
+function mapStateToProps(state) {
+  return {
+    builds: state.builds,
+  };
+};
+
+export default connect(mapStateToProps, { fetchBuilds })(BuildsScreen);

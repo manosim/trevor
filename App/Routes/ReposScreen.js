@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import { connect } from 'react-redux';
 
 import {
   ListView,
@@ -8,7 +9,7 @@ import {
   View
 } from 'react-native';
 
-import Api from '../Utils/Api';
+import { fetchRepos } from '../Actions';
 import CustomRefreshControl from '../Helpers/CustomRefreshControl';
 import EmptyResults from '../Components/EmptyResults';
 import Loading from '../Components/Loading';
@@ -26,15 +27,13 @@ var styles = StyleSheet.create({
   }
 });
 
-export default class ReposScreen extends Component {
+class ReposScreen extends Component {
   constructor(props) {
     super(props);
 
     const ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
       clearSearch: false,
-      loading: false,
-      refreshing: false,
       repos: [],
       reposSource: ds.cloneWithRows([])
     };
@@ -42,49 +41,19 @@ export default class ReposScreen extends Component {
 
   componentWillMount() {
     this.setState({
-      clearSearch: false,
-      loading: true
+      clearSearch: false
     });
 
-    this.fetchData(false);
+    this.props.fetchRepos(this.props.isPro, this.props.username);
   }
 
-  fetchData(refresh) {
-    if (refresh) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.repos.response !== this.props.repos.response) {
       this.setState({
-        clearSearch: true,
-        refreshing: true
-      });
-    } else {
-      this.setState({
-        clearSearch: true,
-        loading: true
+        repos: nextProps.repos.response,
+        reposSource: this.state.reposSource.cloneWithRows(nextProps.repos.response)
       });
     }
-
-    const self = this;
-    Api.getRepos(this.props.username, this.props.isPro)
-      .then(function (res) {
-        var repos = _.filter(res.repos, function(obj) {
-          return obj.active === true;
-        });
-        repos = _.sortBy(repos, 'last_build_finished_at');
-        repos.reverse();
-
-        if (refresh) {
-          self.setState({
-            refreshing: false,
-            repos: repos,
-            reposSource: self.state.reposSource.cloneWithRows(repos)
-          });
-        } else {
-          self.setState({
-            loading: false,
-            repos: repos,
-            reposSource: self.state.reposSource.cloneWithRows(repos)
-          });
-        }
-      });
   }
 
   _renderBuildRow(rowData: string, sectionID: number, rowID: number) {
@@ -124,16 +93,12 @@ export default class ReposScreen extends Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return (
-        <Loading text="Repositories" />
-      );
+    if (this.props.repos.isFetching) {
+      return <Loading text="Repositories" />;
     }
 
-    if (_.isEmpty(this.state.repos)) {
-      return (
-        <EmptyResults />
-      );
+    if (!this.props.repos.response.length) {
+      return <EmptyResults />;
     }
 
     return (
@@ -141,8 +106,8 @@ export default class ReposScreen extends Component {
         style={styles.container}
         refreshControl={
           <CustomRefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this.fetchData.bind(this, true)} />
+            refreshing={this.props.repos.isReFetching}
+            onRefresh={() => this.props.fetchRepos(this.props.isPro, this.props.username, true)} />
         }>
         <ListView
           contentContainerStyle={styles.listViewContainer}
@@ -154,3 +119,12 @@ export default class ReposScreen extends Component {
     );
   }
 };
+
+
+function mapStateToProps(state) {
+  return {
+    repos: state.repos,
+  };
+};
+
+export default connect(mapStateToProps, { fetchRepos })(ReposScreen);
