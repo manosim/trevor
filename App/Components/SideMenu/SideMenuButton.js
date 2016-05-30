@@ -34,10 +34,15 @@ var styles = StyleSheet.create({
 export default class SideMenuButton extends Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired
+    icon: PropTypes.string.isRequired,
+    show: PropTypes.bool.isRequired
   }
 
   render() {
+    if (this.props.show === false) {
+      return null;
+    }
+
     return (
       <TouchableHighlight
         style={styles.container}
