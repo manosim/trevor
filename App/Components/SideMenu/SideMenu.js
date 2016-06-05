@@ -61,8 +61,16 @@ class SideMenu extends Component {
 
         <View style={styles.main}>
           <Divider theme="red" text="Navigation" />
-          <SideMenuButton show={isLoggedInEither} icon="heart" text="Favourites" />
-          <SideMenuButton show={isLoggedInEither} icon="gear" text="Settings" />
+          <SideMenuButton
+            onPress={() => {}}
+            show={isLoggedInEither}
+            icon="heart"
+            text="Favourites" />
+          <SideMenuButton
+            onPress={() => {}}
+            show={isLoggedInEither}
+            icon="gear"
+            text="Settings" />
 
           <Divider theme="red" text="Travis for Open Source" />
           <SideMenuButton

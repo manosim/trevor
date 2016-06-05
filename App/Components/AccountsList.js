@@ -25,7 +25,7 @@ var styles = StyleSheet.create({
   heading: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: Constants.THEME_LIGHT_EXTRA_BLUE,
+    backgroundColor: Constants.THEME_LIGHTER_BLUE,
     paddingVertical: 7,
     paddingHorizontal: 10,
     alignItems: 'center'

@@ -14,7 +14,7 @@ export default class CustomRefreshControl extends Component {
         onRefresh={this.props.onRefresh}
         tintColor={Constants.THEME_DARK_BLUE}
         title="Loading..."
-        progressBackgroundColor={Constants.THEME_COLOR} />
+        progressBackgroundColor={Constants.THEME_RED} />
     );
   }
 };
