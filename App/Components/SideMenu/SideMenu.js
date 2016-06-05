@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Constants from '../../Utils/Constants';
 import Divider from '../../Helpers/Divider';
+import Routes from '../../Navigation/Routes.js';
 import SideMenuButton from './SideMenuButton';
 import SideMenuHeader from './SideMenuHeader';
 import SideMenuFooter from './SideMenuFooter';
@@ -23,6 +24,32 @@ var styles = StyleSheet.create({
 });
 
 class SideMenu extends Component {
+  _getAuthUrl(isPro) {
+    var scopes = Constants.oAuthOptions.scopes;
+    if (isPro) {
+      scopes.push('repo');
+    }
+
+    var authUrl = [
+      'https://github.com/login/oauth/authorize',
+      '?client_id=' + Constants.oAuthOptions.client_id,
+      '&client_secret=' + Constants.oAuthOptions.client_secret,
+      '&scope=' + scopes
+    ].join('');
+
+    return authUrl;
+  }
+
+  _doLogin(isPro) {
+    var authUrl = this._getAuthUrl(isPro);
+    const route = Routes.OAuth({
+      isPro: isPro,
+      authUrl: authUrl
+    });
+
+    this.props.pushRoute(route);
+  }
+
   render() {
     const isLoggedInOs = this.props.auth.token.os !== null;
     const isLoggedInPro = this.props.auth.token.pro !== null;
@@ -38,10 +65,18 @@ class SideMenu extends Component {
           <SideMenuButton show={isLoggedInEither} icon="gear" text="Settings" />
 
           <Divider theme="red" text="Travis for Open Source" />
-          <SideMenuButton show={!isLoggedInOs} icon="key" text="Authenticate" />
+          <SideMenuButton
+            show={!isLoggedInOs}
+            icon="key"
+            text="Authenticate"
+            onPress={() => this._doLogin(false)} />
 
           <Divider theme="red" text="Travis Pro" />
-          <SideMenuButton show={!isLoggedInPro} icon="key" text="Authenticate" />
+          <SideMenuButton
+            show={!isLoggedInPro}
+            icon="key"
+            text="Authenticate"
+            onPress={() => this._doLogin(true)} />
         </View>
 
         <SideMenuFooter />

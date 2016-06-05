@@ -33,6 +33,7 @@ var styles = StyleSheet.create({
 
 export default class SideMenuButton extends Component {
   static propTypes = {
+    onPress: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
     show: PropTypes.bool.isRequired
@@ -46,7 +47,7 @@ export default class SideMenuButton extends Component {
     return (
       <TouchableHighlight
         style={styles.container}
-        onPress={() => {}}>
+        onPress={() => this.props.onPress()}>
         <View style={styles.buttonContent}>
           <Icon style={styles.icon} name={this.props.icon} />
           <Text style={styles.text}>{this.props.text}</Text>
