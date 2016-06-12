@@ -19,7 +19,7 @@ const store = configureStore();
 
 var styles = StyleSheet.create({
   navbar: {
-    backgroundColor: Constants.THEME_COLOR,
+    backgroundColor: Constants.THEME_RED,
     flexDirection: 'row',
     justifyContent: 'center',
   }
@@ -41,13 +41,23 @@ export default class Trevor extends Component {
     );
   }
 
+  goToRoute(route) {
+    this.refs.navigator.push(route);
+    this.refs.drawer.close();
+  }
+
   render() {
     const dashboardRoute = Routes.Dashboard();
 
     return (
       <Provider store={store}>
-        <Drawer content={<SideMenu />} openDrawerOffset={120} tapToClose={true}>
+         <Drawer
+          ref="drawer"
+          content={<SideMenu pushRoute={(route) => this.goToRoute(route)}/>}
+          openDrawerOffset={120}
+          tapToClose={true}>
           <Navigator
+            ref="navigator"
             initialRoute={dashboardRoute}
             renderScene={this.renderScene}
             navigationBar={<Navigator.NavigationBar style={styles.navbar} routeMapper={RouteMapper} />} />

@@ -9,14 +9,6 @@ const getApiUrl = (isPro) => {
 
 // Auth
 
-export const RESTORE_AUTH = 'RESTORE_AUTH';
-export function restoreAuth(state) {
-  return {
-    type: RESTORE_AUTH,
-    state
-  };
-}
-
 export const FETCH_GITHUB_TOKEN_REQUEST = 'FETCH_GITHUB_TOKEN_REQUEST';
 export const FETCH_GITHUB_TOKEN_SUCCESS = 'FETCH_GITHUB_TOKEN_SUCCESS';
 export const FETCH_GITHUB_TOKEN_FAILURE = 'FETCH_GITHUB_TOKEN_FAILURE';

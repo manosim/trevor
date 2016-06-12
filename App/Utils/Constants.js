@@ -1,4 +1,5 @@
 export default {
+  REPO_URL: 'https://github.com/ekonstantinidis/trevor',
   STORAGE_KEY: 'trevor',
 
   oAuthOptions: {
@@ -13,11 +14,12 @@ export default {
   API_OS: 'https://api.travis-ci.org',
   API_PRO: 'https://api.travis-ci.com',
 
-  THEME_COLOR: '#A53230',
+  THEME_RED: '#A53230',
   THEME_BLUE: '#357389',
   THEME_DARK_BLUE: '#40454F',
+  THEME_DARKER_BLUE: '#333740',
   THEME_LIGHT_BLUE: '#357389',
-  THEME_LIGHT_EXTRA_BLUE: '#5E8599',
+  THEME_LIGHTER_BLUE: '#5E8599',
 
   statusStarted: '#D2C93B',
   statusPassed: '#3FA75F',

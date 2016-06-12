@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
 
+import Constants from '../../Utils/Constants.js';
+
 import {
+  Linking,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -26,12 +29,17 @@ var styles = StyleSheet.create({
 });
 
 export default class SideMenuFooter extends Component {
+  _openGithub() {
+    Linking.openURL(Constants.REPO_URL);
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <TouchableHighlight
-          onPress={() => {}}
-          style={styles.buttonGitHub}>
+          onPress={() => this._openGithub()}
+          style={styles.buttonGitHub}
+          underlayColor={Constants.THEME_DARKER_BLUE}>
           <Text style={styles.buttonGitHubText}>View on GitHub</Text>
         </TouchableHighlight>
       </View>

@@ -18,7 +18,7 @@ var styles = StyleSheet.create({
     backgroundColor: Constants.THEME_DARK_BLUE,
   },
   themeRed: { //eslint-disable-line react-native/no-unused-styles
-    backgroundColor: Constants.THEME_COLOR,
+    backgroundColor: Constants.THEME_RED,
   },
   text: {
     color: '#FFF',

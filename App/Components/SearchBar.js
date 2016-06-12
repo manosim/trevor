@@ -36,7 +36,7 @@ var styles = StyleSheet.create({
     marginLeft: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Constants.THEME_COLOR,
+    backgroundColor: Constants.THEME_RED,
     borderWidth: 0.5,
     borderRadius: 5,
   },
